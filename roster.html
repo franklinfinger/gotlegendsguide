@@ -6,61 +6,62 @@
   <title>My Roster – GOT Legends Guide</title>
   <meta name="description" content="Mark the champions you own. Data stays in your browser only." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body { background: #0c0c0f; color: #e5e5e5; }
-    .gold { color: #c9a227; }
-    .card { background: #16161a; border: 1px solid #2a2a32; }
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card {
+      background: linear-gradient(160deg, #16161c 0%, #121216 100%);
+      border: 1px solid #2e2e38;
+    }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
+    .owned {
+      border-color: #c9a227 !important;
+      box-shadow: 0 0 0 1px rgba(201,162,39,0.35), 0 0 12px rgba(201,162,39,0.12);
+      background: linear-gradient(160deg, #1e1a12 0%, #16140e 100%);
+    }
   </style>
 </head>
 <body class="min-h-screen">
 
-  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+  <div class="accent-bar"></div>
+
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
       <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
         <div class="min-w-0">
-          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
-          <div class="text-xs text-gray-400">Build smarter teams</div>
+          <div class="font-bold text-lg tracking-wide truncate text-[#f0ebe0]">GOT Legends Guide</div>
+          <div class="text-xs text-[#8a8680]">Build smarter teams</div>
         </div>
       </a>
       <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
-        <a href="roster.html" class="text-got-gold font-semibold">My Roster</a>
-        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
-        <a href="status-effects.html" class="hover:text-got-gold transition">Status</a>
-        <a href="factions.html" class="hover:text-got-gold transition">Factions</a>
-        <a href="allies.html" class="hover:text-got-gold transition">Allies</a>
-        <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
+        <a href="roster.html" class="text-[#c9a227] font-semibold">My Roster</a>
+        <a href="builder.html" class="nav-link transition">Team Builder</a>
+        <a href="status-effects.html" class="nav-link transition">Status</a>
+        <a href="factions.html" class="nav-link transition">Factions</a>
+        <a href="allies.html" class="nav-link transition">Allies</a>
+        <a href="champions.html" class="nav-link transition">Champions</a>
       </nav>
     </div>
   </header>
 
   <section class="max-w-6xl mx-auto px-4 py-10">
-    <h1 class="text-3xl font-bold mb-2">My Roster</h1>
-    <p class="text-gray-400 mb-2">Tap champions you own. Everything is saved only in this browser.</p>
-    <p class="text-sm text-gray-500 mb-6" id="countLine">0 marked</p>
+    <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">My Roster</h1>
+    <p class="text-[#9a9690] mb-2">Tap champions you own. Everything is saved only in this browser.</p>
+    <p class="text-sm text-[#c9a227] mb-6 font-medium" id="countLine">0 marked</p>
 
     <div class="flex flex-wrap gap-3 mb-6">
-      <button id="selectAll" class="card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Select All</button>
-      <button id="clearAll" class="card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Clear All</button>
-      <a href="builder.html" class="bg-got-gold text-black font-bold px-4 py-2 rounded-lg text-sm">Go to Team Builder →</a>
+      <button id="selectAll" class="card px-4 py-2 rounded-lg text-sm hover:border-[#c9a227]/50 transition text-[#e0ddd8]">Select All</button>
+      <button id="clearAll" class="card px-4 py-2 rounded-lg text-sm hover:border-[#e85d4c]/40 transition text-[#e0ddd8]">Clear All</button>
+      <a href="builder.html" class="bg-gradient-to-r from-[#c9a227] to-[#b8921f] text-black font-bold px-4 py-2 rounded-lg text-sm">Go to Team Builder →</a>
     </div>
 
     <div id="rosterGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3"></div>
   </section>
 
-  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
-    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#8a8680]">gotlegendsguide.com</div>
     <div class="mt-1">Data never leaves your device</div>
   </footer>
 
@@ -79,12 +80,12 @@
       grid.innerHTML = allChamps.map(c => {
         const owned = isOwned(roster, c.id);
         return `
-          <button data-id="${c.id}" class="card rounded-xl p-3 text-left transition ${owned ? 'border-got-gold ring-1 ring-got-gold/40' : 'hover:border-got-gold/50'}">
+          <button data-id="${c.id}" class="card rounded-xl p-3 text-left transition ${owned ? 'owned' : 'hover:border-[#c9a227]/40'}">
             <div class="flex items-center gap-2">
               ${avatarHTML(c, 40)}
               <div class="min-w-0">
-                <div class="font-semibold text-sm truncate">${c.name}</div>
-                <div class="text-xs text-gray-400">${(c.roles || []).slice(0,2).join(' · ')}</div>
+                <div class="font-semibold text-sm truncate text-[#f0ebe0]">${c.name}</div>
+                <div class="text-xs text-[#8a8680]">${(c.roles || []).slice(0,2).join(' · ')}</div>
               </div>
             </div>
           </button>`;

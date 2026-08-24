@@ -6,69 +6,65 @@
   <title>Team Builder – GOT Legends Guide</title>
   <meta name="description" content="Build War, Raid, and Dragon teams from the champions you actually own." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body { background: #0c0c0f; color: #e5e5e5; }
-    .gold { color: #c9a227; }
-    .card { background: #16161a; border: 1px solid #2a2a32; }
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card {
+      background: linear-gradient(160deg, #16161c 0%, #121216 100%);
+      border: 1px solid #2e2e38;
+    }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
   </style>
 </head>
 <body class="min-h-screen">
 
-  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+  <div class="accent-bar"></div>
+
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
       <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
         <div class="min-w-0">
-          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
-          <div class="text-xs text-gray-400">Build smarter teams</div>
+          <div class="font-bold text-lg tracking-wide truncate text-[#f0ebe0]">GOT Legends Guide</div>
+          <div class="text-xs text-[#8a8680]">Build smarter teams</div>
         </div>
       </a>
       <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
-        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
-        <a href="builder.html" class="text-got-gold font-semibold">Team Builder</a>
-        <a href="status-effects.html" class="hover:text-got-gold transition">Status</a>
-        <a href="factions.html" class="hover:text-got-gold transition">Factions</a>
-        <a href="allies.html" class="hover:text-got-gold transition">Allies</a>
-        <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
+        <a href="roster.html" class="nav-link transition">My Roster</a>
+        <a href="builder.html" class="text-[#e85d4c] font-semibold">Team Builder</a>
+        <a href="status-effects.html" class="nav-link transition">Status</a>
+        <a href="factions.html" class="nav-link transition">Factions</a>
+        <a href="allies.html" class="nav-link transition">Allies</a>
+        <a href="champions.html" class="nav-link transition">Champions</a>
       </nav>
     </div>
   </header>
 
   <section class="max-w-6xl mx-auto px-4 py-10">
-    <h1 class="text-3xl font-bold mb-2">Team Builder</h1>
-    <p class="text-gray-400 mb-6">Uses the champions you marked in My Roster. Recommendations are role- and tag-based starting points — adjust for your stars, gear, and what you know works.</p>
+    <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Team Builder</h1>
+    <p class="text-[#9a9690] mb-6">Uses the champions you marked in My Roster. Recommendations are role- and tag-based starting points — adjust for your stars, gear, and what you know works.</p>
 
     <div class="flex flex-wrap gap-2 mb-8" id="modeButtons">
-      <button data-mode="war" class="mode-btn bg-got-gold text-black font-bold px-4 py-2 rounded-lg text-sm">Alliance War (4 teams)</button>
-      <button data-mode="raidAtk" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Raid Attack</button>
-      <button data-mode="raidDef" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Raid Defense</button>
-      <button data-mode="viserion" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Viserion</button>
-      <button data-mode="drogon" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Drogon</button>
-      <button data-mode="rhaegal" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Rhaegal</button>
-      <button data-mode="icy" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Icy Viserion</button>
+      <button data-mode="war" class="mode-btn bg-gradient-to-r from-[#c9a227] to-[#b8921f] text-black font-bold px-4 py-2 rounded-lg text-sm">Alliance War (4 teams)</button>
+      <button data-mode="raidAtk" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#e85d4c]/50 transition text-[#e0ddd8]">Raid Attack</button>
+      <button data-mode="raidDef" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#5b9fd4]/50 transition text-[#e0ddd8]">Raid Defense</button>
+      <button data-mode="viserion" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#5b9fd4]/50 transition text-[#e0ddd8]">Viserion</button>
+      <button data-mode="drogon" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#e85d4c]/50 transition text-[#e0ddd8]">Drogon</button>
+      <button data-mode="rhaegal" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#7cb342]/50 transition text-[#e0ddd8]">Rhaegal</button>
+      <button data-mode="icy" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#8b9dc3]/50 transition text-[#e0ddd8]">Icy Viserion</button>
     </div>
 
     <div id="results" class="space-y-6"></div>
 
-    <div class="card rounded-xl p-5 mt-8 text-sm text-gray-400">
-      <p>If results look thin, go mark more champions in <a href="roster.html" class="text-got-gold underline">My Roster</a>.</p>
-      <p class="mt-2">Want to understand the keywords? <a href="status-effects.html" class="text-got-gold underline">Status Effects</a> · <a href="factions.html" class="text-got-gold underline">Faction Bonuses</a> · <a href="allies.html" class="text-got-gold underline">Ally Pairs</a></p>
+    <div class="card rounded-xl p-5 mt-8 text-sm text-[#8a8680] border-l-4 border-l-[#c9a227]">
+      <p>If results look thin, go mark more champions in <a href="roster.html" class="text-[#c9a227] underline">My Roster</a>.</p>
+      <p class="mt-2">Want to understand the keywords? <a href="status-effects.html" class="text-[#5b9fd4] underline">Status Effects</a> · <a href="factions.html" class="text-[#7cb342] underline">Faction Bonuses</a> · <a href="allies.html" class="text-[#d4783a] underline">Ally Pairs</a></p>
     </div>
   </section>
 
-  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
-    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#8a8680]">gotlegendsguide.com</div>
     <div class="mt-1">Recommendations improve as the library grows</div>
   </footer>
 
@@ -80,28 +76,39 @@
     function setActive(mode) {
       document.querySelectorAll('.mode-btn').forEach(b => {
         if (b.dataset.mode === mode) {
-          b.className = 'mode-btn bg-got-gold text-black font-bold px-4 py-2 rounded-lg text-sm';
+          b.className = 'mode-btn bg-gradient-to-r from-[#c9a227] to-[#b8921f] text-black font-bold px-4 py-2 rounded-lg text-sm';
         } else {
-          b.className = 'mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition';
+          b.className = 'mode-btn card px-4 py-2 rounded-lg text-sm hover:border-[#c9a227]/40 transition text-[#e0ddd8]';
         }
       });
     }
 
-    function teamCard(title, purpose, how, team) {
+    function teamCard(title, purpose, how, team, accent) {
+      const color = accent || '#c9a227';
       const members = team.map(t => `
-        <div class="bg-black/30 rounded-lg p-3 text-center">
+        <div class="rounded-lg p-3 text-center" style="background:rgba(0,0,0,0.35);border:1px solid ${color}22">
           ${avatarHTML(t.champ, 48)}
-          <div class="text-xs mt-1.5 font-medium truncate">${t.champ.name}</div>
-          <div class="text-[10px] text-got-gold mt-0.5">${t.roleLabel}</div>
+          <div class="text-xs mt-1.5 font-medium truncate text-[#e8e6e3]">${t.champ.name}</div>
+          <div class="text-[10px] mt-0.5 font-semibold" style="color:${color}">${t.roleLabel}</div>
         </div>`).join('');
       return `
-        <div class="card rounded-xl p-5">
-          <div class="text-got-gold font-bold text-sm mb-1">${title}</div>
-          <p class="text-sm text-gray-300 mb-1">${purpose}</p>
-          <p class="text-xs text-gray-500 mb-4">${how}</p>
+        <div class="card rounded-xl p-5" style="border-left:4px solid ${color}">
+          <div class="font-bold text-sm mb-1" style="color:${color}">${title}</div>
+          <p class="text-sm text-[#c8c4be] mb-1">${purpose}</p>
+          <p class="text-xs text-[#8a8680] mb-4">${how}</p>
           <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">${members}</div>
         </div>`;
     }
+
+    const accents = {
+      war: ['#e85d4c', '#5b9fd4', '#c9a227', '#8b9dc3'],
+      raidAtk: '#e85d4c',
+      raidDef: '#5b9fd4',
+      viserion: '#5b9fd4',
+      drogon: '#e85d4c',
+      rhaegal: '#7cb342',
+      icy: '#8b9dc3'
+    };
 
     function renderMode(mode) {
       setActive(mode);
@@ -109,13 +116,14 @@
       const el = document.getElementById('results');
 
       if (owned.length < 5) {
-        el.innerHTML = `<div class="card rounded-xl p-6 text-center text-gray-400">Mark at least 5 champions in <a href="roster.html" class="text-got-gold underline">My Roster</a> first.</div>`;
+        el.innerHTML = `<div class="card rounded-xl p-6 text-center text-[#8a8680]">Mark at least 5 champions in <a href="roster.html" class="text-[#c9a227] underline">My Roster</a> first.</div>`;
         return;
       }
 
       if (mode === 'war') {
         const teams = buildWarTeams(owned);
-        el.innerHTML = teams.map(t => teamCard(t.name, t.purpose, t.how, t.team)).join('');
+        const cols = accents.war;
+        el.innerHTML = teams.map((t, i) => teamCard(t.name, t.purpose, t.how, t.team, cols[i % cols.length])).join('');
       } else {
         const profile = MODE_PROFILES[mode];
         if (!profile) {
@@ -123,7 +131,7 @@
           return;
         }
         const result = buildSingleTeam(owned, mode, profile);
-        el.innerHTML = teamCard(result.name, result.purpose, result.how, result.team);
+        el.innerHTML = teamCard(result.name, result.purpose, result.how, result.team, accents[mode] || '#c9a227');
       }
     }
 

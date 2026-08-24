@@ -6,86 +6,127 @@
   <title>Champions – GOT Legends Guide</title>
   <meta name="description" content="Champion roles, tags, and Ally partners for Game of Thrones: Legends." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body { background: #0c0c0f; color: #e5e5e5; }
-    .gold { color: #c9a227; }
-    .card { background: #16161a; border: 1px solid #2a2a32; }
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card {
+      background: linear-gradient(160deg, #16161c 0%, #121216 100%);
+      border: 1px solid #2e2e38;
+    }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      margin: 1px 2px 1px 0;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .tag-fire, .tag-wound, .tag-aoe, .tag-warmonger { background: #3a1814; color: #f0a090; border: 1px solid #e85d4c55; }
+    .tag-ice, .tag-brittle, .tag-reinforce, .tag-pacify { background: #122030; color: #8ec4e8; border: 1px solid #5b9fd455; }
+    .tag-raid, .tag-treasury, .tag-ruin, .tag-anger { background: #2a2410; color: #e8d48b; border: 1px solid #c9a22755; }
+    .tag-poison, .tag-heal, .tag-bleed, .tag-cleanse { background: #1a2814; color: #a8d474; border: 1px solid #7cb34255; }
+    .tag-taunt, .tag-shield, .tag-frontline, .tag-hp-guard, .tag-counter { background: #1a2030; color: #a8b8d8; border: 1px solid #8b9dc355; }
+    .tag-fury, .tag-enraged, .tag-crit, .tag-stamina { background: #2a1c10; color: #e8a878; border: 1px solid #d4783a55; }
+    .tag-stealth, .tag-true-damage, .tag-dragon, .tag-birthright { background: #221828; color: #c4b0e0; border: 1px solid #9b7ec455; }
+    .tag-default { background: #1e1e24; color: #b0aca6; border: 1px solid #3a3a44; }
+    .role-damage { color: #e85d4c; }
+    .role-taunt, .role-protect { color: #8b9dc3; }
+    .role-control, .role-reinforce { color: #5b9fd4; }
+    .role-raid, .role-leader { color: #c9a227; }
+    .role-sustain, .role-heal, .role-support { color: #7cb342; }
+    .role-utility, .role-flex { color: #d4783a; }
   </style>
 </head>
 <body class="min-h-screen">
 
-  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+  <div class="accent-bar"></div>
+
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
       <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
         <div class="min-w-0">
-          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
-          <div class="text-xs text-gray-400">Build smarter teams</div>
+          <div class="font-bold text-lg tracking-wide truncate text-[#f0ebe0]">GOT Legends Guide</div>
+          <div class="text-xs text-[#8a8680]">Build smarter teams</div>
         </div>
       </a>
-      <nav class="hidden md:flex gap-4 text-sm">
-        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
-        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
-        <a href="status-effects.html" class="hover:text-got-gold transition">Status Effects</a>
-        <a href="factions.html" class="hover:text-got-gold transition">Factions</a>
-        <a href="allies.html" class="hover:text-got-gold transition">Allies</a>
-        <a href="champions.html" class="text-got-gold font-semibold">Champions</a>
+      <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
+        <a href="roster.html" class="nav-link transition">My Roster</a>
+        <a href="builder.html" class="nav-link transition">Team Builder</a>
+        <a href="status-effects.html" class="nav-link transition">Status</a>
+        <a href="factions.html" class="nav-link transition">Factions</a>
+        <a href="allies.html" class="nav-link transition">Allies</a>
+        <a href="champions.html" class="text-[#c9a227] font-semibold">Champions</a>
       </nav>
     </div>
   </header>
 
   <section class="max-w-6xl mx-auto px-4 py-10">
-    <h1 class="text-3xl font-bold mb-2">Champions</h1>
-    <p class="text-gray-400 max-w-3xl mb-4">
+    <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Champions</h1>
+    <p class="text-[#9a9690] max-w-3xl mb-4">
       Roles, tags, and Ally notes used by the Team Builder. Mark ownership in
-      <a href="roster.html" class="text-got-gold underline">My Roster</a>.
+      <a href="roster.html" class="text-[#c9a227] underline">My Roster</a>.
     </p>
 
     <div class="mb-6">
-      <input id="search" type="search" placeholder="Search name, role, tag, ally…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm outline-none focus:border-got-gold" />
+      <input id="search" type="search" placeholder="Search name, role, tag, ally…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#c9a227] text-[#e8e6e3] placeholder-[#6a6660]" />
     </div>
 
-    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-8">
-      <strong class="gold">Quick picks by job</strong>
-      <ul class="mt-2 space-y-1">
-        <li>• <strong>Raid:</strong> Euron · Yara · Laenor · Raid-tagged dragons</li>
-        <li>• <strong>Taunt:</strong> Brienne · Sandor · Meryn · Jorah · Duncan</li>
-        <li>• <strong>Sustain / Heal:</strong> Corlys · Cersei · Laenor · Beric · Thoros</li>
-        <li>• <strong>Damage:</strong> Daemon · Gregor · dragons · Arya · Oberyn · Khal Drogo</li>
-        <li>• <strong>Control:</strong> Night King · Ned · Tywin · Jaqen · Olenna · Nymeria</li>
+    <div class="card rounded-xl p-5 text-sm mb-8 border-l-4 border-l-[#c9a227]">
+      <strong class="text-[#c9a227]">Quick picks by job</strong>
+      <ul class="mt-2 space-y-1 text-[#b8b4ae]">
+        <li>• <strong class="text-[#c9a227]">Raid:</strong> Euron · Yara · Laenor · Raid-tagged dragons</li>
+        <li>• <strong class="text-[#8b9dc3]">Taunt:</strong> Brienne · Sandor · Meryn · Jorah · Duncan</li>
+        <li>• <strong class="text-[#7cb342]">Sustain / Heal:</strong> Corlys · Cersei · Laenor · Beric · Thoros</li>
+        <li>• <strong class="text-[#e85d4c]">Damage:</strong> Daemon · Gregor · dragons · Arya · Oberyn · Khal Drogo</li>
+        <li>• <strong class="text-[#5b9fd4]">Control:</strong> Night King · Ned · Tywin · Jaqen · Olenna · Nymeria</li>
       </ul>
     </div>
 
     <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
 
-    <div class="card rounded-xl p-5 text-sm text-gray-300">
-      <strong class="gold">Also useful:</strong>
-      <a href="allies.html" class="text-got-gold underline">Ally Pairs</a> ·
-      <a href="status-effects.html" class="text-got-gold underline">Status Effects</a> ·
-      <a href="factions.html" class="text-got-gold underline">Faction Bonuses</a> ·
-      <a href="builder.html" class="text-got-gold underline">Team Builder</a>
+    <div class="card rounded-xl p-5 text-sm text-[#b8b4ae]">
+      <strong class="text-[#c9a227]">Also useful:</strong>
+      <a href="allies.html" class="text-[#d4783a] underline">Ally Pairs</a> ·
+      <a href="status-effects.html" class="text-[#5b9fd4] underline">Status Effects</a> ·
+      <a href="factions.html" class="text-[#7cb342] underline">Faction Bonuses</a> ·
+      <a href="builder.html" class="text-[#e85d4c] underline">Team Builder</a>
     </div>
   </section>
 
-  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
-    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#8a8680]">gotlegendsguide.com</div>
     <div class="mt-1">Library grows as more exact data is added</div>
   </footer>
 
   <script src="app.js"></script>
   <script>
     let all = [];
+
+    function tagClass(t) {
+      const map = {
+        fire: 'tag-fire', wound: 'tag-wound', aoe: 'tag-aoe', warmonger: 'tag-warmonger',
+        ice: 'tag-ice', brittle: 'tag-brittle', reinforce: 'tag-reinforce', pacify: 'tag-pacify',
+        raid: 'tag-raid', treasury: 'tag-treasury', ruin: 'tag-ruin', anger: 'tag-anger',
+        poison: 'tag-poison', heal: 'tag-heal', bleed: 'tag-bleed', cleanse: 'tag-cleanse',
+        taunt: 'tag-taunt', shield: 'tag-shield', frontline: 'tag-frontline', 'hp-guard': 'tag-hp-guard', counter: 'tag-counter',
+        fury: 'tag-fury', enraged: 'tag-enraged', crit: 'tag-crit', stamina: 'tag-stamina',
+        stealth: 'tag-stealth', 'true-damage': 'tag-true-damage', dragon: 'tag-dragon', birthright: 'tag-birthright'
+      };
+      return map[t] || 'tag-default';
+    }
+
+    function roleClass(r) {
+      if (['damage','dragon','pressure'].includes(r)) return 'role-damage';
+      if (['taunt','protect'].includes(r)) return 'role-taunt';
+      if (['control','reinforce','cleanse'].includes(r)) return 'role-control';
+      if (['raid','leader','buffs'].includes(r)) return 'role-raid';
+      if (['sustain','heal','support','shields','stabilize'].includes(r)) return 'role-sustain';
+      return 'role-utility';
+    }
 
     function render(filter) {
       const q = (filter || '').toLowerCase().trim();
@@ -94,19 +135,23 @@
         const hay = [c.name, ...(c.roles||[]), ...(c.tags||[]), c.ally || '', c.why || ''].join(' ').toLowerCase();
         return hay.includes(q);
       });
-      document.getElementById('list').innerHTML = filtered.map(c => `
-        <div class="card rounded-xl p-4">
+      document.getElementById('list').innerHTML = filtered.map(c => {
+        const roles = (c.roles || []).map(r => `<span class="${roleClass(r)} font-medium">${r}</span>`).join(' · ');
+        const tags = (c.tags || []).map(t => `<span class="tag ${tagClass(t)}">${t}</span>`).join('');
+        return `
+        <div class="card rounded-xl p-4 hover:border-[#c9a227]/40 transition">
           <div class="flex gap-3">
             ${avatarHTML(c, 48)}
             <div class="min-w-0 flex-1">
-              <div class="font-semibold">${c.name}</div>
-              <div class="text-xs text-got-gold">${(c.roles || []).join(' · ')}</div>
-              ${(c.tags && c.tags.length) ? `<div class="text-[11px] text-gray-500 mt-0.5">${c.tags.join(' · ')}</div>` : ''}
-              ${c.ally ? `<div class="text-[11px] text-gray-400 mt-1">Ally: ${c.ally}</div>` : ''}
+              <div class="font-semibold text-[#f0ebe0]">${c.name}</div>
+              <div class="text-xs mt-0.5">${roles}</div>
+              ${tags ? `<div class="mt-1.5">${tags}</div>` : ''}
+              ${c.ally ? `<div class="text-[11px] text-[#d4783a] mt-1.5">Ally: ${c.ally}</div>` : ''}
             </div>
           </div>
-          <p class="text-xs text-gray-400 mt-2">${c.why || ''}</p>
-        </div>`).join('') || '<p class="text-gray-500 col-span-full">No matches.</p>';
+          <p class="text-xs text-[#9a9690] mt-2 leading-relaxed">${c.why || ''}</p>
+        </div>`;
+      }).join('') || '<p class="text-[#6a6660] col-span-full">No matches.</p>';
     }
 
     document.getElementById('search').addEventListener('input', e => render(e.target.value));
