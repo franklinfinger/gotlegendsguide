@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Builder – GOT Legends Guide</title>
+  <meta name="description" content="Build War, Raid, and Dragon teams from the champions you own." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0c0c0f; color: #e5e5e5; }
+    .gold { color: #c9a227; }
+    .card { background: #16161a; border: 1px solid #2a2a32; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="min-w-0">
+          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Build smarter teams</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex gap-4 text-sm">
+        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
+        <a href="builder.html" class="text-got-gold">Team Builder</a>
+        <a href="index.html" class="hover:text-got-gold transition">Guide</a>
+        <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-3xl md:text-4xl font-bold mb-2">Team Builder</h1>
+    <p class="text-gray-400 mb-6 max-w-2xl">Uses only champions marked owned in <a href="roster.html" class="text-got-gold underline">My Roster</a>. Recommendations explain roles — always adjust for stars and your playstyle.</p>
+
+    <div class="card rounded-xl p-4 mb-6 space-y-4">
+      <div class="text-sm text-gray-300">
+        Roster: <span class="gold font-semibold" id="ownedCount">0</span> owned
+        <a href="roster.html" class="text-got-gold underline ml-2">Edit roster</a>
+      </div>
+      <div>
+        <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wide">What are you building?</label>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="modeBtns"></div>
+      </div>
+      <button type="button" id="buildBtn" class="w-full sm:w-auto bg-got-gold text-black font-bold px-6 py-3 rounded-lg text-sm">Build my best team(s)</button>
+    </div>
+
+    <div id="status" class="text-sm text-gray-400 mb-4"></div>
+    <div id="results" class="space-y-6"></div>
+  </main>
+
+  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
+    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+    <div class="mt-1">Role-based suggestions from your roster · not a combat simulator</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    const MODES = [
+      { id: 'war', label: 'Alliance War', desc: '4 teams, no duplicates' },
+      { id: 'raidAtk', label: 'Raid Attack', desc: '1 team' },
+      { id: 'raidDef', label: 'Raid Defense', desc: '1 team' },
+      { id: 'viserion', label: 'Viserion', desc: 'Dragon' },
+      { id: 'drogon', label: 'Drogon', desc: 'Dragon' },
+      { id: 'rhaegal', label: 'Rhaegal', desc: 'Dragon' },
+      { id: 'icy', label: 'Icy Viserion', desc: 'Dragon' },
+    ];
+
+    let all = [];
+    let selectedMode = 'war';
+
+    function renderModeBtns() {
+      const el = document.getElementById('modeBtns');
+      el.innerHTML = MODES.map(m => `
+        <button type="button" data-mode="${m.id}" class="mode-btn card rounded-lg p-3 text-left hover:border-got-gold transition ${selectedMode === m.id ? 'border-got-gold' : ''}">
+          <div class="font-semibold text-sm ${selectedMode === m.id ? 'text-got-gold' : ''}">${m.label}</div>
+          <div class="text-xs text-gray-500">${m.desc}</div>
+        </button>`).join('');
+      el.querySelectorAll('.mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedMode = btn.dataset.mode;
+          renderModeBtns();
+        });
+      });
+    }
+
+    function teamCard(t) {
+      if (!t.team || !t.team.length) {
+        return `<div class="card rounded-xl p-5"><h3 class="font-bold gold mb-2">${t.name}</h3><p class="text-sm text-gray-400">Not enough owned champions to fill this team. Add more in My Roster.</p></div>`;
+      }
+      const rows = t.team.map((slot, i) => {
+        const c = slot.champ;
+        const label = i === 0 ? 'Leader' : slot.roleLabel;
+        return `<div class="flex gap-3 items-start py-2 border-b border-got-border last:border-0">
+          ${avatarHTML(c, 44)}
+          <div class="min-w-0">
+            <div class="font-semibold text-sm">${c.name}</div>
+            <div class="text-xs text-got-gold">${label}</div>
+            <div class="text-xs text-gray-400 mt-0.5">${c.why || ''}</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      const whyLines = t.team.map(slot => {
+        const roles = (slot.champ.roles || []).join(', ');
+        return `• <strong>${slot.champ.name}</strong> — ${slot.champ.why || roles}`;
+      }).join('<br/>');
+
+      return `<div class="card rounded-xl p-5">
+        <h3 class="font-bold text-lg gold mb-1">${t.name}</h3>
+        <p class="text-sm text-gray-400 mb-3">${t.purpose || ''}</p>
+        <div class="bg-black/30 rounded-lg px-3 mb-3">${rows}</div>
+        <div class="text-sm text-gray-300 mb-2"><strong class="gold">How to play:</strong> ${t.how || ''}</div>
+        <div class="text-sm text-gray-400"><strong class="gold">Why these champions:</strong><br/>${whyLines}</div>
+      </div>`;
+    }
+
+    function build() {
+      const roster = loadRoster();
+      const owned = ownedChampions(all, roster);
+      document.getElementById('ownedCount').textContent = owned.length;
+      const status = document.getElementById('status');
+      const results = document.getElementById('results');
+
+      if (owned.length < 5) {
+        status.innerHTML = 'You need at least <strong class="text-got-gold">5 owned champions</strong> to build a team. <a href="roster.html" class="text-got-gold underline">Add champions in My Roster</a>.';
+        results.innerHTML = '';
+        return;
+      }
+
+      status.textContent = `Building from ${owned.length} owned champions…`;
+
+      if (selectedMode === 'war') {
+        if (owned.length < 10) {
+          status.innerHTML = 'Tip: with fewer than 10 champions, later War teams will be thin. Still building what we can.';
+        } else {
+          status.textContent = `4 War teams from ${owned.length} owned champions (no duplicates).`;
+        }
+        const teams = buildWarTeams(owned);
+        results.innerHTML = teams.map(teamCard).join('');
+      } else {
+        const profile = MODE_PROFILES[selectedMode];
+        const team = buildSingleTeam(owned, selectedMode, profile);
+        status.textContent = `${profile.name} from ${owned.length} owned champions.`;
+        results.innerHTML = teamCard(team);
+      }
+
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.getElementById('buildBtn').addEventListener('click', build);
+    renderModeBtns();
+
+    fetchChampions().then(champs => {
+      all = champs;
+      const roster = loadRoster();
+      document.getElementById('ownedCount').textContent = ownedChampions(all, roster).length;
+    }).catch(() => {
+      document.getElementById('status').innerHTML = '<span class="text-red-400">Could not load champions.json</span>';
+    });
+  </script>
+</body>
+</html>

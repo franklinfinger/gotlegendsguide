@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Roster – GOT Legends Guide</title>
+  <meta name="description" content="Select the champions you own. Saved on this device for Team Builder." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0c0c0f; color: #e5e5e5; }
+    .gold { color: #c9a227; }
+    .card { background: #16161a; border: 1px solid #2a2a32; }
+    .champ-btn.owned { border-color: #c9a227; box-shadow: 0 0 0 1px #c9a22755; }
+    .champ-btn.owned .owned-badge { display: inline-block; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="min-w-0">
+          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Build smarter teams</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex gap-4 text-sm">
+        <a href="roster.html" class="text-got-gold">My Roster</a>
+        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
+        <a href="index.html" class="hover:text-got-gold transition">Guide</a>
+        <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-3xl md:text-4xl font-bold mb-2">My Roster</h1>
+    <p class="text-gray-400 mb-6 max-w-2xl">Tap the champions you own. Saved automatically on this device — no login. Then open <a href="builder.html" class="text-got-gold underline">Team Builder</a>.</p>
+
+    <div class="card rounded-xl p-4 mb-6 flex flex-wrap items-center gap-3 justify-between">
+      <div class="text-sm text-gray-300">
+        <span class="gold font-semibold" id="ownedCount">0</span> owned
+        <span class="text-gray-500 mx-2">·</span>
+        <span id="totalCount">0</span> in library
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <a href="builder.html" class="bg-got-gold text-black font-semibold text-sm px-4 py-2 rounded-lg">Build teams →</a>
+        <button type="button" id="clearBtn" class="card text-sm px-4 py-2 rounded-lg text-gray-300 hover:border-got-gold">Clear roster</button>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 mb-6">
+      <input id="search" type="search" placeholder="Search name…" class="flex-1 bg-black/40 border border-got-border rounded-lg px-4 py-3 text-sm outline-none focus:border-got-gold" />
+      <select id="filterRole" class="bg-black/40 border border-got-border rounded-lg px-4 py-3 text-sm outline-none focus:border-got-gold">
+        <option value="">All roles</option>
+        <option value="raid">Raid</option>
+        <option value="taunt">Taunt</option>
+        <option value="sustain">Sustain</option>
+        <option value="damage">Damage</option>
+        <option value="control">Control</option>
+        <option value="heal">Heal</option>
+        <option value="dragon">Dragon</option>
+        <option value="leader">Leader</option>
+      </select>
+      <select id="filterOwned" class="bg-black/40 border border-got-border rounded-lg px-4 py-3 text-sm outline-none focus:border-got-gold">
+        <option value="">All</option>
+        <option value="owned">Owned only</option>
+        <option value="missing">Not owned</option>
+      </select>
+    </div>
+
+    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+    <p id="empty" class="hidden text-center text-gray-500 py-12">No champions match these filters.</p>
+  </main>
+
+  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
+    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+    <div class="mt-1">Roster saves in your browser only</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    let all = [];
+    let roster = loadRoster();
+
+    function render() {
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
+      const role = document.getElementById('filterRole').value;
+      const ownedF = document.getElementById('filterOwned').value;
+
+      const list = all.filter(c => {
+        if (q && !c.name.toLowerCase().includes(q)) return false;
+        if (role && !(c.roles || []).includes(role)) return false;
+        const o = isOwned(roster, c.id);
+        if (ownedF === 'owned' && !o) return false;
+        if (ownedF === 'missing' && o) return false;
+        return true;
+      });
+
+      const ownedN = all.filter(c => isOwned(roster, c.id)).length;
+      document.getElementById('ownedCount').textContent = ownedN;
+      document.getElementById('totalCount').textContent = all.length;
+
+      const grid = document.getElementById('grid');
+      const empty = document.getElementById('empty');
+      if (!list.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+      grid.innerHTML = list.map(c => {
+        const o = isOwned(roster, c.id);
+        const roles = (c.roles || []).slice(0, 3).join(' · ');
+        return `<button type="button" data-id="${c.id}" class="champ-btn card rounded-xl p-4 flex gap-3 text-left hover:border-got-gold transition ${o ? 'owned' : ''}">
+          ${avatarHTML(c, 48)}
+          <div class="min-w-0 flex-1">
+            <div class="font-semibold truncate flex items-center gap-2">${c.name}
+              <span class="owned-badge hidden text-[10px] uppercase tracking-wide bg-got-gold/20 text-got-gold px-1.5 py-0.5 rounded">Owned</span>
+            </div>
+            <div class="text-xs text-got-gold mt-0.5">${roles || '—'}</div>
+            <div class="text-xs text-gray-500 mt-1 truncate">${c.rarity}${c.factions && c.factions[0] ? ' · ' + c.factions[0] : ''}</div>
+          </div>
+        </button>`;
+      }).join('');
+
+      grid.querySelectorAll('.champ-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          roster = toggleOwned(roster, btn.dataset.id);
+          render();
+        });
+      });
+    }
+
+    document.getElementById('search').addEventListener('input', render);
+    document.getElementById('filterRole').addEventListener('change', render);
+    document.getElementById('filterOwned').addEventListener('change', render);
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      if (confirm('Clear all owned champions on this device?')) {
+        roster = {};
+        saveRoster(roster);
+        render();
+      }
+    });
+
+    fetchChampions().then(champs => {
+      all = champs.sort((a, b) => a.name.localeCompare(b.name));
+      render();
+    }).catch(() => {
+      document.getElementById('grid').innerHTML = '<p class="text-red-400">Could not load champions.json</p>';
+    });
+  </script>
+</body>
+</html>
