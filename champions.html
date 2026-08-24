@@ -4,19 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Champions – GOT Legends Guide</title>
-  <meta name="description" content="Champion roles and roster notes for Game of Thrones: Legends – Old Peeps on Porches." />
+  <meta name="description" content="Full champion roster and roles for Game of Thrones: Legends – Old Peeps on Porches." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            got: {
-              gold: '#c9a227',
-              dark: '#0c0c0f',
-              card: '#16161a',
-              border: '#2a2a32'
-            }
+            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
           }
         }
       }
@@ -26,6 +21,12 @@
     body { background: #0c0c0f; color: #e5e5e5; }
     .gold { color: #c9a227; }
     .card { background: #16161a; border: 1px solid #2a2a32; }
+    .avatar {
+      width: 48px; height: 48px; border-radius: 9999px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+      border: 2px solid #c9a22733;
+    }
   </style>
 </head>
 <body class="min-h-screen">
@@ -51,135 +52,397 @@
 
   <section class="max-w-6xl mx-auto px-4 py-12">
     <h1 class="text-4xl font-bold mb-3">Champions</h1>
-    <p class="text-gray-400 max-w-2xl mb-8">
-      Role guides and swap options for the sample teams on the main page. Use the strongest champion you own in each role.
+    <p class="text-gray-400 max-w-3xl mb-6">
+      Expanded roster with role tags and stylized portrait markers. Use these as role guides — swap in the strongest version you own.
+      Personal game screenshots are not published here (keeps your stats private).
     </p>
 
-    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-10">
+    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-8">
       <strong class="gold">How to use:</strong>
-      Main page samples list specific names + a <strong>Leader</strong>. If you don’t have that champion, pick anyone from the same role group below.
+      Match roles from the <a href="index.html" class="text-got-gold underline">sample teams</a>.
+      If you don’t have a listed name, pick anyone in the same role group with similar tools (Raid, Taunt, control, damage).
     </div>
 
-    <h2 class="text-2xl font-bold mb-5">Build priority</h2>
+    <!-- Priority -->
+    <h2 class="text-2xl font-bold mb-4">Build priority</h2>
     <div class="grid md:grid-cols-3 gap-4 mb-12 text-sm">
       <div class="card rounded-xl p-5">
-        <div class="text-got-gold font-bold text-xs mb-1">TIER A</div>
-        <div class="font-semibold mb-2">Cover first</div>
-        <p class="text-gray-300">Raid applier · real damage · Taunt/sustain</p>
+        <div class="text-got-gold font-bold text-xs mb-1">TIER A — COVER FIRST</div>
+        <p class="text-gray-300">Raid applier · real damage · Taunt / sustain</p>
       </div>
       <div class="card rounded-xl p-5">
-        <div class="text-got-gold font-bold text-xs mb-1">TIER B</div>
-        <div class="font-semibold mb-2">Then add</div>
-        <p class="text-gray-300">Control/utility · secondary damage · strong leaders</p>
+        <div class="text-got-gold font-bold text-xs mb-1">TIER B — THEN ADD</div>
+        <p class="text-gray-300">Control / utility · secondary damage · strong leaders</p>
       </div>
       <div class="card rounded-xl p-5">
-        <div class="text-got-gold font-bold text-xs mb-1">TIER C</div>
-        <div class="font-semibold mb-2">Fillers</div>
-        <p class="text-gray-300">Epics/commons for cleanse, debuffs, or completing War Team 4</p>
+        <div class="text-got-gold font-bold text-xs mb-1">TIER C — FILLERS</div>
+        <p class="text-gray-300">Epics / commons for cleanse, debuffs, completing War Team 4</p>
       </div>
     </div>
 
-    <h2 class="text-2xl font-bold mb-5">Role groups &amp; swap lists</h2>
-    <div class="grid md:grid-cols-2 gap-6 mb-12">
-      <div class="card rounded-xl p-6">
-        <h3 class="text-xl font-bold gold mb-2">Taunt / Sustain</h3>
-        <p class="text-sm text-gray-400 mb-3">Raid Defense · War Team 2</p>
-        <ul class="text-sm space-y-2 text-gray-300">
-          <li>• <strong>Brienne of Tarth</strong> — primary Taunt example</li>
-          <li>• <strong>Corlys Velaryon</strong> — durable support</li>
-          <li>• Any other Taunt tank or strong sustain support you own</li>
-        </ul>
+    <!-- Taunt / Sustain -->
+    <h2 class="text-2xl font-bold mb-4 gold">Taunt / Sustain</h2>
+    <p class="text-sm text-gray-400 mb-4">Raid Defense · War Team 2 · long fights</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1e3a5f;color:#93c5fd">BT</div>
+        <div>
+          <div class="font-semibold">Brienne of Tarth</div>
+          <div class="text-xs text-got-gold">Taunt · Sustain · Leader candidate</div>
+          <p class="text-xs text-gray-400 mt-1">Primary defense example. Strong for holding and War Team 2.</p>
+        </div>
       </div>
-
-      <div class="card rounded-xl p-6">
-        <h3 class="text-xl font-bold gold mb-2">Raid / Pressure</h3>
-        <p class="text-sm text-gray-400 mb-3">Raid Attack · War Team 3 · most dragons</p>
-        <ul class="text-sm space-y-2 text-gray-300">
-          <li>• <strong>Euron Greyjoy</strong> — primary Raid example</li>
-          <li>• Dragon champions with Raid or heavy pressure</li>
-          <li>• Any skill-based Raid applier</li>
-        </ul>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#0f3d3e;color:#5eead4">CV</div>
+        <div>
+          <div class="font-semibold">Corlys Velaryon</div>
+          <div class="text-xs text-got-gold">Sustain · Support</div>
+          <p class="text-xs text-gray-400 mt-1">Durable support. Pairs with Taunt cores and fleet-style teams.</p>
+        </div>
       </div>
-
-      <div class="card rounded-xl p-6">
-        <h3 class="text-xl font-bold gold mb-2">Control / Utility</h3>
-        <p class="text-sm text-gray-400 mb-3">Flex into any team that needs clean fights</p>
-        <ul class="text-sm space-y-2 text-gray-300">
-          <li>• <strong>Night King</strong> — Reinforce / ice (careful on Viserion)</li>
-          <li>• <strong>Ned Stark</strong> — control / utility</li>
-          <li>• <strong>Jon Snow</strong> — flexible utility</li>
-          <li>• <strong>Mance Rayder</strong> — utility flex</li>
-        </ul>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#3b2f1a;color:#fcd34d">SC</div>
+        <div>
+          <div class="font-semibold">Sandor Clegane</div>
+          <div class="text-xs text-got-gold">Protect · Single-target</div>
+          <p class="text-xs text-gray-400 mt-1">Guardian-style protection and pressure when invested.</p>
+        </div>
       </div>
-
-      <div class="card rounded-xl p-6">
-        <h3 class="text-xl font-bold gold mb-2">Damage</h3>
-        <p class="text-sm text-gray-400 mb-3">Pair with Raid · Team 1 &amp; Team 3 finishers</p>
-        <ul class="text-sm space-y-2 text-gray-300">
-          <li>• <strong>Daemon</strong></li>
-          <li>• <strong>Adolescent / dragon champions</strong></li>
-          <li>• Any high-attack legendary you’ve invested in</li>
-        </ul>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1a2e1a;color:#86efac">MT</div>
+        <div>
+          <div class="font-semibold">Meryn Trant</div>
+          <div class="text-xs text-got-gold">Taunt · Transition</div>
+          <p class="text-xs text-gray-400 mt-1">Epic-friendly Taunt option for completing defensive teams.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#2a1a3a;color:#d8b4fe">CR</div>
+        <div>
+          <div class="font-semibold">Craster</div>
+          <div class="text-xs text-got-gold">Shields · Mender lean</div>
+          <p class="text-xs text-gray-400 mt-1">Shield value; useful in Reinforce / sustain engines.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1a2744;color:#93c5fd">GR</div>
+        <div>
+          <div class="font-semibold">Guardian Rook / similar epics</div>
+          <div class="text-xs text-got-gold">Frontline · Shields</div>
+          <p class="text-xs text-gray-400 mt-1">Epic protectors for filling sustain slots.</p>
+        </div>
       </div>
     </div>
 
-    <h2 class="text-2xl font-bold mb-5">Leader candidates</h2>
+    <!-- Raid / Pressure -->
+    <h2 class="text-2xl font-bold mb-4 gold">Raid / Pressure</h2>
+    <p class="text-sm text-gray-400 mb-4">Raid Attack · War Team 3 · most dragons</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#3f1a1a;color:#fca5a5">EG</div>
+        <div>
+          <div class="font-semibold">Euron Greyjoy</div>
+          <div class="text-xs text-got-gold">Raid · Pressure · Leader candidate</div>
+          <p class="text-xs text-gray-400 mt-1">Primary Raid example for Attack, War Team 3, Viserion-style.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#3f2a1a;color:#fdba74">YG</div>
+        <div>
+          <div class="font-semibold">Yara Greyjoy</div>
+          <div class="text-xs text-got-gold">Pressure · Fleet synergy</div>
+          <p class="text-xs text-gray-400 mt-1">Pairs with Euron / Corlys style cores.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#2a1a1a;color:#f87171">TG</div>
+        <div>
+          <div class="font-semibold">Theon Greyjoy</div>
+          <div class="text-xs text-got-gold">Flex pressure</div>
+          <p class="text-xs text-gray-400 mt-1">Greyjoy flex when built; role depends on kit investment.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#4a1a1a;color:#fecaca">DR</div>
+        <div>
+          <div class="font-semibold">Dragon champions (Raid kits)</div>
+          <div class="text-xs text-got-gold">Raid or heavy pressure</div>
+          <p class="text-xs text-gray-400 mt-1">Check each dragon kit for Raid, Fire, or single-target tools.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Control / Utility -->
+    <h2 class="text-2xl font-bold mb-4 gold">Control / Utility</h2>
+    <p class="text-sm text-gray-400 mb-4">Clean fights · strip · Reinforce · ice · flex</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#0c1a2e;color:#7dd3fc">NK</div>
+        <div>
+          <div class="font-semibold">The Night King</div>
+          <div class="text-xs text-got-gold">Reinforce · Ice · Leader candidate</div>
+          <p class="text-xs text-gray-400 mt-1">Control engine. Careful Reinforce into Viserion. Strong for Icy Viserion direction.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1a2433;color:#94a3b8">NS</div>
+        <div>
+          <div class="font-semibold">Ned Stark</div>
+          <div class="text-xs text-got-gold">Control · Utility</div>
+          <p class="text-xs text-gray-400 mt-1">Cleans up fights; supports damage cores.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1e293b;color:#cbd5e1">JS</div>
+        <div>
+          <div class="font-semibold">Jon Snow</div>
+          <div class="text-xs text-got-gold">Flexible utility / pressure</div>
+          <p class="text-xs text-gray-400 mt-1">Fits Raid and War samples depending on the rest of the team.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1c1917;color:#d6d3d1">MR</div>
+        <div>
+          <div class="font-semibold">Mance Rayder</div>
+          <div class="text-xs text-got-gold">Utility flex</div>
+          <p class="text-xs text-gray-400 mt-1">War Team 4 and control/support gaps.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1e1b4b;color:#a5b4fc">BS</div>
+        <div>
+          <div class="font-semibold">Bran Stark</div>
+          <div class="text-xs text-got-gold">Reinforce · Warg utility</div>
+          <p class="text-xs text-gray-400 mt-1">Feeds Reinforce engines with Night King / Ice Warden lines.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#312e81;color:#c7d2fe">IW</div>
+        <div>
+          <div class="font-semibold">Ice Warden</div>
+          <div class="text-xs text-got-gold">Reinforce support · Ice</div>
+          <p class="text-xs text-gray-400 mt-1">Pairs with Night King Reinforce plans.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#422006;color:#fde68a">TY</div>
+        <div>
+          <div class="font-semibold">Tywin Lannister</div>
+          <div class="text-xs text-got-gold">Leader · Treasury · Buffs</div>
+          <p class="text-xs text-gray-400 mt-1">Strong leader candidate for Lannister cores.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#3b0764;color:#e9d5ff">JH</div>
+        <div>
+          <div class="font-semibold">Jaqen H’ghar</div>
+          <div class="text-xs text-got-gold">Reinforce · Copy utility</div>
+          <p class="text-xs text-gray-400 mt-1">Face-taking Reinforce plays; Lannister synergies.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1e3a2f;color:#6ee7b7">VI</div>
+        <div>
+          <div class="font-semibold">Viserys I Targaryen</div>
+          <div class="text-xs text-got-gold">Cleanse · Pacify · Leader</div>
+          <p class="text-xs text-gray-400 mt-1">Team stability and fire-friendly setups.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Damage -->
+    <h2 class="text-2xl font-bold mb-4 gold">Damage</h2>
+    <p class="text-sm text-gray-400 mb-4">Finishers · pair with Raid · Team 1 &amp; Team 3</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#7f1d1d;color:#fecaca">DT</div>
+        <div>
+          <div class="font-semibold">Daemon Targaryen</div>
+          <div class="text-xs text-got-gold">Single-target · Leader candidate</div>
+          <p class="text-xs text-gray-400 mt-1">Primary offense sample leader. Pair with Raid and dragons.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#991b1b;color:#fca5a5">GC</div>
+        <div>
+          <div class="font-semibold">Gregor Clegane</div>
+          <div class="text-xs text-got-gold">AoE · Wound · Heavy damage</div>
+          <p class="text-xs text-gray-400 mt-1">Lannister damage engine when fully built.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#9a3412;color:#fdba74">AS</div>
+        <div>
+          <div class="font-semibold">Arya Stark</div>
+          <div class="text-xs text-got-gold">Damage · Flex</div>
+          <p class="text-xs text-gray-400 mt-1">Strong investment target; kit varies by version.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#b45309;color:#fde68a">GE</div>
+        <div>
+          <div class="font-semibold">Gendry</div>
+          <div class="text-xs text-got-gold">Crit support · Gem pressure</div>
+          <p class="text-xs text-gray-400 mt-1">Baratheon / Brotherhood crit and gem tools.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#7c2d12;color:#fed7aa">JL</div>
+        <div>
+          <div class="font-semibold">Jaime Lannister</div>
+          <div class="text-xs text-got-gold">Damage · Lannister core</div>
+          <p class="text-xs text-gray-400 mt-1">Fits Tywin / Cersei style teams.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#831843;color:#fbcfe8">RT</div>
+        <div>
+          <div class="font-semibold">Rhaenyra Targaryen</div>
+          <div class="text-xs text-got-gold">Fury · Fire · Leader</div>
+          <p class="text-xs text-gray-400 mt-1">Fury generator and fire pressure for Blacks lines.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dragons / Beasts -->
+    <h2 class="text-2xl font-bold mb-4 gold">Dragons &amp; Beasts</h2>
+    <p class="text-sm text-gray-400 mb-4">Single-target · Fire · Raid · boss tools</p>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#7f1d1d;color:#fecaca">DG</div>
+        <div>
+          <div class="font-semibold">Drogon</div>
+          <div class="text-xs text-got-gold">Fire · Pressure · Speed fights</div>
+          <p class="text-xs text-gray-400 mt-1">Strong into Drogon boss direction (speed + pressure).</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#14532d;color:#86efac">RH</div>
+        <div>
+          <div class="font-semibold">Rhaegal</div>
+          <div class="text-xs text-got-gold">Fire · Bleed-friendly pressure</div>
+          <p class="text-xs text-gray-400 mt-1">Skill-pressure partner for Rhaegal boss plans.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1e3a5f;color:#93c5fd">VS</div>
+        <div>
+          <div class="font-semibold">Viserion</div>
+          <div class="text-xs text-got-gold">Ice / pressure (champ version)</div>
+          <p class="text-xs text-gray-400 mt-1">Separate from the Viserion boss fight rules.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#9f1239;color:#fecdd3">CX</div>
+        <div>
+          <div class="font-semibold">Caraxes</div>
+          <div class="text-xs text-got-gold">Daemon synergy · Fire</div>
+          <p class="text-xs text-gray-400 mt-1">Pairs with Daemon leader samples.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#9a3412;color:#fdba74">ML</div>
+        <div>
+          <div class="font-semibold">Meleys</div>
+          <div class="text-xs text-got-gold">Dragon damage</div>
+          <p class="text-xs text-gray-400 mt-1">Blacks / Rhaenys-style dragon lines.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#0e7490;color:#a5f3fc">SS</div>
+        <div>
+          <div class="font-semibold">Seasmoke</div>
+          <div class="text-xs text-got-gold">Laenor synergy</div>
+          <p class="text-xs text-gray-400 mt-1">Dragon flex for Velaryon / Blacks teams.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#a16207;color:#fef08a">SF</div>
+        <div>
+          <div class="font-semibold">Sunfyre</div>
+          <div class="text-xs text-got-gold">Dragon damage</div>
+          <p class="text-xs text-gray-400 mt-1">Greens / Aegon-adjacent dragon option.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#581c87;color:#e9d5ff">AD</div>
+        <div>
+          <div class="font-semibold">Adolescent dragons</div>
+          <div class="text-xs text-got-gold">High single-target potential</div>
+          <p class="text-xs text-gray-400 mt-1">Often excellent finishers once Raid is up.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Healers / Menders -->
+    <h2 class="text-2xl font-bold mb-4 gold">Healers / Menders / Support</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#9f1239;color:#fecdd3">CL</div>
+        <div>
+          <div class="font-semibold">Cersei Lannister</div>
+          <div class="text-xs text-got-gold">Heal · Treasury · Support</div>
+          <p class="text-xs text-gray-400 mt-1">Marquee Lannister healer in many cores.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#854d0e;color:#fde047">TL</div>
+        <div>
+          <div class="font-semibold">Tyrion Lannister</div>
+          <div class="text-xs text-got-gold">Utility · Mark · Support damage</div>
+          <p class="text-xs text-gray-400 mt-1">Pairs with Gregor / Cersei / Jaqen lines.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#0f766e;color:#99f6e4">LV</div>
+        <div>
+          <div class="font-semibold">Laenor Velaryon</div>
+          <div class="text-xs text-got-gold">Heal · Raid support</div>
+          <p class="text-xs text-gray-400 mt-1">Healing and damage prevention; Raid team value.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#4c1d95;color:#ddd6fe">AH</div>
+        <div>
+          <div class="font-semibold">Alicent Hightower</div>
+          <div class="text-xs text-got-gold">Stabilize · Support</div>
+          <p class="text-xs text-gray-400 mt-1">Greens stability piece.</p>
+        </div>
+      </div>
+      <div class="card rounded-xl p-4 flex gap-3">
+        <div class="avatar" style="background:#1e3a5f;color:#bfdbfe">DA</div>
+        <div>
+          <div class="font-semibold">Daenerys Targaryen</div>
+          <div class="text-xs text-got-gold">Dragon support · Fire</div>
+          <p class="text-xs text-gray-400 mt-1">Mother of Dragons cores with Drogon / fire teams.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaders -->
+    <h2 class="text-2xl font-bold mb-4">Leader candidates (from samples)</h2>
     <div class="card rounded-xl p-5 text-sm text-gray-300 mb-12">
-      <p class="mb-3">Put strong team-wide leader skills in the leader slot. Examples from current samples:</p>
-      <ul class="space-y-1">
-        <li>• <strong>Euron</strong> — Raid Attack / War Team 3 / Viserion-style</li>
-        <li>• <strong>Brienne</strong> — Raid Defense / War Team 2</li>
-        <li>• <strong>Daemon</strong> — War Team 1 primary offense</li>
-        <li>• <strong>Night King</strong> — War Team 4 or Icy Viserion direction</li>
+      <ul class="space-y-2">
+        <li>• <strong class="gold">Euron</strong> — Raid Attack · War Team 3 · Viserion sample</li>
+        <li>• <strong class="gold">Brienne</strong> — Raid Defense · War Team 2</li>
+        <li>• <strong class="gold">Daemon</strong> — War Team 1 primary offense</li>
+        <li>• <strong class="gold">Night King</strong> — War Team 4 · Icy Viserion direction</li>
+        <li>• <strong class="gold">Tywin / Rhaenyra / Viserys I</strong> — strong faction leaders when those cores are your best</li>
       </ul>
-      <p class="mt-3 text-gray-400">If your best leader is different, use that champion as leader instead.</p>
+      <p class="mt-3 text-gray-400">Always put your strongest actual leader skill in the leader slot — even if the name differs from the sample.</p>
     </div>
 
-    <h2 class="text-2xl font-bold mb-5">Starter champion notes</h2>
-    <div class="grid md:grid-cols-2 gap-4 mb-12">
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Brienne of Tarth</div>
-        <p class="text-sm text-gray-400">Taunt / sustain. Leader on Defense and War Team 2 samples.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Corlys Velaryon</div>
-        <p class="text-sm text-gray-400">Durable support. Pairs with Taunt cores.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Euron Greyjoy</div>
-        <p class="text-sm text-gray-400">Raid / pressure. Leader on Attack, War Team 3, Viserion sample.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Night King</div>
-        <p class="text-sm text-gray-400">Reinforce / ice. Utility; careful Reinforce into Viserion.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Jon Snow</div>
-        <p class="text-sm text-gray-400">Flexible utility across samples.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Ned Stark</div>
-        <p class="text-sm text-gray-400">Control / utility. Clean fights.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Daemon</div>
-        <p class="text-sm text-gray-400">Damage. Leader on War Team 1 sample.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Dragon champions</div>
-        <p class="text-sm text-gray-400">Damage or pressure. Check kits for Raid, Fire, Bleed, speed.</p>
-      </div>
-      <div class="card rounded-xl p-5">
-        <div class="font-semibold mb-1">Mance Rayder</div>
-        <p class="text-sm text-gray-400">Utility flex for War Team 4 and similar.</p>
-      </div>
+    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-8">
+      <strong class="gold">About portraits:</strong>
+      Cards use stylized initials so the public site never shows your personal power levels or screenshot data.
+      If you later want official-looking art, we can add public-safe images you choose — not private account screenshots.
     </div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
       <strong class="gold">Next:</strong>
-      Build from the samples on <a href="index.html#raids" class="text-got-gold underline">Raids</a>,
+      Build from <a href="index.html#raids" class="text-got-gold underline">Raids</a>,
       <a href="index.html#war" class="text-got-gold underline">War</a>, and
-      <a href="index.html#dragons" class="text-got-gold underline">Dragons</a> — then swap from these role lists.
+      <a href="index.html#dragons" class="text-got-gold underline">Dragons</a> samples, then swap from these role lists.
     </div>
   </section>
 
