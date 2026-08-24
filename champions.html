@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Champions – GOT Legends Guide</title>
+  <meta name="description" content="Champion roles and roster notes for Game of Thrones: Legends – Old Peeps on Porches." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            got: {
+              gold: '#c9a227',
+              dark: '#0c0c0f',
+              card: '#16161a',
+              border: '#2a2a32'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0c0c0f; color: #e5e5e5; }
+    .gold { color: #c9a227; }
+    .card { background: #16161a; border: 1px solid #2a2a32; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm">GOT</div>
+        <div>
+          <div class="font-bold text-lg tracking-wide">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Old Peeps on Porches</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="index.html#raids" class="hover:text-got-gold transition">Raids</a>
+        <a href="index.html#war" class="hover:text-got-gold transition">War</a>
+        <a href="index.html#dragons" class="hover:text-got-gold transition">Dragons</a>
+        <a href="champions.html" class="text-got-gold">Champions</a>
+        <a href="index.html#notes" class="hover:text-got-gold transition">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <h1 class="text-4xl font-bold mb-3">Champions</h1>
+    <p class="text-gray-400 max-w-2xl mb-8">
+      Role groupings and roster notes based on the champions we’ve processed so far.
+      This page will grow as more kit data is locked in. Use these as role guides — not forced team lists.
+    </p>
+
+    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-10">
+      <strong class="gold">How to use this page:</strong>
+      Pick champions that cover the roles you need (Raid, Taunt/Sustain, Control, Damage). Exact names matter less than covering the jobs with the strongest versions you own.
+    </div>
+
+    <!-- Role groups -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <div class="card rounded-xl p-6">
+        <h2 class="text-xl font-bold gold mb-3">Taunt / Sustain</h2>
+        <p class="text-sm text-gray-400 mb-4">Keep the team alive and force the enemy to hit the right target.</p>
+        <ul class="text-sm space-y-2 text-gray-300">
+          <li>• <strong>Brienne of Tarth</strong> — strong Taunt / sustain style kit</li>
+          <li>• <strong>Corlys Velaryon</strong> — durable, team-support lean</li>
+        </ul>
+        <p class="text-xs text-gray-500 mt-4">Add more as kit data is confirmed.</p>
+      </div>
+
+      <div class="card rounded-xl p-6">
+        <h2 class="text-xl font-bold gold mb-3">Raid / Pressure</h2>
+        <p class="text-sm text-gray-400 mb-4">Apply Raid stacks and keep pressure on the enemy.</p>
+        <ul class="text-sm space-y-2 text-gray-300">
+          <li>• <strong>Euron Greyjoy</strong> — Raid / pressure oriented</li>
+          <li>• Certain <strong>dragon champions</strong> — useful Raid or pressure tools</li>
+        </ul>
+        <p class="text-xs text-gray-500 mt-4">Skill-based Raid is usually preferred when available.</p>
+      </div>
+
+      <div class="card rounded-xl p-6">
+        <h2 class="text-xl font-bold gold mb-3">Control / Utility</h2>
+        <p class="text-sm text-gray-400 mb-4">Stun, strip, reinforce, ice pressure, and other tools that shape the fight.</p>
+        <ul class="text-sm space-y-2 text-gray-300">
+          <li>• <strong>Night King</strong> — reinforce + ice pressure</li>
+          <li>• <strong>Ned Stark</strong> — utility / control lean</li>
+          <li>• <strong>Jon Snow</strong> — flexible utility / pressure</li>
+        </ul>
+      </div>
+
+      <div class="card rounded-xl p-6">
+        <h2 class="text-xl font-bold gold mb-3">Damage</h2>
+        <p class="text-sm text-gray-400 mb-4">Finish fights once Raid or openings are in place.</p>
+        <ul class="text-sm space-y-2 text-gray-300">
+          <li>• <strong>Adolescent dragons</strong> — high single-target potential</li>
+          <li>• <strong>Daemon</strong> — strong damage option</li>
+          <li>• Other high-attack legendaries you have invested in</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Starter roster note -->
+    <div class="card rounded-xl p-6 mb-10">
+      <h2 class="text-xl font-bold gold mb-3">Roster status</h2>
+      <p class="text-sm text-gray-300 mb-4">
+        We have processed a large portion of the user’s champion screenshots (skills, traits, iconic items where provided).
+        Full named team lists will be filled in as more kits are locked and cross-checked.
+      </p>
+      <ul class="text-sm space-y-2 text-gray-300">
+        <li>• Role examples above are based on kits already reviewed</li>
+        <li>• Epic and common champions can still be useful fillers — especially for Taunt, cleanse, or specific debuffs</li>
+        <li>• Gold-outline legendaries are the usual core when fully built</li>
+      </ul>
+    </div>
+
+    <!-- Quick links back -->
+    <div class="card rounded-xl p-5 text-sm text-gray-300">
+      <strong class="gold">Next steps:</strong>
+      Use these roles when building your <a href="index.html#raids" class="text-got-gold underline">Raid</a> and
+      <a href="index.html#war" class="text-got-gold underline">War</a> teams.
+      Dragon-specific tools (Brittle, Bleed, speed, Reinforce) are covered on the
+      <a href="index.html#dragons" class="text-got-gold underline">Dragons</a> section.
+    </div>
+  </section>
+
+  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
+    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+    <div class="mt-1">Built for Old Peeps on Porches • August 2026</div>
+  </footer>
+
+</body>
+</html>
