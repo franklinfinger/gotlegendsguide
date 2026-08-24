@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Status Effects Glossary – GOT Legends Guide</title>
+  <meta name="description" content="Complete status effect and keyword definitions for Game of Thrones: Legends. Wound, Fire, Ice, Brittle, Bleed, Raid, and more." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0c0c0f; color: #e5e5e5; }
+    .gold { color: #c9a227; }
+    .card { background: #16161a; border: 1px solid #2a2a32; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="min-w-0">
+          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Build smarter teams</div>
+        </div>
+      </a>
+      <nav class="hidden md:flex gap-4 text-sm">
+        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
+        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
+        <a href="status-effects.html" class="text-got-gold font-semibold">Status Effects</a>
+        <a href="factions.html" class="hover:text-got-gold transition">Factions</a>
+        <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-10">
+    <h1 class="text-3xl md:text-4xl font-bold mb-2">Status Effects Glossary</h1>
+    <p class="text-gray-400 mb-8">Exact definitions from in-game tooltips. Understanding these is the difference between good teams and great ones.</p>
+
+    <div class="space-y-4">
+
+      <!-- Core Damage & Defense -->
+      <div class="card rounded-xl p-5">
+        <h2 class="text-xl font-bold gold mb-3">Core Damage & Defense</h2>
+        <div class="space-y-3 text-sm">
+          <div><strong class="text-white">Physical Damage</strong> — Standard attack damage reduced by Physical Resistance.</div>
+          <div><strong class="text-white">True Damage</strong> — Ignores all modifiers, resistances, and basic DEF. Very rare and powerful.</div>
+          <div><strong class="text-white">Unnatural Damage</strong> — Damage type used by many White Walker / Ice effects. Reduced by Unnatural Resistance.</div>
+          <div><strong class="text-white">Fire Damage</strong> — Reduced by Fire Resistance. Often applies the FIRE status.</div>
+          <div><strong class="text-white">Physical Resistance</strong> — % reduction to incoming Physical Damage. Max Buff +80%, Min Debuff –90%.</div>
+          <div><strong class="text-white">Fire Resistance</strong> — % reduction to incoming Fire Damage. Max Buff +80%, Min Debuff –90%.</div>
+          <div><strong class="text-white">Unnatural Resistance</strong> — % reduction to Unnatural Damage. Same caps as other resistances.</div>
+          <div><strong class="text-white">HP Pool</strong> — A champion’s Current HP plus any Shield amount.</div>
+          <div><strong class="text-white">HP Guard</strong> — Protects a champion from damage that would take them below a threshold (e.g. 10% or 25%). Limited triggers.</div>
+          <div><strong class="text-white">Shield</strong> — Temporary HP that absorbs damage before real HP is touched.</div>
+          <div><strong class="text-white">Counter</strong> — Reflects incoming damage (usually non-basic-attack) back at the attacker.</div>
+        </div>
+      </div>
+
+      <!-- Key Debuffs -->
+      <div class="card rounded-xl p-5">
+        <h2 class="text-xl font-bold gold mb-3">Key Debuffs</h2>
+        <div class="space-y-3 text-sm">
+          <div><strong class="text-white">Wound</strong> — Prevents healing. Critical for shutting down sustain teams.</div>
+          <div><strong class="text-white">Bleed</strong> — Stacking: –5% ATK per stack. Bleeding targets also take damage based on their ATK. Often triggers ally ATK buffs.</div>
+          <div><strong class="text-white">Poison</strong> — Gem Damage reduced 90%. 5% Max HP Unnatural Damage per turn.</div>
+          <div><strong class="text-white">Fire</strong> — DoT and enabler for many Targaryen / dragon effects. Multiple variants exist (Roaring, Crippling, Enduring).</div>
+          <div><strong class="text-white">Ice</strong> — Reduces stamina gain by 5% per stack. Boosts Brittle damage by 20% per stack.</div>
+          <div><strong class="text-white">Brittle</strong> — Applied at 5 Ice. Target takes 2× damage from skills and traits. Cannot be removed.</div>
+          <div><strong class="text-white">Raid</strong> — Stacking mark. Each stack reduces enemy ATK by –5%. When a Raided enemy is defeated, effects often spread (Fear, more Raid, etc.).</div>
+          <div><strong class="text-white">Fear</strong> — Delays the target’s basic attack by 1 turn per stack. Also causes Unnatural Damage strikes in some kits.</div>
+          <div><strong class="text-white">Stun</strong> — Prevents stamina gain and actions for the duration.</div>
+          <div><strong class="text-white">Pacify</strong> — Target cannot deal damage or use abilities until hit by a skill.</div>
+          <div><strong class="text-white">Deceive</strong> — Prevents the target from using their Skill.</div>
+          <div><strong class="text-white">Scout / Scouted</strong> — Reveals or marks the target, often enabling extra damage or follow-up effects.</div>
+          <div><strong class="text-white">Ruin</strong> — Tywin specialty. At 3 stacks: cuts Current HP by 75% and applies –25% DEF (non-dragon targets).</div>
+        </div>
+      </div>
+
+      <!-- Key Buffs -->
+      <div class="card rounded-xl p-5">
+        <h2 class="text-xl font-bold gold mb-3">Key Buffs</h2>
+        <div class="space-y-3 text-sm">
+          <div><strong class="text-white">Stealth</strong> — Cannot be targeted by most enemy abilities. Often starts with duration (e.g. 10 turns) and grants stacking ATK while active.</div>
+          <div><strong class="text-white">Taunt</strong> — Forces enemies to attack this champion. Core defensive tool.</div>
+          <div><strong class="text-white">Fury</strong> — Stacking resource. At threshold often becomes Enraged.</div>
+          <div><strong class="text-white">Enraged</strong> — 50% less damage taken (common version). Many leaders trigger powerful effects when any ally becomes Enraged.</div>
+          <div><strong class="text-white">Warmonger</strong> — +5% ATK and +5% Crit Chance per stack. Often gained on ally defeat.</div>
+          <div><strong class="text-white">Birthright</strong> — Powerful stacking buff used by several leaders (Tyland, Sunfyre, etc.).</div>
+          <div><strong class="text-white">Anger</strong> — Joffrey specialty. Gains stacks when enemies use Skills. Extra Physical Damage per stack on his skill if Treasury is paid.</div>
+          <div><strong class="text-white">Treasury / Coins</strong> — Resource for certain skills and iconic abilities (Tywin, Gregor, Joffrey, etc.).</div>
+          <div><strong class="text-white">Renew</strong> — Healing or cleanse-related buff that appears in several ally gems and skills.</div>
+          <div><strong class="text-white">Inspire</strong> — Usually grants stamina or damage bonuses.</div>
+        </div>
+      </div>
+
+      <!-- Other Important -->
+      <div class="card rounded-xl p-5">
+        <h2 class="text-xl font-bold gold mb-3">Other Important Mechanics</h2>
+        <div class="space-y-3 text-sm">
+          <div><strong class="text-white">Tenacity</strong> — Helps resist incoming Debuffs and Buff removal. Chance to land is determined by attacker Hit vs defender Tenacity.</div>
+          <div><strong class="text-white">Dodge Chance</strong> — Chance to avoid an attack. Determined by attacker Accuracy vs defender Dodge.</div>
+          <div><strong class="text-white">Critical Damage / Gem Crit Chance</strong> — Multipliers on critical hits and gem matches.</div>
+          <div><strong class="text-white">Reinforce</strong> — Champions that enter the battle via revive or other abilities. Many kits trigger on Reinforce.</div>
+          <div><strong class="text-white">Bide</strong> — Blocks stamina gain and actions until enough turns/actions are completed.</div>
+          <div><strong class="text-white">Sustained</strong> — Effect that repeats every turn.</div>
+          <div><strong class="text-white">Resurgence</strong> — Grants Birthright stacks + fills stamina (Sunfyre specialty).</div>
+          <div><strong class="text-white">Golden Bastion</strong> — +35% DEF that refreshes under certain conditions.</div>
+          <div><strong class="text-white">Predator’s Gaze</strong> — Marks strongest enemy with –10% Dodge / Tenacity / ATK.</div>
+          <div><strong class="text-white">Blood Debt</strong> — –25% Accuracy & Tenacity, –10% Stamina Rate to the enemy Leader. Unremovable (Oberyn specialty).</div>
+          <div><strong class="text-white">Viper’s Bite</strong> — +5% Dodge per stack (Oberyn).</div>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-5 text-sm text-gray-400">
+        <p>These definitions come directly from in-game tooltips provided by the alliance. They will be expanded as more precise wording is captured.</p>
+        <p class="mt-2">Understanding how these interact (Ice → Brittle, Raid stacking, Fury → Enraged, Wound shutting down heals, etc.) is what makes strong teams.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
+    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+    <div class="mt-1">Status Effects · August 2026</div>
+  </footer>
+
+</body>
+</html>
