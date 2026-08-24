@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GOT Legends Guide – Meta Teams for Raids, War & Dragons</title>
+  <meta name="description" content="Alliance-ready meta teams for Game of Thrones: Legends. Raid Attack & Defense, War (4 teams), and Dragon counters." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            got: {
+              gold: '#c9a227',
+              dark: '#0c0c0f',
+              card: '#16161a',
+              border: '#2a2a32'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { background: #0c0c0f; color: #e5e5e5; }
+    .gold { color: #c9a227; }
+    .card { background: #16161a; border: 1px solid #2a2a32; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm">GOT</div>
+        <div>
+          <div class="font-bold text-lg tracking-wide">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Old Peeps on Porches</div>
+        </div>
+      </div>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="#raids" class="hover:text-got-gold transition">Raids</a>
+        <a href="#war" class="hover:text-got-gold transition">War</a>
+        <a href="#dragons" class="hover:text-got-gold transition">Dragons</a>
+        <a href="#notes" class="hover:text-got-gold transition">Notes</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="max-w-6xl mx-auto px-4 py-16 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4">
+      Meta Teams for <span class="gold">Raids</span>, <span class="gold">War</span> & <span class="gold">Dragons</span>
+    </h1>
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+      Practical, alliance-ready recommendations. Ideal teams for high-power players + accessible versions for the rest of the alliance.
+    </p>
+  </section>
+
+  <!-- Quick Nav Cards -->
+  <section class="max-w-6xl mx-auto px-4 pb-16 grid md:grid-cols-3 gap-6">
+    <a href="#raids" class="card rounded-xl p-6 hover:border-got-gold transition group">
+      <div class="text-got-gold font-bold mb-2">RAIDS</div>
+      <div class="text-xl font-semibold mb-2 group-hover:text-got-gold transition">Attack & Defense</div>
+      <p class="text-gray-400 text-sm">Best offensive pushes and defensive walls.</p>
+    </a>
+    <a href="#war" class="card rounded-xl p-6 hover:border-got-gold transition group">
+      <div class="text-got-gold font-bold mb-2">WAR</div>
+      <div class="text-xl font-semibold mb-2 group-hover:text-got-gold transition">4 Non-Overlapping Teams</div>
+      <p class="text-gray-400 text-sm">Strongest possible combinations with no champion overlap.</p>
+    </a>
+    <a href="#dragons" class="card rounded-xl p-6 hover:border-got-gold transition group">
+      <div class="text-got-gold font-bold mb-2">DRAGONS</div>
+      <div class="text-xl font-semibold mb-2 group-hover:text-got-gold transition">Boss Counters</div>
+      <p class="text-gray-400 text-sm">Viserion • Drogon • Rhaegal • Icy Viserion</p>
+    </a>
+  </section>
+
+  <!-- RAIDS -->
+  <section id="raids" class="max-w-6xl mx-auto px-4 py-12 border-t border-got-border">
+    <h2 class="text-3xl font-bold mb-2">Raids</h2>
+    <p class="text-gray-400 mb-8">Attack and Defense recommendations. Ideal teams listed first.</p>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="card rounded-xl p-6">
+        <h3 class="text-xl font-bold gold mb-4">Raid Attack</h3>
+        <p class="text-sm text-gray-400 mb-4">Focus: high single-target damage + control + Raid application.</p>
+        <div class="space-y-3 text-sm">
+          <div class="bg-black/40 rounded-lg p-3">
+            <div class="font-semibold mb-1">Ideal Core</div>
+            <div class="text-gray-300">Coming with full champion data – top Raid appliers + heavy hitters</div>
+          </div>
+          <div class="bg-black/40 rounded-lg p-3">
+            <div class="font-semibold mb-1">Alliance Version</div>
+            <div class="text-gray-300">Will be added once we lock the accessible champion list</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card rounded-xl p-6">
+        <h3 class="text-xl font-bold gold mb-4">Raid Defense</h3>
+        <p class="text-sm text-gray-400 mb-4">Focus: Taunt, sustain, counter-pressure, and anti-burst.</p>
+        <div class="space-y-3 text-sm">
+          <div class="bg-black/40 rounded-lg p-3">
+            <div class="font-semibold mb-1">Ideal Core</div>
+            <div class="text-gray-300">Strong Taunters + sustain (Brienne-style, Corlys, etc.)</div>
+          </div>
+          <div class="bg-black/40 rounded-lg p-3">
+            <div class="font-semibold mb-1">Alliance Version</div>
+            <div class="text-gray-300">Will be filled with more common options</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAR -->
+  <section id="war" class="max-w-6xl mx-auto px-4 py-12 border-t border-got-border">
+    <h2 class="text-3xl font-bold mb-2">War – 4 Teams</h2>
+    <p class="text-gray-400 mb-8">
+      No champion overlap. Build the strongest 4 combinations you can field.  
+      Outpost bonuses are secondary to raw team strength for most players.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="card rounded-xl p-5">
+        <div class="text-got-gold font-bold text-sm mb-1">TEAM 1</div>
+        <div class="font-semibold mb-2">Primary Offense</div>
+        <p class="text-sm text-gray-400">Highest power + best synergy (to be locked with your final roster)</p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <div class="text-got-gold font-bold text-sm mb-1">TEAM 2</div>
+        <div class="font-semibold mb-2">Control / Sustain</div>
+        <p class="text-sm text-gray-400">Taunt + durability focused</p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <div class="text-got-gold font-bold text-sm mb-1">TEAM 3</div>
+        <div class="font-semibold mb-2">Raid / Burst</div>
+        <p class="text-sm text-gray-400">Heavy Raid application + damage</p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <div class="text-got-gold font-bold text-sm mb-1">TEAM 4</div>
+        <div class="font-semibold mb-2">Flex / Specialist</div>
+        <p class="text-sm text-gray-400">Remaining strong pieces</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRAGONS -->
+  <section id="dragons" class="max-w-6xl mx-auto px-4 py-12 border-t border-got-border">
+    <h2 class="text-3xl font-bold mb-8">Dragon Counters</h2>
+
+    <!-- Viserion -->
+    <div class="card rounded-xl p-6 mb-8">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-yellow-900/50 flex items-center justify-center text-got-gold font-bold">V</div>
+        <div>
+          <h3 class="text-xl font-bold">Viserion – Growing Terror</h3>
+          <div class="text-sm text-gray-400">Key mechanics already processed</div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+        <div>
+          <div class="font-semibold gold mb-2">Critical Rules</div>
+          <ul class="space-y-1 text-gray-300">
+            <li>• Do <strong>not</strong> hit while Pacified</li>
+            <li>• Brittle = safe to hit while sleeping</li>
+            <li>• Every Raid stack significantly weakens him</li>
+            <li>• He destroys Shields on wake + refills Stamina</li>
+            <li>• Immune to Fire & Poison</li>
+          </ul>
+        </div>
+        <div>
+          <div class="font-semibold gold mb-2">Team Direction</div>
+          <p class="text-gray-300 mb-2">Prioritize:</p>
+          <ul class="space-y-1 text-gray-300">
+            <li>• Reliable Raid application (from Skills preferred)</li>
+            <li>• High single-target pressure</li>
+            <li>• Ability to apply Brittle</li>
+            <li>• Avoid pure Shield walls</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other dragons placeholder -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card rounded-xl p-5">
+        <h4 class="font-bold mb-1">Drogon</h4>
+        <p class="text-sm text-gray-400">Fast champs to stop Brimstone Rain. Birthright strong. Immune to Fire. Destroys shields.</p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <h4 class="font-bold mb-1">Rhaegal</h4>
+        <p class="text-sm text-gray-400">Skill every turn → Bleed excellent. Fire bonus damage. Keep Taunter alive.</p>
+      </div>
+      <div class="card rounded-xl p-5">
+        <h4 class="font-bold mb-1">Icy Viserion</h4>
+        <p class="text-sm text-gray-400">Reinforce punishes him. Strong gem teams. Frequent Skills trigger Icebound sooner. Immune to most debuffs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notes -->
+  <section id="notes" class="max-w-6xl mx-auto px-4 py-12 border-t border-got-border">
+    <h2 class="text-3xl font-bold mb-4">Important Notes</h2>
+    <div class="card rounded-xl p-6 text-sm space-y-3 text-gray-300">
+      <p>• This site is built for <strong>Old Peeps on Porches</strong>. Public and free to share.</p>
+      <p>• “Ideal” teams assume high investment (your level). “Alliance” versions will use more widely available champions.</p>
+      <p>• Leader synergy and exact champion lists will be expanded as more data is locked in.</p>
+      <p>• Outpost bonuses in War are useful but usually secondary to having four strong, non-overlapping teams.</p>
+    </div>
+  </section>
+
+  <footer class="border-t border-got-border mt-16 py-8 text-center text-sm text-gray-500">
+    <div>gotlegendsguide.com</div>
+    <div class="mt-1">Built for the alliance • Data current as of August 2026</div>
+  </footer>
+
+</body>
+</html>
