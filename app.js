@@ -1,4 +1,6 @@
-/* GOT Legends Guide — roster + team builder v2 */
+/* GOT Legends Guide — roster + team builder v3
+   Leader selection follows mode needs, not highest leader skill number.
+   Scores rebalanced toward teams seen in real raid/war screenshots. */
 const STORAGE_KEY = 'gotlg_roster_v1';
 
 function loadRoster() {
@@ -38,25 +40,27 @@ function ownedChampions(all, roster) {
   return all.filter(c => isOwned(roster, c.id));
 }
 
-function scoreChamp(c, modeKey) {
-  const base = (c.scores && c.scores[modeKey]) || 0;
-  let bonus = (c.leader || 0) * 2;
-  if (c.rarity === 'legendary') bonus += 3;
-  // small boost for relevant tags
-  const tags = c.tags || [];
-  if (modeKey === 'viserion' && (tags.includes('raid') || tags.includes('ice') || tags.includes('brittle'))) bonus += 2;
-  if (modeKey === 'icy' && (tags.includes('reinforce') || tags.includes('ice'))) bonus += 3;
-  if ((modeKey === 'raidAtk' || modeKey === 'war') && tags.includes('raid')) bonus += 2;
-  if (modeKey === 'raidDef' && (tags.includes('taunt') || hasRole(c, 'taunt'))) bonus += 2;
-  return base * 10 + bonus;
-}
-
 function hasRole(c, role) {
   return (c.roles || []).includes(role);
 }
 
 function hasTag(c, tag) {
   return (c.tags || []).includes(tag);
+}
+
+/* Mode scores dominate. Leader skill is a small tie-break only — not a free pass to lead every team. */
+function scoreChamp(c, modeKey) {
+  const base = (c.scores && c.scores[modeKey]) || 0;
+  let bonus = (c.leader || 0); // was *2 — that made Daemon win every sort
+  if (c.rarity === 'legendary') bonus += 1;
+  const tags = c.tags || [];
+  if (modeKey === 'viserion' && (tags.includes('raid') || tags.includes('ice') || tags.includes('brittle'))) bonus += 3;
+  if (modeKey === 'icy' && (tags.includes('reinforce') || tags.includes('ice'))) bonus += 3;
+  if ((modeKey === 'raidAtk' || modeKey === 'war') && tags.includes('raid')) bonus += 3;
+  if (modeKey === 'raidDef' && (tags.includes('taunt') || hasRole(c, 'taunt'))) bonus += 3;
+  if (modeKey === 'rhaegal' && (tags.includes('bleed') || tags.includes('fire') || tags.includes('taunt'))) bonus += 2;
+  if (modeKey === 'drogon' && (tags.includes('fire') || hasRole(c, 'pressure'))) bonus += 2;
+  return base * 10 + bonus;
 }
 
 function pickBest(pool, pred, modeKey) {
@@ -71,7 +75,13 @@ function removeFrom(pool, champ) {
   return pool.filter(c => c.id !== champ.id);
 }
 
-function fillTeam(pool, slots, modeKey) {
+/**
+ * preferredLeader: optional (champ) => bool
+ * If set, Leader is chosen among matching champs on the team (highest leader skill among them).
+ * If none match, the FIRST filled slot stays Leader (that slot is the mode's primary tool).
+ * Never promotes a high-leader-skill damage champ over the mode's intended leader type.
+ */
+function fillTeam(pool, slots, modeKey, preferredLeader) {
   const team = [];
   let remaining = pool.slice();
   for (const slot of slots) {
@@ -87,17 +97,24 @@ function fillTeam(pool, slots, modeKey) {
     team.push({ champ: pick, roleLabel: 'Flex' });
     remaining = removeFrom(remaining, pick);
   }
+
   if (team.length) {
-    let bestIdx = 0;
-    for (let i = 1; i < team.length; i++) {
-      if ((team[i].champ.leader || 0) > (team[bestIdx].champ.leader || 0)) bestIdx = i;
-    }
-    for (let i = 0; i < team.length; i++) {
-      if (hasRole(team[i].champ, 'leader') && (team[i].champ.leader || 0) >= (team[bestIdx].champ.leader || 0)) {
-        bestIdx = i;
+    let leaderIdx = 0; // default: first slot = mode's primary role
+    if (typeof preferredLeader === 'function') {
+      let best = -1;
+      let bestLeaderVal = -1;
+      for (let i = 0; i < team.length; i++) {
+        if (preferredLeader(team[i].champ)) {
+          const lv = team[i].champ.leader || 0;
+          if (lv > bestLeaderVal) {
+            bestLeaderVal = lv;
+            best = i;
+          }
+        }
       }
+      if (best >= 0) leaderIdx = best;
     }
-    const leader = team.splice(bestIdx, 1)[0];
+    const leader = team.splice(leaderIdx, 1)[0];
     team.unshift({ ...leader, roleLabel: 'Leader' });
   }
   return { team, remaining };
@@ -107,26 +124,29 @@ function buildWarTeams(owned) {
   let pool = owned.slice();
   const teams = [];
 
+  // Team 1 — Offense: Lannister / real damage cores seen in screenshots (Gregor, Jaime, Arya, Oberyn)
+  // NOT auto-Daemon. Prefer damage + control openers.
   let r = fillTeam(pool, [
-    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'fire') },
-    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasRole(c, 'pressure') },
-    { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'control') || hasRole(c, 'flex') },
-    { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || hasRole(c, 'fury') },
-  ], 'war');
+    { label: 'Damage', prefer: c => hasRole(c, 'damage') && !hasRole(c, 'dragon') },
+    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
+    { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') || hasTag(c, 'poison') },
+    { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || hasRole(c, 'utility') },
+  ], 'war', c => hasRole(c, 'leader') && (hasRole(c, 'damage') || hasRole(c, 'control') || hasTag(c, 'treasury') || hasTag(c, 'wound')));
   teams.push({
     name: 'Team 1 — Offense',
     purpose: 'Primary damage and pressure. Place where the fight is hardest.',
-    how: 'Lead with your strongest damage threat. Use utility to open, then finish.',
+    how: 'Open with control (Poison / Wound / strip), then finish. Composition beats raw might.',
     ...r
   });
   pool = r.remaining;
 
+  // Team 2 — Hold: Taunt + sustain (Brienne, Meryn, Sandor, Cersei, Corlys)
   r = fillTeam(pool, [
     { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
     { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
     { label: 'Flex', prefer: c => true },
-  ], 'war');
+  ], 'war', c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'));
   teams.push({
     name: 'Team 2 — Hold',
     purpose: 'Taunt + sustain to outlast contested outposts.',
@@ -135,30 +155,32 @@ function buildWarTeams(owned) {
   });
   pool = r.remaining;
 
+  // Team 3 — Raid / Burst: Euron leads when available
   r = fillTeam(pool, [
     { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
-    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') || hasRole(c, 'dragon') },
+    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
     { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || true },
-  ], 'war');
+  ], 'war', c => hasRole(c, 'raid') || hasTag(c, 'raid'));
   teams.push({
     name: 'Team 3 — Raid / Burst',
     purpose: 'Apply Raid and burst tanky defenses.',
-    how: 'Land Raid first, then dump damage. Good into heavy Taunt / sustain walls.',
+    how: 'Land Raid first (Euron when you have him), then dump damage.',
     ...r
   });
   pool = r.remaining;
 
+  // Team 4 — Flex / Ice / leftovers
   r = fillTeam(pool, [
     { label: 'Control', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') || hasTag(c, 'ice') },
     { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'flex') || hasRole(c, 'support') },
     { label: 'Flex', prefer: c => true },
     { label: 'Flex', prefer: c => true },
-  ], 'war');
+  ], 'war', c => hasRole(c, 'reinforce') || hasTag(c, 'ice') || hasRole(c, 'control'));
   teams.push({
     name: 'Team 4 — Flex',
     purpose: 'Leftovers with a job — reinforce, control, or pure depth.',
-    how: 'Use for secondary outposts or as the plan B lineup. Still field five with clear roles.',
+    how: 'Use for secondary outposts or as the plan B lineup.',
     ...r
   });
 
@@ -166,7 +188,7 @@ function buildWarTeams(owned) {
 }
 
 function buildSingleTeam(owned, modeKey, profile) {
-  const r = fillTeam(owned.slice(), profile.slots, modeKey);
+  const r = fillTeam(owned.slice(), profile.slots, modeKey, profile.preferredLeader);
   return {
     name: profile.name,
     purpose: profile.purpose,
@@ -180,66 +202,72 @@ const MODE_PROFILES = {
   raidAtk: {
     name: 'Raid Attack',
     purpose: 'Raid pressure into enemy defenses.',
-    how: 'Apply Raid, then damage. Control keeps the fight clean.',
+    how: 'Apply Raid (Euron when available), then damage + control. Screenshot metas often use Lannister damage or Greyjoy Raid cores.',
+    preferredLeader: c => hasRole(c, 'raid') || hasTag(c, 'raid'),
     slots: [
       { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
-      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') && !hasRole(c, 'dragon') },
+      { label: 'Control', prefer: c => hasRole(c, 'control') || hasTag(c, 'poison') || hasTag(c, 'wound') },
+      { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || hasRole(c, 'utility') },
     ]
   },
   raidDef: {
     name: 'Raid Defense',
     purpose: 'Taunt hold and punish attackers.',
-    how: 'Taunt first. Sustain second. Keep a damage threat to punish.',
+    how: 'Taunt first (Brienne / Meryn / Sandor). Sustain second. Screenshot defenses often stack Taunt + Lannister sustain + control.',
+    preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
       { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
-      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'reinforce') },
+      { label: 'Control', prefer: c => hasRole(c, 'control') || hasTag(c, 'poison') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'flex') },
     ]
   },
   viserion: {
     name: 'Viserion',
     purpose: 'Raid + Brittle pressure. Avoid feeding Reinforces.',
-    how: 'Do not hit while Pacified. Stack Raid. Prefer Brittle / Ice tools. Skip pure Shield walls.',
+    how: 'Do not hit while Pacified. Stack Raid (Euron). Prefer Ice/Brittle tools. Skip pure Shield walls.',
+    preferredLeader: c => hasRole(c, 'raid') || hasTag(c, 'raid'),
     slots: [
       { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'brittle') },
-      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') || hasTag(c, 'ice') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
+      { label: 'Control', prefer: c => hasRole(c, 'control') || hasTag(c, 'ice') || hasTag(c, 'brittle') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasTag(c, 'brittle') },
+      { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'flex') || hasRole(c, 'support') },
     ]
   },
   drogon: {
     name: 'Drogon',
     purpose: 'Speed and real damage. Shields can be erased.',
-    how: 'Favor fast pressure over pure tanks. Bring Raid if you have it.',
+    how: 'Favor fast pressure. Raid helps open. Fire lines help — Daemon only shines with multiple dragons, not as a default solo carry.',
+    preferredLeader: c => (hasRole(c, 'damage') || hasRole(c, 'pressure')) && (hasTag(c, 'fire') || hasRole(c, 'raid') || hasTag(c, 'raid')),
     slots: [
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasRole(c, 'pressure') },
-      { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasRole(c, 'pressure') || hasTag(c, 'raid') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
-      { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'support') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') && !hasRole(c, 'dragon') },
+      { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') || hasRole(c, 'pressure') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'fire') },
+      { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'support') || hasRole(c, 'control') },
     ]
   },
   rhaegal: {
     name: 'Rhaegal',
     purpose: 'Bleed / Fire pressure with a protected Taunter.',
-    how: 'Protect Taunt. Skill every turn when rewarded. Fire/Bleed help.',
+    how: 'Protect Taunt (Brienne / Sandor / Jorah). Skill when rewarded. Bleed/Fire/Poison (Oberyn, Olenna) help grind.',
+    preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'fire') || hasTag(c, 'bleed') },
+      { label: 'Damage', prefer: c => hasTag(c, 'bleed') || hasTag(c, 'fire') || hasTag(c, 'poison') || hasRole(c, 'damage') },
       { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'support') },
-      { label: 'Pressure', prefer: c => hasRole(c, 'pressure') || hasRole(c, 'fury') || hasRole(c, 'damage') },
+      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'pressure') || hasRole(c, 'damage') },
     ]
   },
   icy: {
     name: 'Icy Viserion',
-    purpose: 'Reinforce engines punish this boss.',
-    how: 'Lean Night King / Ice / Bran lines. Control skill cadence. Be careful with pure Reinforce spam.',
+    purpose: 'Ice / control with careful Reinforce use.',
+    how: 'Night King / Ice lines help — do not blind-spam Reinforce. Control skill cadence.',
+    preferredLeader: c => hasRole(c, 'reinforce') || hasTag(c, 'ice') || hasRole(c, 'control'),
     slots: [
       { label: 'Reinforce', prefer: c => hasRole(c, 'reinforce') || hasTag(c, 'reinforce') || hasTag(c, 'ice') },
-      { label: 'Reinforce', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
+      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'reinforce') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') },
       { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'utility') || hasRole(c, 'sustain') },
     ]
   }
