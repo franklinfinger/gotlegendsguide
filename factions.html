@@ -4,124 +4,121 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Faction Bonuses – GOT Legends Guide</title>
-  <meta name="description" content="Complete faction bonuses for Game of Thrones: Legends. Know the trade-off when you go pure faction vs hybrid." />
+  <meta name="description" content="Complete faction bonuses for Game of Thrones: Legends." />
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            got: { gold: '#c9a227', dark: '#0c0c0f', card: '#16161a', border: '#2a2a32' }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    body { background: #0c0c0f; color: #e5e5e5; }
-    .gold { color: #c9a227; }
-    .card { background: #16161a; border: 1px solid #2a2a32; }
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card {
+      background: linear-gradient(160deg, #16161c 0%, #121216 100%);
+      border: 1px solid #2e2e38;
+    }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
   </style>
 </head>
 <body class="min-h-screen">
 
-  <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
+  <div class="accent-bar"></div>
+
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
       <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
         <div class="min-w-0">
-          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
-          <div class="text-xs text-gray-400">Build smarter teams</div>
+          <div class="font-bold text-lg tracking-wide truncate text-[#f0ebe0]">GOT Legends Guide</div>
+          <div class="text-xs text-[#8a8680]">Build smarter teams</div>
         </div>
       </a>
       <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
-        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
-        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
-        <a href="status-effects.html" class="hover:text-got-gold transition">Status</a>
-        <a href="factions.html" class="text-got-gold font-semibold">Factions</a>
-        <a href="allies.html" class="hover:text-got-gold transition">Allies</a>
-        <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
+        <a href="roster.html" class="nav-link transition">My Roster</a>
+        <a href="builder.html" class="nav-link transition">Team Builder</a>
+        <a href="status-effects.html" class="nav-link transition">Status</a>
+        <a href="factions.html" class="text-[#7cb342] font-semibold">Factions</a>
+        <a href="allies.html" class="nav-link transition">Allies</a>
+        <a href="champions.html" class="nav-link transition">Champions</a>
       </nav>
     </div>
   </header>
 
   <main class="max-w-4xl mx-auto px-4 py-10">
-    <h1 class="text-3xl md:text-4xl font-bold mb-2">Faction Bonuses</h1>
-    <p class="text-gray-400 mb-8">Every full (or near-full) faction team grants a powerful global bonus. These are real and strong — but the best teams often mix factions when the status interactions are better.</p>
+    <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#f5f0e8]">Faction Bonuses</h1>
+    <p class="text-[#9a9690] mb-8">Every full (or near-full) faction team grants a powerful global bonus. These are real and strong — but the best teams often mix factions when the status interactions are better.</p>
 
-    <div class="card rounded-xl p-5 mb-6 text-sm text-gray-300">
-      <strong class="gold">Rule of thumb:</strong> Pure 5-man faction teams are excellent when you have the investment. Hybrid teams win when Ice/Brittle, Fire stacking, Raid pressure, Fury chains, or specific Leader skills matter more than the +25% Gem Damage.
+    <div class="card rounded-xl p-5 mb-6 text-sm border-l-4 border-l-[#c9a227]">
+      <strong class="text-[#c9a227]">Rule of thumb:</strong>
+      <span class="text-[#b8b4ae]"> Pure 5-man faction teams are excellent when you have the investment. Hybrid teams win when Ice/Brittle, Fire stacking, Raid pressure, Fury chains, or specific Leader skills matter more than the +25% Gem Damage.</span>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-3">
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Baratheon (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+30% ATK</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]">
+        <h2 class="font-bold text-lg text-[#5b9fd4]">Baratheon (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+30% ATK</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Blacks (x5 / x3)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+30% DEF</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]">
+        <h2 class="font-bold text-lg text-[#e85d4c]">Blacks (x5 / x3)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+30% DEF</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Brotherhood (x4)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+30% Critical Strike Chance</strong>.</p>
-        <p class="text-xs text-gray-400 mt-2">Ally Bonus (The Brotherhood): Heals the weakest member by 5% Max HP.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]">
+        <h2 class="font-bold text-lg text-[#e85d4c]">Brotherhood (x4)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+30% Critical Strike Chance</strong>.</p>
+        <p class="text-xs text-[#8a8680] mt-2">Ally Bonus (The Brotherhood): Heals the weakest member by 5% Max HP.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Free Cities (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and have the <strong>Stamina cost of their Skill reduced by 35%</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#d4783a]">
+        <h2 class="font-bold text-lg text-[#d4783a]">Free Cities (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and have the <strong class="text-[#f0ebe0]">Stamina cost of their Skill reduced by 35%</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Free Folk (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+30% Critical Strike Chance</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#8b9dc3]">
+        <h2 class="font-bold text-lg text-[#8b9dc3]">Free Folk (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+30% Critical Strike Chance</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Greens (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+25% Power</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#7cb342]">
+        <h2 class="font-bold text-lg text-[#7cb342]">Greens (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+25% Power</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Greyjoy (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and have the <strong>Stamina cost of their Skill reduced by 25%</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]">
+        <h2 class="font-bold text-lg text-[#e85d4c]">Greyjoy (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and have the <strong class="text-[#f0ebe0]">Stamina cost of their Skill reduced by 25%</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Lannister (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+30% DEF</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]">
+        <h2 class="font-bold text-lg text-[#c9a227]">Lannister (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+30% DEF</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Night’s Watch (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+25% ATK</strong>.</p>
-        <p class="text-xs text-gray-400 mt-2">Ally Bonus (Southern Crows): Grants the weakest ally a 5% HP Pool Shield.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]">
+        <h2 class="font-bold text-lg text-[#5b9fd4]">Night’s Watch (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+25% ATK</strong>.</p>
+        <p class="text-xs text-[#8a8680] mt-2">Ally Bonus (Southern Crows): Grants the weakest ally a 5% HP Pool Shield.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Stark (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+30% DEF</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#8b9dc3]">
+        <h2 class="font-bold text-lg text-[#8b9dc3]">Stark (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+30% DEF</strong>.</p>
       </div>
 
-      <div class="card rounded-xl p-5">
-        <h2 class="font-bold text-lg gold">Targaryen (x5)</h2>
-        <p class="text-sm mt-1">All team members gain <strong>+25% Gem Damage</strong> and <strong>+25% Durability</strong>.</p>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]">
+        <h2 class="font-bold text-lg text-[#e85d4c]">Targaryen (x5)</h2>
+        <p class="text-sm mt-1 text-[#c8c4be]">All team members gain <strong class="text-[#f0ebe0]">+25% Gem Damage</strong> and <strong class="text-[#f0ebe0]">+25% Durability</strong>.</p>
       </div>
 
     </div>
 
-    <div class="card rounded-xl p-5 mt-8 text-sm text-gray-400">
+    <div class="card rounded-xl p-5 mt-8 text-sm text-[#8a8680]">
       <p>Faction bonuses scale with the number of matching champions (x3 / x4 / x5). Exact thresholds can vary slightly by faction.</p>
       <p class="mt-2">Leader skills and Ally gems sit on top of these bonuses and are often the real reason a team wins.</p>
     </div>
   </main>
 
-  <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
-    <div class="font-medium text-gray-400">gotlegendsguide.com</div>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#8a8680]">gotlegendsguide.com</div>
     <div class="mt-1">Faction Bonuses · August 2026</div>
   </footer>
 
