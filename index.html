@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GOT Legends Guide – Meta Teams for Raids, War & Dragons</title>
-  <meta name="description" content="Alliance-ready meta teams for Game of Thrones: Legends. Raid, War, Dragons for Old Peeps on Porches." />
+  <title>GOT Legends Guide – Build smarter teams</title>
+  <meta name="description" content="Build smarter teams from YOUR roster. Raid, War, and Dragon recommendations for Game of Thrones: Legends." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -32,78 +32,69 @@
 <body class="min-h-screen">
 
   <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm">GOT</div>
-        <div>
-          <div class="font-bold text-lg tracking-wide">GOT Legends Guide</div>
-          <div class="text-xs text-gray-400">Old Peeps on Porches</div>
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="min-w-0">
+          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Build smarter teams</div>
         </div>
       </a>
-      <nav class="hidden md:flex gap-5 text-sm">
+      <nav class="hidden md:flex gap-4 text-sm">
+        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
+        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
         <a href="#raids" class="hover:text-got-gold transition">Raids</a>
         <a href="#war" class="hover:text-got-gold transition">War</a>
         <a href="#dragons" class="hover:text-got-gold transition">Dragons</a>
-        <a href="#cores" class="hover:text-got-gold transition">Cores</a>
-        <a href="#tips" class="hover:text-got-gold transition">Tips</a>
         <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
-        <a href="#notes" class="hover:text-got-gold transition">Notes</a>
       </nav>
     </div>
   </header>
 
   <section class="max-w-6xl mx-auto px-4 py-12 text-center">
     <h1 class="text-4xl md:text-5xl font-bold mb-4">
-      Meta Teams for <span class="gold">Raids</span>, <span class="gold">War</span> & <span class="gold">Dragons</span>
+      Build smarter teams.<br class="hidden sm:block" />
+      <span class="gold">Counter the meta. Win more battles.</span>
     </h1>
-    <p class="text-gray-400 max-w-2xl mx-auto text-lg">
-      Practical recommendations for the whole alliance. Build the strongest teams you can with the champions you have.
+    <p class="text-gray-400 max-w-2xl mx-auto text-lg mb-8">
+      Tell us which champions you have. We’ll help you build the best teams possible from your roster.
     </p>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="roster.html" class="bg-got-gold text-black font-bold px-6 py-3 rounded-lg">Set up My Roster</a>
+      <a href="builder.html" class="card font-semibold px-6 py-3 rounded-lg hover:border-got-gold transition">Open Team Builder</a>
+    </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 pb-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+  <section class="max-w-6xl mx-auto px-4 pb-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+    <a href="roster.html" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
+      <div class="text-got-gold font-bold text-xs mb-1">MY ROSTER</div>
+      <div class="font-semibold group-hover:text-got-gold transition text-sm">Champions you own</div>
+    </a>
+    <a href="builder.html" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
+      <div class="text-got-gold font-bold text-xs mb-1">TEAM BUILDER</div>
+      <div class="font-semibold group-hover:text-got-gold transition text-sm">War · Raid · Dragons</div>
+    </a>
     <a href="#raids" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
-      <div class="text-got-gold font-bold text-xs mb-1">RAIDS</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">Attack & Defense</div>
-    </a>
-    <a href="#war" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
-      <div class="text-got-gold font-bold text-xs mb-1">WAR</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">4 Teams</div>
-    </a>
-    <a href="#dragons" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
-      <div class="text-got-gold font-bold text-xs mb-1">DRAGONS</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">Boss Counters</div>
-    </a>
-    <a href="#cores" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
-      <div class="text-got-gold font-bold text-xs mb-1">CORES</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">Faction Builds</div>
-    </a>
-    <a href="#tips" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
-      <div class="text-got-gold font-bold text-xs mb-1">TIPS</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">Playbook</div>
+      <div class="text-got-gold font-bold text-xs mb-1">GUIDE</div>
+      <div class="font-semibold group-hover:text-got-gold transition text-sm">Strategy samples</div>
     </a>
     <a href="champions.html" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
       <div class="text-got-gold font-bold text-xs mb-1">CHAMPIONS</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">Full Roster</div>
+      <div class="font-semibold group-hover:text-got-gold transition text-sm">Roles & tags</div>
     </a>
   </section>
 
   <section class="max-w-6xl mx-auto px-4 pb-8 space-y-4">
     <div class="card rounded-xl p-5 text-sm text-gray-300">
-      <strong class="gold">How to use:</strong>
-      Samples list a <strong>Leader</strong> first. Swap any name for your strongest champion in that role.
-      Full roster: <a href="champions.html" class="text-got-gold underline">Champions</a>.
+      <strong class="gold">How the tools work:</strong>
+      Mark champions in <a href="roster.html" class="text-got-gold underline">My Roster</a> (saved on your device).
+      Then use <a href="builder.html" class="text-got-gold underline">Team Builder</a> for Alliance War (4 teams, no duplicates), Raid Attack/Defense, or Dragons.
     </div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
-      <strong class="gold">Starter path</strong>
-      <ol class="mt-2 space-y-1 list-decimal list-inside">
-        <li>Note your best Raid, Taunt, and damage on <a href="champions.html" class="text-got-gold underline">Champions</a></li>
-        <li>Build War Set A using those roles</li>
-        <li>Raids: start with Attack A + Defense A</li>
-        <li>Dragons: match the boss rules below</li>
-        <li>Use Tips when something feels stuck</li>
-      </ol>
+      <strong class="gold">How to use the guide below:</strong>
+      Samples list a <strong>Leader</strong> first. Swap any name for your strongest champion in that role.
+      Full roster: <a href="champions.html" class="text-got-gold underline">Champions</a>.
     </div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
@@ -117,17 +108,6 @@
         <li>• <strong>Leader</strong> — champion whose leader skill is active</li>
       </ul>
     </div>
-
-    <div class="card rounded-xl p-5 text-sm text-gray-300">
-      <strong class="gold">30-second checklist before you lock</strong>
-      <ul class="mt-2 space-y-1 list-disc list-inside">
-        <li>At least two teams with Raid or real pressure?</li>
-        <li>Taunt / sustain on more than one team?</li>
-        <li>Every team complete with a clear job?</li>
-        <li>Best leaders in leader slots?</li>
-        <li>Key tools not all stacked on Team 1?</li>
-      </ul>
-    </div>
   </section>
 
   <section id="raids" class="max-w-6xl mx-auto px-4 py-6">
@@ -136,6 +116,7 @@
         Raids <span class="text-sm font-normal text-gray-400 ml-2">Attack & Defense</span>
       </summary>
       <div class="px-6 pb-6 border-t border-got-border pt-5 space-y-6">
+        <p class="text-sm text-gray-400">Prefer automatic picks from your roster? Use <a href="builder.html" class="text-got-gold underline">Team Builder → Raid Attack / Defense</a>.</p>
         <div class="grid md:grid-cols-2 gap-5">
           <div class="bg-black/30 rounded-xl p-5">
             <h3 class="text-lg font-bold gold mb-1">Attack A — Raid pressure</h3>
@@ -158,26 +139,6 @@
             </ol>
           </div>
           <div class="bg-black/30 rounded-xl p-5">
-            <h3 class="text-lg font-bold gold mb-1">Attack C — Blacks / dragons</h3>
-            <ol class="text-sm space-y-1.5 text-gray-300 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Daemon or Rhaenyra</li>
-              <li>Caraxes</li>
-              <li>Meleys / Drogon</li>
-              <li>Laenor or Corlys</li>
-              <li>Flex</li>
-            </ol>
-          </div>
-          <div class="bg-black/30 rounded-xl p-5">
-            <h3 class="text-lg font-bold gold mb-1">Attack D — Stark utility</h3>
-            <ol class="text-sm space-y-1.5 text-gray-300 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Jon Snow</li>
-              <li>Ned Stark</li>
-              <li>Arya Stark</li>
-              <li>Raid flex</li>
-              <li>Brienne or sustain</li>
-            </ol>
-          </div>
-          <div class="bg-black/30 rounded-xl p-5">
             <h3 class="text-lg font-bold gold mb-1">Defense A — Taunt hold</h3>
             <ol class="text-sm space-y-1.5 text-gray-300 list-decimal list-inside mt-2">
               <li><strong class="gold">Leader:</strong> Brienne of Tarth</li>
@@ -197,36 +158,6 @@
               <li>Flex</li>
             </ol>
           </div>
-          <div class="bg-black/30 rounded-xl p-5">
-            <h3 class="text-lg font-bold gold mb-1">Defense C — Lannister wall</h3>
-            <ol class="text-sm space-y-1.5 text-gray-300 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Cersei or Tywin</li>
-              <li>Sandor Clegane</li>
-              <li>Meryn Trant</li>
-              <li>Tyrion</li>
-              <li>Gregor or flex</li>
-            </ol>
-          </div>
-          <div class="bg-black/30 rounded-xl p-5">
-            <h3 class="text-lg font-bold gold mb-1">Defense D — Fleet sustain</h3>
-            <ol class="text-sm space-y-1.5 text-gray-300 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Corlys Velaryon</li>
-              <li>Brienne or Taunt</li>
-              <li>Laenor</li>
-              <li>Yara / control</li>
-              <li>Damage flex</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="bg-black/30 rounded-xl p-5 text-sm text-gray-300">
-          <strong class="gold">If the enemy defense looks like…</strong>
-          <ul class="mt-2 space-y-1 list-disc list-inside">
-            <li><strong>Heavy Taunt / sustain</strong> → Raid + burst (Attack A or C)</li>
-            <li><strong>Pure Shield wall</strong> → strip / pressure; avoid more Shields</li>
-            <li><strong>Glass cannon</strong> → Defense A or C to outlast</li>
-            <li><strong>Reinforce engine</strong> → control timing; don’t feed free value</li>
-          </ul>
         </div>
       </div>
     </details>
@@ -238,89 +169,35 @@
         War <span class="text-sm font-normal text-gray-400 ml-2">4 Non-Overlapping Teams</span>
       </summary>
       <div class="px-6 pb-6 border-t border-got-border pt-5 space-y-6">
-        <p class="text-gray-400 text-sm">Pick <strong>one</strong> set. Never reuse a champion across your four teams.</p>
-
+        <p class="text-sm text-gray-400">Want this from your actual roster? <a href="builder.html" class="text-got-gold underline">Team Builder → Alliance War</a> builds 4 teams with no duplicate champions.</p>
         <div class="bg-black/30 rounded-xl p-5 text-sm text-gray-300">
-          <strong class="gold">5-minute War builder</strong>
+          <strong class="gold">5-minute War builder (manual)</strong>
           <ol class="mt-2 space-y-1 list-decimal list-inside">
             <li>List your top 20 champions by strength</li>
-            <li>Pick your best leader + 4 partners → Team 1</li>
-            <li>From what’s left, build Taunt + sustain → Team 2</li>
-            <li>From what’s left, build Raid + damage → Team 3</li>
-            <li>Everything remaining with a purpose → Team 4</li>
-            <li>Run the 30-second checklist, then place per leadership</li>
+            <li>Best leader + 4 partners → Team 1</li>
+            <li>Taunt + sustain → Team 2</li>
+            <li>Raid + damage → Team 3</li>
+            <li>Leftovers with a purpose → Team 4</li>
           </ol>
         </div>
-
         <h3 class="font-bold gold">Set A — Balanced (default)</h3>
         <div class="grid md:grid-cols-2 gap-4">
           <div class="bg-black/30 rounded-xl p-4">
             <div class="text-got-gold font-bold text-xs mb-1">TEAM 1 — OFFENSE</div>
-            <ol class="text-sm text-gray-300 space-y-1 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Daemon</li>
-              <li>Caraxes / dragon</li>
-              <li>Jon Snow</li>
-              <li>Rhaenyra or utility</li>
-              <li>Second damage</li>
-            </ol>
+            <p class="text-sm text-gray-300 mt-1">Leader: Daemon · dragon · Jon · utility · damage</p>
           </div>
           <div class="bg-black/30 rounded-xl p-4">
             <div class="text-got-gold font-bold text-xs mb-1">TEAM 2 — HOLD</div>
-            <ol class="text-sm text-gray-300 space-y-1 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Brienne</li>
-              <li>Corlys</li>
-              <li>Ned</li>
-              <li>Sandor or Laenor</li>
-              <li>Flex</li>
-            </ol>
+            <p class="text-sm text-gray-300 mt-1">Leader: Brienne · Corlys · Ned · Sandor · flex</p>
           </div>
           <div class="bg-black/30 rounded-xl p-4">
             <div class="text-got-gold font-bold text-xs mb-1">TEAM 3 — RAID / BURST</div>
-            <ol class="text-sm text-gray-300 space-y-1 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Euron</li>
-              <li>Yara / damage</li>
-              <li>Control</li>
-              <li>Dragon pressure</li>
-              <li>Support</li>
-            </ol>
+            <p class="text-sm text-gray-300 mt-1">Leader: Euron · Yara · control · dragon · support</p>
           </div>
           <div class="bg-black/30 rounded-xl p-4">
             <div class="text-got-gold font-bold text-xs mb-1">TEAM 4 — FLEX</div>
-            <ol class="text-sm text-gray-300 space-y-1 list-decimal list-inside mt-2">
-              <li><strong class="gold">Leader:</strong> Night King</li>
-              <li>Mance</li>
-              <li>Ice Warden / Bran</li>
-              <li>Remaining legendaries</li>
-              <li>Epics</li>
-            </ol>
+            <p class="text-sm text-gray-300 mt-1">Leader: Night King · Mance · Ice Warden · leftovers</p>
           </div>
-        </div>
-
-        <h3 class="font-bold gold mt-2">Set B — Lannister-heavy</h3>
-        <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 1</div><p class="mt-1">Leader: Tywin · Gregor · Cersei · Tyrion · Jaime/Jaqen</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 2</div><p class="mt-1">Leader: Brienne · Corlys · Ned · Sandor · flex</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 3</div><p class="mt-1">Leader: Euron · Daemon · dragon · Jon · flex</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 4</div><p class="mt-1">Leader: Night King · Mance · Ice Warden · leftovers · epics</p></div>
-        </div>
-
-        <h3 class="font-bold gold mt-2">Set C — Dragon / Blacks lean</h3>
-        <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 1</div><p class="mt-1">Leader: Daemon · Caraxes · Meleys · Rhaenyra · Laenor</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 2</div><p class="mt-1">Leader: Brienne · Corlys · Ned · Sandor · flex</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 3</div><p class="mt-1">Leader: Euron · Yara · Drogon · control · support</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TEAM 4</div><p class="mt-1">Leader: Night King · Mance · Bran · leftovers · epics</p></div>
-        </div>
-
-        <div class="bg-black/30 rounded-xl p-5 text-sm text-gray-300">
-          <strong class="gold">Where to place teams</strong>
-          <ul class="mt-2 space-y-1 list-disc list-inside">
-            <li>Follow alliance leadership first</li>
-            <li>Strongest team where the fight is hardest</li>
-            <li>Hold teams on contested / defensive outposts</li>
-            <li>Raid/burst into known tanky defenses</li>
-            <li>Don’t gut a team for a small outpost bonus</li>
-          </ul>
         </div>
       </div>
     </details>
@@ -331,93 +208,13 @@
       <summary class="px-6 py-5 text-2xl font-bold">
         Dragons <span class="text-sm font-normal text-gray-400 ml-2">Boss Counters</span>
       </summary>
-      <div class="px-6 pb-6 border-t border-got-border pt-5 space-y-6">
-
-        <div class="bg-black/30 rounded-xl p-5 text-sm text-gray-300">
-          <strong class="gold">Dragon decision tree</strong>
-          <ol class="mt-2 space-y-1 list-decimal list-inside">
-            <li>Which dragon? → open that card below</li>
-            <li>Do I have the key tool (Raid / speed / Bleed / Reinforce)?</li>
-            <li>Do I have real damage, not only survival?</li>
-            <li>Am I over-relying on Shields?</li>
-            <li>Lock the sample that matches, swap for what you own</li>
-          </ol>
-        </div>
-
-        <div class="bg-black/30 rounded-xl p-5">
-          <h3 class="text-xl font-bold mb-2">Viserion – Growing Terror</h3>
-          <div class="grid md:grid-cols-2 gap-4 text-sm">
-            <ul class="space-y-1 text-gray-300">
-              <li>• Do not hit while Pacified</li>
-              <li>• Brittle = safe while sleeping</li>
-              <li>• Every Raid stack helps</li>
-              <li>• Wake destroys Shields + refills Stamina</li>
-              <li>• Immune to Fire and Poison</li>
-              <li>• Reinforces accelerate Patience meter</li>
-            </ul>
-            <div>
-              <p class="text-got-gold font-semibold mb-1">Sample A</p>
-              <ol class="list-decimal list-inside space-y-1 text-gray-300 mb-3">
-                <li><strong class="gold">Leader:</strong> Euron</li>
-                <li>Daemon / dragon damage</li>
-                <li>Brittle tool</li>
-                <li>Jon or Ned</li>
-                <li>Flex</li>
-              </ol>
-              <p class="text-got-gold font-semibold mb-1">Sample B (no Euron)</p>
-              <p class="text-gray-300">Any skill Raid · two damage · control · sustain flex</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-4 text-sm">
-          <div class="bg-black/30 rounded-xl p-4">
-            <h4 class="font-bold mb-2">Drogon</h4>
-            <p class="text-gray-400 mb-2">Speed + pressure. Birthright strong. Shields can be erased.</p>
-            <p class="text-gray-300"><strong class="gold">Bring:</strong> fast champs · Raid · real damage · skip pure tanks</p>
-          </div>
-          <div class="bg-black/30 rounded-xl p-4">
-            <h4 class="font-bold mb-2">Rhaegal</h4>
-            <p class="text-gray-400 mb-2">Bleed + Fire. Protect Taunter. Skill every turn rewarded.</p>
-            <p class="text-gray-300"><strong class="gold">Bring:</strong> Taunt · Bleed/Fire · skill pressure</p>
-          </div>
-          <div class="bg-black/30 rounded-xl p-4">
-            <h4 class="font-bold mb-2">Icy Viserion</h4>
-            <p class="text-gray-400 mb-2">Reinforce punishes him. Control skill cadence.</p>
-            <p class="text-gray-300"><strong class="gold">Sample:</strong> Night King · Ice Warden · Bran · damage · flex</p>
-          </div>
-        </div>
-
+      <div class="px-6 pb-6 border-t border-got-border pt-5 space-y-4">
+        <p class="text-sm text-gray-400">Roster-based dragon teams: <a href="builder.html" class="text-got-gold underline">Team Builder</a>.</p>
         <div class="bg-black/30 rounded-xl p-5 text-sm text-gray-300">
           <strong class="gold">Quick match:</strong> Viserion → Raid+Brittle · Drogon → speed · Rhaegal → Bleed/Fire · Icy → Reinforce
         </div>
-      </div>
-    </details>
-  </section>
-
-  <section id="cores" class="max-w-6xl mx-auto px-4 py-3">
-    <details class="card rounded-xl overflow-hidden">
-      <summary class="px-6 py-5 text-2xl font-bold">
-        Faction cores <span class="text-sm font-normal text-gray-400 ml-2">Building blocks</span>
-      </summary>
-      <div class="px-6 pb-6 border-t border-got-border pt-5 space-y-4">
-        <div class="grid md:grid-cols-2 gap-4 text-sm">
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">LANNISTER</div><p class="text-gray-300">Tywin · Gregor · Cersei · Tyrion · Sandor / Jaime / Jaqen</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">GREYJOY / FLEET</div><p class="text-gray-300">Euron · Yara · Corlys · Theon · Laenor flex</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">BLACKS / DRAGONS</div><p class="text-gray-300">Daemon · Rhaenyra · Caraxes · Meleys · Laenor / Corlys</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">NIGHT / REINFORCE</div><p class="text-gray-300">Night King · Ice Warden · Bran · Craster</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">STARK / UTILITY</div><p class="text-gray-300">Jon · Ned · Arya · Bran · Brienne flex</p></div>
-          <div class="bg-black/30 rounded-xl p-4"><div class="text-got-gold font-bold text-xs mb-1">TAUNT HOLD</div><p class="text-gray-300">Brienne · Corlys · Sandor · Meryn · buffer</p></div>
-        </div>
         <div class="bg-black/30 rounded-xl p-5 text-sm text-gray-300">
-          <strong class="gold">Investment priority (when resources are limited)</strong>
-          <ol class="mt-2 space-y-1 list-decimal list-inside">
-            <li>One reliable Raid applier</li>
-            <li>One real damage threat</li>
-            <li>One Taunt / sustain piece</li>
-            <li>Best leader skill you own</li>
-            <li>Control / secondary damage / Team 4 fillers</li>
-          </ol>
+          <strong class="gold">Viserion:</strong> Do not hit while Pacified. Every Raid stack helps. Wake destroys Shields. Immune to Fire/Poison. Reinforces accelerate Patience.
         </div>
       </div>
     </details>
@@ -425,72 +222,29 @@
 
   <section id="tips" class="max-w-6xl mx-auto px-4 py-3">
     <details class="card rounded-xl overflow-hidden">
-      <summary class="px-6 py-5 text-2xl font-bold">
-        Tips playbook <span class="text-sm font-normal text-gray-400 ml-2">Practical habits</span>
-      </summary>
-      <div class="px-6 pb-6 border-t border-got-border pt-5 space-y-4 text-sm text-gray-300">
-        <div class="bg-black/30 rounded-xl p-5">
-          <strong class="gold">Weekly alliance rhythm</strong>
-          <ol class="mt-2 space-y-1 list-decimal list-inside">
-            <li>War day — build 4 teams early</li>
-            <li>Read leadership outpost plan before placing</li>
-            <li>Run dragons with the right tools</li>
-            <li>Update one team at a time when you pull a new legendary</li>
-          </ol>
-        </div>
-        <div class="bg-black/30 rounded-xl p-5">
-          <strong class="gold">Common mistakes</strong>
-          <ul class="mt-2 space-y-1 list-disc list-inside">
-            <li>All Raid on one team, zero on the others</li>
-            <li>Three strong teams + one empty shell</li>
-            <li>Ignoring leader skills</li>
-            <li>Pure Shield walls into bosses that erase them</li>
-            <li>Copying a sample without swapping for what you own</li>
-          </ul>
-        </div>
-        <div class="bg-black/30 rounded-xl p-5">
-          <strong class="gold">Swap matrix</strong>
-          <ul class="mt-2 space-y-1 list-disc list-inside">
-            <li>Need Raid → Euron or skill Raid dragon</li>
-            <li>Need Taunt → Brienne, Meryn, Sandor</li>
-            <li>Need damage → Daemon, Gregor, dragons, Arya</li>
-            <li>Need heal → Cersei, Laenor, Corlys-style sustain</li>
-            <li>Need control → Night King, Ned, Jon, Tywin, Jaqen</li>
-          </ul>
-        </div>
-        <div class="bg-black/30 rounded-xl p-5">
-          <strong class="gold">If your roster is smaller</strong>
-          <p class="mt-2">Still aim for four complete War teams. Use epics for Taunt, cleanse, and Team 4. Clear roles beat incomplete “perfect” lineups.</p>
-        </div>
-        <div class="bg-black/30 rounded-xl p-5">
-          <strong class="gold">After a loss — quick review</strong>
-          <ul class="mt-2 space-y-1 list-disc list-inside">
-            <li>Did Raid land before you needed damage?</li>
-            <li>Did Taunt hold, or did the wrong target die first?</li>
-            <li>Were Shields erased and left you empty?</li>
-            <li>Was the leader skill useful that fight?</li>
-          </ul>
-        </div>
+      <summary class="px-6 py-5 text-2xl font-bold">Tips playbook</summary>
+      <div class="px-6 pb-6 border-t border-got-border pt-5 text-sm text-gray-300 space-y-3">
+        <p>• Spread Raid and Taunt across War teams — don’t stack every key tool on Team 1.</p>
+        <p>• Four complete teams beat three perfect ones and one empty shell.</p>
+        <p>• Builder suggestions are role-based starting points. Adjust for stars, gear, and what you know works.</p>
       </div>
     </details>
   </section>
 
   <section id="notes" class="max-w-6xl mx-auto px-4 py-3 pb-12">
     <details class="card rounded-xl overflow-hidden">
-      <summary class="px-6 py-5 text-2xl font-bold">Notes &amp; FAQ</summary>
+      <summary class="px-6 py-5 text-2xl font-bold">Notes</summary>
       <div class="px-6 pb-6 border-t border-got-border pt-5 text-sm text-gray-300 space-y-3">
-        <p>• Built for <strong>Old Peeps on Porches</strong>.</p>
-        <p>• <strong>Missing a name?</strong> Same role on <a href="champions.html" class="text-got-gold underline">Champions</a> = valid swap.</p>
-        <p>• <strong>War sets?</strong> Pick one set only. No duplicate champions across your four teams.</p>
-        <p>• <strong>Portraits:</strong> Stylized initials only — screenshots stay private.</p>
-        <p>• When in doubt: Raid + damage + keep the team standing.</p>
+        <p>• Built with <strong>Old Peeps on Porches</strong> in mind — public tools work for any player.</p>
+        <p>• Roster data stays in <strong>your browser only</strong> (no account).</p>
+        <p>• Champion library will grow as we add more names and roles.</p>
       </div>
     </details>
   </section>
 
   <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
     <div class="font-medium text-gray-400">gotlegendsguide.com</div>
-    <div class="mt-1">Built for Old Peeps on Porches • August 2026</div>
+    <div class="mt-1">Old Peeps on Porches · August 2026</div>
   </footer>
 
 </body>

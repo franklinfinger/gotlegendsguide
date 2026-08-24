@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Champions – GOT Legends Guide</title>
-  <meta name="description" content="Full champion roster for Game of Thrones: Legends – Old Peeps on Porches." />
+  <meta name="description" content="Champion roles and tags for Game of Thrones: Legends team building." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -21,33 +21,24 @@
     body { background: #0c0c0f; color: #e5e5e5; }
     .gold { color: #c9a227; }
     .card { background: #16161a; border: 1px solid #2a2a32; }
-    .avatar {
-      width: 48px; height: 48px; border-radius: 9999px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
-      border: 2px solid #c9a22733;
-    }
   </style>
 </head>
 <body class="min-h-screen">
 
   <header class="border-b border-got-border sticky top-0 bg-got-dark/95 backdrop-blur z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm">GOT</div>
-        <div>
-          <div class="font-bold text-lg tracking-wide">GOT Legends Guide</div>
-          <div class="text-xs text-gray-400">Old Peeps on Porches</div>
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-full bg-got-gold flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
+        <div class="min-w-0">
+          <div class="font-bold text-lg tracking-wide truncate">GOT Legends Guide</div>
+          <div class="text-xs text-gray-400">Build smarter teams</div>
         </div>
       </a>
-      <nav class="hidden md:flex gap-5 text-sm">
-        <a href="index.html#raids" class="hover:text-got-gold transition">Raids</a>
-        <a href="index.html#war" class="hover:text-got-gold transition">War</a>
-        <a href="index.html#dragons" class="hover:text-got-gold transition">Dragons</a>
-        <a href="index.html#cores" class="hover:text-got-gold transition">Cores</a>
-        <a href="index.html#tips" class="hover:text-got-gold transition">Tips</a>
+      <nav class="hidden md:flex gap-4 text-sm">
+        <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
+        <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
+        <a href="index.html" class="hover:text-got-gold transition">Guide</a>
         <a href="champions.html" class="text-got-gold">Champions</a>
-        <a href="index.html#notes" class="hover:text-got-gold transition">Notes</a>
       </nav>
     </div>
   </header>
@@ -55,13 +46,14 @@
   <section class="max-w-6xl mx-auto px-4 py-12">
     <h1 class="text-4xl font-bold mb-3">Champions</h1>
     <p class="text-gray-400 max-w-3xl mb-6">
-      Role roster with stylized portrait markers. Swap sample names for the strongest champion you own in each role.
+      Role reference for the guide and Team Builder. To mark what you own, use
+      <a href="roster.html" class="text-got-gold underline">My Roster</a>.
     </p>
 
-    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-6">
+    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-8">
       <strong class="gold">Quick picks by job</strong>
       <ul class="mt-2 space-y-1">
-        <li>• <strong>Raid:</strong> Euron · Raid dragons · Yara</li>
+        <li>• <strong>Raid:</strong> Euron · Yara · Raid-tagged dragons</li>
         <li>• <strong>Taunt:</strong> Brienne · Meryn · Sandor</li>
         <li>• <strong>Sustain:</strong> Corlys · Cersei · Laenor · Craster</li>
         <li>• <strong>Damage:</strong> Daemon · Gregor · dragons · Arya · Jaime</li>
@@ -69,106 +61,35 @@
       </ul>
     </div>
 
-    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-6">
-      <strong class="gold">Best-for tags</strong>
-      <ul class="mt-2 space-y-1">
-        <li>• <strong>Euron</strong> → Raid Attack · War 3 · Viserion</li>
-        <li>• <strong>Brienne</strong> → Raid Defense · War 2</li>
-        <li>• <strong>Daemon</strong> → War 1 · Raid Attack damage</li>
-        <li>• <strong>Night King</strong> → War 4 · Icy Viserion · Defense B</li>
-        <li>• <strong>Tywin / Gregor / Cersei</strong> → Lannister cores</li>
-        <li>• <strong>Caraxes / Meleys / Drogon</strong> → Blacks / dragon Attack C</li>
-      </ul>
-    </div>
-
-    <div class="card rounded-xl p-5 text-sm text-gray-300 mb-8">
-      <strong class="gold">Build order if resources are limited</strong>
-      <ol class="mt-2 space-y-1 list-decimal list-inside">
-        <li>Raid applier</li>
-        <li>Damage threat</li>
-        <li>Taunt / sustain</li>
-        <li>Best leader</li>
-        <li>Control + Team 4 fillers</li>
-      </ol>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-4 mb-12 text-sm">
-      <div class="card rounded-xl p-5"><div class="text-got-gold font-bold text-xs mb-1">TIER A</div><p class="text-gray-300">Raid · damage · Taunt/sustain</p></div>
-      <div class="card rounded-xl p-5"><div class="text-got-gold font-bold text-xs mb-1">TIER B</div><p class="text-gray-300">Control · secondary damage · leaders</p></div>
-      <div class="card rounded-xl p-5"><div class="text-got-gold font-bold text-xs mb-1">TIER C</div><p class="text-gray-300">Epics for Team 4 and gaps</p></div>
-    </div>
-
-    <h2 class="text-2xl font-bold mb-4 gold">Taunt / Sustain</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1e3a5f;color:#93c5fd">BT</div><div><div class="font-semibold">Brienne of Tarth</div><div class="text-xs text-got-gold">Taunt · Leader</div><p class="text-xs text-gray-400 mt-1">Defense / War 2 default.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#0f3d3e;color:#5eead4">CV</div><div><div class="font-semibold">Corlys Velaryon</div><div class="text-xs text-got-gold">Sustain</div><p class="text-xs text-gray-400 mt-1">Taunt partner · fleet.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#3b2f1a;color:#fcd34d">SC</div><div><div class="font-semibold">Sandor Clegane</div><div class="text-xs text-got-gold">Protect</div><p class="text-xs text-gray-400 mt-1">Defense · Lannister.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1a2e1a;color:#86efac">MT</div><div><div class="font-semibold">Meryn Trant</div><div class="text-xs text-got-gold">Taunt · Epic</div><p class="text-xs text-gray-400 mt-1">Epic Taunt filler.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#2a1a3a;color:#d8b4fe">CR</div><div><div class="font-semibold">Craster</div><div class="text-xs text-got-gold">Shields</div><p class="text-xs text-gray-400 mt-1">Reinforce engines.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1a2744;color:#93c5fd">GR</div><div><div class="font-semibold">Epic protectors</div><div class="text-xs text-got-gold">Frontline</div><p class="text-xs text-gray-400 mt-1">Fill sustain gaps.</p></div></div>
-    </div>
-
-    <h2 class="text-2xl font-bold mb-4 gold">Raid / Pressure</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#3f1a1a;color:#fca5a5">EG</div><div><div class="font-semibold">Euron Greyjoy</div><div class="text-xs text-got-gold">Raid · Leader</div><p class="text-xs text-gray-400 mt-1">Attack A · War 3 · Viserion.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#3f2a1a;color:#fdba74">YG</div><div><div class="font-semibold">Yara Greyjoy</div><div class="text-xs text-got-gold">Pressure</div><p class="text-xs text-gray-400 mt-1">Fleet partner.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#2a1a1a;color:#f87171">TG</div><div><div class="font-semibold">Theon Greyjoy</div><div class="text-xs text-got-gold">Flex</div><p class="text-xs text-gray-400 mt-1">Greyjoy flex.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#4a1a1a;color:#fecaca">DR</div><div><div class="font-semibold">Raid dragons</div><div class="text-xs text-got-gold">Raid / pressure</div><p class="text-xs text-gray-400 mt-1">Check kits for skill Raid.</p></div></div>
-    </div>
-
-    <h2 class="text-2xl font-bold mb-4 gold">Control / Utility</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#0c1a2e;color:#7dd3fc">NK</div><div><div class="font-semibold">The Night King</div><div class="text-xs text-got-gold">Reinforce · Leader</div><p class="text-xs text-gray-400 mt-1">War 4 · Icy Viserion.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1a2433;color:#94a3b8">NS</div><div><div class="font-semibold">Ned Stark</div><div class="text-xs text-got-gold">Control</div><p class="text-xs text-gray-400 mt-1">Clean fights.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1e293b;color:#cbd5e1">JS</div><div><div class="font-semibold">Jon Snow</div><div class="text-xs text-got-gold">Utility</div><p class="text-xs text-gray-400 mt-1">Fits most samples.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1c1917;color:#d6d3d1">MR</div><div><div class="font-semibold">Mance Rayder</div><div class="text-xs text-got-gold">Utility</div><p class="text-xs text-gray-400 mt-1">War Team 4.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1e1b4b;color:#a5b4fc">BS</div><div><div class="font-semibold">Bran Stark</div><div class="text-xs text-got-gold">Reinforce</div><p class="text-xs text-gray-400 mt-1">Night King engines.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#312e81;color:#c7d2fe">IW</div><div><div class="font-semibold">Ice Warden</div><div class="text-xs text-got-gold">Reinforce support</div><p class="text-xs text-gray-400 mt-1">Pairs with Night King.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#422006;color:#fde68a">TY</div><div><div class="font-semibold">Tywin Lannister</div><div class="text-xs text-got-gold">Leader</div><p class="text-xs text-gray-400 mt-1">Lannister cores.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#3b0764;color:#e9d5ff">JH</div><div><div class="font-semibold">Jaqen H’ghar</div><div class="text-xs text-got-gold">Reinforce · Copy</div><p class="text-xs text-gray-400 mt-1">Lannister synergies.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1e3a2f;color:#6ee7b7">VI</div><div><div class="font-semibold">Viserys I</div><div class="text-xs text-got-gold">Cleanse · Leader</div><p class="text-xs text-gray-400 mt-1">Fire-team stability.</p></div></div>
-    </div>
-
-    <h2 class="text-2xl font-bold mb-4 gold">Damage</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#7f1d1d;color:#fecaca">DT</div><div><div class="font-semibold">Daemon Targaryen</div><div class="text-xs text-got-gold">Damage · Leader</div><p class="text-xs text-gray-400 mt-1">War Team 1 default.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#991b1b;color:#fca5a5">GC</div><div><div class="font-semibold">Gregor Clegane</div><div class="text-xs text-got-gold">AoE</div><p class="text-xs text-gray-400 mt-1">Lannister engine.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#9a3412;color:#fdba74">AS</div><div><div class="font-semibold">Arya Stark</div><div class="text-xs text-got-gold">Damage</div><p class="text-xs text-gray-400 mt-1">Strong when invested.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#b45309;color:#fde68a">GE</div><div><div class="font-semibold">Gendry</div><div class="text-xs text-got-gold">Crit · Gems</div><p class="text-xs text-gray-400 mt-1">Baratheon pressure.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#7c2d12;color:#fed7aa">JL</div><div><div class="font-semibold">Jaime Lannister</div><div class="text-xs text-got-gold">Damage</div><p class="text-xs text-gray-400 mt-1">Lannister flex.</p></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#831843;color:#fbcfe8">RT</div><div><div class="font-semibold">Rhaenyra Targaryen</div><div class="text-xs text-got-gold">Fury · Leader</div><p class="text-xs text-gray-400 mt-1">Blacks cores.</p></div></div>
-    </div>
-
-    <h2 class="text-2xl font-bold mb-4 gold">Dragons &amp; Support</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#7f1d1d;color:#fecaca">DG</div><div><div class="font-semibold">Drogon</div><div class="text-xs text-got-gold">Fire</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#14532d;color:#86efac">RH</div><div><div class="font-semibold">Rhaegal</div><div class="text-xs text-got-gold">Fire</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#9f1239;color:#fecdd3">CX</div><div><div class="font-semibold">Caraxes</div><div class="text-xs text-got-gold">Daemon synergy</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#9a3412;color:#fdba74">ML</div><div><div class="font-semibold">Meleys</div><div class="text-xs text-got-gold">Dragon</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#0e7490;color:#a5f3fc">SS</div><div><div class="font-semibold">Seasmoke</div><div class="text-xs text-got-gold">Laenor synergy</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#581c87;color:#e9d5ff">AD</div><div><div class="font-semibold">Adolescent dragons</div><div class="text-xs text-got-gold">Single-target</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#9f1239;color:#fecdd3">CL</div><div><div class="font-semibold">Cersei Lannister</div><div class="text-xs text-got-gold">Heal</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#854d0e;color:#fde047">TL</div><div><div class="font-semibold">Tyrion Lannister</div><div class="text-xs text-got-gold">Utility</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#0f766e;color:#99f6e4">LV</div><div><div class="font-semibold">Laenor Velaryon</div><div class="text-xs text-got-gold">Heal · Raid</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1e3a5f;color:#bfdbfe">DA</div><div><div class="font-semibold">Daenerys Targaryen</div><div class="text-xs text-got-gold">Dragon support</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#4c1d95;color:#ddd6fe">AH</div><div><div class="font-semibold">Alicent Hightower</div><div class="text-xs text-got-gold">Stabilize</div></div></div>
-      <div class="card rounded-xl p-4 flex gap-3"><div class="avatar" style="background:#1e3a5f;color:#93c5fd">VS</div><div><div class="font-semibold">Viserion (champ)</div><div class="text-xs text-got-gold">Ice</div></div></div>
-    </div>
+    <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
       <strong class="gold">Next:</strong>
-      <a href="index.html#raids" class="text-got-gold underline">Raids</a> ·
-      <a href="index.html#war" class="text-got-gold underline">War</a> ·
-      <a href="index.html#dragons" class="text-got-gold underline">Dragons</a> ·
-      <a href="index.html#cores" class="text-got-gold underline">Cores</a> ·
-      <a href="index.html#tips" class="text-got-gold underline">Tips</a>
+      <a href="roster.html" class="text-got-gold underline">My Roster</a> ·
+      <a href="builder.html" class="text-got-gold underline">Team Builder</a> ·
+      <a href="index.html" class="text-got-gold underline">Guide</a>
     </div>
   </section>
 
   <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
     <div class="font-medium text-gray-400">gotlegendsguide.com</div>
-    <div class="mt-1">Built for Old Peeps on Porches • August 2026</div>
+    <div class="mt-1">Library grows as we add more champions</div>
   </footer>
 
+  <script src="app.js"></script>
+  <script>
+    fetchChampions().then(champs => {
+      const el = document.getElementById('list');
+      el.innerHTML = champs.sort((a,b) => a.name.localeCompare(b.name)).map(c => `
+        <div class="card rounded-xl p-4 flex gap-3">
+          ${avatarHTML(c, 48)}
+          <div class="min-w-0">
+            <div class="font-semibold">${c.name}</div>
+            <div class="text-xs text-got-gold">${(c.roles || []).join(' · ')}</div>
+            <p class="text-xs text-gray-400 mt-1">${c.why || ''}</p>
+          </div>
+        </div>`).join('');
+    });
+  </script>
 </body>
 </html>
