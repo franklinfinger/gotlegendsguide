@@ -1,4 +1,4 @@
-/* GOT Legends Guide — roster + team builder */
+/* GOT Legends Guide — roster + team builder v2 */
 const STORAGE_KEY = 'gotlg_roster_v1';
 
 function loadRoster() {
@@ -25,17 +25,38 @@ function toggleOwned(roster, id) {
   return roster;
 }
 
+function setAllOwned(roster, champs, owned) {
+  const next = {};
+  if (owned) {
+    champs.forEach(c => { next[c.id] = { owned: true }; });
+  }
+  saveRoster(next);
+  return next;
+}
+
 function ownedChampions(all, roster) {
   return all.filter(c => isOwned(roster, c.id));
 }
 
 function scoreChamp(c, modeKey) {
   const base = (c.scores && c.scores[modeKey]) || 0;
-  return base * 10 + (c.leader || 0) * 2 + (c.rarity === 'legendary' ? 3 : 0);
+  let bonus = (c.leader || 0) * 2;
+  if (c.rarity === 'legendary') bonus += 3;
+  // small boost for relevant tags
+  const tags = c.tags || [];
+  if (modeKey === 'viserion' && (tags.includes('raid') || tags.includes('ice') || tags.includes('brittle'))) bonus += 2;
+  if (modeKey === 'icy' && (tags.includes('reinforce') || tags.includes('ice'))) bonus += 3;
+  if ((modeKey === 'raidAtk' || modeKey === 'war') && tags.includes('raid')) bonus += 2;
+  if (modeKey === 'raidDef' && (tags.includes('taunt') || hasRole(c, 'taunt'))) bonus += 2;
+  return base * 10 + bonus;
 }
 
 function hasRole(c, role) {
   return (c.roles || []).includes(role);
+}
+
+function hasTag(c, tag) {
+  return (c.tags || []).includes(tag);
 }
 
 function pickBest(pool, pred, modeKey) {
@@ -51,7 +72,6 @@ function removeFrom(pool, champ) {
 }
 
 function fillTeam(pool, slots, modeKey) {
-  // slots: array of { prefer: fn, label }
   const team = [];
   let remaining = pool.slice();
   for (const slot of slots) {
@@ -61,20 +81,17 @@ function fillTeam(pool, slots, modeKey) {
       remaining = removeFrom(remaining, pick);
     }
   }
-  // fill to 5 with best remaining
   while (team.length < 5 && remaining.length) {
     remaining.sort((a, b) => scoreChamp(b, modeKey) - scoreChamp(a, modeKey));
     const pick = remaining[0];
     team.push({ champ: pick, roleLabel: 'Flex' });
     remaining = removeFrom(remaining, pick);
   }
-  // ensure highest leader skill is marked leader if present
   if (team.length) {
     let bestIdx = 0;
     for (let i = 1; i < team.length; i++) {
       if ((team[i].champ.leader || 0) > (team[bestIdx].champ.leader || 0)) bestIdx = i;
     }
-    // prefer explicit leader-role champs
     for (let i = 0; i < team.length; i++) {
       if (hasRole(team[i].champ, 'leader') && (team[i].champ.leader || 0) >= (team[bestIdx].champ.leader || 0)) {
         bestIdx = i;
@@ -90,9 +107,8 @@ function buildWarTeams(owned) {
   let pool = owned.slice();
   const teams = [];
 
-  // Team 1 — Offense
   let r = fillTeam(pool, [
-    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
+    { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'fire') },
     { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasRole(c, 'pressure') },
     { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'control') || hasRole(c, 'flex') },
     { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || hasRole(c, 'fury') },
@@ -105,9 +121,8 @@ function buildWarTeams(owned) {
   });
   pool = r.remaining;
 
-  // Team 2 — Hold
   r = fillTeam(pool, [
-    { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
+    { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
     { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
     { label: 'Flex', prefer: c => true },
@@ -120,9 +135,8 @@ function buildWarTeams(owned) {
   });
   pool = r.remaining;
 
-  // Team 3 — Raid / Burst
   r = fillTeam(pool, [
-    { label: 'Raid', prefer: c => hasRole(c, 'raid') || (c.tags || []).includes('raid') },
+    { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
     { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') || hasRole(c, 'dragon') },
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
     { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || true },
@@ -135,9 +149,8 @@ function buildWarTeams(owned) {
   });
   pool = r.remaining;
 
-  // Team 4 — Flex
   r = fillTeam(pool, [
-    { label: 'Control', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') },
+    { label: 'Control', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') || hasTag(c, 'ice') },
     { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'flex') || hasRole(c, 'support') },
     { label: 'Flex', prefer: c => true },
     { label: 'Flex', prefer: c => true },
@@ -169,7 +182,7 @@ const MODE_PROFILES = {
     purpose: 'Raid pressure into enemy defenses.',
     how: 'Apply Raid, then damage. Control keeps the fight clean.',
     slots: [
-      { label: 'Raid', prefer: c => hasRole(c, 'raid') || (c.tags || []).includes('raid') },
+      { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
       { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
@@ -180,7 +193,7 @@ const MODE_PROFILES = {
     purpose: 'Taunt hold and punish attackers.',
     how: 'Taunt first. Sustain second. Keep a damage threat to punish.',
     slots: [
-      { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
+      { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
       { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
       { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'reinforce') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'flex') },
@@ -189,11 +202,11 @@ const MODE_PROFILES = {
   viserion: {
     name: 'Viserion',
     purpose: 'Raid + Brittle pressure. Avoid feeding Reinforces.',
-    how: 'Do not hit while Pacified. Stack Raid. Prefer Brittle tools. Skip pure Shield walls.',
+    how: 'Do not hit while Pacified. Stack Raid. Prefer Brittle / Ice tools. Skip pure Shield walls.',
     slots: [
-      { label: 'Raid', prefer: c => hasRole(c, 'raid') || (c.tags || []).includes('raid') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
-      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
+      { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'brittle') },
+      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') || hasTag(c, 'ice') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
     ]
   },
@@ -203,7 +216,7 @@ const MODE_PROFILES = {
     how: 'Favor fast pressure over pure tanks. Bring Raid if you have it.',
     slots: [
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasRole(c, 'pressure') },
-      { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasRole(c, 'pressure') },
+      { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasRole(c, 'pressure') || hasTag(c, 'raid') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
       { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'support') },
     ]
@@ -214,7 +227,7 @@ const MODE_PROFILES = {
     how: 'Protect Taunt. Skill every turn when rewarded. Fire/Bleed help.',
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
-      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') || hasTag(c, 'fire') || hasTag(c, 'bleed') },
       { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'support') },
       { label: 'Pressure', prefer: c => hasRole(c, 'pressure') || hasRole(c, 'fury') || hasRole(c, 'damage') },
     ]
@@ -222,9 +235,9 @@ const MODE_PROFILES = {
   icy: {
     name: 'Icy Viserion',
     purpose: 'Reinforce engines punish this boss.',
-    how: 'Lean Night King / Ice / Bran lines. Control skill cadence.',
+    how: 'Lean Night King / Ice / Bran lines. Control skill cadence. Be careful with pure Reinforce spam.',
     slots: [
-      { label: 'Reinforce', prefer: c => hasRole(c, 'reinforce') || (c.tags || []).includes('reinforce') },
+      { label: 'Reinforce', prefer: c => hasRole(c, 'reinforce') || hasTag(c, 'reinforce') || hasTag(c, 'ice') },
       { label: 'Reinforce', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'dragon') },
       { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'utility') || hasRole(c, 'sustain') },
@@ -234,7 +247,7 @@ const MODE_PROFILES = {
 
 function avatarHTML(c, size) {
   const s = size || 40;
-  return `<div style="width:${s}px;height:${s}px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:${s < 40 ? 10 : 12}px;flex-shrink:0;border:2px solid #c9a22733;background:${c.color};color:${c.text}">${c.initials}</div>`;
+  return `<div style="width:${s}px;height:${s}px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:${s < 40 ? 10 : 12}px;flex-shrink:0;border:2px solid #c9a22733;background:${c.color || '#333'};color:${c.text || '#fff'}">${c.initials || '?'}</div>`;
 }
 
 async function fetchChampions() {

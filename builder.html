@@ -46,9 +46,9 @@
 
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2">Team Builder</h1>
-    <p class="text-gray-400 mb-6">Uses the champions you marked in My Roster. Recommendations are role-based starting points — adjust for your stars and gear.</p>
+    <p class="text-gray-400 mb-6">Uses the champions you marked in My Roster. Recommendations are role- and tag-based starting points — adjust for your stars, gear, and what you know works.</p>
 
-    <div class="flex flex-wrap gap-2 mb-8">
+    <div class="flex flex-wrap gap-2 mb-8" id="modeButtons">
       <button data-mode="war" class="mode-btn bg-got-gold text-black font-bold px-4 py-2 rounded-lg text-sm">Alliance War (4 teams)</button>
       <button data-mode="raidAtk" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Raid Attack</button>
       <button data-mode="raidDef" class="mode-btn card px-4 py-2 rounded-lg text-sm hover:border-got-gold transition">Raid Defense</button>
@@ -74,7 +74,7 @@
   <script src="app.js"></script>
   <script>
     let allChamps = [];
-    let ownedIds = loadRoster();
+    let roster = loadRoster();
 
     function setActive(mode) {
       document.querySelectorAll('.mode-btn').forEach(b => {
@@ -86,9 +86,25 @@
       });
     }
 
+    function teamCard(title, purpose, how, team) {
+      const members = team.map(t => `
+        <div class="bg-black/30 rounded-lg p-3 text-center">
+          ${avatarHTML(t.champ, 48)}
+          <div class="text-xs mt-1.5 font-medium truncate">${t.champ.name}</div>
+          <div class="text-[10px] text-got-gold mt-0.5">${t.roleLabel}</div>
+        </div>`).join('');
+      return `
+        <div class="card rounded-xl p-5">
+          <div class="text-got-gold font-bold text-sm mb-1">${title}</div>
+          <p class="text-sm text-gray-300 mb-1">${purpose}</p>
+          <p class="text-xs text-gray-500 mb-4">${how}</p>
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">${members}</div>
+        </div>`;
+    }
+
     function renderMode(mode) {
       setActive(mode);
-      const owned = allChamps.filter(c => ownedIds.includes(c.id));
+      const owned = ownedChampions(allChamps, roster);
       const el = document.getElementById('results');
 
       if (owned.length < 5) {
@@ -98,22 +114,15 @@
 
       if (mode === 'war') {
         const teams = buildWarTeams(owned);
-        el.innerHTML = teams.map((t, i) => `
-          <div class="card rounded-xl p-5">
-            <div class="text-got-gold font-bold text-sm mb-3">TEAM ${i+1}</div>
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-              ${t.map(c => `<div class="bg-black/30 rounded-lg p-2 text-center">${avatarHTML(c, 48)}<div class="text-xs mt-1 truncate">${c.name}</div></div>`).join('')}
-            </div>
-          </div>`).join('');
+        el.innerHTML = teams.map(t => teamCard(t.name, t.purpose, t.how, t.team)).join('');
       } else {
-        const team = buildSingleTeam(owned, mode);
-        el.innerHTML = `
-          <div class="card rounded-xl p-5">
-            <div class="text-got-gold font-bold text-sm mb-3">RECOMMENDED TEAM</div>
-            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-              ${team.map(c => `<div class="bg-black/30 rounded-lg p-2 text-center">${avatarHTML(c, 48)}<div class="text-xs mt-1 truncate">${c.name}</div></div>`).join('')}
-            </div>
-          </div>`;
+        const profile = MODE_PROFILES[mode];
+        if (!profile) {
+          el.innerHTML = '<div class="card p-5">Unknown mode</div>';
+          return;
+        }
+        const result = buildSingleTeam(owned, mode, profile);
+        el.innerHTML = teamCard(result.name, result.purpose, result.how, result.team);
       }
     }
 
