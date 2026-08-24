@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GOT Legends Guide – Build smarter teams</title>
-  <meta name="description" content="Build smarter teams from YOUR roster. Raid, War, and Dragon recommendations for Game of Thrones: Legends. Status effects, faction bonuses, and practical strategy." />
+  <meta name="description" content="Build smarter teams from YOUR roster. Raid, War, and Dragon recommendations for Game of Thrones: Legends. Status effects, faction bonuses, Ally pairs, and practical strategy." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -40,11 +40,12 @@
           <div class="text-xs text-gray-400">Build smarter teams</div>
         </div>
       </a>
-      <nav class="hidden md:flex gap-4 text-sm">
+      <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
         <a href="roster.html" class="hover:text-got-gold transition">My Roster</a>
         <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
-        <a href="status-effects.html" class="hover:text-got-gold transition">Status Effects</a>
+        <a href="status-effects.html" class="hover:text-got-gold transition">Status</a>
         <a href="factions.html" class="hover:text-got-gold transition">Factions</a>
+        <a href="allies.html" class="hover:text-got-gold transition">Allies</a>
         <a href="champions.html" class="hover:text-got-gold transition">Champions</a>
       </nav>
     </div>
@@ -81,9 +82,9 @@
       <div class="text-got-gold font-bold text-xs mb-1">FACTIONS</div>
       <div class="font-semibold group-hover:text-got-gold transition text-sm">Bonuses explained</div>
     </a>
-    <a href="#raids" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
-      <div class="text-got-gold font-bold text-xs mb-1">GUIDE</div>
-      <div class="font-semibold group-hover:text-got-gold transition text-sm">Strategy samples</div>
+    <a href="allies.html" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
+      <div class="text-got-gold font-bold text-xs mb-1">ALLY PAIRS</div>
+      <div class="font-semibold group-hover:text-got-gold transition text-sm">Gems & partners</div>
     </a>
     <a href="champions.html" class="card rounded-xl p-4 hover:border-got-gold transition group text-center">
       <div class="text-got-gold font-bold text-xs mb-1">CHAMPIONS</div>
@@ -99,9 +100,10 @@
     </div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
-      <strong class="gold">New & important:</strong>
-      Read the <a href="status-effects.html" class="text-got-gold underline">Status Effects Glossary</a> so you actually understand Wound, Brittle, Raid, Fury, Enraged, etc.
-      Check <a href="factions.html" class="text-got-gold underline">Faction Bonuses</a> so you know when pure faction is worth it versus hybrid.
+      <strong class="gold">Important pages:</strong>
+      <a href="status-effects.html" class="text-got-gold underline">Status Effects Glossary</a> (Wound, Brittle, Raid, Fury, Enraged, etc.) ·
+      <a href="factions.html" class="text-got-gold underline">Faction Bonuses</a> ·
+      <a href="allies.html" class="text-got-gold underline">Ally Pairs</a> (special gems).
     </div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
@@ -234,6 +236,7 @@
         <p>• Spread Raid and Taunt across War teams — don’t stack every key tool on Team 1.</p>
         <p>• Four complete teams beat three perfect ones and one empty shell.</p>
         <p>• Faction bonuses are strong, but status interactions (Ice→Brittle, Fury→Enraged, Wound shutting heals) often win harder content.</p>
+        <p>• Ally gems are free value when both partners are available — check the <a href="allies.html" class="text-got-gold underline">Allies page</a>.</p>
         <p>• Builder suggestions are role-based starting points. Adjust for stars, gear, and what you know works.</p>
       </div>
     </details>
@@ -245,7 +248,7 @@
       <div class="px-6 pb-6 border-t border-got-border pt-5 text-sm text-gray-300 space-y-3">
         <p>• Built with <strong>Old Peeps on Porches</strong> in mind — public tools work for any player.</p>
         <p>• Roster data stays in <strong>your browser only</strong> (no account).</p>
-        <p>• Status Effects and Faction pages will keep growing as more exact tooltip text is added.</p>
+        <p>• Status Effects, Factions, and Allies pages grow as more exact tooltip text is added.</p>
       </div>
     </details>
   </section>
