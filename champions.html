@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Champions – GOT Legends Guide</title>
-  <meta name="description" content="Champion roles and tags for Game of Thrones: Legends team building." />
+  <meta name="description" content="Champion roles, tags, and Ally partners for Game of Thrones: Legends." />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -39,26 +39,31 @@
         <a href="builder.html" class="hover:text-got-gold transition">Team Builder</a>
         <a href="status-effects.html" class="hover:text-got-gold transition">Status Effects</a>
         <a href="factions.html" class="hover:text-got-gold transition">Factions</a>
+        <a href="allies.html" class="hover:text-got-gold transition">Allies</a>
         <a href="champions.html" class="text-got-gold font-semibold">Champions</a>
       </nav>
     </div>
   </header>
 
-  <section class="max-w-6xl mx-auto px-4 py-12">
-    <h1 class="text-4xl font-bold mb-3">Champions</h1>
-    <p class="text-gray-400 max-w-3xl mb-6">
-      Role reference for the guide and Team Builder. To mark what you own, use
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-2">Champions</h1>
+    <p class="text-gray-400 max-w-3xl mb-4">
+      Roles, tags, and Ally notes used by the Team Builder. Mark ownership in
       <a href="roster.html" class="text-got-gold underline">My Roster</a>.
     </p>
+
+    <div class="mb-6">
+      <input id="search" type="search" placeholder="Search name, role, tag, ally…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm outline-none focus:border-got-gold" />
+    </div>
 
     <div class="card rounded-xl p-5 text-sm text-gray-300 mb-8">
       <strong class="gold">Quick picks by job</strong>
       <ul class="mt-2 space-y-1">
-        <li>• <strong>Raid:</strong> Euron · Yara · Raid-tagged dragons</li>
-        <li>• <strong>Taunt:</strong> Brienne · Meryn · Sandor</li>
-        <li>• <strong>Sustain:</strong> Corlys · Cersei · Laenor · Craster</li>
-        <li>• <strong>Damage:</strong> Daemon · Gregor · dragons · Arya · Jaime</li>
-        <li>• <strong>Control:</strong> Night King · Ned · Jon · Tywin · Jaqen</li>
+        <li>• <strong>Raid:</strong> Euron · Yara · Laenor · Raid-tagged dragons</li>
+        <li>• <strong>Taunt:</strong> Brienne · Sandor · Meryn · Jorah · Duncan</li>
+        <li>• <strong>Sustain / Heal:</strong> Corlys · Cersei · Laenor · Beric · Thoros</li>
+        <li>• <strong>Damage:</strong> Daemon · Gregor · dragons · Arya · Oberyn · Khal Drogo</li>
+        <li>• <strong>Control:</strong> Night King · Ned · Tywin · Jaqen · Olenna · Nymeria</li>
       </ul>
     </div>
 
@@ -66,31 +71,49 @@
 
     <div class="card rounded-xl p-5 text-sm text-gray-300">
       <strong class="gold">Also useful:</strong>
-      <a href="status-effects.html" class="text-got-gold underline">Status Effects Glossary</a> ·
+      <a href="allies.html" class="text-got-gold underline">Ally Pairs</a> ·
+      <a href="status-effects.html" class="text-got-gold underline">Status Effects</a> ·
       <a href="factions.html" class="text-got-gold underline">Faction Bonuses</a> ·
-      <a href="roster.html" class="text-got-gold underline">My Roster</a> ·
       <a href="builder.html" class="text-got-gold underline">Team Builder</a>
     </div>
   </section>
 
   <footer class="border-t border-got-border py-8 text-center text-sm text-gray-500">
     <div class="font-medium text-gray-400">gotlegendsguide.com</div>
-    <div class="mt-1">Library grows as we add more champions</div>
+    <div class="mt-1">Library grows as more exact data is added</div>
   </footer>
 
   <script src="app.js"></script>
   <script>
-    fetchChampions().then(champs => {
-      const el = document.getElementById('list');
-      el.innerHTML = champs.sort((a,b) => a.name.localeCompare(b.name)).map(c => `
-        <div class="card rounded-xl p-4 flex gap-3">
-          ${avatarHTML(c, 48)}
-          <div class="min-w-0">
-            <div class="font-semibold">${c.name}</div>
-            <div class="text-xs text-got-gold">${(c.roles || []).join(' · ')}</div>
-            <p class="text-xs text-gray-400 mt-1">${c.why || ''}</p>
+    let all = [];
+
+    function render(filter) {
+      const q = (filter || '').toLowerCase().trim();
+      const filtered = all.filter(c => {
+        if (!q) return true;
+        const hay = [c.name, ...(c.roles||[]), ...(c.tags||[]), c.ally || '', c.why || ''].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+      document.getElementById('list').innerHTML = filtered.map(c => `
+        <div class="card rounded-xl p-4">
+          <div class="flex gap-3">
+            ${avatarHTML(c, 48)}
+            <div class="min-w-0 flex-1">
+              <div class="font-semibold">${c.name}</div>
+              <div class="text-xs text-got-gold">${(c.roles || []).join(' · ')}</div>
+              ${(c.tags && c.tags.length) ? `<div class="text-[11px] text-gray-500 mt-0.5">${c.tags.join(' · ')}</div>` : ''}
+              ${c.ally ? `<div class="text-[11px] text-gray-400 mt-1">Ally: ${c.ally}</div>` : ''}
+            </div>
           </div>
-        </div>`).join('');
+          <p class="text-xs text-gray-400 mt-2">${c.why || ''}</p>
+        </div>`).join('') || '<p class="text-gray-500 col-span-full">No matches.</p>';
+    }
+
+    document.getElementById('search').addEventListener('input', e => render(e.target.value));
+
+    fetchChampions().then(champs => {
+      all = champs.sort((a,b) => a.name.localeCompare(b.name));
+      render('');
     });
   </script>
 </body>
