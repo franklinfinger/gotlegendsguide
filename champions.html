@@ -22,7 +22,6 @@
       border-radius: 9999px;
       margin: 1px 2px 1px 0;
       font-weight: 600;
-      letter-spacing: 0.02em;
     }
     .tag-fire, .tag-wound, .tag-aoe, .tag-warmonger { background: #3a1814; color: #f0a090; border: 1px solid #e85d4c55; }
     .tag-ice, .tag-brittle, .tag-reinforce, .tag-pacify { background: #122030; color: #8ec4e8; border: 1px solid #5b9fd455; }
@@ -38,6 +37,8 @@
     .role-raid, .role-leader { color: #c9a227; }
     .role-sustain, .role-heal, .role-support { color: #7cb342; }
     .role-utility, .role-flex { color: #d4783a; }
+    .chip { font-size: 11px; padding: 4px 10px; border-radius: 9999px; border: 1px solid #2e2e38; background: #141418; color: #a8a6a1; cursor: pointer; }
+    .chip.active { border-color: #c9a227; color: #c9a227; background: #1e1a12; }
   </style>
 </head>
 <body class="min-h-screen">
@@ -56,11 +57,23 @@
       <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
         <a href="roster.html" class="nav-link transition">My Roster</a>
         <a href="builder.html" class="nav-link transition">Team Builder</a>
+        <a href="dragons.html" class="nav-link transition">Dragons</a>
         <a href="status-effects.html" class="nav-link transition">Status</a>
         <a href="factions.html" class="nav-link transition">Factions</a>
         <a href="allies.html" class="nav-link transition">Allies</a>
         <a href="champions.html" class="text-[#c9a227] font-semibold">Champions</a>
       </nav>
+    </div>
+    <div class="md:hidden overflow-x-auto border-t border-[#2e2e38]">
+      <div class="flex gap-1 px-3 py-2 text-xs whitespace-nowrap">
+        <a href="roster.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Roster</a>
+        <a href="builder.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Builder</a>
+        <a href="dragons.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Dragons</a>
+        <a href="status-effects.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Status</a>
+        <a href="factions.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Factions</a>
+        <a href="allies.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Allies</a>
+        <a href="champions.html" class="px-3 py-1.5 rounded-full bg-[#1e1a12] text-[#c9a227] font-semibold">Champions</a>
+      </div>
     </div>
   </header>
 
@@ -71,8 +84,12 @@
       <a href="roster.html" class="text-[#c9a227] underline">My Roster</a>.
     </p>
 
-    <div class="mb-6">
+    <div class="mb-4">
       <input id="search" type="search" placeholder="Search name, role, tag, ally…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm outline-none focus:border-[#c9a227] text-[#e8e6e3] placeholder-[#6a6660]" />
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-6" id="factionChips">
+      <button type="button" class="chip active" data-faction="all">All</button>
     </div>
 
     <div class="card rounded-xl p-5 text-sm mb-8 border-l-4 border-l-[#c9a227]">
@@ -87,12 +104,14 @@
     </div>
 
     <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
+    <p class="text-xs text-[#6a6660] mb-6" id="resultCount"></p>
 
     <div class="card rounded-xl p-5 text-sm text-[#b8b4ae]">
       <strong class="text-[#c9a227]">Also useful:</strong>
       <a href="allies.html" class="text-[#d4783a] underline">Ally Pairs</a> ·
       <a href="status-effects.html" class="text-[#5b9fd4] underline">Status Effects</a> ·
       <a href="factions.html" class="text-[#7cb342] underline">Faction Bonuses</a> ·
+      <a href="dragons.html" class="text-[#e85d4c] underline">Dragons</a> ·
       <a href="builder.html" class="text-[#e85d4c] underline">Team Builder</a>
     </div>
   </section>
@@ -105,6 +124,7 @@
   <script src="app.js"></script>
   <script>
     let all = [];
+    let factionFilter = 'all';
 
     function tagClass(t) {
       const map = {
@@ -128,16 +148,22 @@
       return 'role-utility';
     }
 
-    function render(filter) {
-      const q = (filter || '').toLowerCase().trim();
+    function render() {
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
       const filtered = all.filter(c => {
+        if (factionFilter !== 'all') {
+          const facs = (c.factions || []).map(f => f.toLowerCase());
+          if (!facs.includes(factionFilter.toLowerCase())) return false;
+        }
         if (!q) return true;
-        const hay = [c.name, ...(c.roles||[]), ...(c.tags||[]), c.ally || '', c.why || ''].join(' ').toLowerCase();
+        const hay = [c.name, ...(c.roles||[]), ...(c.tags||[]), ...(c.factions||[]), c.ally || '', c.why || ''].join(' ').toLowerCase();
         return hay.includes(q);
       });
+      document.getElementById('resultCount').textContent = filtered.length + ' champions shown';
       document.getElementById('list').innerHTML = filtered.map(c => {
         const roles = (c.roles || []).map(r => `<span class="${roleClass(r)} font-medium">${r}</span>`).join(' · ');
         const tags = (c.tags || []).map(t => `<span class="tag ${tagClass(t)}">${t}</span>`).join('');
+        const facs = (c.factions || []).join(' · ');
         return `
         <div class="card rounded-xl p-4 hover:border-[#c9a227]/40 transition">
           <div class="flex gap-3">
@@ -145,6 +171,7 @@
             <div class="min-w-0 flex-1">
               <div class="font-semibold text-[#f0ebe0]">${c.name}</div>
               <div class="text-xs mt-0.5">${roles}</div>
+              ${facs ? `<div class="text-[11px] text-[#6a6660] mt-0.5">${facs}</div>` : ''}
               ${tags ? `<div class="mt-1.5">${tags}</div>` : ''}
               ${c.ally ? `<div class="text-[11px] text-[#d4783a] mt-1.5">Ally: ${c.ally}</div>` : ''}
             </div>
@@ -154,11 +181,29 @@
       }).join('') || '<p class="text-[#6a6660] col-span-full">No matches.</p>';
     }
 
-    document.getElementById('search').addEventListener('input', e => render(e.target.value));
+    document.getElementById('search').addEventListener('input', render);
 
     fetchChampions().then(champs => {
       all = champs.sort((a,b) => a.name.localeCompare(b.name));
-      render('');
+      const facSet = new Set();
+      all.forEach(c => (c.factions || []).forEach(f => facSet.add(f)));
+      const chips = document.getElementById('factionChips');
+      [...facSet].sort().forEach(f => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'chip';
+        btn.dataset.faction = f;
+        btn.textContent = f;
+        chips.appendChild(btn);
+      });
+      chips.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          factionFilter = btn.dataset.faction;
+          chips.querySelectorAll('.chip').forEach(b => b.classList.toggle('active', b === btn));
+          render();
+        });
+      });
+      render();
     });
   </script>
 </body>
