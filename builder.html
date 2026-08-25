@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Team Builder – GOT Legends Guide</title>
+  <title>Team Builder – Old Peeps on Porches</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: #0a0a0c; color: #e8e6e3; }
@@ -17,13 +17,13 @@
   <div class="accent-bar"></div>
   <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
-      <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm">GOT</div><div><div class="font-bold text-lg text-[#f0ebe0]">GOT Legends Guide</div><div class="text-xs text-[#8a8680]">Build smarter teams</div></div></a>
+      <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm">GOT</div><div><div class="font-bold text-lg text-[#f0ebe0]">GOT Legends Guide</div><div class="text-xs text-[#c9a227]">Old Peeps on Porches</div></div></a>
       <nav class="hidden md:flex gap-3 text-sm"><a href="roster.html" class="nav-link">My Roster</a><a href="builder.html" class="text-[#e85d4c] font-semibold">Team Builder</a><a href="dragons.html" class="nav-link">Dragons</a><a href="status-effects.html" class="nav-link">Status</a><a href="factions.html" class="nav-link">Factions</a><a href="allies.html" class="nav-link">Allies</a><a href="champions.html" class="nav-link">Champions</a></nav>
     </div>
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Team Builder</h1>
-    <p class="text-[#9a9690] mb-6">Uses champions marked in My Roster. Role-based starting points — gem boards and investment still decide fights.</p>
+    <p class="text-[#9a9690] mb-6">Uses champions marked in My Roster. Role-based starting points — gem boards and investment still decide fights. Composition matters more than total might.</p>
     <div class="flex flex-wrap gap-2 mb-8">
       <button data-mode="war" class="mode-btn bg-gradient-to-r from-[#c9a227] to-[#b8921f] text-black font-bold px-4 py-2 rounded-lg text-sm">Alliance War (4 teams)</button>
       <button data-mode="raidAtk" class="mode-btn card px-4 py-2 rounded-lg text-sm">Raid Attack</button>
@@ -35,6 +35,10 @@
     </div>
     <div id="results" class="space-y-6"></div>
   </section>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
+    <div class="mt-1">gotlegendsguide.com</div>
+  </footer>
   <script src="app.js"></script>
   <script>
     let allChamps = [];
