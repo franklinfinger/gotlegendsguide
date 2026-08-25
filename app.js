@@ -1,6 +1,6 @@
-/* GOT Legends Guide — roster + team builder v3
-   Leader selection follows mode needs, not highest leader skill number.
-   Scores rebalanced toward teams seen in real raid/war screenshots. */
+/* GOT Legends Guide — roster + team builder v4
+   Leader selection follows mode needs.
+   Champions loaded from champions-part1.json + champions-part2.json (full 134 roster). */
 const STORAGE_KEY = 'gotlg_roster_v1';
 
 function loadRoster() {
@@ -48,17 +48,16 @@ function hasTag(c, tag) {
   return (c.tags || []).includes(tag);
 }
 
-/* Mode scores dominate. Leader skill is a small tie-break only — not a free pass to lead every team. */
 function scoreChamp(c, modeKey) {
   const base = (c.scores && c.scores[modeKey]) || 0;
-  let bonus = (c.leader || 0); // was *2 — that made Daemon win every sort
+  let bonus = (c.leader || 0);
   if (c.rarity === 'legendary') bonus += 1;
   const tags = c.tags || [];
   if (modeKey === 'viserion' && (tags.includes('raid') || tags.includes('ice') || tags.includes('brittle'))) bonus += 3;
   if (modeKey === 'icy' && (tags.includes('reinforce') || tags.includes('ice'))) bonus += 3;
   if ((modeKey === 'raidAtk' || modeKey === 'war') && tags.includes('raid')) bonus += 3;
   if (modeKey === 'raidDef' && (tags.includes('taunt') || hasRole(c, 'taunt'))) bonus += 3;
-  if (modeKey === 'rhaegal' && (tags.includes('bleed') || tags.includes('fire') || tags.includes('taunt'))) bonus += 2;
+  if (modeKey === 'rhaegal' && (tags.includes('bleed') || tags.includes('fire') || tags.includes('taunt') || tags.includes('poison'))) bonus += 2;
   if (modeKey === 'drogon' && (tags.includes('fire') || hasRole(c, 'pressure'))) bonus += 2;
   return base * 10 + bonus;
 }
@@ -75,12 +74,6 @@ function removeFrom(pool, champ) {
   return pool.filter(c => c.id !== champ.id);
 }
 
-/**
- * preferredLeader: optional (champ) => bool
- * If set, Leader is chosen among matching champs on the team (highest leader skill among them).
- * If none match, the FIRST filled slot stays Leader (that slot is the mode's primary tool).
- * Never promotes a high-leader-skill damage champ over the mode's intended leader type.
- */
 function fillTeam(pool, slots, modeKey, preferredLeader) {
   const team = [];
   let remaining = pool.slice();
@@ -97,9 +90,8 @@ function fillTeam(pool, slots, modeKey, preferredLeader) {
     team.push({ champ: pick, roleLabel: 'Flex' });
     remaining = removeFrom(remaining, pick);
   }
-
   if (team.length) {
-    let leaderIdx = 0; // default: first slot = mode's primary role
+    let leaderIdx = 0;
     if (typeof preferredLeader === 'function') {
       let best = -1;
       let bestLeaderVal = -1;
@@ -124,8 +116,6 @@ function buildWarTeams(owned) {
   let pool = owned.slice();
   const teams = [];
 
-  // Team 1 — Offense: Lannister / real damage cores seen in screenshots (Gregor, Jaime, Arya, Oberyn)
-  // NOT auto-Daemon. Prefer damage + control openers.
   let r = fillTeam(pool, [
     { label: 'Damage', prefer: c => hasRole(c, 'damage') && !hasRole(c, 'dragon') },
     { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
@@ -135,12 +125,11 @@ function buildWarTeams(owned) {
   teams.push({
     name: 'Team 1 — Offense',
     purpose: 'Primary damage and pressure. Place where the fight is hardest.',
-    how: 'Open with control (Poison / Wound / strip), then finish. Composition beats raw might.',
+    how: 'Open with control (Poison / Wound / strip), then finish. Composition beats raw might — gem board still matters.',
     ...r
   });
   pool = r.remaining;
 
-  // Team 2 — Hold: Taunt + sustain (Brienne, Meryn, Sandor, Cersei, Corlys)
   r = fillTeam(pool, [
     { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
     { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
@@ -155,7 +144,6 @@ function buildWarTeams(owned) {
   });
   pool = r.remaining;
 
-  // Team 3 — Raid / Burst: Euron leads when available
   r = fillTeam(pool, [
     { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
     { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') },
@@ -165,12 +153,11 @@ function buildWarTeams(owned) {
   teams.push({
     name: 'Team 3 — Raid / Burst',
     purpose: 'Apply Raid and burst tanky defenses.',
-    how: 'Land Raid first (Euron when you have him), then dump damage.',
+    how: 'Land Raid first (Euron / Victarion when you have them), then dump damage.',
     ...r
   });
   pool = r.remaining;
 
-  // Team 4 — Flex / Ice / leftovers
   r = fillTeam(pool, [
     { label: 'Control', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') || hasTag(c, 'ice') },
     { label: 'Utility', prefer: c => hasRole(c, 'utility') || hasRole(c, 'flex') || hasRole(c, 'support') },
@@ -214,7 +201,7 @@ const MODE_PROFILES = {
   raidDef: {
     name: 'Raid Defense',
     purpose: 'Taunt hold and punish attackers.',
-    how: 'Taunt first (Brienne / Meryn / Sandor). Sustain second. Screenshot defenses often stack Taunt + Lannister sustain + control.',
+    how: 'Taunt first (Brienne / Barristan / Meryn / Sandor). Sustain second.',
     preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
@@ -226,7 +213,7 @@ const MODE_PROFILES = {
   viserion: {
     name: 'Viserion',
     purpose: 'Raid + Brittle pressure. Avoid feeding Reinforces.',
-    how: 'Do not hit while Pacified. Stack Raid (Euron). Prefer Ice/Brittle tools. Skip pure Shield walls.',
+    how: 'Do not hit while Pacified. Stack Raid. Prefer Brittle / Ice tools. Skip pure Shield walls.',
     preferredLeader: c => hasRole(c, 'raid') || hasTag(c, 'raid'),
     slots: [
       { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
@@ -238,7 +225,7 @@ const MODE_PROFILES = {
   drogon: {
     name: 'Drogon',
     purpose: 'Speed and real damage. Shields can be erased.',
-    how: 'Favor fast pressure. Raid helps open. Fire lines help — Daemon only shines with multiple dragons, not as a default solo carry.',
+    how: 'Favor fast pressure. Raid helps open. Fire lines help — multi-dragon is a special case, not the default.',
     preferredLeader: c => (hasRole(c, 'damage') || hasRole(c, 'pressure')) && (hasTag(c, 'fire') || hasRole(c, 'raid') || hasTag(c, 'raid')),
     slots: [
       { label: 'Damage', prefer: c => hasRole(c, 'damage') && !hasRole(c, 'dragon') },
@@ -249,8 +236,8 @@ const MODE_PROFILES = {
   },
   rhaegal: {
     name: 'Rhaegal',
-    purpose: 'Bleed / Fire pressure with a protected Taunter.',
-    how: 'Protect Taunt (Brienne / Sandor / Jorah). Skill when rewarded. Bleed/Fire/Poison (Oberyn, Olenna) help grind.',
+    purpose: 'Bleed / Fire / Poison pressure with a protected Taunter.',
+    how: 'Protect Taunt. Skill when rewarded. Bleed/Fire/Poison (Oberyn, Olenna, Ellaria) help grind.',
     preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
@@ -279,7 +266,17 @@ function avatarHTML(c, size) {
 }
 
 async function fetchChampions() {
-  const res = await fetch('champions.json');
-  const data = await res.json();
-  return data.champions || [];
+  // Full library is split across two parts so we stay under push size limits
+  const [a, b] = await Promise.all([
+    fetch('champions-part1.json').then(r => r.json()),
+    fetch('champions-part2.json').then(r => r.json())
+  ]);
+  const list = [...(a.champions || []), ...(b.champions || [])];
+  // de-dupe by id just in case
+  const seen = new Set();
+  return list.filter(c => {
+    if (seen.has(c.id)) return false;
+    seen.add(c.id);
+    return true;
+  });
 }
