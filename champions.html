@@ -25,23 +25,12 @@
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Champions</h1>
-    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions only. Factions match the in-game banner.</p>
+    <p class="text-[#9a9690] mb-4">78 gold (Legendary) champions from your roster screenshots. No invented fillers.</p>
     <input id="search" type="search" placeholder="Search name…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm mb-4 outline-none focus:border-[#c9a227]" />
     <div class="flex flex-wrap gap-2 mb-6" id="factionChips"><button type="button" class="chip active" data-faction="all">All</button></div>
-    <div class="card rounded-xl p-5 text-sm mb-8 border-l-4 border-l-[#c9a227]">
-      <strong class="text-[#c9a227]">Quick picks by job</strong>
-      <ul class="mt-2 space-y-1 text-[#b8b4ae]">
-        <li>• <strong class="text-[#c9a227]">Raid:</strong> Euron · Yara · Laenor</li>
-        <li>• <strong class="text-[#8b9dc3]">Taunt:</strong> Brienne · Barristan · Sandor · Jorah</li>
-        <li>• <strong class="text-[#7cb342]">Sustain / Heal:</strong> Corlys · Cersei · Laenor · Margaery</li>
-        <li>• <strong class="text-[#e85d4c]">Damage:</strong> Gregor · Jaime · Arya · Oberyn · Khal Drogo</li>
-        <li>• <strong class="text-[#5b9fd4]">Control:</strong> Night King · Ned · Tywin · Jaqen · Olenna · Nymeria</li>
-      </ul>
-    </div>
     <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
     <p class="text-xs text-[#6a6660]" id="resultCount"></p>
   </section>
-  <script src="champions-embed.js"></script>
   <script src="app.js"></script>
   <script>
     let all = [];
@@ -50,8 +39,7 @@
       const q = (document.getElementById('search').value || '').toLowerCase().trim();
       const filtered = all.filter(c => {
         if (factionFilter !== 'all') {
-          const facs = (c.factions || []).map(f => f.toLowerCase());
-          if (!facs.includes(factionFilter.toLowerCase())) return false;
+          if (!(c.factions || []).map(f => f.toLowerCase()).includes(factionFilter.toLowerCase())) return false;
         }
         if (!q) return true;
         return (c.name + ' ' + (c.roles||[]).join(' ') + ' ' + (c.factions||[]).join(' ')).toLowerCase().includes(q);

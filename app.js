@@ -1,4 +1,4 @@
-/* GOT Legends Guide — logic. Champions come from champions-embed.js (load that script first). */
+/* GOT Legends Guide — logic. Legendary roster from champions-part1.json + champions-part2.json (78 from user roster screenshots). */
 const STORAGE_KEY = 'gotlg_roster_v1';
 
 function loadRoster() {
@@ -198,8 +198,22 @@ function avatarHTML(c, size) {
   return `<div style="width:${s}px;height:${s}px;border-radius:9999px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:${s < 40 ? 10 : 12}px;flex-shrink:0;border:2px solid #c9a22733;background:${c.color || '#333'};color:${c.text || '#fff'}">${c.initials || '?'}</div>`;
 }
 async function fetchChampions() {
-  if (typeof EMBEDDED_CHAMPIONS !== 'undefined' && EMBEDDED_CHAMPIONS.length) {
-    return EMBEDDED_CHAMPIONS.slice();
+  try {
+    const [a, b] = await Promise.all([
+      fetch('champions-part1.json').then(r => r.json()),
+      fetch('champions-part2.json').then(r => r.json())
+    ]);
+    const list = [...(a.champions || []), ...(b.champions || [])];
+    const seen = new Set();
+    return list.filter(c => {
+      if (seen.has(c.id)) return false;
+      seen.add(c.id);
+      return true;
+    });
+  } catch (e) {
+    if (typeof EMBEDDED_CHAMPIONS !== 'undefined' && EMBEDDED_CHAMPIONS.length) {
+      return EMBEDDED_CHAMPIONS.slice();
+    }
+    return [];
   }
-  return [];
 }

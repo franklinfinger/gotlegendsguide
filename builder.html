@@ -23,8 +23,8 @@
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Team Builder</h1>
-    <p class="text-[#9a9690] mb-6">Uses champions marked in My Roster. Starting points based on roles — gem boards and investment still decide fights.</p>
-    <div class="flex flex-wrap gap-2 mb-8" id="modeButtons">
+    <p class="text-[#9a9690] mb-6">Uses champions marked in My Roster. Role-based starting points — gem boards and investment still decide fights.</p>
+    <div class="flex flex-wrap gap-2 mb-8">
       <button data-mode="war" class="mode-btn bg-gradient-to-r from-[#c9a227] to-[#b8921f] text-black font-bold px-4 py-2 rounded-lg text-sm">Alliance War (4 teams)</button>
       <button data-mode="raidAtk" class="mode-btn card px-4 py-2 rounded-lg text-sm">Raid Attack</button>
       <button data-mode="raidDef" class="mode-btn card px-4 py-2 rounded-lg text-sm">Raid Defense</button>
@@ -34,11 +34,7 @@
       <button data-mode="icy" class="mode-btn card px-4 py-2 rounded-lg text-sm">Icy Viserion</button>
     </div>
     <div id="results" class="space-y-6"></div>
-    <div class="card rounded-xl p-5 mt-8 text-sm text-[#8a8680] border-l-4 border-l-[#c9a227]">
-      <p>Mark champions in <a href="roster.html" class="text-[#c9a227] underline">My Roster</a> first.</p>
-    </div>
   </section>
-  <script src="champions-embed.js"></script>
   <script src="app.js"></script>
   <script>
     let allChamps = [];
@@ -52,7 +48,7 @@
     }
     function teamCard(title, purpose, how, team, accent) {
       const color = accent || '#c9a227';
-      const members = team.map(t => `<div class="rounded-lg p-3 text-center" style="background:rgba(0,0,0,0.35);border:1px solid ${color}22">${avatarHTML(t.champ, 48)}<div class="text-xs mt-1.5 font-medium truncate text-[#e8e6e3]">${t.champ.name}</div><div class="text-[10px] mt-0.5 font-semibold" style="color:${color}">${t.roleLabel}</div></div>`).join('');
+      const members = team.map(t => `<div class="rounded-lg p-3 text-center" style="background:rgba(0,0,0,0.35);border:1px solid ${color}22">${avatarHTML(t.champ, 48)}<div class="text-xs mt-1.5 font-medium truncate">${t.champ.name}</div><div class="text-[10px] mt-0.5 font-semibold" style="color:${color}">${t.roleLabel}</div></div>`).join('');
       return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-sm mb-1" style="color:${color}">${title}</div><p class="text-sm text-[#c8c4be] mb-1">${purpose}</p><p class="text-xs text-[#8a8680] mb-4">${how}</p><div class="grid grid-cols-2 sm:grid-cols-5 gap-3">${members}</div></div>`;
     }
     const accents = { war: ['#e85d4c','#5b9fd4','#c9a227','#8b9dc3'], raidAtk: '#e85d4c', raidDef: '#5b9fd4', viserion: '#5b9fd4', drogon: '#e85d4c', rhaegal: '#7cb342', icy: '#8b9dc3' };
@@ -68,8 +64,7 @@
         const teams = buildWarTeams(owned);
         el.innerHTML = teams.map((t, i) => teamCard(t.name, t.purpose, t.how, t.team, accents.war[i % 4])).join('');
       } else {
-        const profile = MODE_PROFILES[mode];
-        const result = buildSingleTeam(owned, mode, profile);
+        const result = buildSingleTeam(owned, mode, MODE_PROFILES[mode]);
         el.innerHTML = teamCard(result.name, result.purpose, result.how, result.team, accents[mode]);
       }
     }
