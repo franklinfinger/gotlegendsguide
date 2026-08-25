@@ -94,15 +94,15 @@ function buildWarTeams(owned) {
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') || hasTag(c, 'poison') },
     { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || hasRole(c, 'utility') },
   ], 'war', c => hasRole(c, 'leader') && (hasRole(c, 'damage') || hasRole(c, 'control') || hasTag(c, 'treasury') || hasTag(c, 'wound')));
-  teams.push({ name: 'Team 1 — Offense', purpose: 'Primary damage and pressure.', how: 'Open with control, then finish. Composition beats raw might.', ...r });
+  teams.push({ name: 'Team 1 — Free Cities Offense', purpose: 'Primary attack. Highest ceiling.', how: 'Drogo stamina loop + Nymeria/Gregor damage. Use vs strongest or unknown defenses.', ...r });
   pool = r.remaining;
   r = fillTeam(pool, [
     { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
     { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
     { label: 'Flex', prefer: c => true },
-  ], 'war', c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'));
-  teams.push({ name: 'Team 2 — Hold', purpose: 'Taunt + sustain to outlast contested outposts.', how: 'Keep Taunt up. Let sustain do the work.', ...r });
+  ], 'war', c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') || (c.name && c.name.includes('Meryn')));
+  teams.push({ name: 'Team 2 — Hold / Meryn Core', purpose: 'Defensive hold. Stun + Wound punishment.', how: 'Meryn or strong Taunt lead. Keep Taunt up. Excellent vs skill-heavy attacks.', ...r });
   pool = r.remaining;
   r = fillTeam(pool, [
     { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
@@ -110,7 +110,7 @@ function buildWarTeams(owned) {
     { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'utility') },
     { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'heal') || true },
   ], 'war', c => hasRole(c, 'raid') || hasTag(c, 'raid'));
-  teams.push({ name: 'Team 3 — Raid / Burst', purpose: 'Apply Raid and burst tanky defenses.', how: 'Land Raid first (Euron when available), then dump damage.', ...r });
+  teams.push({ name: 'Team 3 — Raid / Burst', purpose: 'Raid pressure into tanky defenses.', how: 'Land skill Raid first (Euron), then dump damage. Good vs high-HP walls.', ...r });
   pool = r.remaining;
   r = fillTeam(pool, [
     { label: 'Control', prefer: c => hasRole(c, 'reinforce') || hasRole(c, 'control') || hasTag(c, 'ice') },
@@ -118,7 +118,7 @@ function buildWarTeams(owned) {
     { label: 'Flex', prefer: c => true },
     { label: 'Flex', prefer: c => true },
   ], 'war', c => hasRole(c, 'reinforce') || hasTag(c, 'ice') || hasRole(c, 'control'));
-  teams.push({ name: 'Team 4 — Flex', purpose: 'Leftovers with a job.', how: 'Secondary outposts or plan B.', ...r });
+  teams.push({ name: 'Team 4 — Ice / Flex', purpose: 'Anti-dragon or leftover utility.', how: 'Ice/Brittle tools or secondary outposts. Use vs known dragon defenses when possible.', ...r });
   return teams;
 }
 function buildSingleTeam(owned, modeKey, profile) {
@@ -127,9 +127,9 @@ function buildSingleTeam(owned, modeKey, profile) {
 }
 const MODE_PROFILES = {
   raidAtk: {
-    name: 'Raid Attack', purpose: 'Raid pressure into enemy defenses.',
+    name: 'Raid Attack', purpose: 'Free Cities speed or Raid pressure. Highest ceiling is Drogo stamina loop.',
     how: 'Apply Raid (Euron when available), then damage + control.',
-    preferredLeader: c => hasRole(c, 'raid') || hasTag(c, 'raid'),
+    preferredLeader: c => hasRole(c, 'raid') || hasTag(c, 'raid') || (c.name && c.name.includes('Drogo')),
     slots: [
       { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
       { label: 'Damage', prefer: c => hasRole(c, 'damage') && !hasRole(c, 'dragon') },
@@ -138,9 +138,9 @@ const MODE_PROFILES = {
     ]
   },
   raidDef: {
-    name: 'Raid Defense', purpose: 'Taunt hold and punish attackers.',
+    name: 'Raid Defense', purpose: 'Meryn Control Core — Stun + Wound on every enemy skill.',
     how: 'Taunt first (Brienne / Barristan / Sandor). Sustain second.',
-    preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
+    preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') || (c.name && c.name.includes('Meryn')),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
       { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'shields') },
@@ -149,8 +149,8 @@ const MODE_PROFILES = {
     ]
   },
   viserion: {
-    name: 'Viserion', purpose: 'Raid + Brittle pressure. Avoid feeding Reinforces.',
-    how: 'Do not hit while Pacified. Stack Raid. Prefer Brittle / Ice tools.',
+    name: 'Viserion', purpose: 'Skill Raid + Brittle. Golden Scales rewards Raid; Brittle shuts down Rude Awakening.',
+    how: 'Do not hit while Pacified. Stack Raid. Prefer Brittle / Ice tools. Golden Scales rewards Raid stacks.',
     preferredLeader: c => hasRole(c, 'raid') || hasTag(c, 'raid'),
     slots: [
       { label: 'Raid', prefer: c => hasRole(c, 'raid') || hasTag(c, 'raid') },
@@ -160,7 +160,7 @@ const MODE_PROFILES = {
     ]
   },
   drogon: {
-    name: 'Drogon', purpose: 'Speed and real damage.',
+    name: 'Drogon', purpose: 'Speed race. Free Cities stamina + real damage.',
     how: 'Favor fast pressure. Raid helps open.',
     preferredLeader: c => (hasRole(c, 'damage') || hasRole(c, 'pressure')) && (hasTag(c, 'fire') || hasRole(c, 'raid') || hasTag(c, 'raid')),
     slots: [
@@ -171,8 +171,8 @@ const MODE_PROFILES = {
     ]
   },
   rhaegal: {
-    name: 'Rhaegal', purpose: 'Bleed / Fire / Poison with a protected Taunter.',
-    how: 'Protect Taunt. Skill when rewarded. Oberyn / Olenna help grind.',
+    name: 'Rhaegal', purpose: 'Protected Taunt + Bleed / Fire. Opening Salvo eats Birthright/Fury/Shields; Fuel rewards Bleed and Fire.',
+    how: 'Bring a real Taunter and keep him alive (+40% Stamina while Taunting). Stack Bleed and Fire. Do not Reinforce (True Damage). Avoid Birthright/Fury/Shield walls. He is immune to Stun/Pacify/Deceive. –50% Gem Damage on your team.',
     preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
@@ -182,7 +182,7 @@ const MODE_PROFILES = {
     ]
   },
   icy: {
-    name: 'Icy Viserion', purpose: 'Ice / control with careful Reinforce use.',
+    name: 'Icy Viserion', purpose: 'Speed race or controlled Ice. Do not mindlessly Reinforce.',
     how: 'Night King / Ice lines help — do not blind-spam Reinforce.',
     preferredLeader: c => hasRole(c, 'reinforce') || hasTag(c, 'ice') || hasRole(c, 'control'),
     slots: [
