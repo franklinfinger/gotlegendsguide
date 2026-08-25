@@ -3,139 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Status Effects Glossary – GOT Legends Guide</title>
-  <meta name="description" content="Complete status effect and keyword definitions for Game of Thrones: Legends." />
+  <title>Status Effects – Old Peeps on Porches</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: #0a0a0c; color: #e8e6e3; }
-    .card {
-      background: linear-gradient(160deg, #16161c 0%, #121216 100%);
-      border: 1px solid #2e2e38;
-    }
+    .card { background: linear-gradient(160deg, #16161c 0%, #121216 100%); border: 1px solid #2e2e38; }
     .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
     .nav-link { color: #a8a6a1; }
     .nav-link:hover { color: #c9a227; }
   </style>
 </head>
 <body class="min-h-screen">
-
   <div class="accent-bar"></div>
-
   <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
       <a href="index.html" class="flex items-center gap-3 min-w-0">
         <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
         <div class="min-w-0">
           <div class="font-bold text-lg tracking-wide truncate text-[#f0ebe0]">GOT Legends Guide</div>
-          <div class="text-xs text-[#8a8680]">Build smarter teams</div>
+          <div class="text-xs text-[#c9a227]">Old Peeps on Porches</div>
         </div>
       </a>
       <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
-        <a href="roster.html" class="nav-link transition">My Roster</a>
-        <a href="builder.html" class="nav-link transition">Team Builder</a>
-        <a href="dragons.html" class="nav-link transition">Dragons</a>
+        <a href="roster.html" class="nav-link">My Roster</a>
+        <a href="builder.html" class="nav-link">Team Builder</a>
+        <a href="dragons.html" class="nav-link">Dragons</a>
         <a href="status-effects.html" class="text-[#5b9fd4] font-semibold">Status</a>
-        <a href="factions.html" class="nav-link transition">Factions</a>
-        <a href="allies.html" class="nav-link transition">Allies</a>
-        <a href="champions.html" class="nav-link transition">Champions</a>
+        <a href="factions.html" class="nav-link">Factions</a>
+        <a href="allies.html" class="nav-link">Allies</a>
+        <a href="champions.html" class="nav-link">Champions</a>
       </nav>
     </div>
-    <div class="md:hidden overflow-x-auto border-t border-[#2e2e38]">
-      <div class="flex gap-1 px-3 py-2 text-xs whitespace-nowrap">
-        <a href="roster.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Roster</a>
-        <a href="builder.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Builder</a>
-        <a href="dragons.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Dragons</a>
-        <a href="status-effects.html" class="px-3 py-1.5 rounded-full bg-[#122030] text-[#5b9fd4] font-semibold">Status</a>
-        <a href="factions.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Factions</a>
-        <a href="allies.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Allies</a>
-        <a href="champions.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Champions</a>
-      </div>
-    </div>
   </header>
-
   <main class="max-w-4xl mx-auto px-4 py-10">
-    <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#f5f0e8]">Status Effects Glossary</h1>
-    <p class="text-[#9a9690] mb-8">Exact definitions from in-game tooltips. Understanding these is the difference between good teams and great ones.</p>
-
-    <div class="space-y-4">
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]">
-        <h2 class="text-xl font-bold text-[#e85d4c] mb-3">Core Damage & Defense</h2>
-        <div class="space-y-3 text-sm text-[#c8c4be]">
-          <div><strong class="text-[#f0ebe0]">Physical Damage</strong> — Standard attack damage reduced by Physical Resistance.</div>
-          <div><strong class="text-[#f0ebe0]">True Damage</strong> — Ignores all modifiers, resistances, and basic DEF. Very rare and powerful.</div>
-          <div><strong class="text-[#f0ebe0]">Unnatural Damage</strong> — Damage type used by many White Walker / Ice effects. Reduced by Unnatural Resistance.</div>
-          <div><strong class="text-[#f0ebe0]">Fire Damage</strong> — Reduced by Fire Resistance. Often applies the FIRE status.</div>
-          <div><strong class="text-[#f0ebe0]">Physical Resistance</strong> — % reduction to incoming Physical Damage. Max Buff +80%, Min Debuff –90%.</div>
-          <div><strong class="text-[#f0ebe0]">Fire Resistance</strong> — % reduction to incoming Fire Damage. Max Buff +80%, Min Debuff –90%.</div>
-          <div><strong class="text-[#f0ebe0]">Unnatural Resistance</strong> — % reduction to Unnatural Damage. Same caps as other resistances.</div>
-          <div><strong class="text-[#f0ebe0]">HP Pool</strong> — A champion’s Current HP plus any Shield amount.</div>
-          <div><strong class="text-[#f0ebe0]">HP Guard</strong> — Protects a champion from damage that would take them below a threshold (e.g. 10% or 25%). Limited triggers.</div>
-          <div><strong class="text-[#f0ebe0]">Shield</strong> — Temporary HP that absorbs damage before real HP is touched.</div>
-          <div><strong class="text-[#f0ebe0]">Counter</strong> — Reflects incoming damage (usually non-basic-attack) back at the attacker.</div>
-        </div>
-      </div>
-
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]">
-        <h2 class="text-xl font-bold text-[#5b9fd4] mb-3">Key Debuffs</h2>
-        <div class="space-y-3 text-sm text-[#c8c4be]">
-          <div><strong class="text-[#f0a090]">Wound</strong> — Prevents healing. Critical for shutting down sustain teams.</div>
-          <div><strong class="text-[#a8d474]">Bleed</strong> — Stacking: –5% ATK per stack. Bleeding targets also take damage based on their ATK.</div>
-          <div><strong class="text-[#a8d474]">Poison</strong> — Gem Damage reduced 90%. 5% Max HP Unnatural Damage per turn.</div>
-          <div><strong class="text-[#f0a090]">Fire</strong> — DoT and enabler for many Targaryen / dragon effects.</div>
-          <div><strong class="text-[#8ec4e8]">Ice</strong> — Reduces stamina gain by 5% per stack. Boosts Brittle damage by 20% per stack.</div>
-          <div><strong class="text-[#8ec4e8]">Brittle</strong> — Applied at 5 Ice. Target takes 2× damage from skills and traits. Cannot be removed.</div>
-          <div><strong class="text-[#e8d48b]">Raid</strong> — Stacking mark. Each stack reduces enemy ATK by –5%.</div>
-          <div><strong class="text-[#8ec4e8]">Fear</strong> — Delays the target’s basic attack by 1 turn per stack.</div>
-          <div><strong class="text-[#c4b0e0]">Stun</strong> — Prevents stamina gain and actions for the duration.</div>
-          <div><strong class="text-[#8ec4e8]">Pacify</strong> — Target cannot deal damage or use abilities until hit by a skill.</div>
-          <div><strong class="text-[#c4b0e0]">Deceive</strong> — Prevents the target from using their Skill.</div>
-          <div><strong class="text-[#e8d48b]">Scout / Scouted</strong> — Reveals or marks the target.</div>
-          <div><strong class="text-[#e8d48b]">Ruin</strong> — Tywin specialty. At 3 stacks: cuts Current HP by 75% and applies –25% DEF (non-dragon targets).</div>
-        </div>
-      </div>
-
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#7cb342]">
-        <h2 class="text-xl font-bold text-[#7cb342] mb-3">Key Buffs</h2>
-        <div class="space-y-3 text-sm text-[#c8c4be]">
-          <div><strong class="text-[#c4b0e0]">Stealth</strong> — Cannot be targeted by most enemy abilities.</div>
-          <div><strong class="text-[#a8b8d8]">Taunt</strong> — Forces enemies to attack this champion.</div>
-          <div><strong class="text-[#e8a878]">Fury</strong> — Stacking resource. At threshold often becomes Enraged.</div>
-          <div><strong class="text-[#e8a878]">Enraged</strong> — 50% less damage taken (common version).</div>
-          <div><strong class="text-[#f0a090]">Warmonger</strong> — +5% ATK and +5% Crit Chance per stack.</div>
-          <div><strong class="text-[#c4b0e0]">Birthright</strong> — Powerful stacking buff used by several leaders.</div>
-          <div><strong class="text-[#e8d48b]">Anger</strong> — Joffrey specialty. Gains stacks when enemies use Skills.</div>
-          <div><strong class="text-[#e8d48b]">Treasury / Coins</strong> — Resource for certain skills and iconic abilities.</div>
-          <div><strong class="text-[#a8d474]">Renew</strong> — Healing or cleanse-related buff.</div>
-          <div><strong class="text-[#e8a878]">Inspire</strong> — Usually grants stamina or damage bonuses.</div>
-        </div>
-      </div>
-
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#d4783a]">
-        <h2 class="text-xl font-bold text-[#d4783a] mb-3">Other Important Mechanics</h2>
-        <div class="space-y-3 text-sm text-[#c8c4be]">
-          <div><strong class="text-[#f0ebe0]">Tenacity</strong> — Helps resist incoming Debuffs and Buff removal.</div>
-          <div><strong class="text-[#f0ebe0]">Dodge Chance</strong> — Chance to avoid an attack.</div>
-          <div><strong class="text-[#8ec4e8]">Reinforce</strong> — Champions that enter via revive or other abilities.</div>
-          <div><strong class="text-[#f0ebe0]">Bide</strong> — Blocks stamina gain and actions until enough turns complete.</div>
-          <div><strong class="text-[#f0ebe0]">Sustained</strong> — Effect that repeats every turn.</div>
-          <div><strong class="text-[#f0ebe0]">Resurgence</strong> — Grants Birthright stacks + fills stamina.</div>
-          <div><strong class="text-[#f0ebe0]">Golden Bastion</strong> — +35% DEF that refreshes under certain conditions.</div>
-          <div><strong class="text-[#a8d474]">Blood Debt</strong> — –25% Accuracy & Tenacity to the enemy Leader (Oberyn).</div>
-          <div><strong class="text-[#a8d474]">Viper’s Bite</strong> — +5% Dodge per stack (Oberyn).</div>
-        </div>
-      </div>
-
-      <div class="card rounded-xl p-5 text-sm text-[#8a8680]">
-        <p>These definitions come directly from in-game tooltips provided by the alliance.</p>
-        <p class="mt-2">Understanding interactions (Ice → Brittle, Raid stacking, Fury → Enraged, Wound shutting heals) is what makes strong teams.</p>
-      </div>
+    <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#f5f0e8]">Status Effects</h1>
+    <p class="text-[#9a9690] mb-6">Definitions from in-game tooltips shared by the alliance.</p>
+    <div class="space-y-3">
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]"><h2 class="font-bold text-[#e85d4c]">Wound</h2><p class="text-sm mt-1 text-[#c8c4be]">Blocks healing / recovery on the target. Core to Lannister pressure (Gregor, Tywin lines).</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]"><h2 class="font-bold text-[#e85d4c]">Fire</h2><p class="text-sm mt-1 text-[#c8c4be]">Damage over time / Fire gems. Strong with Targaryen and dragon lines.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]"><h2 class="font-bold text-[#5b9fd4]">Ice / Brittle</h2><p class="text-sm mt-1 text-[#c8c4be]">Ice leads into Brittle (double damage windows). Key for Viserion / Icy fights.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]"><h2 class="font-bold text-[#c9a227]">Raid</h2><p class="text-sm mt-1 text-[#c8c4be]">Stacks that weaken the enemy. Euron is the primary skill-Raid leader.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#8b9dc3]"><h2 class="font-bold text-[#8b9dc3]">Taunt</h2><p class="text-sm mt-1 text-[#c8c4be]">Forces the enemy to hit the right target. Brienne, Sandor, Barristan, Jorah.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#7cb342]"><h2 class="font-bold text-[#7cb342]">Poison</h2><p class="text-sm mt-1 text-[#c8c4be]">Damage over time / control. Olenna, Oberyn, Nymeria tools.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]"><h2 class="font-bold text-[#c9a227]">Ruin</h2><p class="text-sm mt-1 text-[#c8c4be]">Stacks that cut max HP (Tywin). Confirmed from in-game tooltips.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]"><h2 class="font-bold text-[#5b9fd4]">Anger</h2><p class="text-sm mt-1 text-[#c8c4be]">Joffrey line — ties into Treasury triggers.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]"><h2 class="font-bold text-[#c9a227]">Treasury</h2><p class="text-sm mt-1 text-[#c8c4be]">Lannister economy / skill fuel.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]"><h2 class="font-bold text-[#e85d4c]">Fury / Enraged</h2><p class="text-sm mt-1 text-[#c8c4be]">Rhaenyra / Rhaenys / Daemon fire pressure lines.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#8b9dc3]"><h2 class="font-bold text-[#8b9dc3]">Reinforce</h2><p class="text-sm mt-1 text-[#c8c4be]">Night King / Ice Warden engines. Careful use on Icy Viserion.</p></div>
+      <div class="card rounded-xl p-5 border-l-4 border-l-[#d4783a]"><h2 class="font-bold text-[#d4783a]">True Damage</h2><p class="text-sm mt-1 text-[#c8c4be]">Bypasses normal defenses (Jaqen, Gwayne tools).</p></div>
     </div>
+    <p class="text-xs text-[#6a6660] mt-6">More exact tooltip text is added as screenshots come in.</p>
   </main>
-
   <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
-    <div class="font-medium text-[#8a8680]">gotlegendsguide.com</div>
-    <div class="mt-1">Status Effects · August 2026</div>
+    <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
+    <div class="mt-1">gotlegendsguide.com</div>
   </footer>
-
 </body>
 </html>
