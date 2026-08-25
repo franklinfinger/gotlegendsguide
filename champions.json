@@ -1,1 +1,6 @@
-{"version":5,"updated":"2026-08-25","note":"Expanded library from alliance screenshots + master boards. Scores are role/tag starting points. Gem board RNG and investment still decide fights.","champions":[]}
+{
+  "version": 5,
+  "updated": "2026-08-25",
+  "note": "Full champion library is split across champions-part1.json and champions-part2.json (134 total). app.js fetchChampions() merges both. Do not use this file as the sole source.",
+  "champions": []
+}
