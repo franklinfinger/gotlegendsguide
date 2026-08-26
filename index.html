@@ -18,7 +18,7 @@
     details > summary::after {
       content: '+'; float: right; color: #c9a227; font-weight: 700; font-size: 1.25rem; line-height: 1;
     }
-    details[open] > summary::after { content: '−'; }
+    details[open] > summary::after { content: '\u2212'; }
     .nav-link { color: #a8a6a1; }
     .nav-link:hover { color: #c9a227; }
     .accent-bar {
@@ -77,34 +77,34 @@
     </div>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 pb-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-    <a href="roster.html" class="card rounded-xl p-4 hover:border-[#c9a227]/60 transition group text-center">
-      <div class="text-[#c9a227] font-bold text-xs mb-1">MY ROSTER</div>
-      <div class="font-semibold group-hover:text-[#e8d48b] transition text-sm text-[#e0ddd8]">Your champions</div>
+  <section class="max-w-6xl mx-auto px-4 pb-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <a href="roster.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#c9a227]/60 transition group text-center">
+      <div class="text-[#c9a227] font-bold text-sm mb-1.5 tracking-wide">MY ROSTER</div>
+      <div class="font-semibold text-base group-hover:text-[#e8d48b] transition text-sm text-[#e0ddd8]">Your champions</div>
     </a>
-    <a href="builder.html" class="card rounded-xl p-4 hover:border-[#e85d4c]/50 transition group text-center">
-      <div class="text-[#e85d4c] font-bold text-xs mb-1">TEAM BUILDER</div>
-      <div class="font-semibold group-hover:text-[#f0a89a] transition text-sm text-[#e0ddd8]">War · Raid · Dragons</div>
+    <a href="builder.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#e85d4c]/50 transition group text-center">
+      <div class="text-[#e85d4c] font-bold text-sm mb-1.5 tracking-wide">TEAM BUILDER</div>
+      <div class="font-semibold text-base group-hover:text-[#f0a89a] transition text-sm text-[#e0ddd8]">War · Raid · Dragons</div>
     </a>
-    <a href="dragons.html" class="card rounded-xl p-4 hover:border-[#e85d4c]/50 transition group text-center">
-      <div class="text-[#e85d4c] font-bold text-xs mb-1">DRAGONS</div>
-      <div class="font-semibold group-hover:text-[#f0a89a] transition text-sm text-[#e0ddd8]">Boss notes</div>
+    <a href="dragons.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#e85d4c]/50 transition group text-center">
+      <div class="text-[#e85d4c] font-bold text-sm mb-1.5 tracking-wide">DRAGONS</div>
+      <div class="font-semibold text-base group-hover:text-[#f0a89a] transition text-sm text-[#e0ddd8]">Boss notes</div>
     </a>
-    <a href="status-effects.html" class="card rounded-xl p-4 hover:border-[#5b9fd4]/50 transition group text-center">
-      <div class="text-[#5b9fd4] font-bold text-xs mb-1">STATUS</div>
-      <div class="font-semibold group-hover:text-[#8ec4e8] transition text-sm text-[#e0ddd8]">Wound · Fire · Ice</div>
+    <a href="status-effects.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#5b9fd4]/50 transition group text-center">
+      <div class="text-[#5b9fd4] font-bold text-sm mb-1.5 tracking-wide">STATUS</div>
+      <div class="font-semibold text-base group-hover:text-[#8ec4e8] transition text-sm text-[#e0ddd8]">Wound · Fire · Ice</div>
     </a>
-    <a href="factions.html" class="card rounded-xl p-4 hover:border-[#7cb342]/50 transition group text-center">
-      <div class="text-[#7cb342] font-bold text-xs mb-1">FACTIONS</div>
-      <div class="font-semibold group-hover:text-[#a8d474] transition text-sm text-[#e0ddd8]">Bonuses</div>
+    <a href="factions.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#7cb342]/50 transition group text-center">
+      <div class="text-[#7cb342] font-bold text-sm mb-1.5 tracking-wide">FACTIONS</div>
+      <div class="font-semibold text-base group-hover:text-[#a8d474] transition text-sm text-[#e0ddd8]">Bonuses</div>
     </a>
-    <a href="allies.html" class="card rounded-xl p-4 hover:border-[#d4783a]/50 transition group text-center">
-      <div class="text-[#d4783a] font-bold text-xs mb-1">ALLIES</div>
-      <div class="font-semibold group-hover:text-[#e8a878] transition text-sm text-[#e0ddd8]">Gems</div>
+    <a href="allies.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#d4783a]/50 transition group text-center">
+      <div class="text-[#d4783a] font-bold text-sm mb-1.5 tracking-wide">ALLIES</div>
+      <div class="font-semibold text-base group-hover:text-[#e8a878] transition text-sm text-[#e0ddd8]">Gems</div>
     </a>
-    <a href="champions.html" class="card rounded-xl p-4 hover:border-[#8b9dc3]/50 transition group text-center">
-      <div class="text-[#8b9dc3] font-bold text-xs mb-1">CHAMPIONS</div>
-      <div class="font-semibold group-hover:text-[#b0c0e0] transition text-sm text-[#e0ddd8]">Legendary list</div>
+    <a href="champions.html" class="card rounded-xl p-5 min-h-[88px] flex flex-col justify-center hover:border-[#8b9dc3]/50 transition group text-center">
+      <div class="text-[#8b9dc3] font-bold text-sm mb-1.5 tracking-wide">CHAMPIONS</div>
+      <div class="font-semibold text-base group-hover:text-[#b0c0e0] transition text-sm text-[#e0ddd8]">Legendary list</div>
     </a>
   </section>
 
@@ -131,93 +131,108 @@
   <section id="raids" class="max-w-6xl mx-auto px-4 py-6">
     <details class="card rounded-xl overflow-hidden" open>
       <summary class="px-6 py-5 text-2xl font-bold text-[#f0ebe0]">
-        Raids <span class="text-sm font-normal text-[#8a8680] ml-2">Attack & Defense</span>
+        Raids <span class="text-sm font-normal text-[#8a8680] ml-2">Attack & Defense are separate jobs</span>
       </summary>
       <div class="px-6 pb-6 border-t border-[#2e2e38] pt-5 space-y-6">
-        <p class="text-sm text-[#9a9690]">Prefer automatic picks from your roster? Use <a href="builder.html" class="text-[#c9a227] underline">Team Builder → Raid Attack / Defense</a>.</p>
+        <p class="text-sm text-[#9a9690]">Attack and Defense can be the same five champions or two completely different teams. Build the best synergy you can first — then swap pieces based on who you face. These are the shapes to invest toward, not “your five highest-power champs.” Roster picks: <a href="builder.html" class="text-[#c9a227] underline">Team Builder → Raid Attack / Defense</a>.</p>
         <div class="grid md:grid-cols-2 gap-5">
           <div class="rounded-xl p-5 bg-gradient-to-br from-[#2a2210] to-[#1a1810] border border-[#c9a227]/25">
-            <h3 class="text-lg font-bold text-[#c9a227] mb-1">Attack A — Lannister core</h3>
-            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside mt-2">
-              <li><strong class="text-[#c9a227]">Leader:</strong> Tywin Lannister</li>
-              <li>Gregor Clegane</li>
-              <li>Cersei Lannister</li>
-              <li>Tyrion Lannister</li>
-              <li>Sandor / Jaime / Jaqen</li>
+            <h3 class="text-lg font-bold text-[#c9a227] mb-1">Attack A — Free Cities speed</h3>
+            <p class="text-[11px] text-[#8a8680] mb-2">Faction: Free Cities stamina engine. Highest-ceiling offense.</p>
+            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside">
+              <li><strong class="text-[#c9a227]">Leader:</strong> Khal Drogo</li>
+              <li>Daenerys Targaryen (Blue)</li>
+              <li>Daario Naharis <span class="text-[#6a6660]">or Nymeria Sand</span></li>
+              <li>Jorah Mormont <span class="text-[#6a6660]">or Olenna Tyrell</span></li>
+              <li>Second Dany / Gregor / Nymeria</li>
             </ol>
+            <p class="text-xs text-[#8a8680] mt-3">Why: Drogo lead starts Free Cities with huge stamina. Skills dump before the defense stabilizes. Do not bench Drogo + Blue Dany.</p>
           </div>
           <div class="rounded-xl p-5 bg-gradient-to-br from-[#2a1a12] to-[#1a1210] border border-[#e85d4c]/25">
-            <h3 class="text-lg font-bold text-[#e85d4c] mb-1">Attack B — Raid pressure</h3>
-            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside mt-2">
-              <li><strong class="text-[#c9a227]">Leader:</strong> Euron Greyjoy</li>
-              <li>Yara Greyjoy</li>
-              <li>Control (Olenna / Jaqen / Nymeria)</li>
-              <li>Damage flex</li>
-              <li>Support flex</li>
+            <h3 class="text-lg font-bold text-[#e85d4c] mb-1">Attack B — Dual Dany + body</h3>
+            <p class="text-[11px] text-[#8a8680] mb-2">High-investment Targ / Free Cities hybrid seen on top boards.</p>
+            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside">
+              <li><strong class="text-[#c9a227]">Leader:</strong> Sandor Clegane <span class="text-[#6a6660]">or Arya</span></li>
+              <li>Daenerys Targaryen (Blue)</li>
+              <li>Daenerys Targaryen (Yellow / Khaleesi)</li>
+              <li>Jorah Mormont</li>
+              <li>Arya Stark <span class="text-[#6a6660]">or Nymeria</span></li>
             </ol>
+            <p class="text-xs text-[#8a8680] mt-3">Why: Two invested Danys carry damage while Sandor / Jorah keep them alive. Beats raw-power stacks when the board cooperates.</p>
           </div>
           <div class="rounded-xl p-5 bg-gradient-to-br from-[#121a28] to-[#0e1420] border border-[#5b9fd4]/25">
-            <h3 class="text-lg font-bold text-[#5b9fd4] mb-1">Defense A — Taunt hold</h3>
-            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside mt-2">
-              <li><strong class="text-[#c9a227]">Leader:</strong> Brienne of Tarth</li>
-              <li>Corlys Velaryon</li>
-              <li>Sandor / Barristan / Jorah</li>
-              <li>Heal / support</li>
-              <li>Flex</li>
+            <h3 class="text-lg font-bold text-[#5b9fd4] mb-1">Defense A — Meryn / Lannister hold</h3>
+            <p class="text-[11px] text-[#8a8680] mb-2">Faction: Lannister + Taunt. Hardest common hold to break.</p>
+            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside">
+              <li><strong class="text-[#c9a227]">Leader:</strong> Meryn Trant</li>
+              <li>Sandor Clegane</li>
+              <li>Tywin Lannister <span class="text-[#6a6660]">or Cersei</span></li>
+              <li>Olenna Tyrell <span class="text-[#6a6660]">or Nymeria</span></li>
+              <li>Joffrey / Tyrion / Stannis</li>
             </ol>
+            <p class="text-xs text-[#8a8680] mt-3">Why: Meryn punishes every enemy skill with Stun + Wound. Attacker controls gems, so defense needs punish loops, not a race. Keep Meryn alive.</p>
           </div>
           <div class="rounded-xl p-5 bg-gradient-to-br from-[#101828] to-[#0c121c] border border-[#8b9dc3]/25">
-            <h3 class="text-lg font-bold text-[#8b9dc3] mb-1">Defense B — Control hold</h3>
-            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside mt-2">
-              <li><strong class="text-[#c9a227]">Leader:</strong> Night King / Tywin</li>
-              <li>Taunt (Brienne or Sandor)</li>
-              <li>Control (Olenna / Jaqen)</li>
-              <li>Sustain</li>
-              <li>Flex</li>
+            <h3 class="text-lg font-bold text-[#8b9dc3] mb-1">Defense B — Olenna + Nymeria wall</h3>
+            <p class="text-[11px] text-[#8a8680] mb-2">Control duo that currently sits on a lot of high-end boards.</p>
+            <ol class="text-sm space-y-1.5 text-[#d0ccc6] list-decimal list-inside">
+              <li><strong class="text-[#c9a227]">Leader:</strong> Tywin / Meryn / Cersei</li>
+              <li>Olenna Tyrell</li>
+              <li>Nymeria Sand</li>
+              <li>Gregor Clegane</li>
+              <li>Margaery / Cersei / Jaqen</li>
             </ol>
+            <p class="text-xs text-[#8a8680] mt-3">Why: Olenna + Nymeria stall and strip while Gregor / Lannisters soak. Strong vs skill-spam attack teams. Weaker if the attacker never skills into the punish.</p>
           </div>
         </div>
+        <p class="text-xs text-[#8a8680]">Matchup note: a strong Stark-led wall can lose to Free Cities with Varys lead (Scout + Stealth + Gem Crit). Do not assume the highest-power defense wins.</p>
       </div>
     </details>
   </section>
 
   <section id="war" class="max-w-6xl mx-auto px-4 py-3">
-    <details class="card rounded-xl overflow-hidden">
+    <details class="card rounded-xl overflow-hidden" open>
       <summary class="px-6 py-5 text-2xl font-bold text-[#f0ebe0]">
-        War <span class="text-sm font-normal text-[#8a8680] ml-2">4 Non-Overlapping Teams</span>
+        War <span class="text-sm font-normal text-[#8a8680] ml-2">4 teams, 4 jobs, no duplicates</span>
       </summary>
       <div class="px-6 pb-6 border-t border-[#2e2e38] pt-5 space-y-6">
-        <p class="text-sm text-[#9a9690]">Build from your roster: <a href="builder.html" class="text-[#c9a227] underline">Team Builder → Alliance War</a> makes 4 teams with no duplicate champions.</p>
+        <p class="text-sm text-[#9a9690]">Stage 2 locks teams. Stage 3 is outpost placement (bonuses apply). Stage 4 carries those bonuses into the final. Sometimes you chase the outpost faction bonus. Sometimes you just field the strongest synergy and ignore a weak bonus. Never pad a camp with an underleveled champion just to “count” the faction. Roster builder: <a href="builder.html" class="text-[#c9a227] underline">Team Builder → Alliance War</a>.</p>
         <div class="rounded-xl p-5 text-sm text-[#c8c4be] bg-gradient-to-br from-[#1a1814] to-[#141210] border border-[#c9a227]/20">
-          <strong class="text-[#c9a227]">5-minute War builder (manual)</strong>
-          <ol class="mt-2 space-y-1 list-decimal list-inside">
-            <li>List your strongest available champions</li>
-            <li>Best leader + 4 partners → Team 1 (often Lannister or control core)</li>
-            <li>Taunt + sustain → Team 2</li>
-            <li>Raid + damage → Team 3</li>
-            <li>Leftovers with a purpose → Team 4</li>
-          </ol>
+          <strong class="text-[#c9a227]">How to pick between bonus vs raw synergy</strong>
+          <ul class="mt-2 space-y-1 list-disc list-inside text-xs">
+            <li>Baratheon War Camp (+25% ATK to Baratheons) — put 3–4 real Baratheons on that outpost. Do not use Robert / Barristan if they are far behind the rest of the team.</li>
+            <li>Stone Keep / Barricade / Maester’s Sigil — generic DEF / Tenacity / Unnatural Res. Any strong team can sit there; prefer a hold team.</li>
+            <li>If the bonus is small and your faction pieces are weak, skip it. A 1M synergy team beats a 850k “bonus” team that is missing its engine.</li>
+          </ul>
         </div>
-        <h3 class="font-bold text-[#c9a227]">Example set — balanced</h3>
+        <h3 class="font-bold text-[#c9a227]">Four proven war shapes (aim these — then swap to your roster)</h3>
         <div class="grid md:grid-cols-2 gap-4">
           <div class="rounded-xl p-4 bg-gradient-to-br from-[#2a1510] to-[#1a100c] border border-[#e85d4c]/20">
-            <div class="text-[#e85d4c] font-bold text-xs mb-1">TEAM 1 — OFFENSE</div>
-            <p class="text-sm text-[#d0ccc6] mt-1">Leader: Tywin · Gregor · Cersei · Tyrion · Sandor / Jaqen</p>
-          </div>
-          <div class="rounded-xl p-4 bg-gradient-to-br from-[#121a28] to-[#0e1420] border border-[#5b9fd4]/20">
-            <div class="text-[#5b9fd4] font-bold text-xs mb-1">TEAM 2 — HOLD</div>
-            <p class="text-sm text-[#d0ccc6] mt-1">Leader: Brienne · Corlys · Barristan / Jorah · heal · flex</p>
+            <div class="text-[#e85d4c] font-bold text-sm mb-1 tracking-wide">TEAM 1 — Lannister core</div>
+            <p class="text-[11px] text-[#8a8680] mb-2">Faction: Lannister. Best default attack or hybrid hold.</p>
+            <p class="text-sm text-[#d0ccc6]">Tywin (Leader) · Gregor · Cersei · Jaime / Tyland / Tyrion · Jaqen / Sandor</p>
+            <p class="text-xs text-[#8a8680] mt-2">Why: Lannister DEF + Treasury + Mountain pressure is the most common high-end shape. Use vs unknown or tanky defenses. Do not default Daemon here.</p>
           </div>
           <div class="rounded-xl p-4 bg-gradient-to-br from-[#2a2210] to-[#1a1810] border border-[#c9a227]/20">
-            <div class="text-[#c9a227] font-bold text-xs mb-1">TEAM 3 — RAID / BURST</div>
-            <p class="text-sm text-[#d0ccc6] mt-1">Leader: Euron · Yara · Olenna / Nymeria · damage · support</p>
+            <div class="text-[#c9a227] font-bold text-sm mb-1 tracking-wide">TEAM 2 — Free Cities speed</div>
+            <p class="text-[11px] text-[#8a8680] mb-2">Faction: Free Cities. Highest-ceiling offense.</p>
+            <p class="text-sm text-[#d0ccc6]">Drogo (Leader) · Daenerys (Blue) · Daario · Jorah / Nymeria · second Dany or Olenna</p>
+            <p class="text-xs text-[#8a8680] mt-2">Why: Stamina loop ends fights before holds stabilize. Keep Drogo + Blue Dany together. Place on a generic outpost or vs slow walls.</p>
+          </div>
+          <div class="rounded-xl p-4 bg-gradient-to-br from-[#121a28] to-[#0e1420] border border-[#5b9fd4]/20">
+            <div class="text-[#5b9fd4] font-bold text-sm mb-1 tracking-wide">TEAM 3 — Baratheon camp / Scout</div>
+            <p class="text-[11px] text-[#8a8680] mb-2">Faction: Baratheon when the camp is up. Else Varys Scout snowball.</p>
+            <p class="text-sm text-[#d0ccc6]">Davos or Varys (Leader) · Stannis · Joffrey · Brienne · Melisandre / Gendry</p>
+            <p class="text-xs text-[#8a8680] mt-2">Why: On Baratheon Camp this is the bonus team — 3–4 Baratheons + one high-power filler. Off-camp, Varys + Davos Scout/Crit can delete Stark walls that look stronger on paper.</p>
           </div>
           <div class="rounded-xl p-4 bg-gradient-to-br from-[#101828] to-[#0c121c] border border-[#8b9dc3]/20">
-            <div class="text-[#8b9dc3] font-bold text-xs mb-1">TEAM 4 — FLEX</div>
-            <p class="text-sm text-[#d0ccc6] mt-1">Leader: Night King / Mance · control · leftovers with a job</p>
+            <div class="text-[#8b9dc3] font-bold text-sm mb-1 tracking-wide">TEAM 4 — Meryn hold</div>
+            <p class="text-[11px] text-[#8a8680] mb-2">Job: sit on a DEF / Tenacity outpost and refuse to die.</p>
+            <p class="text-sm text-[#d0ccc6]">Meryn (Leader) · Sandor / Areo · Olenna · Nymeria · Ned / Tyrion</p>
+            <p class="text-xs text-[#8a8680] mt-2">Why: Defense loses more because the attacker owns the gems. Meryn + Olenna/Nymeria force the attacker to skill into Stun/Wound. Keep the Taunter alive.</p>
           </div>
         </div>
-        <p class="text-xs text-[#8a8680]">Daemon is strong with multi-dragon setups — not the default leader for every team. Composition and status synergies matter more than total might.</p>
+        <p class="text-xs text-[#8a8680]">If you only have one strong team, build Team 2 or Team 1 first. Then add the hold. Four complete mid teams beat three perfect ones and an empty fourth. Composition beats total might.</p>
       </div>
     </details>
   </section>
@@ -245,9 +260,9 @@
       <div class="px-6 pb-6 border-t border-[#2e2e38] pt-5 text-sm text-[#b8b4ae] space-y-3">
         <p>• Spread Raid and Taunt across War teams — don’t put every key tool on Team 1.</p>
         <p>• Four complete teams beat three perfect ones and one empty shell.</p>
-        <p>• Faction bonuses are strong, but status interactions (Ice→Brittle, Fury→Enraged, Wound shutting heals) often decide fights.</p>
-        <p>• Ally gems are free value when both partners are available — check the <a href="allies.html" class="text-[#d4783a] underline">Allies page</a>.</p>
-        <p>• Builder suggestions are role-based starting points. Adjust for stars, gear, and what you know works in our alliance.</p>
+        <p>• Chase the outpost faction bonus only when the champions on that team are actually strong. A weak Robert does not belong on Baratheon Camp.</p>
+        <p>• Matchups matter: Varys Free Cities can delete a “stronger” Stark wall. Lannister/Meryn holds punish skill spam.</p>
+        <p>• These shapes are investment targets for the alliance — build toward them even if you cannot field the full version yet.</p>
         <p>• Power numbers do not decide fights. Composition and status synergies matter more than total might.</p>
       </div>
     </details>
