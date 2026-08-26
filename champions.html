@@ -1,1 +1,93 @@
-PLACEHOLDER_CH
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Champions – Old Peeps on Porches</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card { background: linear-gradient(160deg, #16161c 0%, #121216 100%); border: 1px solid #2e2e38; }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
+    .chip { font-size: 11px; padding: 4px 10px; border-radius: 9999px; border: 1px solid #2e2e38; background: #141418; color: #a8a6a1; cursor: pointer; }
+    .chip.active { border-color: #c9a227; color: #c9a227; background: #1e1a12; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="accent-bar"></div>
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm">GOT</div><div><div class="font-bold text-lg text-[#f0ebe0]">GOT Legends Guide</div><div class="text-xs text-[#c9a227]">Old Peeps on Porches</div></div></a>
+      <nav class="hidden md:flex gap-3 text-sm"><a href="roster.html" class="nav-link">My Roster</a><a href="builder.html" class="nav-link">Team Builder</a><a href="dragons.html" class="nav-link">Dragons</a><a href="status-effects.html" class="nav-link">Status</a><a href="factions.html" class="nav-link">Factions</a><a href="allies.html" class="nav-link">Allies</a><a href="champions.html" class="text-[#c9a227] font-semibold">Champions</a></nav>
+    </div>
+  </header>
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Champions</h1>
+    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions from alliance roster screenshots. Headshots load when available.</p>
+    <input id="search" type="search" placeholder="Search name…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm mb-4 outline-none focus:border-[#c9a227]" />
+    <div class="flex flex-wrap gap-2 mb-6" id="factionChips"></div>
+    <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
+    <p class="text-xs text-[#6a6660]" id="resultCount"></p>
+  </section>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
+    <div class="mt-1">gotlegendsguide.com</div>
+  </footer>
+  <script src="portraits-0.js"></script>
+  <script src="portraits-1.js"></script>
+  <script src="portraits-2.js"></script>
+  <script src="app.js"></script>
+  <script>
+    const REAL_FACTIONS = [
+      'All','Baratheon','Blacks','Bolton','Brotherhood','Free Cities','Free Folk','Greens','Greyjoy','Lannister',"Night's Watch",'Stark','Targaryen','No Faction','Dual Faction'
+    ];
+    let all = [];
+    let factionFilter = 'all';
+    function render() {
+      const q = (document.getElementById('search').value || '').toLowerCase().trim();
+      const filtered = all.filter(c => {
+        if (factionFilter !== 'all') {
+          const facs = (c.factions || []).map(f => f.toLowerCase());
+          if (!facs.includes(factionFilter.toLowerCase())) return false;
+        }
+        if (!q) return true;
+        return (c.name + ' ' + (c.roles||[]).join(' ') + ' ' + (c.factions||[]).join(' ')).toLowerCase().includes(q);
+      });
+      document.getElementById('resultCount').textContent = filtered.length + ' legendary champions';
+      document.getElementById('list').innerHTML = filtered.map(c => `
+        <div class="card rounded-xl p-4">
+          <div class="flex gap-3">${avatarHTML(c, 48)}<div class="min-w-0 flex-1">
+            <div class="font-semibold text-[#f0ebe0]">${c.name}</div>
+            <div class="text-xs text-[#8a8680] mt-0.5">${(c.roles||[]).join(' · ')}</div>
+            <div class="text-[11px] text-[#6a6660] mt-0.5">${(c.factions||[]).join(' · ')}</div>
+            ${c.ally ? `<div class="text-[11px] text-[#d4783a] mt-1">Ally: ${c.ally}</div>` : ''}
+          </div></div>
+          <p class="text-xs text-[#9a9690] mt-2">${c.why || ''}</p>
+        </div>`).join('') || '<p class="text-[#6a6660]">No matches.</p>';
+    }
+    document.getElementById('search').addEventListener('input', render);
+    const chips = document.getElementById('factionChips');
+    REAL_FACTIONS.forEach(f => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip' + (f === 'All' ? ' active' : '');
+      btn.dataset.faction = f === 'All' ? 'all' : f;
+      btn.textContent = f;
+      chips.appendChild(btn);
+    });
+    chips.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        factionFilter = btn.dataset.faction;
+        chips.querySelectorAll('.chip').forEach(b => b.classList.toggle('active', b === btn));
+        render();
+      });
+    });
+    fetchChampions().then(champs => {
+      all = champs.sort((a,b) => a.name.localeCompare(b.name));
+      render();
+    });
+  </script>
+</body>
+</html>
