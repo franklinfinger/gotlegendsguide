@@ -25,15 +25,16 @@
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Team Builder</h1>
-    <p class="text-[#9a9690] mb-6">Uses your marked roster. Mode changes leader preference and role priority.</p>
+    <p class="text-[#9a9690] mb-6">Dragon modes show three proven shapes with reasons. Roster-based pick appears below when you have 5+ marked. Composition and gems matter more than total might.</p>
     <div class="flex flex-wrap gap-2 mb-6" id="modeButtons"></div>
     <div id="teams" class="space-y-4"></div>
-    <p class="text-xs text-[#6a6660] mt-6">Mark champions on My Roster first. Power numbers are not shown — composition matters more.</p>
+    <p class="text-xs text-[#6a6660] mt-6">Mark champions on My Roster first for a roster-based pick. Proven shapes always show.</p>
   </section>
   <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
     <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
     <div class="mt-1">gotlegendsguide.com</div>
   </footer>
+
   <script src="portraits-mini.js"></script>
   <script src="portraits-lan-0.js"></script>
   <script src="portraits-lan-1.js"></script>
@@ -45,11 +46,72 @@
   <script src="portraits-bara-0.js"></script>
   <script src="portraits-bara-1.js"></script>
   <script src="portraits-bara-2.js"></script>
+  <script src="portraits-fc-0.js"></script>
+  <script src="p-adolescentviserion.js"></script>
+  <script src="p-adolescentrhaegal.js"></script>
+  <script src="p-adolescentdrogon.js"></script>
+  <script src="p-jorah.js"></script>
+  <script src="p-viserys.js"></script>
+  <script src="p-varys.js"></script>
+  <script src="p-thoros.js"></script>
+  <script src="p-rhaenys.js"></script>
+  <script src="p-rhaenyra.js"></script>
+  <script src="p-meleys.js"></script>
+  <script src="p-laenor.js"></script>
+  <script src="p-jacaerys.js"></script>
+  <script src="p-daemon.js"></script>
+  <script src="p-corlys.js"></script>
+  <script src="p-caraxes.js"></script>
+  <script src="p-roose.js"></script>
+  <script src="p-ramsay.js"></script>
+  <script src="p-walder.js"></script>
+  <script src="p-arya.js"></script>
+  <script src="p-gendry.js"></script>
+  <script src="p-beric.js"></script>
+  <script src="p-mance.js"></script>
+  <script src="p-ygritte.js"></script>
+  <script src="p-tormund.js"></script>
+  <script src="p-craster.js"></script>
+  <script src="p-osha.js"></script>
+  <script src="p-wunwun.js"></script>
+  <script src="p-gwayne.js"></script>
+  <script src="p-sunfyre.js"></script>
+  <script src="p-tyland.js"></script>
+  <script src="p-alicent.js"></script>
+  <script src="p-aemond.js"></script>
+  <script src="p-aegonii.js"></script>
+  <script src="p-criston.js"></script>
+  <script src="p-otto.js"></script>
+  <script src="p-samwell.js"></script>
+  <script src="p-benjen.js"></script>
+  <script src="p-alliser.js"></script>
+  <script src="p-yoren.js"></script>
+  <script src="p-jon.js"></script>
+  <script src="p-ned.js"></script>
+  <script src="p-ghost.js"></script>
+  <script src="p-bran.js"></script>
+  <script src="p-sansa.js"></script>
+  <script src="p-catelyn.js"></script>
+  <script src="p-robb.js"></script>
+  <script src="p-talisa.js"></script>
+  <script src="p-duncan.js"></script>
+  <script src="p-olenna.js"></script>
+  <script src="p-oberyn.js"></script>
+  <script src="p-nightking.js"></script>
+  <script src="p-nymeria.js"></script>
+  <script src="p-icyviserion.js"></script>
+  <script src="p-margaery.js"></script>
+  <script src="p-icewarden.js"></script>
+  <script src="p-areo.js"></script>
+  <script src="p-littlefinger.js"></script>
+  <script src="p-craghas.js"></script>
+  <script src="p-egg.js"></script>
+  <script src="p-greyworm.js"></script>
   <script src="app.js"></script>
   <script src="avatar-fix.js"></script>
   <script>
     const MODES = [
-      { key: 'war', label: 'War' },
+      { key: 'war', label: 'Alliance War (4 teams)' },
       { key: 'raidAtk', label: 'Raid Attack' },
       { key: 'raidDef', label: 'Raid Defense' },
       { key: 'viserion', label: 'Viserion' },
@@ -57,37 +119,277 @@
       { key: 'drogon', label: 'Drogon' },
       { key: 'icy', label: 'Icy Viserion' }
     ];
+    const accents = {
+      war: ['#e85d4c','#5b9fd4','#c9a227','#8b9dc3'],
+      raidAtk: '#e85d4c', raidDef: '#5b9fd4',
+      viserion: '#5b9fd4', drogon: '#e85d4c', rhaegal: '#7cb342', icy: '#8b9dc3'
+    };
+
+    // Three strategic shapes per dragon. Champions may repeat across shapes when they are the best fit.
+    const SHAPE_SUGGESTIONS = {
+      viserion: [
+        {
+          title: 'Shape A — Raid + Brittle (primary)',
+          purpose: 'Golden Scales rewards skill Raid; Brittle shuts down Rude Awakening.',
+          how: 'Never skill while Pacified unless Brittle is up. Stack Euron skill Raid first. Mixed colors help under –50% Gem Damage. Do not Reinforce (feeds Patience).',
+          lineup: [
+            { name: 'Euron Greyjoy', role: 'Leader · Raid' },
+            { name: 'Arya Stark', role: 'Control · Damage' },
+            { name: 'Yara Greyjoy', role: 'Pressure' },
+            { name: 'Gregor Clegane', role: 'Damage' },
+            { name: 'Ned Stark', role: 'Utility · Flex' }
+          ]
+        },
+        {
+          title: 'Shape B — Greyjoy pressure + control',
+          purpose: 'When Euron is invested: full Greyjoy Raid/pressure with board tools.',
+          how: 'Same rules as A. Yara + Theon keep pressure while Davos or Ned stabilizes. Prefer Brittle/Ice tools if you have them.',
+          lineup: [
+            { name: 'Euron Greyjoy', role: 'Leader · Raid' },
+            { name: 'Yara Greyjoy', role: 'Pressure' },
+            { name: 'Theon Greyjoy', role: 'Flex · Pressure' },
+            { name: 'Davos Seaworth', role: 'Support' },
+            { name: 'Arya Stark', role: 'Control · Damage' }
+          ]
+        },
+        {
+          title: 'Shape C — Control open then dump',
+          purpose: 'Safer path if Euron is under-invested or board is hostile.',
+          how: 'Land control first, then real damage. Still avoid attacking into Pacify. Ice/Brittle tools remain valuable.',
+          lineup: [
+            { name: 'Arya Stark', role: 'Leader · Control' },
+            { name: 'Ned Stark', role: 'Control · Utility' },
+            { name: 'Jon Snow', role: 'Damage · Utility' },
+            { name: 'Yara Greyjoy', role: 'Pressure' },
+            { name: 'Gregor Clegane', role: 'Damage' }
+          ]
+        }
+      ],
+      rhaegal: [
+        {
+          title: 'Shape A — Free Folk / Greyjoy pressure (alliance-tested)',
+          purpose: 'Scored higher than pure Bleed theory packages on real boards.',
+          how: 'Ygritte or strong Free Folk lead. Euron for Raid. Davos / Osha / Theon for board control and damage. Keep pressure up; gems still decide fights. Real Taunter still required if Wrathful Gaze targets you.',
+          lineup: [
+            { name: 'Ygritte', role: 'Leader · Pressure' },
+            { name: 'Euron Greyjoy', role: 'Raid' },
+            { name: 'Davos Seaworth', role: 'Support' },
+            { name: 'Osha', role: 'Damage' },
+            { name: 'Theon Greyjoy', role: 'Flex' }
+          ]
+        },
+        {
+          title: 'Shape B — High-investment Targ / Blue Dany + Taunt',
+          purpose: 'Matches top Tips & Tricks boards. Real Taunt + invested Dany cores.',
+          how: 'Force a real Taunter and keep him alive (+40% Stamina from Wrathful Gaze). Prefer Daenerys Targaryen (Blue). Stack damage. Do not Reinforce. Avoid Birthright/Fury/Shield walls.',
+          lineup: [
+            { name: 'Brienne of Tarth', role: 'Leader · Taunt' },
+            { name: 'Daenerys Targaryen (Blue)', role: 'Damage' },
+            { name: 'Daemon Targaryen', role: 'Damage' },
+            { name: 'Oberyn Martell', role: 'Bleed · Fire' },
+            { name: 'Sandor Clegane', role: 'Taunt · Flex' }
+          ]
+        },
+        {
+          title: 'Shape C — Free Cities + protected Taunt',
+          purpose: 'Stamina pressure while still answering Wrathful Gaze.',
+          how: 'Drogo / Daario speed loop + Blue Dany. Bring a real Taunter (Brienne / Sandor / Areo). Prefer this if Bleed tools are under-invested. Keep the Taunter alive.',
+          lineup: [
+            { name: 'Khal Drogo', role: 'Leader · Damage' },
+            { name: 'Daario Naharis', role: 'Pressure' },
+            { name: 'Daenerys Targaryen (Blue)', role: 'Flex' },
+            { name: 'Brienne of Tarth', role: 'Taunt' },
+            { name: 'Nymeria Sand', role: 'Damage · Control' }
+          ]
+        }
+      ],
+      drogon: [
+        {
+          title: 'Shape A — Free Cities speed (highest ceiling)',
+          purpose: 'Speed race. Free Cities stamina + real damage ends the fight before Drogon snowballs.',
+          how: 'Play aggressively. Dump skills fast. Protect damage dealers. This is a race, not a stall. Raid helps open.',
+          lineup: [
+            { name: 'Khal Drogo', role: 'Leader · Damage' },
+            { name: 'Daario Naharis', role: 'Pressure' },
+            { name: 'Daenerys Targaryen (Blue)', role: 'Utility · Support' },
+            { name: 'Nymeria Sand', role: 'Damage' },
+            { name: 'Ned Stark', role: 'Utility · Body' }
+          ]
+        },
+        {
+          title: 'Shape B — Raid into damage',
+          purpose: 'Open with skill Raid, then dump high single-target damage.',
+          how: 'Euron lead when invested. Follow with Gregor / Nymeria / Daario. Keep tempo high.',
+          lineup: [
+            { name: 'Euron Greyjoy', role: 'Leader · Raid' },
+            { name: 'Gregor Clegane', role: 'Damage' },
+            { name: 'Nymeria Sand', role: 'Damage · Control' },
+            { name: 'Daario Naharis', role: 'Pressure' },
+            { name: 'Yara Greyjoy', role: 'Flex · Pressure' }
+          ]
+        },
+        {
+          title: 'Shape C — Targ pressure',
+          purpose: 'High single-target and dragon synergy when Free Cities pieces are unavailable.',
+          how: 'Daemon or Aemond lead. Pair with Blue Dany and a strong secondary damage dealer. Still play for speed.',
+          lineup: [
+            { name: 'Daemon Targaryen', role: 'Leader · Damage' },
+            { name: 'Daenerys Targaryen (Blue)', role: 'Utility' },
+            { name: 'Aemond Targaryen', role: 'Damage' },
+            { name: 'Euron Greyjoy', role: 'Raid' },
+            { name: 'Caraxes', role: 'Damage · Dragon' }
+          ]
+        }
+      ],
+      icy: [
+        {
+          title: 'Shape A — Night King controlled Ice (primary)',
+          purpose: 'Night King is the best-fit lead. Defensive body keeps him alive so Ice/Reinforce control stays online.',
+          how: 'Do not mindlessly Reinforce — it can backfire. Night King + Ice Warden / Bran control the pace. Arya and a durable body (Ned / Duncan / Sandor) protect the package. Keep Night King alive.',
+          lineup: [
+            { name: 'The Night King', role: 'Leader · Control' },
+            { name: 'Ice Warden', role: 'Support · Reinforce' },
+            { name: 'Bran Stark', role: 'Control · Reinforce' },
+            { name: 'Arya Stark', role: 'Damage · Control' },
+            { name: 'Ned Stark', role: 'Utility · Body' }
+          ]
+        },
+        {
+          title: 'Shape B — Night King + Free Cities hybrid',
+          purpose: 'Same Night King core with speed damage to end the fight before Ice stacks become oppressive.',
+          how: 'Night King still leads. Drogo / Daario / Nymeria provide the kill pressure. Ice Warden or Ned is the defensive body. Keep Night King alive.',
+          lineup: [
+            { name: 'The Night King', role: 'Leader · Control' },
+            { name: 'Khal Drogo', role: 'Damage · Pressure' },
+            { name: 'Daario Naharis', role: 'Pressure' },
+            { name: 'Nymeria Sand', role: 'Damage' },
+            { name: 'Ice Warden', role: 'Support · Body' }
+          ]
+        },
+        {
+          title: 'Shape C — Night King + Stark wall',
+          purpose: 'Maximum defensive posture around Night King when the board is hostile or you need to outlast.',
+          how: 'Night King + Ned + Bran + Arya form a control wall. Sandor or Duncan is the durable Taunt/body. Reinforce only when the timing is clean. Keep Night King alive at all costs.',
+          lineup: [
+            { name: 'The Night King', role: 'Leader · Control' },
+            { name: 'Ned Stark', role: 'Control · Utility' },
+            { name: 'Bran Stark', role: 'Reinforce · Control' },
+            { name: 'Arya Stark', role: 'Damage · Control' },
+            { name: 'Sandor Clegane', role: 'Taunt · Body' }
+          ]
+        }
+      ],
+      raidAtk: [
+        {
+          title: 'Shape A — Free Cities / Raid',
+          purpose: 'Highest ceiling is Drogo stamina or Euron Raid open.',
+          how: 'Apply Raid when available, then damage + control. Play for fast clears.',
+          lineup: [
+            { name: 'Khal Drogo', role: 'Leader · Damage' },
+            { name: 'Daario Naharis', role: 'Pressure' },
+            { name: 'Nymeria Sand', role: 'Damage' },
+            { name: 'Gregor Clegane', role: 'Damage' },
+            { name: 'Daenerys Targaryen (Blue)', role: 'Support' }
+          ]
+        }
+      ],
+      raidDef: [
+        {
+          title: 'Shape A — Meryn / Taunt core',
+          purpose: 'Stun + Wound punishment on every enemy skill.',
+          how: 'Taunt first (Meryn / Brienne / Sandor). Sustain second. Extremely hard to break cleanly.',
+          lineup: [
+            { name: 'Meryn Trant', role: 'Leader · Taunt' },
+            { name: 'Ned Stark', role: 'Sustain · Control' },
+            { name: 'Sandor Clegane', role: 'Taunt · Damage' },
+            { name: 'Olenna Tyrell', role: 'Control' },
+            { name: 'Tyrion Lannister', role: 'Support' }
+          ]
+        }
+      ]
+    };
+
     let allChamps = [];
     let currentMode = 'war';
+
+    function findChamp(nameFragment) {
+      if (!nameFragment || !allChamps.length) return null;
+      const q = nameFragment.toLowerCase().replace(/\(.*?\)/g, '').trim();
+      let hit = allChamps.find(c => c.name.toLowerCase() === q);
+      if (hit) return hit;
+      hit = allChamps.find(c => c.name.toLowerCase().includes(q) || q.includes(c.name.toLowerCase().split(' ')[0]));
+      return hit || null;
+    }
+
+    function shapeCard(shape, accent) {
+      const color = accent || '#c9a227';
+      const members = (shape.lineup || []).map(s => {
+        const c = findChamp(s.name);
+        if (c) {
+          return `<div class="rounded-lg p-3 text-center" style="background:rgba(0,0,0,0.35);border:1px solid ${color}22">${avatarHTML(c, 48)}<div class="text-xs mt-1.5 font-medium leading-snug" style="white-space:normal;word-break:break-word">${c.name}</div><div class="text-[10px] mt-0.5 font-semibold" style="color:${color}">${s.role || ''}</div></div>`;
+        }
+        const initials = (s.name || '?').split(/[\s(/]/).filter(Boolean).map(w => w[0] || '').join('').slice(0, 3).toUpperCase();
+        return `<div class="rounded-lg p-3 text-center" style="background:rgba(0,0,0,0.35);border:1px solid ${color}22"><div class="w-12 h-12 mx-auto rounded-full flex items-center justify-center text-[10px] font-bold" style="background:${color}33;color:${color}">${initials}</div><div class="text-xs mt-1.5 font-medium leading-snug" style="white-space:normal;word-break:break-word">${s.name}</div><div class="text-[10px] mt-0.5 font-semibold" style="color:${color}">${s.role || ''}</div></div>`;
+      }).join('');
+      return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-sm mb-1" style="color:${color}">${shape.title}</div><p class="text-sm text-[#c8c4be] mb-1">${shape.purpose || ''}</p><p class="text-xs text-[#8a8680] mb-4">${shape.how || ''}</p><div class="grid grid-cols-2 sm:grid-cols-5 gap-3">${members}</div></div>`;
+    }
+
+    function rosterTeamCard(t, accent) {
+      const color = accent || '#c9a227';
+      const rows = (t.team || []).map(slot => {
+        const c = slot.champ;
+        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} · ${(c.roles || []).slice(0, 2).join(' · ')}</div></div></div>`;
+      }).join('');
+      return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'} — from your roster</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
+    }
+
+    function warTeamCard(t, accent) {
+      const color = accent || '#c9a227';
+      const rows = (t.team || []).map(slot => {
+        const c = slot.champ;
+        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} · ${(c.roles || []).slice(0, 2).join(' · ')}</div></div></div>`;
+      }).join('');
+      return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'}</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
+    }
+
     function renderMode(modeKey) {
       currentMode = modeKey;
       document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === modeKey));
       const roster = loadRoster();
       const owned = ownedChampions(allChamps, roster);
       const box = document.getElementById('teams');
-      if (!owned.length) {
-        box.innerHTML = '<div class="card rounded-xl p-6 text-[#9a9690]">Mark champions on <a class="text-[#c9a227]" href="roster.html">My Roster</a> first.</div>';
+      const color = Array.isArray(accents[modeKey]) ? accents[modeKey][0] : (accents[modeKey] || '#c9a227');
+
+      let html = '';
+
+      if (modeKey === 'war') {
+        if (owned.length < 5) {
+          box.innerHTML = '<div class="card rounded-xl p-6 text-[#9a9690]">Mark at least 5 champions on <a class="text-[#c9a227]" href="roster.html">My Roster</a> first.</div>';
+          return;
+        }
+        const teams = buildWarTeams(owned);
+        html = teams.map((t, i) => warTeamCard(t, accents.war[i % 4])).join('');
+        box.innerHTML = html;
         return;
       }
-      let html = '';
-      if (modeKey === 'war') {
-        const teams = buildWarTeams(owned);
-        html = teams.map(t => teamCard(t)).join('');
-      } else {
-        const profile = MODE_PROFILES[modeKey];
-        if (!profile) { box.innerHTML = '<p class="text-[#6a6660]">Unknown mode.</p>'; return; }
-        const t = buildSingleTeam(owned, modeKey, profile);
-        html = teamCard(t);
+
+      const shapes = SHAPE_SUGGESTIONS[modeKey] || [];
+      if (shapes.length) {
+        html += `<div class="text-sm font-semibold text-[#c9a227] mb-2">Proven shapes — try more than one</div>`;
+        html += shapes.map(s => shapeCard(s, color)).join('');
       }
-      box.innerHTML = html;
+
+      if (owned.length >= 5 && MODE_PROFILES[modeKey]) {
+        const result = buildSingleTeam(owned, modeKey, MODE_PROFILES[modeKey]);
+        html += `<div class="text-sm font-semibold text-[#c9a227] mt-6 mb-2">From your roster</div>`;
+        html += rosterTeamCard(result, color);
+      } else if (owned.length < 5 && shapes.length) {
+        html += `<div class="card rounded-xl p-5 mt-4 text-center text-[#8a8680]">Mark at least 5 champions in <a href="roster.html" class="text-[#c9a227] underline">My Roster</a> for a roster-based pick. Shapes above still apply.</div>`;
+      }
+
+      box.innerHTML = html || '<div class="card rounded-xl p-6 text-[#9a9690]">No suggestions for this mode yet.</div>';
     }
-    function teamCard(t) {
-      const rows = (t.team || []).map(slot => {
-        const c = slot.champ;
-        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} · ${(c.roles||[]).slice(0,2).join(' · ')}</div></div></div>`;
-      }).join('');
-      return `<div class="card rounded-xl p-5"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'}</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
-    }
+
     const btnBox = document.getElementById('modeButtons');
     MODES.forEach(m => {
       const b = document.createElement('button');
@@ -98,7 +400,11 @@
       b.onclick = () => renderMode(m.key);
       btnBox.appendChild(b);
     });
-    fetchChampions().then(champs => { allChamps = champs; renderMode('war'); });
+
+    fetchChampions().then(champs => {
+      allChamps = champs;
+      renderMode('war');
+    });
   </script>
 </body>
 </html>
