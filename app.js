@@ -172,7 +172,7 @@ const MODE_PROFILES = {
   },
   rhaegal: {
     name: 'Rhaegal', purpose: 'Protected Taunt + Bleed / Fire. Opening Salvo eats Birthright/Fury/Shields; Fuel rewards Bleed and Fire.',
-    how: 'Bring a real Taunter and keep him alive (+40% Stamina while Taunting). Stack Bleed and Fire. Do not Reinforce (True Damage). Avoid Birthright/Fury/Shield walls. He is immune to Stun/Pacify/Deceive. –50% Gem Damage on your team.',
+    how: 'Bring a real Taunter and keep him alive. Prefer Daenerys Targaryen (Blue). Bleed/Fire grind OR Free Folk pressure both work — theory Bleed packages can underperform. Do not Reinforce. Avoid Birthright/Fury/Shield walls. –50% Gem Damage.',
     preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
     slots: [
       { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
