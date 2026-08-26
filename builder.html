@@ -1,1 +1,93 @@
-PLACEHOLDER_BU
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Builder – Old Peeps on Porches</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card { background: linear-gradient(160deg, #16161c 0%, #121216 100%); border: 1px solid #2e2e38; }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
+    .mode-btn { border: 1px solid #2e2e38; background: #141418; color: #a8a6a1; }
+    .mode-btn.active { border-color: #c9a227; color: #c9a227; background: #1e1a12; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="accent-bar"></div>
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm">GOT</div><div><div class="font-bold text-lg text-[#f0ebe0]">GOT Legends Guide</div><div class="text-xs text-[#c9a227]">Old Peeps on Porches</div></div></a>
+      <nav class="hidden md:flex gap-3 text-sm"><a href="roster.html" class="nav-link">My Roster</a><a href="builder.html" class="text-[#c9a227] font-semibold">Team Builder</a><a href="dragons.html" class="nav-link">Dragons</a><a href="status-effects.html" class="nav-link">Status</a><a href="factions.html" class="nav-link">Factions</a><a href="allies.html" class="nav-link">Allies</a><a href="champions.html" class="nav-link">Champions</a></nav>
+    </div>
+  </header>
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Team Builder</h1>
+    <p class="text-[#9a9690] mb-6">Uses your marked roster. Mode changes leader preference and role priority.</p>
+    <div class="flex flex-wrap gap-2 mb-6" id="modeButtons"></div>
+    <div id="teams" class="space-y-4"></div>
+    <p class="text-xs text-[#6a6660] mt-6">Mark champions on My Roster first. Power numbers are not shown — composition matters more.</p>
+  </section>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
+    <div class="mt-1">gotlegendsguide.com</div>
+  </footer>
+  <script src="portraits-mini.js"></script>
+  <script src="app.js"></script>
+  <script>
+    const MODES = [
+      { key: 'war', label: 'War' },
+      { key: 'raidAtk', label: 'Raid Attack' },
+      { key: 'raidDef', label: 'Raid Defense' },
+      { key: 'viserion', label: 'Viserion' },
+      { key: 'rhaegal', label: 'Rhaegal' },
+      { key: 'drogon', label: 'Drogon' },
+      { key: 'icy', label: 'Icy Viserion' }
+    ];
+    let allChamps = [];
+    let currentMode = 'war';
+    function renderMode(modeKey) {
+      currentMode = modeKey;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === modeKey));
+      const roster = loadRoster();
+      const owned = ownedChampions(allChamps, roster);
+      const box = document.getElementById('teams');
+      if (!owned.length) {
+        box.innerHTML = '<div class="card rounded-xl p-6 text-[#9a9690]">Mark champions on <a class="text-[#c9a227]" href="roster.html">My Roster</a> first.</div>';
+        return;
+      }
+      let html = '';
+      if (modeKey === 'war') {
+        const teams = buildWarTeams(owned);
+        html = teams.map(t => teamCard(t)).join('');
+      } else {
+        const profile = MODE_PROFILES[modeKey];
+        if (!profile) { box.innerHTML = '<p class="text-[#6a6660]">Unknown mode.</p>'; return; }
+        const t = buildSingleTeam(owned, modeKey, profile);
+        html = teamCard(t);
+      }
+      box.innerHTML = html;
+    }
+    function teamCard(t) {
+      const rows = (t.team || []).map(slot => {
+        const c = slot.champ;
+        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} · ${(c.roles||[]).slice(0,2).join(' · ')}</div></div></div>`;
+      }).join('');
+      return `<div class="card rounded-xl p-5"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'}</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
+    }
+    const btnBox = document.getElementById('modeButtons');
+    MODES.forEach(m => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'mode-btn px-3 py-2 rounded-lg text-sm' + (m.key === 'war' ? ' active' : '');
+      b.dataset.mode = m.key;
+      b.textContent = m.label;
+      b.onclick = () => renderMode(m.key);
+      btnBox.appendChild(b);
+    });
+    fetchChampions().then(champs => { allChamps = champs; renderMode('war'); });
+  </script>
+</body>
+</html>
