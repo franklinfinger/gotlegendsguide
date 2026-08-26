@@ -4,17 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dragon Bosses – Old Peeps on Porches</title>
+  <meta name="description" content="How to fight Viserion, Drogon, Rhaegal, and Icy Viserion in Game of Thrones: Legends. Recommended teams, why they work, and exact strategy." />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: #0a0a0c; color: #e8e6e3; }
-    .card { background: linear-gradient(160deg, #16161c 0%, #121216 100%); border: 1px solid #2e2e38; }
+    .card {
+      background: linear-gradient(160deg, #16161c 0%, #121216 100%);
+      border: 1px solid #2e2e38;
+    }
     .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
     .nav-link { color: #a8a6a1; }
     .nav-link:hover { color: #c9a227; }
+    .team-chip {
+      background: #1a1a22;
+      border: 1px solid #2e2e38;
+      border-radius: 0.75rem;
+      padding: 0.6rem 0.85rem;
+    }
   </style>
 </head>
 <body class="min-h-screen">
+
   <div class="accent-bar"></div>
+
   <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
       <a href="index.html" class="flex items-center gap-3 min-w-0">
@@ -25,62 +37,308 @@
         </div>
       </a>
       <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
-        <a href="roster.html" class="nav-link">My Roster</a>
-        <a href="builder.html" class="nav-link">Team Builder</a>
+        <a href="roster.html" class="nav-link transition">My Roster</a>
+        <a href="builder.html" class="nav-link transition">Team Builder</a>
         <a href="dragons.html" class="text-[#e85d4c] font-semibold">Dragons</a>
-        <a href="status-effects.html" class="nav-link">Status</a>
-        <a href="factions.html" class="nav-link">Factions</a>
-        <a href="allies.html" class="nav-link">Allies</a>
-        <a href="champions.html" class="nav-link">Champions</a>
+        <a href="status-effects.html" class="nav-link transition">Status</a>
+        <a href="factions.html" class="nav-link transition">Factions</a>
+        <a href="allies.html" class="nav-link transition">Allies</a>
+        <a href="champions.html" class="nav-link transition">Champions</a>
       </nav>
     </div>
+    <div class="md:hidden overflow-x-auto border-t border-[#2e2e38]">
+      <div class="flex gap-1 px-3 py-2 text-xs whitespace-nowrap">
+        <a href="roster.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Roster</a>
+        <a href="builder.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Builder</a>
+        <a href="dragons.html" class="px-3 py-1.5 rounded-full bg-[#2a1510] text-[#e85d4c] font-semibold">Dragons</a>
+        <a href="status-effects.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Status</a>
+        <a href="factions.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Factions</a>
+        <a href="allies.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Allies</a>
+        <a href="champions.html" class="px-3 py-1.5 rounded-full bg-[#1a1a20] text-[#a8a6a1]">Champions</a>
+      </div>
+    </div>
   </header>
+
   <main class="max-w-4xl mx-auto px-4 py-10">
     <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#f5f0e8]">Dragon Bosses</h1>
-    <p class="text-[#9a9690] mb-6">Each dragon fights differently. Use <a href="builder.html" class="text-[#c9a227] underline">Team Builder</a> for roster-based picks, then adjust with the notes below.</p>
+    <p class="text-[#9a9690] mb-6">
+      Recommended teams, reasons, and exact strategy for each dragon. Use <a href="builder.html" class="text-[#c9a227] underline">Team Builder</a> to adapt these to your roster.
+    </p>
+
     <div class="card rounded-xl p-5 mb-6 text-sm border-l-4 border-l-[#c9a227]">
       <strong class="text-[#c9a227]">Important:</strong>
-      <span class="text-[#b8b4ae]"> Leaderboard scores are a starting point. Gem luck matters. Status tools (Raid, Ice→Brittle, Fire, Wound) often matter more than pure faction.</span>
+      <span class="text-[#b8b4ae]"> Gem luck still matters. These teams are built around the actual boss abilities, not leaderboard screenshots. Color diversity is intentional so you can still make matches under debuffs. Power numbers do not decide fights — composition and status synergies matter more.</span>
     </div>
-    <section class="card rounded-xl p-6 mb-5 border-l-4 border-l-[#5b9fd4]">
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#5b9fd4]">
       <h2 class="text-2xl font-bold text-[#5b9fd4] mb-1">Viserion</h2>
-      <p class="text-xs text-[#6a6660] mb-4">Ice · Pacify · Raid pressure</p>
-      <div class="space-y-3 text-sm text-[#c8c4be]">
-        <p><strong class="text-[#f0ebe0]">Do:</strong> Bring Raid (Euron). Stack pressure. Prefer Brittle / Ice tools. Don’t hit while Pacified. Don’t lean on pure Shield walls (Wake destroys them).</p>
-        <p><strong class="text-[#c9a227]">Starter:</strong> Raid leader · Damage · Damage · Control · Flex</p>
+      <p class="text-xs text-[#6a6660] mb-4">Pacify · Raid · Brittle · True Damage</p>
+      <div class="space-y-4 text-sm text-[#c8c4be]">
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Team (Primary)</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+            <div class="team-chip"><span class="text-[#c9a227] font-medium">Leader:</span> Euron Greyjoy</div>
+            <div class="team-chip">Arya Stark</div>
+            <div class="team-chip">Yara Greyjoy <span class="text-[#6a6660]">(or Theon)</span></div>
+            <div class="team-chip">Gregor Clegane <span class="text-[#6a6660]">(or Ghost)</span></div>
+            <div class="team-chip">Laenor Velaryon <span class="text-[#6a6660]">(flex)</span></div>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Why this works</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li><strong class="text-[#c9a227]">Golden Scales</strong> — Every Raid (especially Euron’s skill Raid) drops Viserion’s DEF &amp; Durability and gives the whole team 30% Stamina.</li>
+            <li><strong class="text-[#c9a227]">Brittle (Arya / Ghost)</strong> — Completely shuts down Rude Awakening II. You can hit him while Pacified with zero punishment.</li>
+            <li>No Birthright / Fury / Enraged for <strong>Claw Swipe II</strong> to strip.</li>
+            <li>Mixed gem colors so the –50% Gem Damage from <strong>Unchained Dragon</strong> hurts less.</li>
+            <li>Gregor / Laenor add real damage and secondary Raid without feeding the wrong buffs.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Strategy</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Never skill him while Pacified unless he is Brittle.</li>
+            <li>Stack Raid as high as possible — this is the main damage multiplier.</li>
+            <li>Do <strong>not</strong> Reinforce. It feeds Patience II and triggers 100% HP True Damage on the reinforcing unit.</li>
+            <li>Expect every Shield to be destroyed the moment he wakes (Rude Awakening II).</li>
+            <li>Use the 2-turn sleep windows (Own Pace) to set up, then unload when Brittle is up or the window is open.</li>
+            <li>He is immune to Fire and Poison — do not waste those tools.</li>
+          </ul>
+        </div>
       </div>
     </section>
-    <section class="card rounded-xl p-6 mb-5 border-l-4 border-l-[#e85d4c]">
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#e85d4c]">
       <h2 class="text-2xl font-bold text-[#e85d4c] mb-1">Drogon</h2>
-      <p class="text-xs text-[#6a6660] mb-4">Fire · Speed · Real damage</p>
-      <div class="space-y-3 text-sm text-[#c8c4be]">
-        <p><strong class="text-[#f0ebe0]">Do:</strong> Favor Damage and pressure. Raid helps open. Fire / Fury lines when invested (Daemon + Caraxes when both are available — multi-dragon is Daemon’s strength).</p>
-        <p><strong class="text-[#c9a227]">Starter:</strong> Damage · Raid/Pressure · Damage · Utility · Flex</p>
+      <p class="text-xs text-[#6a6660] mb-4">Fire · Speed · High pressure</p>
+      <div class="space-y-4 text-sm text-[#c8c4be]">
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Team (Primary)</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+            <div class="team-chip"><span class="text-[#c9a227] font-medium">Leader:</span> Khal Drogo</div>
+            <div class="team-chip">Daario Naharis</div>
+            <div class="team-chip">High Daenerys</div>
+            <div class="team-chip">Nymeria Sand <span class="text-[#6a6660]">(or Gregor)</span></div>
+            <div class="team-chip">Ned Stark <span class="text-[#6a6660]">(or Duncan)</span></div>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Why this works</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Free Cities stamina engine (Drogo lead) lets you dump skills rapidly before Drogon snowballs.</li>
+            <li>High single-target and AoE pressure from Daario / Dany / Nymeria or Gregor.</li>
+            <li>Ned or Duncan provide a durable body so your damage dealers stay alive.</li>
+            <li>Does not rely on Birthright or slow sustain — Drogon rewards speed and real damage.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Strategy</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Play aggressively. This is a race, not a stall.</li>
+            <li>Keep skills flowing — Free Cities wants constant action.</li>
+            <li>Protect your highest damage dealers; Drogon hits hard and fast.</li>
+            <li>Raid is useful for opening but not mandatory if your Free Cities core is strong.</li>
+          </ul>
+        </div>
       </div>
     </section>
-    <section class="card rounded-xl p-6 mb-5 border-l-4 border-l-[#7cb342]">
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#7cb342]">
       <h2 class="text-2xl font-bold text-[#7cb342] mb-1">Rhaegal</h2>
-      <p class="text-xs text-[#6a6660] mb-4">Bleed · Fire · Protected Taunt</p>
-      <div class="space-y-3 text-sm text-[#c8c4be]">
-        <p><strong class="text-[#f0ebe0]">Do:</strong> Protect a real Taunt (Brienne, Sandor, Jorah). Bleed / Fire / Poison tools (Oberyn, Olenna) help grind.</p>
-        <p><strong class="text-[#c9a227]">Starter:</strong> Taunt · Damage · Sustain · Pressure · Flex</p>
+      <p class="text-xs text-[#6a6660] mb-4">Taunt · Bleed · Fire · Grudge · Gem Damage reduction</p>
+      <div class="space-y-4 text-sm text-[#c8c4be]">
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Key Abilities</p>
+          <ul class="list-disc list-inside space-y-1.5 ml-1 text-xs">
+            <li><strong>Unrelenting Assault</strong> — Uses Stamina skill every turn if able. 30% ATK Physical + 2 Grudge, then +20% ATK per Grudge.</li>
+            <li><strong>Lasting Agony</strong> — 100% ATK Physical single-target bite.</li>
+            <li><strong>Fuel to the Flames II</strong> — Skill while Bleeding = 2% Max HP True Damage per Bleed. Start of turn: 20k flat True Damage per Fire mark. When the Taunting ally is Healed they gain Block + Renew; if Targaryen or Bolton, Rhaegal also takes 20% Max HP Physical.</li>
+            <li><strong>Wrathful Gaze</strong> — At start applies indefinite Taunt to the strongest enemy (then next strongest). Only Rhaegal can grant this Taunt. While Taunting, that champion gains +40% Stamina every turn start.</li>
+            <li><strong>High and Mighty II</strong> — Immune to Stun / Pacified / Deceived. Whole team –50% Gem Damage. Reinforce = 100% HP Pool True Damage to the reinforcing unit.</li>
+            <li><strong>Opening Salvo II</strong> — Each turn start eats all Birthright, Fury, and Shields (replaces with Grudge). Also eats Ice/Brittle on himself and deals 100% ATK Fire to all enemies per Ice eaten.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">What actually scores (read this first)</p>
+          <p class="text-xs text-[#b8b4ae] mb-3">Official tips still apply: he skills every turn → <strong>Bleed</strong> does heavy True Damage, <strong>Fire</strong> deals bonus damage, keep the <strong>Taunting</strong> ally alive. But pure theory Bleed packages can underperform on real boards. Top Tips &amp; Tricks scores lean on high-investment pieces (often dual Daenerys Targaryen <strong>(Blue)</strong> / Targ cores). Alliance tests have also scored with Free Folk + Greyjoy pressure. Use a real Taunter; do not Reinforce; avoid Birthright/Fury/Shield walls.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Teams (pick based on what you have)</p>
+          <div class="space-y-3 text-xs">
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team A — High-investment Targ / Blue Dany (leaderboard style):</strong><br>
+              Strong Taunt (Brienne / Sandor / Areo Hotah) · Daenerys Targaryen <strong>(Blue)</strong> · second high Dany or Daemon · Oberyn or Fire damage · Flex damage<br>
+              <span class="text-[#8a8680]">Why: Matches top Tips &amp; Tricks boards. Blue Dany + invested partners carry damage while Taunt soaks Wrathful Gaze. Keep Taunter alive.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team B — Free Folk / Greyjoy pressure (alliance tested):</strong><br>
+              Ygritte (or strong Free Folk lead) · Euron · Davos · Osha / Tormund · Theon or second Greyjoy<br>
+              <span class="text-[#8a8680]">Why: Scored ~5.5k in alliance testing when a pure Bleed package only managed ~2.3k on a similar board. Raid + board control + Free Folk crit package can outpace theory Bleed if gems favor it.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team C — Classic Bleed / Fire grind:</strong><br>
+              Brienne or Areo Hotah (Taunt lead) · Oberyn Martell · Olenna Tyrell · Nymeria / Gregor · Daenerys Targaryen <strong>(Blue)</strong> or heal<br>
+              <span class="text-[#8a8680]">Why: Maximizes Fuel to the Flames True Damage. Works when you can keep Bleed up and the Taunter alive. If this shape underperforms for you, switch to A or B.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team D — Free Cities + protected Taunt:</strong><br>
+              Drogo · Daario · Daenerys Targaryen <strong>(Blue)</strong> · Brienne / Sandor / Areo · Oberyn or Nymeria<br>
+              <span class="text-[#8a8680]">Why: Stamina pressure + real damage while still answering Wrathful Gaze. Prefer this if your Bleed tools are under-invested.</span>
+            </div>
+          </div>
+          <p class="text-xs text-[#8a8680] mt-3">Always: protect the Taunter Rhaegal forces onto you. Never Reinforce. Do not build Birthright/Fury/Shield walls (Opening Salvo eats them). Label same-name champs by color — use <strong>Daenerys Targaryen (Blue)</strong>.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Why this works</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Rhaegal forces Taunt onto your strongest unit and only he can grant it — bring a real Taunter you are willing to let him target and keep alive.</li>
+            <li>Bleed and Fire trigger <strong>Fuel to the Flames II</strong> (True Damage on him every turn and when he skills).</li>
+            <li>Opening Salvo eats Birthright / Fury / Shields every turn — avoid relying on those buffs.</li>
+            <li>–50% Gem Damage (High and Mighty) means mixed colors and skill damage matter more than pure gem matching.</li>
+            <li>Healing the Taunter also gives Block + Renew and can punish Rhaegal if the Taunter is Targaryen or Bolton.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Strategy</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Protect the Taunter at all costs. If he dies early the fight becomes chaotic and Stamina advantage is lost.</li>
+            <li>Apply Bleed and Fire and keep them up — this is the main damage engine against him.</li>
+            <li>Do <strong>not</strong> Reinforce. High and Mighty punishes it with massive True Damage.</li>
+            <li>Do not lean on Birthright, Fury, or big Shield walls — Opening Salvo eats them every turn and turns them into Grudge.</li>
+            <li>Skill consistently. He skills every turn; matching that tempo with Bleed/Fire pressure wins long fights.</li>
+            <li>He is immune to Stun, Pacified, and Deceived — do not waste those tools.</li>
+          </ul>
+        </div>
       </div>
     </section>
-    <section class="card rounded-xl p-6 mb-5 border-l-4 border-l-[#8b9dc3]">
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#8b9dc3]">
       <h2 class="text-2xl font-bold text-[#8b9dc3] mb-1">Icy Viserion</h2>
-      <p class="text-xs text-[#6a6660] mb-4">Reinforce · Ice · Careful engines</p>
-      <div class="space-y-3 text-sm text-[#c8c4be]">
-        <p><strong class="text-[#f0ebe0]">Do:</strong> Ice / Reinforce / control (Night King, Bran). Don’t blindly stack pure Reinforce and feed the boss. Pair with real damage.</p>
-        <p><strong class="text-[#c9a227]">Starter:</strong> Reinforce · Control · Damage · Support · Flex</p>
+      <p class="text-xs text-[#6a6660] mb-4">Ice · Reinforce pressure · Speed race</p>
+      <div class="space-y-4 text-sm text-[#c8c4be]">
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Teams (Night King on all three)</p>
+          <div class="space-y-3 text-xs mb-3">
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team A — Night King controlled Ice (primary):</strong><br>
+              The Night King (Leader) · Ice Warden · Bran Stark · Arya Stark · Ned Stark<br>
+              <span class="text-[#8a8680]">Why: Night King is the best-fit lead. Ice Warden / Bran control the pace. Arya and Ned protect the package. Keep Night King alive.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team B — Night King + Free Cities hybrid:</strong><br>
+              The Night King (Leader) · Khal Drogo · Daario Naharis · Nymeria Sand · Ice Warden<br>
+              <span class="text-[#8a8680]">Why: Same Night King core with speed damage to end the fight before Ice stacks become oppressive. Ice Warden is the defensive body.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team C — Night King + Stark wall:</strong><br>
+              The Night King (Leader) · Ned Stark · Bran Stark · Arya Stark · Sandor Clegane<br>
+              <span class="text-[#8a8680]">Why: Maximum defensive posture when the board is hostile. Reinforce only when the timing is clean. Keep Night King alive at all costs.</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Why this works</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Night King is the control lead for this fight — do not default Drogo just because he is strong elsewhere.</li>
+            <li>A defensive body (Ice Warden / Ned / Sandor) keeps Night King online so Ice / Reinforce control stays available.</li>
+            <li>The hybrid version still uses Drogo + Blue-Dany-tier pressure when you can race, but Night King stays Leader.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-1">Strategy</p>
+          <ul class="list-disc list-inside space-y-1 ml-1">
+            <li>Do not mindlessly Reinforce — it can backfire. Time it.</li>
+            <li>Keep Night King alive. If he dies the Ice package collapses.</li>
+            <li>If the board is open, use the hybrid to finish before Ice stacks take over.</li>
+            <li>If the board is hostile, sit on the Stark wall and outlast.</li>
+          </ul>
+        </div>
       </div>
     </section>
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#c9a227]">
+      <h2 class="text-xl font-bold text-[#c9a227] mb-2">Four Proven Engines</h2>
+      <p class="text-xs text-[#8a8680] mb-4">These packages work across many fights. Use them as building blocks for dragons, raids, and war.</p>
+      <div class="space-y-5 text-sm text-[#c8c4be]">
+        <div>
+          <p class="font-semibold text-[#f0ebe0]">1. Meryn Control Core (Hold / Defense)</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Shape:</span> Meryn Trant (Leader) + Jaqen / Olenna + Tyrion + Sandor / Ned + sustain</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Why:</span> Meryn punishes every enemy skill with Stun + Wound. Extremely hard to break cleanly. Ideal for holding outposts or defense.</p>
+          <p class="text-xs"><span class="text-[#c9a227]">How:</span> Keep Meryn alive. Let the opponent skill into the punish loop. Do not chase kills — win by attrition and forced bad decisions.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0]">2. Free Cities Speed (Primary Offense)</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Shape:</span> Khal Drogo (Leader) + Daario + high Daenerys + Nymeria / Gregor + flex</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Why:</span> Highest-ceiling pure attack engine. Stamina loop + Wrath / crit pressure ends fights before the enemy stabilizes.</p>
+          <p class="text-xs"><span class="text-[#c9a227]">How:</span> Race. Open hard, keep skills flowing, protect the damage dealers. Do not stall.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0]">3. Scout + Gem Crit (Snowball)</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Shape:</span> Varys (Leader) + Davos + Drogo / Stannis + high Dany + flex</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Why:</span> Varys Scouts at start and grants Stealth when allies drop low. When a Scouted enemy takes Skill damage the team gets +25% Gem Crit Chance. Davos adds more Scout + Seeker gems. Can snowball hard when the board cooperates.</p>
+          <p class="text-xs"><span class="text-[#c9a227]">How:</span> Land Scout early, trigger Crit windows with skills, use Dany Wrath or red engines as the finisher. Board-dependent — if gems hate you the plan slows down.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0]">4. Raid + Brittle (Viserion &amp; skill-Raid fights)</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Shape:</span> Euron Greyjoy (Leader) + Arya Stark + Yara / Theon + Gregor / Ghost + flex</p>
+          <p class="text-xs mb-1"><span class="text-[#c9a227]">Why:</span> Skill Raid maximizes Golden Scales (DEF drop + team Stamina). Brittle completely shuts down Rude Awakening punishment. Mixed colors help under Gem Damage debuffs.</p>
+          <p class="text-xs"><span class="text-[#c9a227]">How:</span> Never skill while Pacified unless Brittle is up. Stack Raid. Do not Reinforce. Use sleep windows to set up big turns.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#c9a227]">
+      <h2 class="text-xl font-bold text-[#c9a227] mb-3">War Overview</h2>
+      <div class="space-y-3 text-sm text-[#c8c4be]">
+        <p><strong class="text-[#f0ebe0]">Stages</strong></p>
+        <ul class="list-disc list-inside space-y-1 ml-1 text-xs">
+          <li><strong>Stage 2</strong> — Teams lock in.</li>
+          <li><strong>Stage 3</strong> — Outpost placement fights. You place teams on specific outposts; the opponent does the same. You fight whoever is on that outpost. Outpost bonuses apply to the fight.</li>
+          <li><strong>Stage 4</strong> — Final war. Any outposts you won in Stage 3 carry their bonuses forward. You face strong opposing teams and choose Easy / Med / Hard (Hard pays more points but is riskier).</li>
+        </ul>
+        <p class="mt-3"><strong class="text-[#f0ebe0]">Key principles</strong></p>
+        <ul class="list-disc list-inside space-y-1 ml-1 text-xs">
+          <li>Composition and status synergies matter more than raw power numbers.</li>
+          <li>Match your team identity to the current outpost bonus when possible (faction ATK, DEF, Tenacity, Unnatural Resistance, etc.). Bonuses change every war.</li>
+          <li>Defense is harder than offense because the <strong>attacker</strong> controls the gem board.</li>
+          <li>Do not force under-leveled champions just to claim a faction bonus — the power gap is usually not worth it.</li>
+          <li>Gem color diversity helps under –50% Gem Damage effects and general board control fights.</li>
+        </ul>
+        <p class="mt-3 text-xs text-[#8a8680]">Default four war jobs: Lannister core · Free Cities speed · Baratheon camp / Scout · Meryn hold. Chase the outpost faction bonus only when those champions are actually strong.</p>
+      </div>
+    </section>
+
+    <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#c9a227]">
+      <h2 class="text-xl font-bold text-[#c9a227] mb-3">Raids — Quick Reference</h2>
+      <div class="space-y-4 text-sm text-[#c8c4be]">
+        <div>
+          <p class="font-semibold text-[#f0ebe0]">Raid Attack (Offense)</p>
+          <p class="mb-1"><span class="text-[#c9a227]">Primary:</span> Free Cities — Drogo (Leader) + Blue Dany + Daario + Jorah + Nymeria</p>
+          <p class="text-xs text-[#8a8680]">Why: Highest-ceiling stamina race. Alternative: dual Dany + Sandor/Jorah, or Tywin/Euron into a Lannister wall.</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0]">Raid Defense</p>
+          <p class="mb-1"><span class="text-[#c9a227]">Primary:</span> Meryn + Sandor + Tywin/Cersei + Olenna + Joffrey</p>
+          <p class="text-xs text-[#8a8680]">Why: Attacker owns the gems, so defense wins with Stun/Wound punish — not a race. Alt: Olenna + Nymeria + Gregor wall.</p>
+        </div>
+      </div>
+    </section>
+
     <div class="card rounded-xl p-5 text-sm text-[#b8b4ae] border-l-4 border-l-[#c9a227]">
-      <strong class="text-[#c9a227]">Roster note:</strong> Mark what you own in My Roster, then run Team Builder. Use the tools you have — Taunt, Raid, control, damage — based on your roster.
+      <strong class="text-[#c9a227]">Roster note:</strong> Mark what you own in My Roster, then run Team Builder. The recommendations above are the ideal shapes — the Builder will adapt them to the champions you actually have. These guides are written for the whole alliance, not only the highest-power accounts.
+    </div>
+
+    <div class="mt-6 text-sm text-[#8a8680]">
+      Related: <a href="builder.html" class="text-[#e85d4c] underline">Team Builder</a> ·
+      <a href="status-effects.html" class="text-[#5b9fd4] underline">Status Effects</a> ·
+      <a href="allies.html" class="text-[#d4783a] underline">Ally Pairs</a>
     </div>
   </main>
+
   <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
     <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
     <div class="mt-1">gotlegendsguide.com</div>
   </footer>
+
 </body>
 </html>
