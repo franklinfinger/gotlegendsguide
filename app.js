@@ -171,14 +171,14 @@ const MODE_PROFILES = {
     ]
   },
   rhaegal: {
-    name: 'Rhaegal', purpose: 'Protected Taunt + Bleed / Fire. Opening Salvo eats Birthright/Fury/Shields; Fuel rewards Bleed and Fire.',
-    how: 'Bring a real Taunter and keep him alive. Prefer Daenerys Targaryen (Blue). Bleed/Fire grind OR Free Folk pressure both work — theory Bleed packages can underperform. Do not Reinforce. Avoid Birthright/Fury/Shield walls. –50% Gem Damage.',
-    preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt'),
+    name: 'Rhaegal', purpose: 'Protected Taunt. Free Folk pressure OR Targ/Blue Dany cores often beat pure Bleed theory packages.',
+    how: 'Real Taunter required — keep him alive. Prefer Free Folk/Greyjoy pressure or high-investment Blue Dany. Classic Oberyn/Olenna Bleed can underperform. Do not Reinforce. Avoid Birthright/Fury/Shield walls. –50% Gem Damage.',
+    preferredLeader: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') || (c.name && (c.name.includes('Ygritte') || c.name.includes('Drogo'))),
     slots: [
-      { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') },
-      { label: 'Damage', prefer: c => hasTag(c, 'bleed') || hasTag(c, 'fire') || hasTag(c, 'poison') || hasRole(c, 'damage') },
-      { label: 'Sustain', prefer: c => hasRole(c, 'sustain') || hasRole(c, 'heal') || hasRole(c, 'support') },
-      { label: 'Control', prefer: c => hasRole(c, 'control') || hasRole(c, 'pressure') || hasRole(c, 'damage') },
+      { label: 'Taunt', prefer: c => hasRole(c, 'taunt') || hasRole(c, 'protect') || hasTag(c, 'taunt') },
+      { label: 'Damage', prefer: c => hasRole(c, 'damage') || hasRole(c, 'pressure') || hasTag(c, 'raid') },
+      { label: 'Support', prefer: c => hasRole(c, 'support') || hasRole(c, 'utility') || hasRole(c, 'sustain') },
+      { label: 'Flex', prefer: c => hasTag(c, 'bleed') || hasTag(c, 'fire') || hasRole(c, 'damage') || true },
     ]
   },
   icy: {
