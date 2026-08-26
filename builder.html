@@ -125,41 +125,40 @@
       viserion: '#5b9fd4', drogon: '#e85d4c', rhaegal: '#7cb342', icy: '#8b9dc3'
     };
 
-    // Three strategic shapes per dragon. Champions may repeat across shapes when they are the best fit.
     const SHAPE_SUGGESTIONS = {
       viserion: [
         {
-          title: 'Shape A — Raid + Brittle (primary)',
+          title: 'Shape A \u2014 Raid + Brittle (primary)',
           purpose: 'Golden Scales rewards skill Raid; Brittle shuts down Rude Awakening.',
-          how: 'Never skill while Pacified unless Brittle is up. Stack Euron skill Raid first. Mixed colors help under –50% Gem Damage. Do not Reinforce (feeds Patience).',
+          how: 'Never skill while Pacified unless Brittle is up. Stack Euron skill Raid first. Mixed colors help under \u201350% Gem Damage. Do not Reinforce (feeds Patience).',
           lineup: [
-            { name: 'Euron Greyjoy', role: 'Leader · Raid' },
-            { name: 'Arya Stark', role: 'Control · Damage' },
+            { name: 'Euron Greyjoy', role: 'Leader \u00b7 Raid' },
+            { name: 'Arya Stark', role: 'Control \u00b7 Damage' },
             { name: 'Yara Greyjoy', role: 'Pressure' },
             { name: 'Gregor Clegane', role: 'Damage' },
-            { name: 'Ned Stark', role: 'Utility · Flex' }
+            { name: 'Ned Stark', role: 'Utility \u00b7 Flex' }
           ]
         },
         {
-          title: 'Shape B — Greyjoy pressure + control',
+          title: 'Shape B \u2014 Greyjoy pressure + control',
           purpose: 'When Euron is invested: full Greyjoy Raid/pressure with board tools.',
           how: 'Same rules as A. Yara + Theon keep pressure while Davos or Ned stabilizes. Prefer Brittle/Ice tools if you have them.',
           lineup: [
-            { name: 'Euron Greyjoy', role: 'Leader · Raid' },
+            { name: 'Euron Greyjoy', role: 'Leader \u00b7 Raid' },
             { name: 'Yara Greyjoy', role: 'Pressure' },
-            { name: 'Theon Greyjoy', role: 'Flex · Pressure' },
+            { name: 'Theon Greyjoy', role: 'Flex \u00b7 Pressure' },
             { name: 'Davos Seaworth', role: 'Support' },
-            { name: 'Arya Stark', role: 'Control · Damage' }
+            { name: 'Arya Stark', role: 'Control \u00b7 Damage' }
           ]
         },
         {
-          title: 'Shape C — Control open then dump',
+          title: 'Shape C \u2014 Control open then dump',
           purpose: 'Safer path if Euron is under-invested or board is hostile.',
           how: 'Land control first, then real damage. Still avoid attacking into Pacify. Ice/Brittle tools remain valuable.',
           lineup: [
-            { name: 'Arya Stark', role: 'Leader · Control' },
-            { name: 'Ned Stark', role: 'Control · Utility' },
-            { name: 'Jon Snow', role: 'Damage · Utility' },
+            { name: 'Arya Stark', role: 'Leader \u00b7 Control' },
+            { name: 'Ned Stark', role: 'Control \u00b7 Utility' },
+            { name: 'Jon Snow', role: 'Damage \u00b7 Utility' },
             { name: 'Yara Greyjoy', role: 'Pressure' },
             { name: 'Gregor Clegane', role: 'Damage' }
           ]
@@ -167,11 +166,11 @@
       ],
       rhaegal: [
         {
-          title: 'Shape A — Free Folk / Greyjoy pressure (alliance-tested)',
+          title: 'Shape A \u2014 Free Folk / Greyjoy pressure (alliance-tested)',
           purpose: 'Scored higher than pure Bleed theory packages on real boards.',
           how: 'Ygritte or strong Free Folk lead. Euron for Raid. Davos / Osha / Theon for board control and damage. Keep pressure up; gems still decide fights. Real Taunter still required if Wrathful Gaze targets you.',
           lineup: [
-            { name: 'Ygritte', role: 'Leader · Pressure' },
+            { name: 'Ygritte', role: 'Leader \u00b7 Pressure' },
             { name: 'Euron Greyjoy', role: 'Raid' },
             { name: 'Davos Seaworth', role: 'Support' },
             { name: 'Osha', role: 'Damage' },
@@ -179,131 +178,229 @@
           ]
         },
         {
-          title: 'Shape B — High-investment Targ / Blue Dany + Taunt',
+          title: 'Shape B \u2014 High-investment Targ / Blue Dany + Taunt',
           purpose: 'Matches top Tips & Tricks boards. Real Taunt + invested Dany cores.',
           how: 'Force a real Taunter and keep him alive (+40% Stamina from Wrathful Gaze). Prefer Daenerys Targaryen (Blue). Stack damage. Do not Reinforce. Avoid Birthright/Fury/Shield walls.',
           lineup: [
-            { name: 'Brienne of Tarth', role: 'Leader · Taunt' },
+            { name: 'Brienne of Tarth', role: 'Leader \u00b7 Taunt' },
             { name: 'Daenerys Targaryen (Blue)', role: 'Damage' },
             { name: 'Daemon Targaryen', role: 'Damage' },
-            { name: 'Oberyn Martell', role: 'Bleed · Fire' },
-            { name: 'Sandor Clegane', role: 'Taunt · Flex' }
+            { name: 'Oberyn Martell', role: 'Bleed \u00b7 Fire' },
+            { name: 'Sandor Clegane', role: 'Taunt \u00b7 Flex' }
           ]
         },
         {
-          title: 'Shape C — Free Cities + protected Taunt',
+          title: 'Shape C \u2014 Free Cities + protected Taunt',
           purpose: 'Stamina pressure while still answering Wrathful Gaze.',
           how: 'Drogo / Daario speed loop + Blue Dany. Bring a real Taunter (Brienne / Sandor / Areo). Prefer this if Bleed tools are under-invested. Keep the Taunter alive.',
           lineup: [
-            { name: 'Khal Drogo', role: 'Leader · Damage' },
+            { name: 'Khal Drogo', role: 'Leader \u00b7 Damage' },
             { name: 'Daario Naharis', role: 'Pressure' },
             { name: 'Daenerys Targaryen (Blue)', role: 'Flex' },
             { name: 'Brienne of Tarth', role: 'Taunt' },
-            { name: 'Nymeria Sand', role: 'Damage · Control' }
+            { name: 'Nymeria Sand', role: 'Damage \u00b7 Control' }
           ]
         }
       ],
       drogon: [
         {
-          title: 'Shape A — Free Cities speed (highest ceiling)',
+          title: 'Shape A \u2014 Free Cities speed (highest ceiling)',
           purpose: 'Speed race. Free Cities stamina + real damage ends the fight before Drogon snowballs.',
           how: 'Play aggressively. Dump skills fast. Protect damage dealers. This is a race, not a stall. Raid helps open.',
           lineup: [
-            { name: 'Khal Drogo', role: 'Leader · Damage' },
+            { name: 'Khal Drogo', role: 'Leader \u00b7 Damage' },
             { name: 'Daario Naharis', role: 'Pressure' },
-            { name: 'Daenerys Targaryen (Blue)', role: 'Utility · Support' },
+            { name: 'Daenerys Targaryen (Blue)', role: 'Utility \u00b7 Support' },
             { name: 'Nymeria Sand', role: 'Damage' },
-            { name: 'Ned Stark', role: 'Utility · Body' }
+            { name: 'Ned Stark', role: 'Utility \u00b7 Body' }
           ]
         },
         {
-          title: 'Shape B — Raid into damage',
+          title: 'Shape B \u2014 Raid into damage',
           purpose: 'Open with skill Raid, then dump high single-target damage.',
           how: 'Euron lead when invested. Follow with Gregor / Nymeria / Daario. Keep tempo high.',
           lineup: [
-            { name: 'Euron Greyjoy', role: 'Leader · Raid' },
+            { name: 'Euron Greyjoy', role: 'Leader \u00b7 Raid' },
             { name: 'Gregor Clegane', role: 'Damage' },
-            { name: 'Nymeria Sand', role: 'Damage · Control' },
+            { name: 'Nymeria Sand', role: 'Damage \u00b7 Control' },
             { name: 'Daario Naharis', role: 'Pressure' },
-            { name: 'Yara Greyjoy', role: 'Flex · Pressure' }
+            { name: 'Yara Greyjoy', role: 'Flex \u00b7 Pressure' }
           ]
         },
         {
-          title: 'Shape C — Targ pressure',
+          title: 'Shape C \u2014 Targ pressure',
           purpose: 'High single-target and dragon synergy when Free Cities pieces are unavailable.',
           how: 'Daemon or Aemond lead. Pair with Blue Dany and a strong secondary damage dealer. Still play for speed.',
           lineup: [
-            { name: 'Daemon Targaryen', role: 'Leader · Damage' },
+            { name: 'Daemon Targaryen', role: 'Leader \u00b7 Damage' },
             { name: 'Daenerys Targaryen (Blue)', role: 'Utility' },
             { name: 'Aemond Targaryen', role: 'Damage' },
             { name: 'Euron Greyjoy', role: 'Raid' },
-            { name: 'Caraxes', role: 'Damage · Dragon' }
+            { name: 'Caraxes', role: 'Damage \u00b7 Dragon' }
           ]
         }
       ],
       icy: [
         {
-          title: 'Shape A — Night King controlled Ice (primary)',
+          title: 'Shape A \u2014 Night King controlled Ice (primary)',
           purpose: 'Night King is the best-fit lead. Defensive body keeps him alive so Ice/Reinforce control stays online.',
-          how: 'Do not mindlessly Reinforce — it can backfire. Night King + Ice Warden / Bran control the pace. Arya and a durable body (Ned / Duncan / Sandor) protect the package. Keep Night King alive.',
+          how: 'Do not mindlessly Reinforce \u2014 it can backfire. Night King + Ice Warden / Bran control the pace. Arya and a durable body (Ned / Duncan / Sandor) protect the package. Keep Night King alive.',
           lineup: [
-            { name: 'The Night King', role: 'Leader · Control' },
-            { name: 'Ice Warden', role: 'Support · Reinforce' },
-            { name: 'Bran Stark', role: 'Control · Reinforce' },
-            { name: 'Arya Stark', role: 'Damage · Control' },
-            { name: 'Ned Stark', role: 'Utility · Body' }
+            { name: 'The Night King', role: 'Leader \u00b7 Control' },
+            { name: 'Ice Warden', role: 'Support \u00b7 Reinforce' },
+            { name: 'Bran Stark', role: 'Control \u00b7 Reinforce' },
+            { name: 'Arya Stark', role: 'Damage \u00b7 Control' },
+            { name: 'Ned Stark', role: 'Utility \u00b7 Body' }
           ]
         },
         {
-          title: 'Shape B — Night King + Free Cities hybrid',
+          title: 'Shape B \u2014 Night King + Free Cities hybrid',
           purpose: 'Same Night King core with speed damage to end the fight before Ice stacks become oppressive.',
           how: 'Night King still leads. Drogo / Daario / Nymeria provide the kill pressure. Ice Warden or Ned is the defensive body. Keep Night King alive.',
           lineup: [
-            { name: 'The Night King', role: 'Leader · Control' },
-            { name: 'Khal Drogo', role: 'Damage · Pressure' },
+            { name: 'The Night King', role: 'Leader \u00b7 Control' },
+            { name: 'Khal Drogo', role: 'Damage \u00b7 Pressure' },
             { name: 'Daario Naharis', role: 'Pressure' },
             { name: 'Nymeria Sand', role: 'Damage' },
-            { name: 'Ice Warden', role: 'Support · Body' }
+            { name: 'Ice Warden', role: 'Support \u00b7 Body' }
           ]
         },
         {
-          title: 'Shape C — Night King + Stark wall',
+          title: 'Shape C \u2014 Night King + Stark wall',
           purpose: 'Maximum defensive posture around Night King when the board is hostile or you need to outlast.',
           how: 'Night King + Ned + Bran + Arya form a control wall. Sandor or Duncan is the durable Taunt/body. Reinforce only when the timing is clean. Keep Night King alive at all costs.',
           lineup: [
-            { name: 'The Night King', role: 'Leader · Control' },
-            { name: 'Ned Stark', role: 'Control · Utility' },
-            { name: 'Bran Stark', role: 'Reinforce · Control' },
-            { name: 'Arya Stark', role: 'Damage · Control' },
-            { name: 'Sandor Clegane', role: 'Taunt · Body' }
+            { name: 'The Night King', role: 'Leader \u00b7 Control' },
+            { name: 'Ned Stark', role: 'Control \u00b7 Utility' },
+            { name: 'Bran Stark', role: 'Reinforce \u00b7 Control' },
+            { name: 'Arya Stark', role: 'Damage \u00b7 Control' },
+            { name: 'Sandor Clegane', role: 'Taunt \u00b7 Body' }
           ]
         }
       ],
       raidAtk: [
         {
-          title: 'Shape A — Free Cities / Raid',
-          purpose: 'Highest ceiling is Drogo stamina or Euron Raid open.',
-          how: 'Apply Raid when available, then damage + control. Play for fast clears.',
+          title: 'Attack A \u2014 Free Cities speed',
+          purpose: 'Highest-ceiling raid offense. Faction: Free Cities stamina.',
+          how: 'Drogo lead. Dump skills fast. Do not bench Drogo + Blue Dany. Race, do not stall.',
           lineup: [
-            { name: 'Khal Drogo', role: 'Leader · Damage' },
+            { name: 'Khal Drogo', role: 'Leader \u00b7 Damage' },
+            { name: 'Daenerys Targaryen', role: 'Blue Dany' },
             { name: 'Daario Naharis', role: 'Pressure' },
-            { name: 'Nymeria Sand', role: 'Damage' },
+            { name: 'Jorah Mormont', role: 'Body' },
+            { name: 'Nymeria Sand', role: 'Damage \u00b7 Control' }
+          ]
+        },
+        {
+          title: 'Attack B \u2014 Dual Dany + body',
+          purpose: 'High-investment hybrid seen on top boards.',
+          how: 'Two invested Danys carry damage. Sandor or Jorah keep them alive.',
+          lineup: [
+            { name: 'Sandor Clegane', role: 'Leader \u00b7 Taunt' },
+            { name: 'Daenerys Targaryen', role: 'Blue Dany' },
+            { name: 'Jorah Mormont', role: 'Body' },
+            { name: 'Arya Stark', role: 'Damage' },
+            { name: 'Nymeria Sand', role: 'Control' }
+          ]
+        },
+        {
+          title: 'Attack C \u2014 Lannister / Raid open',
+          purpose: 'When Free Cities pieces are split onto defense.',
+          how: 'Tywin or Euron lead. Gregor + control. Use vs tanky holds.',
+          lineup: [
+            { name: 'Tywin Lannister', role: 'Leader' },
             { name: 'Gregor Clegane', role: 'Damage' },
-            { name: 'Daenerys Targaryen (Blue)', role: 'Support' }
+            { name: 'Euron Greyjoy', role: 'Raid' },
+            { name: 'Olenna Tyrell', role: 'Control' },
+            { name: 'Cersei Lannister', role: 'Support' }
           ]
         }
       ],
       raidDef: [
         {
-          title: 'Shape A — Meryn / Taunt core',
-          purpose: 'Stun + Wound punishment on every enemy skill.',
-          how: 'Taunt first (Meryn / Brienne / Sandor). Sustain second. Extremely hard to break cleanly.',
+          title: 'Defense A \u2014 Meryn / Lannister hold',
+          purpose: 'Hardest common hold. Punishes every enemy skill.',
+          how: 'Keep Meryn alive. Attacker owns the gems \u2014 you win by Stun + Wound, not by racing.',
           lineup: [
-            { name: 'Meryn Trant', role: 'Leader · Taunt' },
-            { name: 'Ned Stark', role: 'Sustain · Control' },
-            { name: 'Sandor Clegane', role: 'Taunt · Damage' },
+            { name: 'Meryn Trant', role: 'Leader \u00b7 Taunt' },
+            { name: 'Sandor Clegane', role: 'Taunt \u00b7 Body' },
+            { name: 'Tywin Lannister', role: 'Leader-alt' },
             { name: 'Olenna Tyrell', role: 'Control' },
-            { name: 'Tyrion Lannister', role: 'Support' }
+            { name: 'Joffrey Baratheon', role: 'Flex' }
+          ]
+        },
+        {
+          title: 'Defense B \u2014 Olenna + Nymeria wall',
+          purpose: 'Control duo that sits on a lot of high-end boards.',
+          how: 'Stall and strip. Gregor soaks. Weaker if the attacker never skills into the punish.',
+          lineup: [
+            { name: 'Olenna Tyrell', role: 'Control' },
+            { name: 'Nymeria Sand', role: 'Control \u00b7 Damage' },
+            { name: 'Gregor Clegane', role: 'Damage \u00b7 Body' },
+            { name: 'Cersei Lannister', role: 'Support' },
+            { name: 'Margaery Tyrell', role: 'Sustain' }
+          ]
+        },
+        {
+          title: 'Defense C \u2014 Stark / Watch wall',
+          purpose: 'Faction wall for players building North pieces. Know the matchup risk.',
+          how: 'Ned / Benjen / Samwell / Sansa / Alliser. Can lose to Varys Free Cities Scout + Crit even when the wall looks stronger on paper.',
+          lineup: [
+            { name: 'Ned Stark', role: 'Leader \u00b7 Control' },
+            { name: 'Benjen Stark', role: 'Utility' },
+            { name: 'Alliser Thorne', role: 'Pressure' },
+            { name: 'Samwell Tarly', role: 'Support' },
+            { name: 'Sansa Stark', role: 'Flex' }
+          ]
+        }
+      ],
+      war: [
+        {
+          title: 'War 1 \u2014 Lannister core',
+          purpose: 'Faction: Lannister. Best default attack or hybrid hold.',
+          how: 'Tywin lead. Treasury + Mountain pressure. Use vs unknown or tanky defenses. Do not default Daemon here.',
+          lineup: [
+            { name: 'Tywin Lannister', role: 'Leader' },
+            { name: 'Gregor Clegane', role: 'Damage' },
+            { name: 'Cersei Lannister', role: 'Support' },
+            { name: 'Jaime Lannister', role: 'Flex' },
+            { name: "Jaqen H'ghar", role: 'Control' }
+          ]
+        },
+        {
+          title: 'War 2 \u2014 Free Cities speed',
+          purpose: 'Faction: Free Cities. Highest-ceiling offense. Do not split Drogo from Blue Dany.',
+          how: 'Race. Place on a generic outpost or vs slow walls. Stamina loop ends fights before holds stabilize.',
+          lineup: [
+            { name: 'Khal Drogo', role: 'Leader \u00b7 Damage' },
+            { name: 'Daenerys Targaryen', role: 'Blue Dany' },
+            { name: 'Daario Naharis', role: 'Pressure' },
+            { name: 'Jorah Mormont', role: 'Body' },
+            { name: 'Olenna Tyrell', role: 'Control' }
+          ]
+        },
+        {
+          title: 'War 3 \u2014 Baratheon camp / Scout',
+          purpose: 'On Baratheon Camp: 3\u20134 real Baratheons. Off-camp: Varys Scout snowball.',
+          how: 'Never pad with underleveled Robert. Varys + Davos can delete Stark walls that look stronger on paper.',
+          lineup: [
+            { name: 'Davos Seaworth', role: 'Leader \u00b7 Support' },
+            { name: 'Lord Varys', role: 'Scout lead-alt' },
+            { name: 'Stannis Baratheon', role: 'Damage' },
+            { name: 'Joffrey Baratheon', role: 'Control' },
+            { name: 'Brienne of Tarth', role: 'Taunt' }
+          ]
+        },
+        {
+          title: 'War 4 \u2014 Meryn hold',
+          purpose: 'Sit on a DEF / Tenacity outpost and refuse to die.',
+          how: 'Defense is harder because the attacker owns the gems. Meryn + Olenna/Nymeria force skill-into-punish. Keep the Taunter alive.',
+          lineup: [
+            { name: 'Meryn Trant', role: 'Leader \u00b7 Taunt' },
+            { name: 'Sandor Clegane', role: 'Taunt \u00b7 Body' },
+            { name: 'Olenna Tyrell', role: 'Control' },
+            { name: 'Nymeria Sand', role: 'Control \u00b7 Damage' },
+            { name: 'Ned Stark', role: 'Utility' }
           ]
         }
       ]
@@ -338,16 +435,16 @@
       const color = accent || '#c9a227';
       const rows = (t.team || []).map(slot => {
         const c = slot.champ;
-        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} · ${(c.roles || []).slice(0, 2).join(' · ')}</div></div></div>`;
+        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} \u00b7 ${(c.roles || []).slice(0, 2).join(' \u00b7 ')}</div></div></div>`;
       }).join('');
-      return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'} — from your roster</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
+      return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'} \u2014 from your roster</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
     }
 
     function warTeamCard(t, accent) {
       const color = accent || '#c9a227';
       const rows = (t.team || []).map(slot => {
         const c = slot.champ;
-        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} · ${(c.roles || []).slice(0, 2).join(' · ')}</div></div></div>`;
+        return `<div class="flex items-center gap-3 py-2 border-b border-[#2e2e38] last:border-0">${avatarHTML(c, 40)}<div class="min-w-0 flex-1"><div class="font-medium text-[#f0ebe0]">${c.name}</div><div class="text-xs text-[#8a8680]">${slot.roleLabel || ''} \u00b7 ${(c.roles || []).slice(0, 2).join(' \u00b7 ')}</div></div></div>`;
       }).join('');
       return `<div class="card rounded-xl p-5" style="border-left:4px solid ${color}"><div class="font-bold text-lg text-[#f5f0e8] mb-1">${t.name || 'Team'}</div><p class="text-sm text-[#c9a227] mb-1">${t.purpose || ''}</p><p class="text-xs text-[#9a9690] mb-3">${t.how || ''}</p><div>${rows}</div></div>`;
     }
@@ -363,19 +460,24 @@
       let html = '';
 
       if (modeKey === 'war') {
-        if (owned.length < 5) {
-          box.innerHTML = '<div class="card rounded-xl p-6 text-[#9a9690]">Mark at least 5 champions on <a class="text-[#c9a227]" href="roster.html">My Roster</a> first.</div>';
-          return;
+        const warShapes = SHAPE_SUGGESTIONS.war || [];
+        html += `<div class="text-sm font-semibold text-[#c9a227] mb-2">Proven war shapes \u2014 four jobs, no shared champions when you field them</div>`;
+        html += `<p class="text-xs text-[#8a8680] mb-3">Chase the outpost faction bonus only when those champions are actually strong. Otherwise field the best synergy and ignore a weak bonus.</p>`;
+        html += warShapes.map((s, i) => shapeCard(s, accents.war[i % 4])).join('');
+        if (owned.length >= 5) {
+          const teams = buildWarTeams(owned);
+          html += `<div class="text-sm font-semibold text-[#c9a227] mt-6 mb-2">From your roster (no duplicates)</div>`;
+          html += teams.map((t, i) => warTeamCard(t, accents.war[i % 4])).join('');
+        } else {
+          html += `<div class="card rounded-xl p-5 mt-4 text-center text-[#8a8680]">Mark at least 5 champions in <a href="roster.html" class="text-[#c9a227] underline">My Roster</a> for a no-duplicate roster split. Shapes above still apply.</div>`;
         }
-        const teams = buildWarTeams(owned);
-        html = teams.map((t, i) => warTeamCard(t, accents.war[i % 4])).join('');
         box.innerHTML = html;
         return;
       }
 
       const shapes = SHAPE_SUGGESTIONS[modeKey] || [];
       if (shapes.length) {
-        html += `<div class="text-sm font-semibold text-[#c9a227] mb-2">Proven shapes — try more than one</div>`;
+        html += `<div class="text-sm font-semibold text-[#c9a227] mb-2">Proven shapes \u2014 try more than one</div>`;
         html += shapes.map(s => shapeCard(s, color)).join('');
       }
 
