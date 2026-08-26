@@ -25,7 +25,7 @@
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Champions</h1>
-    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions. Headshots when available; initials as fallback.</p>
+    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions. Headshots when available; initials if a photo is missing.</p>
     <input id="search" type="search" placeholder="Search name…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm mb-4 outline-none focus:border-[#c9a227]" />
     <div class="flex flex-wrap gap-2 mb-6" id="factionChips"></div>
     <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
@@ -41,6 +41,7 @@
   <script src="portraits-lan-2.js"></script>
   <script src="portraits-lan-3.js"></script>
   <script src="app.js"></script>
+  <script src="avatar-fix.js"></script>
   <script>
     const REAL_FACTIONS = ['All','Baratheon','Blacks','Bolton','Brotherhood','Free Cities','Free Folk','Greens','Greyjoy','Lannister',"Night's Watch",'Stark','Targaryen','No Faction','Dual Faction'];
     let all = [];
