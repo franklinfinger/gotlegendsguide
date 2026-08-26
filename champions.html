@@ -25,9 +25,9 @@
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Champions</h1>
-    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions from alliance roster screenshots.</p>
+    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions from alliance roster screenshots. Filters match real in-game factions only.</p>
     <input id="search" type="search" placeholder="Search name…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm mb-4 outline-none focus:border-[#c9a227]" />
-    <div class="flex flex-wrap gap-2 mb-6" id="factionChips"><button type="button" class="chip active" data-faction="all">All</button></div>
+    <div class="flex flex-wrap gap-2 mb-6" id="factionChips"></div>
     <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
     <p class="text-xs text-[#6a6660]" id="resultCount"></p>
   </section>
@@ -37,13 +37,34 @@
   </footer>
   <script src="app.js"></script>
   <script>
+    // Real factions only (from alliance roster screenshots). Keep All.
+    const REAL_FACTIONS = [
+      'All',
+      'Baratheon',
+      'Blacks',
+      'Bolton',
+      'Brotherhood',
+      'Free Cities',
+      'Free Folk',
+      'Greens',
+      'Greyjoy',
+      'Lannister',
+      "Night's Watch",
+      'Stark',
+      'Targaryen',
+      'No Faction',
+      'Dual Faction'
+    ];
+
     let all = [];
     let factionFilter = 'all';
+
     function render() {
       const q = (document.getElementById('search').value || '').toLowerCase().trim();
       const filtered = all.filter(c => {
         if (factionFilter !== 'all') {
-          if (!(c.factions || []).map(f => f.toLowerCase()).includes(factionFilter.toLowerCase())) return false;
+          const facs = (c.factions || []).map(f => f.toLowerCase());
+          if (!facs.includes(factionFilter.toLowerCase())) return false;
         }
         if (!q) return true;
         return (c.name + ' ' + (c.roles||[]).join(' ') + ' ' + (c.factions||[]).join(' ')).toLowerCase().includes(q);
@@ -60,24 +81,28 @@
           <p class="text-xs text-[#9a9690] mt-2">${c.why || ''}</p>
         </div>`).join('') || '<p class="text-[#6a6660]">No matches.</p>';
     }
+
     document.getElementById('search').addEventListener('input', render);
+
+    const chips = document.getElementById('factionChips');
+    REAL_FACTIONS.forEach(f => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'chip' + (f === 'All' ? ' active' : '');
+      btn.dataset.faction = f === 'All' ? 'all' : f;
+      btn.textContent = f;
+      chips.appendChild(btn);
+    });
+    chips.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        factionFilter = btn.dataset.faction;
+        chips.querySelectorAll('.chip').forEach(b => b.classList.toggle('active', b === btn));
+        render();
+      });
+    });
+
     fetchChampions().then(champs => {
       all = champs.sort((a,b) => a.name.localeCompare(b.name));
-      const facSet = new Set();
-      all.forEach(c => (c.factions || []).forEach(f => facSet.add(f)));
-      const chips = document.getElementById('factionChips');
-      [...facSet].sort().forEach(f => {
-        const btn = document.createElement('button');
-        btn.type = 'button'; btn.className = 'chip'; btn.dataset.faction = f; btn.textContent = f;
-        chips.appendChild(btn);
-      });
-      chips.querySelectorAll('.chip').forEach(btn => {
-        btn.addEventListener('click', () => {
-          factionFilter = btn.dataset.faction;
-          chips.querySelectorAll('.chip').forEach(b => b.classList.toggle('active', b === btn));
-          render();
-        });
-      });
       render();
     });
   </script>
