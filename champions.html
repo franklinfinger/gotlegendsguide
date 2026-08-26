@@ -25,7 +25,7 @@
   </header>
   <section class="max-w-6xl mx-auto px-4 py-10">
     <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">Champions</h1>
-    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions from alliance roster screenshots. Headshots load when available.</p>
+    <p class="text-[#9a9690] mb-4">Gold (Legendary) champions. Headshots when available; initials as fallback.</p>
     <input id="search" type="search" placeholder="Search name…" class="w-full max-w-md card rounded-lg px-4 py-2.5 text-sm mb-4 outline-none focus:border-[#c9a227]" />
     <div class="flex flex-wrap gap-2 mb-6" id="factionChips"></div>
     <div id="list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-10"></div>
@@ -35,14 +35,10 @@
     <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
     <div class="mt-1">gotlegendsguide.com</div>
   </footer>
-  <script src="portraits-0.js"></script>
-  <script src="portraits-1.js"></script>
-  <script src="portraits-2.js"></script>
+  <script src="portraits-mini.js"></script>
   <script src="app.js"></script>
   <script>
-    const REAL_FACTIONS = [
-      'All','Baratheon','Blacks','Bolton','Brotherhood','Free Cities','Free Folk','Greens','Greyjoy','Lannister',"Night's Watch",'Stark','Targaryen','No Faction','Dual Faction'
-    ];
+    const REAL_FACTIONS = ['All','Baratheon','Blacks','Bolton','Brotherhood','Free Cities','Free Folk','Greens','Greyjoy','Lannister',"Night's Watch",'Stark','Targaryen','No Faction','Dual Faction'];
     let all = [];
     let factionFilter = 'all';
     function render() {
@@ -62,9 +58,7 @@
             <div class="font-semibold text-[#f0ebe0]">${c.name}</div>
             <div class="text-xs text-[#8a8680] mt-0.5">${(c.roles||[]).join(' · ')}</div>
             <div class="text-[11px] text-[#6a6660] mt-0.5">${(c.factions||[]).join(' · ')}</div>
-            ${c.ally ? `<div class="text-[11px] text-[#d4783a] mt-1">Ally: ${c.ally}</div>` : ''}
           </div></div>
-          <p class="text-xs text-[#9a9690] mt-2">${c.why || ''}</p>
         </div>`).join('') || '<p class="text-[#6a6660]">No matches.</p>';
     }
     document.getElementById('search').addEventListener('input', render);
