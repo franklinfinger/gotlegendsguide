@@ -94,6 +94,7 @@
   <script src="p-catelyn.js"></script>
   <script src="p-robb.js"></script>
   <script src="p-talisa.js"></script>
+  <script src="p-brienne.js"></script>
   <script src="p-duncan.js"></script>
   <script src="p-olenna.js"></script>
   <script src="p-oberyn.js"></script>
@@ -117,8 +118,13 @@
       const q = (document.getElementById('search').value || '').toLowerCase().trim();
       const filtered = all.filter(c => {
         if (factionFilter !== 'all') {
-          const facs = (c.factions || []).map(f => f.toLowerCase());
-          if (!facs.includes(factionFilter.toLowerCase())) return false;
+          const facs = (c.factions || []).map(f => String(f).toLowerCase());
+          if (factionFilter.toLowerCase() === 'dual faction') {
+            const real = facs.filter(f => f !== 'dual faction' && f !== 'no faction');
+            if (real.length < 2) return false;
+          } else if (!facs.includes(factionFilter.toLowerCase())) {
+            return false;
+          }
         }
         if (!q) return true;
         return (c.name + ' ' + (c.roles||[]).join(' ') + ' ' + (c.factions||[]).join(' ')).toLowerCase().includes(q);
