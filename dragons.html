@@ -87,7 +87,7 @@
         <div>
           <p class="font-semibold text-[#f0ebe0] mb-1">Why this works</p>
           <ul class="list-disc list-inside space-y-1 ml-1">
-            <li><strong class="text-[#c9a227]">Golden Scales</strong> — Every Raid (especially Euron’s skill Raid) drops Viserion’s DEF &amp; Durability and gives the whole team 30% Stamina.</li>
+            <li><strong class="text-[#c9a227]">Golden Scales</strong> — Every Raid (especially Euron’s skill Raid) drops Viserion’s DEF & Durability and gives the whole team 30% Stamina.</li>
             <li><strong class="text-[#c9a227]">Brittle (Arya / Ghost)</strong> — Completely shuts down Rude Awakening II. You can hit him while Pacified with zero punishment.</li>
             <li>No Birthright / Fury / Enraged for <strong>Claw Swipe II</strong> to strip.</li>
             <li>Mixed gem colors so the –50% Gem Damage from <strong>Unchained Dragon</strong> hurts less.</li>
@@ -110,34 +110,64 @@
 
     <section class="card rounded-xl p-6 mb-6 border-l-4 border-l-[#e85d4c]">
       <h2 class="text-2xl font-bold text-[#e85d4c] mb-1">Drogon</h2>
-      <p class="text-xs text-[#6a6660] mb-4">Fire · Speed · High pressure</p>
+      <p class="text-xs text-[#6a6660] mb-4">Fire · Wound · Treasury steal · –75% Gem Damage · Skill-or-die ramp</p>
       <div class="space-y-4 text-sm text-[#c8c4be]">
         <div>
-          <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Team (Primary)</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-            <div class="team-chip"><span class="text-[#c9a227] font-medium">Leader:</span> Khal Drogo</div>
-            <div class="team-chip">Daario Naharis</div>
-            <div class="team-chip">High Daenerys</div>
-            <div class="team-chip">Nymeria Sand <span class="text-[#6a6660]">(or Gregor)</span></div>
-            <div class="team-chip">Ned Stark <span class="text-[#6a6660]">(or Duncan)</span></div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Key Abilities</p>
+          <ul class="list-disc list-inside space-y-1.5 ml-1 text-xs">
+            <li><strong>Dracarys</strong> (Once) — 250% ATK Fire to one enemy and <strong>Wounds</strong> them for 5 turns. This is his stamina nuke. If he charges it, healing becomes much harder.</li>
+            <li><strong>Aegis Bane</strong> (Once) — 100% ATK Fire to one enemy.</li>
+            <li><strong>Ember Storm II</strong> (All) — Any time a power-up gem is matched or destroyed, Drogon hits all enemies for 50% ATK Fire and reduces enemy <strong>Treasury</strong> by 1. All player champions have <strong>Gem Damage –75%</strong>. Coins count as power-ups.</li>
+            <li><strong>Born in Flames II</strong> (Once) — First line is cut off on the screenshot (visible text starts at Poison and Ice). At the start of the turn, if no champions used their Skill last turn, 50% chance to afflict all enemies with 1 <strong>Fire</strong>.</li>
+            <li><strong>Daznak’s Fury</strong> (Once) — At the start of each turn, allies with <strong>Birthright</strong> deal 5% of Drogon’s HP to him. Free Cities allies gain an indefinite <strong>+10% ATK</strong> and recover <strong>30% Stamina</strong> after using their skill.</li>
+            <li><strong>Brimstone Rain II</strong> (Once) — At the start of each turn, if no player champions used their Skills last turn, Drogon hits all enemies for 10% ATK Fire. That hit gains an extra <strong>+15% ATK Fire every time it triggers</strong>.</li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">What actually scores (read this first)</p>
+          <p class="text-xs text-[#b8b4ae] mb-3">This is a <strong>DPS race</strong>, not a stall. Skill every turn or Brimstone Rain starts and then ramps forever. Filling a damage-bar phase cleanses his debuffs and resets his Stamina — that is how you clear Wound. Free Cities are the intended engine (stacking ATK + Stamina refund on every skill). Greens / Birthright is the official second path (start-of-turn 5% HP hits). Do <strong>not</strong> bring a Sandor / Jaqen coin-heal package — Ember Storm was written to shut that down (Treasury steal on power-ups + –75% Gem Damage).</p>
+        </div>
+        <div>
+          <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Teams (pick based on what you have)</p>
+          <div class="space-y-3 text-xs">
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team A — Free Cities speed (primary):</strong><br>
+              Khal Drogo (Leader) · Daenerys Targaryen <strong>(Blue)</strong> · Daario Naharis · Nymeria Sand / Jorah Mormont · flex damage<br>
+              <span class="text-[#8a8680]">Why: Daznak’s Fury gives Free Cities an indefinite +10% ATK every turn and refunds 30% Stamina after every skill. That is how you outrun Brimstone Rain and Dracarys Wound. Do not bench Drogo + Blue Dany.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team B — Greens / Birthright grind:</strong><br>
+              Alicent Hightower (or Gwayne) · Aemond / Aegon II / Sunfyre · Criston Cole · Tyland / Otto · Birthright body<br>
+              <span class="text-[#8a8680]">Why: Allies with Birthright deal 5% of Drogon’s HP to him at the start of every turn. Official design favorite is Alicent (Birthright + heal). You still need to skill enough to keep Brimstone Rain off — free start-of-turn Birthright that expires before the tick does not deal the 5% hit.</span>
+            </div>
+            <div class="team-chip">
+              <strong class="text-[#c9a227]">Team C — Blue Dany sustain race:</strong><br>
+              Drogo or Alicent (Leader) · Daenerys Targaryen <strong>(Blue)</strong> · Daario or Aemond · heal / Birthright · damage flex<br>
+              <span class="text-[#8a8680]">Why: You will take Fire and 5-turn Wound if a phase runs long. Blue Dany’s skill-heal keeps the damage dealers online so the race does not stall into Brimstone Rain.</span>
+            </div>
           </div>
+          <p class="text-xs text-[#8a8680] mt-3">Avoid: Sandor Leader, Jaqen coin engines, and any plan that lives on power-up gems or Treasury. Ember Storm hits the whole team and steals Treasury whenever those gems break. Label same-name champs by color — use <strong>Daenerys Targaryen (Blue)</strong>.</p>
         </div>
         <div>
           <p class="font-semibold text-[#f0ebe0] mb-1">Why this works</p>
           <ul class="list-disc list-inside space-y-1 ml-1">
-            <li>Free Cities stamina engine (Drogo lead) lets you dump skills rapidly before Drogon snowballs.</li>
-            <li>High single-target and AoE pressure from Daario / Dany / Nymeria or Gregor.</li>
-            <li>Ned or Duncan provide a durable body so your damage dealers stay alive.</li>
-            <li>Does not rely on Birthright or slow sustain — Drogon rewards speed and real damage.</li>
+            <li>Free Cities are directly buffed by <strong>Daznak’s Fury</strong> — stacking ATK plus Stamina refund after every skill. That is the fight’s intended carrot.</li>
+            <li>Birthright is also a carrot here (unlike Rhaegal / Viserion). Keep real Birthright on the board at turn start so the 5% HP ticks land.</li>
+            <li>–75% Gem Damage means skills win this fight. Matching for its own sake is a trap.</li>
+            <li>Power-up / coin matches feed Ember Storm (Fire AoE + Treasury –1). Do not build around Sandor cascades or Treasury spenders.</li>
+            <li>Dracarys Wound is the fail state. Burst a damage-bar phase before he skills, or bring enough heal to survive the 5-turn window.</li>
           </ul>
         </div>
         <div>
           <p class="font-semibold text-[#f0ebe0] mb-1">Strategy</p>
           <ul class="list-disc list-inside space-y-1 ml-1">
-            <li>Play aggressively. This is a race, not a stall.</li>
-            <li>Keep skills flowing — Free Cities wants constant action.</li>
-            <li>Protect your highest damage dealers; Drogon hits hard and fast.</li>
-            <li>Raid is useful for opening but not mandatory if your Free Cities core is strong.</li>
+            <li>Skill every turn. A dead turn turns on Brimstone Rain and also rolls Born in Flames Fire. The Rain then gains +15% ATK Fire each later trigger.</li>
+            <li>Play for the damage bar. Filling a phase cleanses debuffs and resets his Stamina — that is how Wound comes off.</li>
+            <li>Dump Free Cities skills on cooldown. The 30% Stamina refund is the engine that keeps Brimstone Rain off.</li>
+            <li>If you are on the Greens path, generate Birthright that is still up at the start of the next turn. Expired “free” Birthright does not deal the 5% hit.</li>
+            <li>Avoid matching power-up gems when you can. Ember Storm is an AoE plus a Treasury tax.</li>
+            <li>Do not stall with a healer core. The fight is written to punish that plan.</li>
+            <li>Protect Blue Dany / Drogo. If the stamina engine dies, the race is over.</li>
           </ul>
         </div>
       </div>
@@ -160,7 +190,7 @@
         </div>
         <div>
           <p class="font-semibold text-[#f0ebe0] mb-2">What actually scores (read this first)</p>
-          <p class="text-xs text-[#b8b4ae] mb-3">Official tips still apply: he skills every turn → <strong>Bleed</strong> does heavy True Damage, <strong>Fire</strong> deals bonus damage, keep the <strong>Taunting</strong> ally alive. But pure theory Bleed packages can underperform on real boards. Top Tips &amp; Tricks scores lean on high-investment pieces (often dual Daenerys Targaryen <strong>(Blue)</strong> / Targ cores). Alliance tests have also scored with Free Folk + Greyjoy pressure. Use a real Taunter; do not Reinforce; avoid Birthright/Fury/Shield walls.</p>
+          <p class="text-xs text-[#b8b4ae] mb-3">Official tips still apply: he skills every turn → <strong>Bleed</strong> does heavy True Damage, <strong>Fire</strong> deals bonus damage, keep the <strong>Taunting</strong> ally alive. But pure theory Bleed packages can underperform on real boards. Top Tips & Tricks scores lean on high-investment pieces (often dual Daenerys Targaryen <strong>(Blue)</strong> / Targ cores). Alliance tests have also scored with Free Folk + Greyjoy pressure. Use a real Taunter; do not Reinforce; avoid Birthright/Fury/Shield walls.</p>
         </div>
         <div>
           <p class="font-semibold text-[#f0ebe0] mb-2">Recommended Teams (pick based on what you have)</p>
@@ -168,7 +198,7 @@
             <div class="team-chip">
               <strong class="text-[#c9a227]">Team A — High-investment Targ / Blue Dany (leaderboard style):</strong><br>
               Strong Taunt (Brienne / Sandor / Areo Hotah) · Daenerys Targaryen <strong>(Blue)</strong> · second high Dany or Daemon · Oberyn or Fire damage · Flex damage<br>
-              <span class="text-[#8a8680]">Why: Matches top Tips &amp; Tricks boards. Blue Dany + invested partners carry damage while Taunt soaks Wrathful Gaze. Keep Taunter alive.</span>
+              <span class="text-[#8a8680]">Why: Matches top Tips & Tricks boards. Blue Dany + invested partners carry damage while Taunt soaks Wrathful Gaze. Keep Taunter alive.</span>
             </div>
             <div class="team-chip">
               <strong class="text-[#c9a227]">Team B — Free Folk / Greyjoy pressure (alliance tested):</strong><br>
@@ -279,7 +309,7 @@
           <p class="text-xs"><span class="text-[#c9a227]">How:</span> Land Scout early, trigger Crit windows with skills, use Dany Wrath or red engines as the finisher. Board-dependent — if gems hate you the plan slows down.</p>
         </div>
         <div>
-          <p class="font-semibold text-[#f0ebe0]">4. Raid + Brittle (Viserion &amp; skill-Raid fights)</p>
+          <p class="font-semibold text-[#f0ebe0]">4. Raid + Brittle (Viserion & skill-Raid fights)</p>
           <p class="text-xs mb-1"><span class="text-[#c9a227]">Shape:</span> Euron Greyjoy (Leader) + Arya Stark + Yara / Theon + Gregor / Ghost + flex</p>
           <p class="text-xs mb-1"><span class="text-[#c9a227]">Why:</span> Skill Raid maximizes Golden Scales (DEF drop + team Stamina). Brittle completely shuts down Rude Awakening punishment. Mixed colors help under Gem Damage debuffs.</p>
           <p class="text-xs"><span class="text-[#c9a227]">How:</span> Never skill while Pacified unless Brittle is up. Stack Raid. Do not Reinforce. Use sleep windows to set up big turns.</p>
