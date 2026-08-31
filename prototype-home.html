@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#101111" />
+  <title>GOT Legends Guide — Home Prototype</title>
+  <meta name="description" content="An isolated visual prototype for the GOT Legends Guide strategy command center." />
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #101111;
+      --panel: #171918;
+      --panel-raised: #1d201e;
+      --line: #303531;
+      --line-strong: #4a514b;
+      --paper: #f0eee7;
+      --muted: #aaa99f;
+      --dim: #7c817b;
+      --ember: #d0874a;
+      --ember-bright: #efad6f;
+      --ice: #84b9c8;
+      --moss: #92a878;
+      --danger: #c96f63;
+      --nav-height: 76px;
+    }
+
+    * { box-sizing: border-box; }
+    html { min-width: 320px; background: var(--ink); }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, a:focus-visible {
+      outline: 2px solid var(--ember-bright);
+      outline-offset: 3px;
+    }
+    .shell { width: min(100% - 32px, 1160px); margin: 0 auto; }
+    .site-header {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .wordmark { display: flex; align-items: center; gap: 10px; color: var(--paper); text-decoration: none; }
+    .mark {
+      width: 27px; height: 27px; display: grid; place-items: center;
+      border: 1px solid #745637; color: var(--ember-bright); background: #1a1915;
+      font-size: 12px; font-weight: 800; letter-spacing: -1px;
+    }
+    .wordmark span { font-size: 12px; font-weight: 780; letter-spacing: .11em; }
+    .header-tools { display: flex; align-items: center; gap: 7px; }
+    .header-note { color: var(--dim); font-size: 11px; letter-spacing: .05em; }
+    .search-icon {
+      width: 44px; height: 44px; display: grid; place-items: center;
+      border: 1px solid var(--line); color: var(--muted); background: transparent;
+    }
+    .desktop-nav { display: none; }
+    main { padding: 28px 0 calc(var(--nav-height) + 26px); }
+    .intro-grid { display: grid; gap: 24px; }
+    .eyebrow { margin: 0 0 7px; color: var(--ember-bright); font-size: 10px; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+    h1 { max-width: 620px; margin: 0; font-size: clamp(28px, 7vw, 42px); line-height: 1.02; letter-spacing: -.045em; }
+    .intro-copy { max-width: 540px; margin: 9px 0 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    .ask-block { margin-top: 18px; }
+    .ask-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .search-box { position: relative; display: flex; align-items: center; min-height: 54px; border: 1px solid var(--line-strong); background: var(--panel); }
+    .search-box:focus-within { border-color: var(--ember); box-shadow: 0 0 0 3px rgba(208, 135, 74, .13); }
+    .search-box svg { margin-left: 15px; flex: none; color: var(--ember-bright); }
+    .search-box input { width: 100%; min-width: 0; padding: 14px 12px; border: 0; outline: 0; background: transparent; color: var(--paper); font-size: 16px; }
+    .search-box input::placeholder { color: #97988f; opacity: 1; }
+    .search-box button { min-width: 44px; height: 44px; margin-right: 5px; border: 0; background: #292b27; color: var(--paper); }
+    .search-box button:hover { color: var(--ember-bright); background: #35362f; }
+    .prompt-list { display: flex; flex-wrap: wrap; gap: 3px 13px; margin-top: 10px; }
+    .prompt { min-height: 30px; padding: 6px 0; border: 0; background: transparent; color: var(--dim); font-size: 12px; text-decoration: underline; text-decoration-color: #4a4e49; text-underline-offset: 3px; }
+    .prompt:hover { color: var(--paper); text-decoration-color: var(--ember); }
+    .status {
+      position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .command-panel { display: none; }
+    .section-header { display: flex; align-items: center; gap: 9px; margin: 24px 0 11px; }
+    .section-header::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+    h2 { margin: 0; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+    .intent-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+    .intent {
+      min-height: 108px; padding: 11px 12px 10px; display: block; position: relative;
+      border: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      background: var(--panel); color: inherit; text-align: left;
+    }
+    .intent:hover { z-index: 1; background: var(--panel-raised); box-shadow: inset 0 2px 0 var(--intent, var(--ember)); }
+    .intent:active { background: #242721; transform: translateY(1px); }
+    .intent-icon { display: grid; width: 22px; height: 22px; margin-bottom: 9px; color: var(--intent, var(--ember)); }
+    .intent-title { display: block; font-size: 11px; font-weight: 780; letter-spacing: .045em; text-transform: uppercase; }
+    .intent-copy { display: block; margin-top: 4px; color: var(--muted); font-size: 10.5px; line-height: 1.32; }
+    .intent[data-tone="ice"] { --intent: var(--ice); }
+    .intent[data-tone="moss"] { --intent: var(--moss); }
+    .intent[data-tone="danger"] { --intent: var(--danger); }
+    .prototype-note { margin: 20px 0 0; color: var(--dim); font-size: 11px; line-height: 1.5; }
+    .mobile-nav {
+      position: fixed; z-index: 10; right: 0; bottom: 0; left: 0;
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      min-height: var(--nav-height); padding: 7px max(8px, env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-right));
+      border-top: 1px solid var(--line-strong); background: rgba(16, 17, 17, .98);
+    }
+    .nav-item { min-height: 48px; padding: 4px 0; display: grid; place-items: center; gap: 2px; border: 0; background: transparent; color: var(--dim); font-size: 10px; }
+    .nav-item svg { width: 19px; height: 19px; }
+    .nav-item[aria-current="page"] { color: var(--ember-bright); }
+    .nav-item:hover { color: var(--paper); }
+    .nav-item:active { color: var(--ember-bright); }
+
+    @media (min-width: 700px) {
+      .shell { width: min(100% - 56px, 1160px); }
+      main { padding-top: 48px; padding-bottom: 58px; }
+      .intro-grid { grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr); align-items: stretch; gap: 44px; }
+      .command-panel { display: flex; min-height: 272px; padding: 22px; flex-direction: column; justify-content: space-between; border: 1px solid var(--line); background: var(--panel); }
+      .panel-kicker { margin: 0; color: var(--dim); font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+      .portrait-line { display: flex; align-items: end; padding: 10px 0; }
+      .portrait { width: 62px; height: 62px; overflow: hidden; margin-right: -7px; border: 2px solid var(--panel); background: #282a27; }
+      .portrait:nth-child(2) { margin-bottom: 19px; }
+      .portrait:nth-child(3) { margin-bottom: 5px; }
+      .portrait img { width: 100%; height: 100%; object-fit: cover; }
+      .portrait-fallback { display: grid; width: 100%; height: 100%; place-items: center; color: var(--ember-bright); font-size: 11px; font-weight: 800; }
+      .panel-copy { margin: 0; color: var(--paper); font-size: 15px; line-height: 1.35; }
+      .panel-copy span { color: var(--muted); }
+      .panel-rule { height: 1px; background: var(--line); }
+      .desktop-nav { display: flex; align-items: center; gap: 2px; }
+      .desktop-nav button { min-height: 36px; padding: 0 10px; border: 0; background: transparent; color: var(--muted); font-size: 12px; }
+      .desktop-nav button:hover, .desktop-nav button[aria-current="page"] { color: var(--paper); }
+      .desktop-nav button[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--ember); }
+      .header-note { display: none; }
+      .mobile-nav { display: none; }
+      .intent-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .intent { min-height: 132px; padding: 18px; }
+      .intent-icon { width: 24px; height: 24px; margin-bottom: 14px; }
+      .intent-title { font-size: 12px; letter-spacing: .055em; }
+      .intent-copy { max-width: 220px; font-size: 12px; }
+    }
+    @media (min-width: 1080px) {
+      .site-header { height: 68px; }
+      main { padding-top: 64px; }
+      .intro-grid { gap: 72px; }
+      .section-header { margin-top: 52px; }
+    }
+    @media (max-width: 360px) {
+      .shell { width: min(100% - 24px, 1160px); }
+      .intent { min-height: 124px; padding: 12px 10px; }
+      .intent-title { font-size: 11px; }
+      .intent-copy { font-size: 10px; }
+      .nav-item { font-size: 9px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell site-header">
+    <a class="wordmark" href="#home" aria-label="GOT Legends Guide prototype home">
+      <span class="mark" aria-hidden="true">G</span><span>GOT LEGENDS GUIDE</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Prototype primary navigation">
+      <button type="button" aria-current="page">Home</button>
+      <button type="button" data-prototype-label="Champions">Champions</button>
+      <button type="button" data-prototype-label="Battle">Battle</button>
+      <button type="button" data-prototype-label="Teams">Teams</button>
+      <button type="button" data-prototype-label="Learn">Learn</button>
+    </nav>
+    <div class="header-tools">
+      <span class="header-note">HOME PROTOTYPE</span>
+      <button class="search-icon" type="button" id="header-search" aria-label="Focus Ask GOT Legends search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="5.8"/><path d="m16 16 4 4"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="shell" id="home">
+    <div class="intro-grid">
+      <section aria-labelledby="page-title">
+        <p class="eyebrow">Old Peeps on Porches · Strategy Command Center</p>
+        <h1 id="page-title">Find the next right move.</h1>
+        <p class="intro-copy">Practical answers for the battle in front of you—matchups, champion relationships, and mechanics that matter.</p>
+
+        <form class="ask-block" id="ask-form" novalidate>
+          <label class="ask-label" for="ask-input">Ask GOT Legends</label>
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="5.8"/><path d="m16 16 4 4"/></svg>
+            <input id="ask-input" name="question" type="search" autocomplete="off" placeholder="Ask GOT Legends..." aria-describedby="ask-status" />
+            <button type="submit" aria-label="Search prototype">
+              <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h13"/><path d="m13 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+          <div class="prompt-list" aria-label="Example questions">
+            <button class="prompt" type="button">Counter Night King</button>
+            <button class="prompt" type="button">Best partners for Drogo</button>
+            <button class="prompt" type="button">Drogon strategy</button>
+          </div>
+          <p class="status" id="ask-status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <aside class="command-panel" aria-label="Prototype strategy intelligence preview">
+        <p class="panel-kicker">Strategy, not a roster tracker</p>
+        <div class="portrait-line" aria-hidden="true">
+          <div class="portrait" data-portrait="nightking" data-fallback="NK"></div>
+          <div class="portrait" data-portrait="daemon" data-fallback="DT"></div>
+          <div class="portrait" data-portrait="nymeria" data-fallback="NS"></div>
+        </div>
+        <div class="panel-rule"></div>
+        <p class="panel-copy">Start with the matchup.<br><span>Get the why, the counter, and the alternatives.</span></p>
+      </aside>
+    </div>
+
+    <section aria-labelledby="intent-title">
+      <div class="section-header"><h2 id="intent-title">What are you trying to do?</h2></div>
+      <div class="intent-grid">
+        <button class="intent" type="button" data-prototype-label="Win a Raid" data-tone="danger">
+          <span class="intent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m6 3 12 18M18 3 6 21M4 8h16M4 16h16"/></svg></span>
+          <span class="intent-title">Win a Raid</span><span class="intent-copy">See an opponent and figure out how to beat them.</span>
+        </button>
+        <button class="intent" type="button" data-prototype-label="Prepare for War" data-tone="moss">
+          <span class="intent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 21V3m1 1h11l-2 4 2 4H6"/></svg></span>
+          <span class="intent-title">Prepare for War</span><span class="intent-copy">Build smarter attack and defense strategies.</span>
+        </button>
+        <button class="intent" type="button" data-prototype-label="Fight a Dragon" data-tone="danger">
+          <span class="intent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17c2-7 5-11 9-11 3 0 5 2 7 5-3-1-5 0-6 2 2 0 3 1 4 3-3 2-7 3-14 1Z"/><path d="M8 17 6 21m8-5 2 4"/></svg></span>
+          <span class="intent-title">Fight a Dragon</span><span class="intent-copy">Drogon, Rhaegal, Viserion and Icy Viserion.</span>
+        </button>
+        <button class="intent" type="button" data-prototype-label="Find a Champion" data-tone="ice">
+          <span class="intent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="3"/><path d="M5 21c.7-4 3.1-6 7-6s6.3 2 7 6M4 3h16"/></svg></span>
+          <span class="intent-title">Find a Champion</span><span class="intent-copy">Skills, synergies, counters and best uses.</span>
+        </button>
+        <button class="intent" type="button" data-prototype-label="Counter Someone" data-tone="ice">
+          <span class="intent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="m17.7 6.3 2-2M6.3 17.7l-2 2"/></svg></span>
+          <span class="intent-title">Counter Someone</span><span class="intent-copy">Choose an enemy champion and learn how to attack them.</span>
+        </button>
+        <button class="intent" type="button" data-prototype-label="Build Better Teams" data-tone="moss">
+          <span class="intent-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="8" r="2"/><circle cx="17" cy="8" r="2"/><circle cx="12" cy="17" r="2"/><path d="m8.5 9.5 2.3 5.8m4.7-5.8-2.3 5.8M9 8h6"/></svg></span>
+          <span class="intent-title">Build Better Teams</span><span class="intent-copy">Find champion combinations that actually work together.</span>
+        </button>
+      </div>
+      <p class="prototype-note">Visual prototype only. Search and destination flows are deliberately not implemented yet.</p>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Prototype primary navigation">
+    <button class="nav-item" type="button" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 11 9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/></svg><span>Home</span></button>
+    <button class="nav-item" type="button" data-prototype-label="Champions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 21c.7-4 3.1-6 7-6s6.3 2 7 6"/></svg><span>Champions</span></button>
+    <button class="nav-item" type="button" data-prototype-label="Battle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m7 3 10 18M17 3 7 21M4 8h16"/></svg><span>Battle</span></button>
+    <button class="nav-item" type="button" data-prototype-label="Teams"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="7" cy="8" r="2"/><circle cx="17" cy="8" r="2"/><circle cx="12" cy="17" r="2"/><path d="m8.5 9.5 2.3 5.8m4.7-5.8-2.3 5.8M9 8h6"/></svg><span>Teams</span></button>
+    <button class="nav-item" type="button" data-prototype-label="Learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8m-8 4h8m-8 4h5"/></svg><span>Learn</span></button>
+  </nav>
+
+  <script src="p-nightking.js"></script>
+  <script src="p-daemon.js"></script>
+  <script src="p-nymeria.js"></script>
+  <script>
+    (function () {
+      const input = document.getElementById('ask-input');
+      const status = document.getElementById('ask-status');
+      const form = document.getElementById('ask-form');
+
+      document.querySelectorAll('.prompt').forEach((button) => {
+        button.addEventListener('click', () => {
+          input.value = button.textContent;
+          input.focus();
+          status.textContent = 'Example question ready. Search results are not part of this visual prototype.';
+        });
+      });
+
+      document.getElementById('header-search').addEventListener('click', () => input.focus());
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        status.textContent = input.value.trim()
+          ? 'Search is intentionally not connected in this visual prototype.'
+          : 'Enter a battle question to preview the search interaction.';
+      });
+
+      document.querySelectorAll('[data-prototype-label]').forEach((button) => {
+        button.addEventListener('click', () => {
+          status.textContent = button.dataset.prototypeLabel + ' is a prototype-only control; its destination is not implemented yet.';
+        });
+      });
+
+      document.querySelectorAll('[data-portrait]').forEach((slot) => {
+        const id = slot.dataset.portrait;
+        const source = typeof CHAMPION_PORTRAITS !== 'undefined' && CHAMPION_PORTRAITS[id];
+        if (source) {
+          const image = new Image();
+          image.alt = '';
+          image.src = 'data:image/jpeg;base64,' + source;
+          slot.appendChild(image);
+        } else {
+          const fallback = document.createElement('span');
+          fallback.className = 'portrait-fallback';
+          fallback.textContent = slot.dataset.fallback;
+          slot.appendChild(fallback);
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
