@@ -1,0 +1,33 @@
+{
+  "version": "verified-sqlite-2026-10-05",
+  "sha256": "c579f00745aa38e99afaecfac3fd8a96f15b548e73fda9c886cafaf14b2fda71",
+  "counts": {
+    "ability_definitions": 66,
+    "announced_faction_champions": 28,
+    "announced_faction_changes": 5,
+    "announced_game_updates": 1,
+    "announced_strategy_rules": 13,
+    "champion_companions": 2,
+    "champion_detailed_stats": 84,
+    "champion_profiles": 86,
+    "champion_skills": 84,
+    "champion_traits": 185,
+    "champions": 86,
+    "iconic_abilities": 30,
+    "iconic_items": 2,
+    "interaction_hypotheses": 1,
+    "raid_boss_abilities": 6,
+    "raid_boss_ability_sources": 12,
+    "raid_boss_tips": 1,
+    "raid_bosses": 1,
+    "raid_mode_rules": 8,
+    "raid_team_examples": 1,
+    "raid_team_members": 5,
+    "sources": 620,
+    "status_definitions": 5,
+    "strategy_team_assessments": 8,
+    "strategy_team_examples": 15,
+    "strategy_team_members": 75,
+    "trait_stat_bonuses": 203
+  }
+}
