@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends atomic claim",
+  "type": "object",
+  "required": ["id", "claim_class", "provenance", "subject", "predicate", "record_state"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "claim_class": { "type": "string", "enum": ["factual", "strategy", "derived", "community_observed"] },
+    "provenance": { "type": "string", "enum": ["Screenshot Verified", "Official Current", "Derived", "Community/Observed"] },
+    "subject": { "type": "object", "required": ["type", "id"], "properties": { "type": { "type": "string" }, "id": { "type": "string" } } },
+    "predicate": { "type": "string", "minLength": 1 },
+    "object": { "type": ["object", "string", "number", "boolean", "null"] },
+    "context": { "type": "object" },
+    "evidence_required": { "type": "boolean" },
+    "verification_state": { "type": "string", "enum": ["unreviewed", "reviewed", "verified", "disputed", "superseded", "rejected"] },
+    "currentness": { "type": "string", "enum": ["current", "historical", "unknown", "expired"] },
+    "record_state": { "type": "string", "enum": ["staged", "reviewed", "canonical"] }
+  },
+  "additionalProperties": true,
+  "x-relational": { "table": "claims", "primary_key": "id" }
+}
+

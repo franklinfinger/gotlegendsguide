@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends claim-to-evidence link",
+  "type": "object",
+  "required": ["id", "claim_id", "evidence_source_id", "direction", "record_state"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "claim_id": { "type": "string" },
+    "evidence_source_id": { "type": "string" },
+    "direction": { "type": "string", "enum": ["supports", "contradicts", "context_only"] },
+    "locator": { "type": ["string", "null"] },
+    "excerpt": { "type": ["string", "null"] },
+    "record_state": { "type": "string", "enum": ["staged", "reviewed", "canonical"] }
+  },
+  "additionalProperties": true,
+  "x-relational": {
+    "table": "claim_evidence",
+    "primary_key": "id",
+    "foreign_keys": [
+      { "column": "claim_id", "references": "claims.id" },
+      { "column": "evidence_source_id", "references": "evidence_sources.id" }
+    ]
+  }
+}
+

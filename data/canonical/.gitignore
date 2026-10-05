@@ -1,0 +1,11 @@
+# Evidence metadata belongs here; recovered screenshot binaries do not.
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.heic
+*.bmp
+*.tif
+*.tiff
+

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends canonical character record",
+  "type": "object",
+  "required": ["id", "display_name", "record_state"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "lore_identity_type": { "type": "string", "enum": ["character", "creature", "other"] },
+    "record_state": { "type": "string", "enum": ["staged", "reviewed", "canonical"] },
+    "legacy_aliases": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true,
+  "x-relational": { "table": "characters", "primary_key": "id" }
+}
+

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends canonical playable champion variant record",
+  "type": "object",
+  "required": ["id", "character_id", "display_name", "resolution_state", "record_state"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "character_id": { "type": "string" },
+    "display_name": { "type": "string", "minLength": 1 },
+    "subtitle": { "type": ["string", "null"] },
+    "gem_color_id": { "type": ["string", "null"] },
+    "resolution_state": { "type": "string", "enum": ["unresolved", "candidate", "resolved"] },
+    "record_state": { "type": "string", "enum": ["staged", "reviewed", "canonical"] },
+    "legacy_aliases": { "type": "array", "items": { "type": "string" } },
+    "asset_ids": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true,
+  "x-relational": {
+    "table": "champion_variants",
+    "primary_key": "id",
+    "foreign_keys": [{ "column": "character_id", "references": "characters.id" }]
+  }
+}
+

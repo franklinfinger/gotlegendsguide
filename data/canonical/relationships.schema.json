@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends explainable relationship",
+  "type": "object",
+  "required": ["id", "kind", "subject", "object", "why", "record_state"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "kind": { "type": "string", "enum": ["synergy", "counter", "threat", "vulnerability", "target_priority", "substitution", "mode_use", "team_core"] },
+    "subject": { "type": "object", "required": ["type", "id"] },
+    "object": { "type": "object", "required": ["type", "id"] },
+    "mode_ids": { "type": "array", "items": { "type": "string" } },
+    "conditions": { "type": "array", "items": { "type": "object" } },
+    "mechanism_steps": { "type": "array", "items": { "type": "object" } },
+    "why": { "type": "string", "minLength": 1 },
+    "claim_ids": { "type": "array", "items": { "type": "string" } },
+    "record_state": { "type": "string", "enum": ["staged", "reviewed", "canonical"] }
+  },
+  "additionalProperties": true,
+  "x-relational": { "table": "relationships", "primary_key": "id" }
+}
+

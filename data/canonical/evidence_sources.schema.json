@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends evidence source registration",
+  "type": "object",
+  "required": ["id", "source_type", "original_filename", "sha256", "review_status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "source_type": { "type": "string", "enum": ["in-game-screenshot", "official-material", "legacy-repository", "community-observation"] },
+    "original_filename": { "type": "string", "minLength": 1 },
+    "archive_locator": { "type": "string", "minLength": 1 },
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "dimensions": {
+      "type": "object",
+      "required": ["width", "height"],
+      "properties": { "width": { "type": "integer", "minimum": 1 }, "height": { "type": "integer", "minimum": 1 } }
+    },
+    "captured_at": { "type": ["string", "null"] },
+    "game_version": { "type": ["string", "null"] },
+    "screen_type": { "type": "string" },
+    "identified_subjects": { "type": "array" },
+    "review_status": { "type": "string", "enum": ["staged", "reviewed", "canonical", "superseded", "rejected"] },
+    "reviewer_notes": { "type": "array", "items": { "type": "string" } },
+    "superseded_by": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true,
+  "x-relational": { "table": "evidence_sources", "primary_key": "id", "unique": ["sha256"] }
+}
+

@@ -21,7 +21,7 @@ The repository-wide findings and the complete reconciliation plan are in `docs/C
 
 ## Static package layout
 
-The initial model can live as versioned JSON under a `strategy-data/` directory, generated or validated by small static-site-compatible scripts later. It does not require a framework or database.
+The runtime/export package can later live as versioned JSON under a `strategy-data/` directory. The repository's evidence-ingestion workspace now lives under `data/canonical/`, with metadata-only source registration, explicit `staged`/`reviewed`/`canonical` state directories, portable schemas, and a dependency-free validator. It does not require a framework or database.
 
 ```text
 strategy-data/
@@ -50,6 +50,8 @@ strategy-data/
 ```
 
 `manifest.json` records schema version, source-package version, generated time, and compatibility mappings. `validation-report.json` is an explicit artifact for duplicate IDs, unresolved references, conflicts, missing portraits, and incomplete provenance.
+
+For the concrete screenshot-evidence workflow, state promotion, external manifest format, and future relational mapping, see `docs/SCREENSHOT_INGESTION_SPEC.md`, `docs/DATABASE_MAPPING.md`, and `data/canonical/README.md`.
 
 ## Core entities
 

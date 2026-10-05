@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "screenshot_manifest",
+  "state": "staged",
+  "synthetic_example": true,
+  "loadable": false,
+  "entries": [
+    {
+      "id": "synthetic-source-example-001",
+      "source_type": "in-game-screenshot",
+      "original_filename": "EXAMPLE_ONLY-not-a-real-screenshot.png",
+      "archive_locator": "external-archive://unregistered/EXAMPLE_ONLY-not-a-real-screenshot.png",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "dimensions": { "width": 1080, "height": 1920 },
+      "captured_at": null,
+      "game_version": null,
+      "screen_type": "unknown",
+      "identified_subjects": [
+        {
+          "entity_type": "champion_variant",
+          "legacy_reference": "SYNTHETIC-UNRESOLVED-SUBJECT",
+          "resolution_state": "unresolved"
+        }
+      ],
+      "review_status": "staged",
+      "reviewer_notes": ["Synthetic format example only. It is not an archive registration or a game fact."],
+      "superseded_by": null
+    }
+  ]
+}
+

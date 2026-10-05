@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GOT Legends unresolved conflict",
+  "type": "object",
+  "required": ["id", "status", "summary", "record_state"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "status": { "type": "string", "enum": ["open", "resolved", "superseded"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "claim_ids": { "type": "array", "items": { "type": "string" } },
+    "evidence_source_ids": { "type": "array", "items": { "type": "string" } },
+    "resolution": { "type": ["string", "null"] },
+    "record_state": { "type": "string", "enum": ["staged", "reviewed", "canonical"] }
+  },
+  "additionalProperties": true,
+  "x-relational": { "table": "conflicts", "primary_key": "id" }
+}
+
