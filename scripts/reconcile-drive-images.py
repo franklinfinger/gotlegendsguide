@@ -238,7 +238,8 @@ def main():
         category, subject, confidence = classify(text, names, item_names, filename)
         sid = old_sources.get(filename, 100000 + int(re.search(r'IMG_(\d+)', filename).group(1)))
         data_records = [{'table': table, 'id': key, 'basis': basis} for table, key, basis in linked.get(filename, [])]
-        if any(record['table'] == 'legendary_assault_abilities' for record in data_records):
+        if any(record['table'] == 'legendary_assault_abilities' and record['basis'] == 'reviewed_source_image'
+               for record in data_records):
             category = 'legendary_assault_ability'
             confidence = 1.0
         elif any(record['table'] == 'legendary_assault_encounters' for record in data_records):
