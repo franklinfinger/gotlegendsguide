@@ -41,6 +41,17 @@
       "variant identity or exact wording requires visual review"
     ]
   },
+  "IMG_2072.PNG": {
+    "image_category": "champion_trait",
+    "subjects_shown": [
+      "Brienne of Tarth"
+    ],
+    "confidence": 0.9,
+    "review_status": "ocr_header_category_inferred",
+    "unresolved_text_or_identity": [
+      "exact trait wording requires visual review"
+    ]
+  },
   "IMG_2080.PNG": {
     "confidence": 0.75,
     "image_category": "champion_profile",

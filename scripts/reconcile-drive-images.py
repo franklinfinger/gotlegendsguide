@@ -85,6 +85,12 @@ def load_known_records(db):
         by_file[ability['source_image']].append({
             'table': 'recovered_drive_abilities', 'id': ability['id'], 'basis': 'visually_reviewed_source_image'
         })
+    item_matches = json.loads((ROOT / 'data/audit/item-image-matches.json').read_text())['matches']
+    for match in item_matches:
+        by_file[match['filename']].append({
+            'table': 'iconic_item_catalog', 'id': match['item_id'],
+            'basis': 'unique_ocr_item_title_identity_only'
+        })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file

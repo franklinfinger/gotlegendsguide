@@ -1,0 +1,372 @@
+{
+  "matches": [
+    {
+      "filename": "IMG_1899.PNG",
+      "source_id": 101899,
+      "item_id": "sqlite-iconic-item-2",
+      "item_name": "The Khal's Arakh",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1905.PNG",
+      "source_id": 101905,
+      "item_id": "sqlite-iconic-item-1",
+      "item_name": "Enshrouding Helm",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1910.PNG",
+      "source_id": 101910,
+      "item_id": "sqlite-iconic-item-3",
+      "item_name": "Hatchling Dragons",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1917.PNG",
+      "source_id": 101917,
+      "item_id": "sqlite-iconic-item-4",
+      "item_name": "Pouch Of Fingers",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1926.PNG",
+      "source_id": 101926,
+      "item_id": "sqlite-iconic-item-5",
+      "item_name": "Red Queen's Battle Crown",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1927.PNG",
+      "source_id": 101927,
+      "item_id": "sqlite-iconic-item-5",
+      "item_name": "Red Queen's Battle Crown",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1935.PNG",
+      "source_id": 101935,
+      "item_id": "sqlite-iconic-item-6",
+      "item_name": "Old King's Crown",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1943.PNG",
+      "source_id": 101943,
+      "item_id": "sqlite-iconic-item-7",
+      "item_name": "White Cloak",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1949.PNG",
+      "source_id": 101949,
+      "item_id": "sqlite-iconic-item-8",
+      "item_name": "Chain Of Dragons",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1976.PNG",
+      "source_id": 101976,
+      "item_id": "sqlite-iconic-item-10",
+      "item_name": "Blackwater Blade",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1986.PNG",
+      "source_id": 101986,
+      "item_id": "sqlite-iconic-item-11",
+      "item_name": "Valyrian Steel Necklace",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1996.PNG",
+      "source_id": 101996,
+      "item_id": "sqlite-iconic-item-12",
+      "item_name": "Dragon Eggs",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2015.PNG",
+      "source_id": 102015,
+      "item_id": "sqlite-iconic-item-13",
+      "item_name": "Widow's Wail",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2045.PNG",
+      "source_id": 102045,
+      "item_id": "sqlite-iconic-item-14",
+      "item_name": "Needle",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2063.PNG",
+      "source_id": 102063,
+      "item_id": "sqlite-iconic-item-18",
+      "item_name": "Massive Scorpion",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2075.PNG",
+      "source_id": 102075,
+      "item_id": "sqlite-iconic-item-15",
+      "item_name": "Oathkeeper",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2084.PNG",
+      "source_id": 102084,
+      "item_id": "sqlite-iconic-item-16",
+      "item_name": "Longclaw",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2089.PNG",
+      "source_id": 102089,
+      "item_id": "sqlite-iconic-item-19",
+      "item_name": "Ice",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2145.PNG",
+      "source_id": 102145,
+      "item_id": "sqlite-iconic-item-17",
+      "item_name": "Rose Gold Pendant",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2150.PNG",
+      "source_id": 102150,
+      "item_id": "sqlite-iconic-item-21",
+      "item_name": "Ygritte's Bow",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2159.PNG",
+      "source_id": 102159,
+      "item_id": "sqlite-iconic-item-20",
+      "item_name": "Dragonglass Dagger",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2165.PNG",
+      "source_id": 102165,
+      "item_id": "sqlite-iconic-item-22",
+      "item_name": "Dragon Brooch",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2176.PNG",
+      "source_id": 102176,
+      "item_id": "sqlite-iconic-item-24",
+      "item_name": "The Kingslayer's Blade",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2202.PNG",
+      "source_id": 102202,
+      "item_id": "sqlite-iconic-item-25",
+      "item_name": "Dire Wolf Fang",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2229.PNG",
+      "source_id": 102229,
+      "item_id": "sqlite-iconic-item-28",
+      "item_name": "Hardhome Blade",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2256.PNG",
+      "source_id": 102256,
+      "item_id": "sqlite-iconic-item-27",
+      "item_name": "Burning Blade",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2266.PNG",
+      "source_id": 102266,
+      "item_id": "sqlite-iconic-item-26",
+      "item_name": "CatsPaw Dagger",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2371.PNG",
+      "source_id": 102371,
+      "item_id": "sqlite-iconic-item-29",
+      "item_name": "Crown Of Cruelty",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2419.PNG",
+      "source_id": 102419,
+      "item_id": "sqlite-iconic-item-30",
+      "item_name": "Red Wedding Chalice",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2456.PNG",
+      "source_id": 102456,
+      "item_id": "sqlite-iconic-item-3",
+      "item_name": "Hatchling Dragons",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2462.PNG",
+      "source_id": 102462,
+      "item_id": "sqlite-iconic-item-2",
+      "item_name": "The Khal's Arakh",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2465.PNG",
+      "source_id": 102465,
+      "item_id": "sqlite-iconic-item-4",
+      "item_name": "Pouch Of Fingers",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2466.PNG",
+      "source_id": 102466,
+      "item_id": "sqlite-iconic-item-4",
+      "item_name": "Pouch Of Fingers",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2473.PNG",
+      "source_id": 102473,
+      "item_id": "sqlite-iconic-item-2",
+      "item_name": "The Khal's Arakh",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2477.PNG",
+      "source_id": 102477,
+      "item_id": "sqlite-iconic-item-4",
+      "item_name": "Pouch Of Fingers",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2478.PNG",
+      "source_id": 102478,
+      "item_id": "sqlite-iconic-item-4",
+      "item_name": "Pouch Of Fingers",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2484.PNG",
+      "source_id": 102484,
+      "item_id": "sqlite-iconic-item-5",
+      "item_name": "Red Queen's Battle Crown",
+      "basis": "unique_ocr_item_title_prefix",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2485.PNG",
+      "source_id": 102485,
+      "item_id": "sqlite-iconic-item-7",
+      "item_name": "White Cloak",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2490.PNG",
+      "source_id": 102490,
+      "item_id": "sqlite-iconic-item-9",
+      "item_name": "Lannister Coin Purse",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2497.PNG",
+      "source_id": 102497,
+      "item_id": "sqlite-iconic-item-11",
+      "item_name": "Valyrian Steel Necklace",
+      "basis": "unique_ocr_item_title_prefix",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2507.PNG",
+      "source_id": 102507,
+      "item_id": "sqlite-iconic-item-13",
+      "item_name": "Widow's Wail",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2522.PNG",
+      "source_id": 3,
+      "item_id": "sqlite-iconic-item-19",
+      "item_name": "Ice",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2523.PNG",
+      "source_id": 4,
+      "item_id": "sqlite-iconic-item-15",
+      "item_name": "Oathkeeper",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2525.PNG",
+      "source_id": 102525,
+      "item_id": "sqlite-iconic-item-17",
+      "item_name": "Rose Gold Pendant",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2529.PNG",
+      "source_id": 102529,
+      "item_id": "sqlite-iconic-item-22",
+      "item_name": "Dragon Brooch",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2650.PNG",
+      "source_id": 102650,
+      "item_id": "sqlite-iconic-item-3",
+      "item_name": "Hatchling Dragons",
+      "basis": "unique_normalized_item_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    }
+  ]
+}

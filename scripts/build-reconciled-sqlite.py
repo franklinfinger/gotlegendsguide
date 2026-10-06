@@ -18,6 +18,7 @@ HISTORY = ROOT / 'data/source-images/historical-reference-reconciliation.jsonl'
 RECOVERED = ROOT / 'data/source-images/recovered'
 ALLY_CARDS = ROOT / 'data/audit/companion-ally-candidates.json'
 DRIVE_CARDS = ROOT / 'data/audit/recovered-drive-cards.json'
+ITEM_MATCHES = ROOT / 'data/audit/item-image-matches.json'
 
 
 def rows(path):
@@ -32,6 +33,7 @@ def main():
     history = rows(HISTORY)
     allies = json.loads(ALLY_CARDS.read_text())['cards']
     drive_cards = json.loads(DRIVE_CARDS.read_text())
+    item_matches = json.loads(ITEM_MATCHES.read_text())['matches']
     if len(images) != 833 or len(history) != 615:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -96,6 +98,12 @@ def main():
             source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
             review_state TEXT NOT NULL
         );
+        CREATE TABLE item_image_matches (
+            source_id INTEGER PRIMARY KEY REFERENCES source_image_reconciliation(source_id),
+            iconic_ability_id INTEGER NOT NULL REFERENCES iconic_abilities(iconic_ability_id),
+            match_basis TEXT NOT NULL,
+            review_state TEXT NOT NULL
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -122,6 +130,12 @@ def main():
         (r['id'], r['card_id'], r['name'], r['kind'], r['exact_visible_text'],
          image_by_file[r['source_image']]['source_id'], r['review_state'])
         for r in drive_cards['abilities']
+    ])
+    if len(item_matches) != 46:
+        raise SystemExit('Expected 46 OCR matched item images')
+    out.executemany('INSERT INTO item_image_matches VALUES (?,?,?,?)', [
+        (r['source_id'], int(r['item_id'].split('-')[-1]), r['basis'], r['review_state'])
+        for r in item_matches
     ])
     historic_values = []
     for r in history:
