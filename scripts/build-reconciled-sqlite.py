@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Preserve the verified SQLite snapshot and add a reproducible audit catalog.
+
+The output is a copy of the pinned original with additive reconciliation tables.
+No original fact row or source reference is changed.
+"""
+
+import hashlib
+import json
+from pathlib import Path
+import sqlite3
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = Path.home() / 'Downloads/got_legends_verified_knowledge.db'
+OUTPUT = ROOT / 'data/audit/reconciled-knowledge.sqlite'
+MANIFEST = ROOT / 'data/source-images/reconciliation.jsonl'
+HISTORY = ROOT / 'data/source-images/historical-reference-reconciliation.jsonl'
+RECOVERED = ROOT / 'data/source-images/recovered'
+
+
+def rows(path):
+    return [json.loads(line) for line in path.read_text().splitlines()]
+
+
+def main():
+    expected = json.loads((ROOT / 'supabase/source-manifest.json').read_text())['sha256']
+    if hashlib.sha256(SOURCE.read_bytes()).hexdigest() != expected:
+        raise SystemExit('Pinned SQLite snapshot hash changed')
+    images = rows(MANIFEST)
+    history = rows(HISTORY)
+    if len(images) != 833 or len(history) != 615:
+        raise SystemExit('Reconciliation input cardinality differs from source audit')
+    temporary = OUTPUT.with_suffix('.sqlite.tmp')
+    if temporary.exists():
+        temporary.unlink()
+    original = sqlite3.connect(f'file:{SOURCE}?mode=ro', uri=True)
+    out = sqlite3.connect(temporary)
+    original.backup(out)
+    original.close()
+    out.execute('PRAGMA foreign_keys=ON')
+    out.executescript('''
+        CREATE TABLE source_image_reconciliation (
+            filename TEXT PRIMARY KEY,
+            source_id INTEGER NOT NULL UNIQUE,
+            drive_id TEXT NOT NULL UNIQUE,
+            sha256 TEXT NOT NULL,
+            image_category TEXT NOT NULL,
+            subjects_shown_json TEXT NOT NULL,
+            extracted_text TEXT NOT NULL,
+            database_records_connected_json TEXT NOT NULL,
+            contributes_new_information TEXT NOT NULL,
+            information_imported TEXT NOT NULL,
+            unresolved_text_or_identity_json TEXT NOT NULL,
+            review_status TEXT NOT NULL,
+            confidence REAL NOT NULL
+        );
+        CREATE TABLE historical_source_reconciliation (
+            source_id INTEGER PRIMARY KEY REFERENCES sources(source_id),
+            filename TEXT NOT NULL,
+            locator_kind TEXT NOT NULL,
+            status TEXT NOT NULL,
+            sha256 TEXT,
+            byte_count INTEGER,
+            library_search_status TEXT NOT NULL
+        );
+    ''')
+    out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
+        (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
+         json.dumps(r['subjects_shown']), r['extracted_text'], json.dumps(r['database_records_connected']),
+         json.dumps(r['contributes_new_information']), json.dumps(r['information_imported']),
+         json.dumps(r['unresolved_text_or_identity']), r['review_status'], r['confidence'])
+        for r in images
+    ])
+    historic_values = []
+    for r in history:
+        fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None
+        if fp:
+            path = RECOVERED / r['filename']
+            if not path.exists() or hashlib.sha256(path.read_bytes()).hexdigest() != fp['sha256']:
+                raise SystemExit(f'Recovered source bytes do not match manifest: {r["filename"]}')
+        historic_values.append((r['source_id'], r['filename'], r['locator_kind'], r['status'],
+                                fp['sha256'] if fp else None, fp['byte_count'] if fp else None,
+                                r['chatgpt_library_exact_search']))
+    out.executemany('INSERT INTO historical_source_reconciliation VALUES (?,?,?,?,?,?,?)', historic_values)
+    if out.execute('PRAGMA foreign_key_check').fetchall():
+        raise SystemExit('Reconciled SQLite foreign key check failed')
+    if out.execute('PRAGMA integrity_check').fetchone()[0] != 'ok':
+        raise SystemExit('Reconciled SQLite integrity check failed')
+    out.commit()
+    out.close()
+    temporary.replace(OUTPUT)
+    print('Built', OUTPUT, 'from pinned snapshot: 833 Drive images, 615 historical references')
+
+
+if __name__ == '__main__':
+    main()
