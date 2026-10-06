@@ -35,7 +35,8 @@ async function rpc(name) {
 
 /** @returns {Promise<{total_champions:number,total_abilities:number,total_raid_bosses:number,total_factions:number,total_faction_memberships:number,total_announced_updates:number,data_version:string|null,imported_at:string|null}>} */
 export async function getDataHealth() {
-  const data = await rpc('got_data_health');
+  const result = await rpc('got_data_health');
+  const data = Array.isArray(result) ? result[0] : result;
   if (!data || typeof data.total_champions !== 'number') throw new Error('Supabase returned an incomplete health result.');
   return data;
 }
