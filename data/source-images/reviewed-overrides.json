@@ -1,1 +1,325 @@
-{}
+{
+  "IMG_1872.PNG": {
+    "confidence": 1.0,
+    "image_category": "team_composition",
+    "review_status": "visual_category_checked",
+    "subjects_shown": [],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2024.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Meleys"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2028.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Adolescent Viserion"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2050.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Icy Viserion"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2080.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Jon Snow"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2129.PNG": {
+    "confidence": 0.72,
+    "image_category": "war_mode",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2146.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Ygritte"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2177.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Egg"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2198.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Ghost"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2204.PNG": {
+    "image_category": "summoned_companion_skill",
+    "subjects_shown": [
+      "Summer"
+    ],
+    "confidence": 1.0,
+    "review_status": "visual_card_checked",
+    "unresolved_text_or_identity": [
+      "historical card; current availability unverified"
+    ],
+    "contributes_new_information": true,
+    "information_imported": true
+  },
+  "IMG_2213.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Sunfyre"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2242.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Meryn Trant"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2247.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Craster"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2267.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Osha"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2306.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Wun Wun"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2322.PNG": {
+    "confidence": 1.0,
+    "image_category": "champion_profile",
+    "review_status": "visual_category_checked",
+    "subjects_shown": [
+      "Joffrey Baratheon"
+    ],
+    "unresolved_text_or_identity": [
+      "current availability unverified"
+    ]
+  },
+  "IMG_2327.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Yoren"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2415.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Walder Frey"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2429.PNG": {
+    "confidence": 1.0,
+    "image_category": "champion_profile",
+    "review_status": "visual_category_checked",
+    "subjects_shown": [
+      "Seasmoke"
+    ],
+    "unresolved_text_or_identity": [
+      "current availability unverified"
+    ]
+  },
+  "IMG_2440.PNG": {
+    "image_category": "champion_profile",
+    "subjects_shown": [
+      "Grey Wind"
+    ],
+    "confidence": 1.0,
+    "review_status": "visual_card_checked",
+    "unresolved_text_or_identity": [
+      "historical card; current availability unverified"
+    ],
+    "contributes_new_information": true,
+    "information_imported": true
+  },
+  "IMG_2441.PNG": {
+    "image_category": "champion_trait",
+    "subjects_shown": [
+      "Grey Wind"
+    ],
+    "confidence": 1.0,
+    "review_status": "visual_card_checked",
+    "unresolved_text_or_identity": [
+      "historical card; current availability unverified"
+    ],
+    "contributes_new_information": true,
+    "information_imported": true
+  },
+  "IMG_2442.PNG": {
+    "confidence": 1.0,
+    "image_category": "champion_trait",
+    "review_status": "visual_category_checked",
+    "subjects_shown": [
+      "Grey Wind"
+    ],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2443.PNG": {
+    "image_category": "champion_skill",
+    "subjects_shown": [
+      "Grey Wind"
+    ],
+    "confidence": 1.0,
+    "review_status": "visual_card_checked",
+    "unresolved_text_or_identity": [
+      "historical card; current availability unverified"
+    ],
+    "contributes_new_information": true,
+    "information_imported": true
+  },
+  "IMG_2444.PNG": {
+    "confidence": 0.75,
+    "image_category": "champion_profile",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Rickard Karstark"
+    ],
+    "unresolved_text_or_identity": [
+      "variant identity or exact wording requires visual review"
+    ]
+  },
+  "IMG_2484.PNG": {
+    "confidence": 0.72,
+    "image_category": "iconic_item_detail",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Red Queen's Battle Crown"
+    ],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2497.PNG": {
+    "confidence": 0.72,
+    "image_category": "iconic_item_detail",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Valyrian Steel Necklace"
+    ],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2519.PNG": {
+    "confidence": 1.0,
+    "image_category": "gem_effect_tooltip",
+    "review_status": "visual_category_checked",
+    "subjects_shown": [
+      "Roaring Fire Gem"
+    ],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2522.PNG": {
+    "confidence": 0.72,
+    "image_category": "iconic_item_detail",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "ICE"
+    ],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  },
+  "IMG_2655.PNG": {
+    "confidence": 0.72,
+    "image_category": "legendary_assault_battle",
+    "review_status": "ocr_header_category_inferred",
+    "subjects_shown": [
+      "Rhaegal"
+    ],
+    "unresolved_text_or_identity": [
+      "exact text or identity relationship requires review"
+    ]
+  }
+}

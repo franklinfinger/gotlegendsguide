@@ -17,6 +17,7 @@ MANIFEST = ROOT / 'data/source-images/reconciliation.jsonl'
 HISTORY = ROOT / 'data/source-images/historical-reference-reconciliation.jsonl'
 RECOVERED = ROOT / 'data/source-images/recovered'
 ALLY_CARDS = ROOT / 'data/audit/companion-ally-candidates.json'
+DRIVE_CARDS = ROOT / 'data/audit/recovered-drive-cards.json'
 
 
 def rows(path):
@@ -30,6 +31,7 @@ def main():
     images = rows(MANIFEST)
     history = rows(HISTORY)
     allies = json.loads(ALLY_CARDS.read_text())['cards']
+    drive_cards = json.loads(DRIVE_CARDS.read_text())
     if len(images) != 833 or len(history) != 615:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -75,6 +77,25 @@ def main():
             review_state TEXT NOT NULL,
             source_sha256 TEXT NOT NULL
         );
+        CREATE TABLE recovered_drive_cards (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            kind TEXT NOT NULL,
+            rarity TEXT,
+            gem_color TEXT,
+            relationship_text TEXT,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE recovered_drive_abilities (
+            id TEXT PRIMARY KEY,
+            card_id TEXT NOT NULL REFERENCES recovered_drive_cards(id),
+            name TEXT NOT NULL,
+            kind TEXT NOT NULL,
+            exact_visible_text TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -91,6 +112,16 @@ def main():
          r['owner'], r['ally'], r['gem_title_candidate'], image_by_file[r['image']]['extracted_text'],
          'image_identified_ocr_wording_unverified', image_by_file[r['image']]['sha256'])
         for r in allies
+    ])
+    out.executemany('INSERT INTO recovered_drive_cards VALUES (?,?,?,?,?,?,?,?)', [
+        (r['id'], r['name'], r['kind'], r['rarity'], r['gem_color'], r['relationship'],
+         image_by_file[r['source_image']]['source_id'], r['review_state'])
+        for r in drive_cards['cards']
+    ])
+    out.executemany('INSERT INTO recovered_drive_abilities VALUES (?,?,?,?,?,?,?)', [
+        (r['id'], r['card_id'], r['name'], r['kind'], r['exact_visible_text'],
+         image_by_file[r['source_image']]['source_id'], r['review_state'])
+        for r in drive_cards['abilities']
     ])
     historic_values = []
     for r in history:

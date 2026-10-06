@@ -1,0 +1,53 @@
+{
+  "cards": [
+    {
+      "id": "drive-card-grey-wind",
+      "name": "Grey Wind",
+      "kind": "champion_candidate",
+      "rarity": "Legendary",
+      "gem_color": "Purple",
+      "relationship": "Robb Stark's direwolf",
+      "source_image": "IMG_2440.PNG",
+      "review_state": "historical_screenshot_currentness_unknown"
+    },
+    {
+      "id": "drive-card-summer",
+      "name": "Summer",
+      "kind": "summoned_companion",
+      "rarity": "Legendary",
+      "gem_color": "Green",
+      "relationship": "Bran Stark's direwolf",
+      "source_image": "IMG_2204.PNG",
+      "review_state": "historical_screenshot_currentness_unknown"
+    }
+  ],
+  "abilities": [
+    {
+      "id": "drive-ability-grey-wind-unseen-hunter",
+      "card_id": "drive-card-grey-wind",
+      "name": "Unseen Hunter",
+      "kind": "skill",
+      "exact_visible_text": "Grey Wind strikes an enemy for 200% ATK Physical Damage and afflicts them with 1 ICE, with a 75% chance to afflict them with 1 bonus ICE. Grey Wind then gains STEALTH for 3 turns.",
+      "source_image": "IMG_2443.PNG",
+      "review_state": "visually_checked_historical_level_1"
+    },
+    {
+      "id": "drive-ability-grey-wind-death-from-shadows",
+      "card_id": "drive-card-grey-wind",
+      "name": "Death from the Shadows",
+      "kind": "trait",
+      "exact_visible_text": "When a BRITTLE enemy uses their Skill, if Grey Wind is STEALTHED, he will exit STEALTH to strike them for 600% ATK Physical Damage.",
+      "source_image": "IMG_2441.PNG",
+      "review_state": "visually_checked_locked_2_star_preview"
+    },
+    {
+      "id": "drive-ability-summer-wargs-wolf",
+      "card_id": "drive-card-summer",
+      "name": "The Warg's Wolf",
+      "kind": "summoned_companion_skill",
+      "exact_visible_text": "Summer strikes an enemy for 210% ATK Physical Damage. Summer then deals an additional 65% ATK Physical Damage for each ICE on the target.",
+      "source_image": "IMG_2204.PNG",
+      "review_state": "visually_checked_historical_level_8"
+    }
+  ]
+}
