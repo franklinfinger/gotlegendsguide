@@ -9,7 +9,7 @@ try {
   const entries = [
     ['Champions', data.total_champions],
     ['Abilities', data.total_abilities],
-    ['Raid bosses', data.total_raid_bosses],
+    ['Legendary Assault encounters in public snapshot', data.total_raid_bosses],
     ['Live factions', data.total_factions],
     ['Live faction memberships', data.total_faction_memberships],
     ['Announced updates', data.total_announced_updates],

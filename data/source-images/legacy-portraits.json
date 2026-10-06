@@ -1,0 +1,728 @@
+{
+  "attribution": "User supplied GOT: Legends game screenshots embedded in the legacy guide; game art remains with its rights holder.",
+  "warning": "Multiple definitions for a key are preserved. A portrait does not prove current champion metadata.",
+  "definitions": [
+    {
+      "legacy_key": "adolescentdrogon",
+      "path": "assets/champion-portraits/adolescentdrogon--p-adolescentdrogon.jpg",
+      "source_script": "p-adolescentdrogon.js",
+      "sha256": "b128450476a9de47649e6c90e6216624f86cefbd2ac778d879fc2a095eee4957",
+      "bytes": 1898,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "adolescentrhaegal",
+      "path": "assets/champion-portraits/adolescentrhaegal--p-adolescentrhaegal.jpg",
+      "source_script": "p-adolescentrhaegal.js",
+      "sha256": "cd8f01f86d35adec9853622bd420826c8df58c2bf15ea7307fa5dc816aeea4b9",
+      "bytes": 2145,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "adolescentviserion",
+      "path": "assets/champion-portraits/adolescentviserion--p-adolescentviserion.jpg",
+      "source_script": "p-adolescentviserion.js",
+      "sha256": "bdf768e00b2ebb12541d5d01ff17f4d08340476291072535a982a431ad7a6810",
+      "bytes": 2173,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "aegonii",
+      "path": "assets/champion-portraits/aegonii--p-aegonii.jpg",
+      "source_script": "p-aegonii.js",
+      "sha256": "b416e85dce0122459cc36fbcd634a0ffd5e7c2770a8087a58d431aa30f13a411",
+      "bytes": 1657,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "aemond",
+      "path": "assets/champion-portraits/aemond--p-aemond.jpg",
+      "source_script": "p-aemond.js",
+      "sha256": "608322b8bac0403e6defa2749c6e6922520caf987f296a52d9f87925b0bb3f40",
+      "bytes": 1620,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "alicent",
+      "path": "assets/champion-portraits/alicent--p-alicent.jpg",
+      "source_script": "p-alicent.js",
+      "sha256": "68558405d495b3ffa2cdc96cb32e11c767195ad5d7ab6c852f6d57b83890b9e4",
+      "bytes": 1649,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "areo",
+      "path": "assets/champion-portraits/areo--p-areo.jpg",
+      "source_script": "p-areo.js",
+      "sha256": "631a17df1a6a749958572e4fed50bc7fe6a2bdd2976902651b11ceab74573f43",
+      "bytes": 1710,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "arya",
+      "path": "assets/champion-portraits/arya--p-arya.jpg",
+      "source_script": "p-arya.js",
+      "sha256": "42c69398d4cf23189aa3b4196e320f7ee50161ece3e447210d03f7e02466d504",
+      "bytes": 1665,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "benjen",
+      "path": "assets/champion-portraits/benjen--p-benjen.jpg",
+      "source_script": "p-benjen.js",
+      "sha256": "f00e2c80b87e25644610bb0164b3b17c88e84fe766e7b95b3cf926f12ca63a3b",
+      "bytes": 1640,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "beric",
+      "path": "assets/champion-portraits/beric--p-beric.jpg",
+      "source_script": "p-beric.js",
+      "sha256": "b48ef3e5a46745a6e44ae7f6740f7260e6f74e894903e1258981998fe5c1360f",
+      "bytes": 1703,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "bran",
+      "path": "assets/champion-portraits/bran--p-bran.jpg",
+      "source_script": "p-bran.js",
+      "sha256": "ec6815f189c4d73abbb75c0bd27220ea64d4b7ca17fd68d210acd06bd7d9de6f",
+      "bytes": 1661,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "brienne",
+      "path": "assets/champion-portraits/brienne--p-brienne.jpg",
+      "source_script": "p-brienne.js",
+      "sha256": "0d3461348ad0abc3873aabaf9cbb1ce5751578f84e0144dcec3ec35bbd7aa6d3",
+      "bytes": 1248,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "catelyn",
+      "path": "assets/champion-portraits/catelyn--p-catelyn.jpg",
+      "source_script": "p-catelyn.js",
+      "sha256": "0c1a986d5fbc22f83fe8ce172ee7d1e54b3c84684354629d9accd6dc0a9b33fa",
+      "bytes": 1678,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "corlys",
+      "path": "assets/champion-portraits/corlys--p-corlys.jpg",
+      "source_script": "p-corlys.js",
+      "sha256": "26f0ee61eeede5143aba630b453ac4359c33ea6ef45ed6279d95ebee9413ec5e",
+      "bytes": 1712,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "craghas",
+      "path": "assets/champion-portraits/craghas--p-craghas.jpg",
+      "source_script": "p-craghas.js",
+      "sha256": "9219d6bba411f2fbc1ba4ddbcfa850b05e5d5ddb5cdda92392ded52b5f804a95",
+      "bytes": 1924,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "craster",
+      "path": "assets/champion-portraits/craster--p-craster.jpg",
+      "source_script": "p-craster.js",
+      "sha256": "2228f9fd4638713faa019efd579638ae6ca006c56e8aa8dec9f0183891afdd98",
+      "bytes": 1560,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "daemon",
+      "path": "assets/champion-portraits/daemon--p-daemon.jpg",
+      "source_script": "p-daemon.js",
+      "sha256": "9a1e34bbdea48b62a8e515fd151334a0e4a475be8bf0441f2cf6ee289b6e02d3",
+      "bytes": 2100,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "duncan",
+      "path": "assets/champion-portraits/duncan--p-duncan.jpg",
+      "source_script": "p-duncan.js",
+      "sha256": "eaf1c2608328b68e6d6980fb99c61ad4d427800b1d655e5cd4f2e975db1029b2",
+      "bytes": 1723,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "egg",
+      "path": "assets/champion-portraits/egg--p-egg.jpg",
+      "source_script": "p-egg.js",
+      "sha256": "8d3bd44f89eb053dc2fa62b6306b399ed053b16f2f3427ba798ed318687fcd55",
+      "bytes": 1782,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "ghost",
+      "path": "assets/champion-portraits/ghost--p-ghost.jpg",
+      "source_script": "p-ghost.js",
+      "sha256": "05d45874dc17a22331b3de1b0f9bd8228b01254f26f8e9b76e95c938d492bfaa",
+      "bytes": 1716,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "greyworm",
+      "path": "assets/champion-portraits/greyworm--p-greyworm.jpg",
+      "source_script": "p-greyworm.js",
+      "sha256": "cf57d6c4499de2d0c5050c0f3622eaa197defeffd652e775105c1f270ce71549",
+      "bytes": 1823,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "gwayne",
+      "path": "assets/champion-portraits/gwayne--p-gwayne.jpg",
+      "source_script": "p-gwayne.js",
+      "sha256": "1de56d6673f8707f05784dbade8c4cc8d04678a3849707809d97809de76f5768",
+      "bytes": 1646,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "icewarden",
+      "path": "assets/champion-portraits/icewarden--p-icewarden.jpg",
+      "source_script": "p-icewarden.js",
+      "sha256": "494a3fdfa07524fd8498fca0469c6d2e49abd3b6d6756838b9432d4eaaf48d55",
+      "bytes": 1732,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "icyviserion",
+      "path": "assets/champion-portraits/icyviserion--p-icyviserion.jpg",
+      "source_script": "p-icyviserion.js",
+      "sha256": "8b2cea241d12e5606586549377ae965280a403db0ba36782aa20bc84229b41b8",
+      "bytes": 1958,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "jacaerys",
+      "path": "assets/champion-portraits/jacaerys--p-jacaerys.jpg",
+      "source_script": "p-jacaerys.js",
+      "sha256": "f0bd3b7aa6b78976ec3e36d13515d731b9900ca02cb453f6a49069a0af0e54cb",
+      "bytes": 1942,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "jon",
+      "path": "assets/champion-portraits/jon--p-jon.jpg",
+      "source_script": "p-jon.js",
+      "sha256": "e4ef5e6674ef0943dca7947aba52fa4bd17db42b1401cc057c1b34a488ee0cbb",
+      "bytes": 1666,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "jorah",
+      "path": "assets/champion-portraits/jorah--p-jorah.jpg",
+      "source_script": "p-jorah.js",
+      "sha256": "98390681d2fe3060d3d60a8eb781ed09bc079d86d077a20886387d817a9766f9",
+      "bytes": 1730,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "laenor",
+      "path": "assets/champion-portraits/laenor--p-laenor.jpg",
+      "source_script": "p-laenor.js",
+      "sha256": "aa0d8d95bc1c1b1f4c57292c61f0963bb219883a832c08717fa8788f124f2e90",
+      "bytes": 1909,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "mance",
+      "path": "assets/champion-portraits/mance--p-mance.jpg",
+      "source_script": "p-mance.js",
+      "sha256": "32c58ed7053b38331b3cd17eb1b541563a293534a8deac3b18728e887eb57297",
+      "bytes": 1730,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "margaery",
+      "path": "assets/champion-portraits/margaery--p-margaery.jpg",
+      "source_script": "p-margaery.js",
+      "sha256": "944f9470c1c4e60eabe5357ebfb11c68b3fe72222db9208d242ca8b789776a3d",
+      "bytes": 1690,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "meleys",
+      "path": "assets/champion-portraits/meleys--p-meleys.jpg",
+      "source_script": "p-meleys.js",
+      "sha256": "8d47cbefc62726dbc3c6fd80d7f5207b959fd680e67403a974fdecfbf559ba8f",
+      "bytes": 2037,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "ned",
+      "path": "assets/champion-portraits/ned--p-ned.jpg",
+      "source_script": "p-ned.js",
+      "sha256": "279cd8ad9b21badec85924ab15b9443a61375ffc42e02fd51a414fcd2981ece9",
+      "bytes": 1629,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "nightking",
+      "path": "assets/champion-portraits/nightking--p-nightking.jpg",
+      "source_script": "p-nightking.js",
+      "sha256": "776bfee9c642e9e830165bb37eddc2666e87957cc299b30f1f6b9e52bc7cebdf",
+      "bytes": 1749,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "nymeria",
+      "path": "assets/champion-portraits/nymeria--p-nymeria.jpg",
+      "source_script": "p-nymeria.js",
+      "sha256": "979091950dc278db0e5f05540d06738ac6096efd33ffc4b4821bfa0868337737",
+      "bytes": 1637,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "osha",
+      "path": "assets/champion-portraits/osha--p-osha.jpg",
+      "source_script": "p-osha.js",
+      "sha256": "a04b80989e942ab0005c241e30007960b7c8f45d0cd307f7adba1d348067685d",
+      "bytes": 1691,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "otto",
+      "path": "assets/champion-portraits/otto--p-otto.jpg",
+      "source_script": "p-otto.js",
+      "sha256": "de6d9b72fe58a23634b227fc9352289bf5f9b1209e58e5ddc8af22e182358d4b",
+      "bytes": 1598,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "ramsay",
+      "path": "assets/champion-portraits/ramsay--p-ramsay.jpg",
+      "source_script": "p-ramsay.js",
+      "sha256": "756dd897a08e857b1458fef9632e6ebc4d0574a28aae5821c244809faf798a81",
+      "bytes": 1649,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "rhaenyra",
+      "path": "assets/champion-portraits/rhaenyra--p-rhaenyra.jpg",
+      "source_script": "p-rhaenyra.js",
+      "sha256": "fc55104509e59ee98b1d1a2affed40ab1db55213b9c185a41fb7f4a460a6dd1c",
+      "bytes": 1789,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "rhaenys",
+      "path": "assets/champion-portraits/rhaenys--p-rhaenys.jpg",
+      "source_script": "p-rhaenys.js",
+      "sha256": "ef82be0d32605d00159acc7aab52b608640c097235f1d486b2e5365d4e9bd40e",
+      "bytes": 1850,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "rickard",
+      "path": "assets/champion-portraits/rickard--p-rickard.jpg",
+      "source_script": "p-rickard.js",
+      "sha256": "18f29e36cd2298c1ea1edfd0e4c4fbf2ede7173e734c7fc25277d3263b49e437",
+      "bytes": 1535,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "robb",
+      "path": "assets/champion-portraits/robb--p-robb.jpg",
+      "source_script": "p-robb.js",
+      "sha256": "d4b73b75baa2202e53cea892cbb1998e0adf83768a8d5e9dd61e711fd676783b",
+      "bytes": 1670,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "roose",
+      "path": "assets/champion-portraits/roose--p-roose.jpg",
+      "source_script": "p-roose.js",
+      "sha256": "723e48c14e080d83e82e41d44c0100a3edb810a5625b458f45cf3778544e3043",
+      "bytes": 1588,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "samwell",
+      "path": "assets/champion-portraits/samwell--p-samwell.jpg",
+      "source_script": "p-samwell.js",
+      "sha256": "8ec0db31d5b3fd66bd49d6ae9f4110bb622c43ead695bfb7946b62330553c528",
+      "bytes": 1679,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "sansa",
+      "path": "assets/champion-portraits/sansa--p-sansa.jpg",
+      "source_script": "p-sansa.js",
+      "sha256": "e8466a4eee820fb31a875bb62bbdd22a588386134b1141c9e8f15a5f5cd3cb99",
+      "bytes": 1590,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "sunfyre",
+      "path": "assets/champion-portraits/sunfyre--p-sunfyre.jpg",
+      "source_script": "p-sunfyre.js",
+      "sha256": "1de2e287e4fe51148395a9dcae24764c994c6850c644bee54ca4034bc54e5c3f",
+      "bytes": 1811,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "talisa",
+      "path": "assets/champion-portraits/talisa--p-talisa.jpg",
+      "source_script": "p-talisa.js",
+      "sha256": "05d45874dc17a22331b3de1b0f9bd8228b01254f26f8e9b76e95c938d492bfaa",
+      "bytes": 1716,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "thoros",
+      "path": "assets/champion-portraits/thoros--p-thoros.jpg",
+      "source_script": "p-thoros.js",
+      "sha256": "0fba60ec916a0fcb90aebfa5256de2567dee62500b4f317c1bf4666e2031d885",
+      "bytes": 1990,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "tormund",
+      "path": "assets/champion-portraits/tormund--p-tormund.jpg",
+      "source_script": "p-tormund.js",
+      "sha256": "a4de0c0bce1561de237d3934fd58dd47edfd4c8c4f3fe4234278c7f8a81ae0c5",
+      "bytes": 1721,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "tyland",
+      "path": "assets/champion-portraits/tyland--p-tyland.jpg",
+      "source_script": "p-tyland.js",
+      "sha256": "af4f06c012fcbb5e20d86e79265877cf516fd6eb7f652455b58e8e13b54f8d9d",
+      "bytes": 1610,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "varys",
+      "path": "assets/champion-portraits/varys--p-varys.jpg",
+      "source_script": "p-varys.js",
+      "sha256": "dc9bc7f492d86851db8b642094936c46c464443a26f2c15f81274af4fcc07051",
+      "bytes": 2014,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "viserys",
+      "path": "assets/champion-portraits/viserys--p-viserys.jpg",
+      "source_script": "p-viserys.js",
+      "sha256": "bcf3bd5212c31591e65723322764517a056f2190bf2df3363e84747057116c80",
+      "bytes": 2016,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "walder",
+      "path": "assets/champion-portraits/walder--p-walder.jpg",
+      "source_script": "p-walder.js",
+      "sha256": "4c9d0c0cb1a5ad5010c7a9f400f24db7e71621e1366199e702182c6b18c1b9ba",
+      "bytes": 1715,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "ygritte",
+      "path": "assets/champion-portraits/ygritte--p-ygritte.jpg",
+      "source_script": "p-ygritte.js",
+      "sha256": "0d06fd37c9237eae4f663f97de532e2d26ee4f03ec3609999d6e82df9681f241",
+      "bytes": 1720,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "yoren",
+      "path": "assets/champion-portraits/yoren--p-yoren.jpg",
+      "source_script": "p-yoren.js",
+      "sha256": "fcfe04a2e0217f9dc1fd1dffc9bf8882e765e424a4dac0cb63e615ad314fda0e",
+      "bytes": 1663,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "davos",
+      "path": "assets/champion-portraits/davos--portraits-bara-0.jpg",
+      "source_script": "portraits-bara-0.js",
+      "sha256": "86d93a2950fcef6f5e90026f43d46391a3df38a1c1c5f0c85f74b3428008f649",
+      "bytes": 1293,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "sandor",
+      "path": "assets/champion-portraits/sandor--portraits-bara-0.jpg",
+      "source_script": "portraits-bara-0.js",
+      "sha256": "7b9d30592aa56022c986f29016a1e498e65ddce88befc459008ede77efcfc360",
+      "bytes": 1303,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "stannis",
+      "path": "assets/champion-portraits/stannis--portraits-bara-0.jpg",
+      "source_script": "portraits-bara-0.js",
+      "sha256": "1b3f6f9600b12d2c0ab6b24aca2c1c5fefbe7822626d5810341372e9dc00525d",
+      "bytes": 1312,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "joffrey",
+      "path": "assets/champion-portraits/joffrey--portraits-bara-1.jpg",
+      "source_script": "portraits-bara-1.js",
+      "sha256": "a222548c816367005275d6f3103fa77fc247e1ce82723f61c652bc0b33c8dc1a",
+      "bytes": 1317,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "brienne",
+      "path": "assets/champion-portraits/brienne--portraits-bara-1.jpg",
+      "source_script": "portraits-bara-1.js",
+      "sha256": "a67a14367b319990cf1db701944675e9bcda2eeb15e194a42b1a5b3f6c5afbc4",
+      "bytes": 1397,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "varys",
+      "path": "assets/champion-portraits/varys--portraits-bara-1.jpg",
+      "source_script": "portraits-bara-1.js",
+      "sha256": "187761b195adf460a904eed716fda0bd048854f0485ac7230c035719c63726d7",
+      "bytes": 1336,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "melisandre",
+      "path": "assets/champion-portraits/melisandre--portraits-bara-2.jpg",
+      "source_script": "portraits-bara-2.js",
+      "sha256": "4f1fa4571a3fe8a615891c9ff8cf611ad88367ae2ee9e1360937caec9c4000ed",
+      "bytes": 1372,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "gendry",
+      "path": "assets/champion-portraits/gendry--portraits-bara-2.jpg",
+      "source_script": "portraits-bara-2.js",
+      "sha256": "1ce71a771c420d0c0abb21428a094723b6469395cfedf5713f7d660550561871",
+      "bytes": 1281,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "barristan",
+      "path": "assets/champion-portraits/barristan--portraits-bara-2.jpg",
+      "source_script": "portraits-bara-2.js",
+      "sha256": "f77e20b807b2c9f22b84577bb38d75e9f3c8749a2e3e3f2a09e7c2fe4b431d13",
+      "bytes": 1280,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "robert",
+      "path": "assets/champion-portraits/robert--portraits-bara-2.jpg",
+      "source_script": "portraits-bara-2.js",
+      "sha256": "21619ff3f5bad87a5cff1ddc42ee345820a468059d9d5283136a3dbde6df7235",
+      "bytes": 1369,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "daenerys",
+      "path": "assets/champion-portraits/daenerys--portraits-fc-0.jpg",
+      "source_script": "portraits-fc-0.js",
+      "sha256": "96a8ca0f93fc4fafacee81d1ca1e29b7951a67da66c5d0bca0b535083bfc17fd",
+      "bytes": 2034,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "khaldrogo",
+      "path": "assets/champion-portraits/khaldrogo--portraits-fc-0.jpg",
+      "source_script": "portraits-fc-0.js",
+      "sha256": "3e6f20dc51d7eb397f65358e84a4e8a223478ca6ebd8438545cd7263db6cc100",
+      "bytes": 2000,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "daario",
+      "path": "assets/champion-portraits/daario--portraits-fc-0.jpg",
+      "source_script": "portraits-fc-0.js",
+      "sha256": "012824b754d19ac793953a7922c9dcaaa09a80cdf72ca91dd31e0d2abd7fba21",
+      "bytes": 1987,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "adolescentviserion",
+      "path": "assets/champion-portraits/adolescentviserion--portraits-fc-1a.jpg",
+      "source_script": "portraits-fc-1a.js",
+      "sha256": "bdf768e00b2ebb12541d5d01ff17f4d08340476291072535a982a431ad7a6810",
+      "bytes": 2173,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "euron",
+      "path": "assets/champion-portraits/euron--portraits-greyjoy.jpg",
+      "source_script": "portraits-greyjoy.js",
+      "sha256": "1c41a789edcff300d9376c59e273191c8da336f1dc1c2aa7ec4986b6363ae02a",
+      "bytes": 1787,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "theon",
+      "path": "assets/champion-portraits/theon--portraits-greyjoy.jpg",
+      "source_script": "portraits-greyjoy.js",
+      "sha256": "02024b7d22b5851f673805535b21f3858d4deca1f29b27b3e606e60ee625a128",
+      "bytes": 1782,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "yara",
+      "path": "assets/champion-portraits/yara--portraits-greyjoy.jpg",
+      "source_script": "portraits-greyjoy.js",
+      "sha256": "abe4a4c69e7bcf75d384e2c4d7fdf757a38a28bff54602512ee0c8ec151b1775",
+      "bytes": 1852,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "gregor",
+      "path": "assets/champion-portraits/gregor--portraits-lan-0.jpg",
+      "source_script": "portraits-lan-0.js",
+      "sha256": "cec0a070f70d5f3d0e463b2bfe8a30f472c8f683654c8c73122e05cede68942d",
+      "bytes": 1763,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "sandor",
+      "path": "assets/champion-portraits/sandor--portraits-lan-1.jpg",
+      "source_script": "portraits-lan-1.js",
+      "sha256": "ccc2f5a9c7147315bc909421b53f5918ba69b41307c10a4816568d53abea0295",
+      "bytes": 1619,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "tyrion",
+      "path": "assets/champion-portraits/tyrion--portraits-lan-1.jpg",
+      "source_script": "portraits-lan-1.js",
+      "sha256": "db86d6177fef2d7e3c06d3291846328b657b6d91d22878200a59e9cc12f2c943",
+      "bytes": 1740,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "tywin",
+      "path": "assets/champion-portraits/tywin--portraits-lan-2.jpg",
+      "source_script": "portraits-lan-2.js",
+      "sha256": "f70bbb07d0e021d42223aefcec3b806936a9046f5fa20056fa389134d62ba597",
+      "bytes": 1575,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "jaqen",
+      "path": "assets/champion-portraits/jaqen--portraits-lan-2.jpg",
+      "source_script": "portraits-lan-2.js",
+      "sha256": "298336f38c69fe7f11ada030bd32c3aaa54a4ea06dbb71612e6609ad9ca7f6bd",
+      "bytes": 1601,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "joffrey",
+      "path": "assets/champion-portraits/joffrey--portraits-lan-3.jpg",
+      "source_script": "portraits-lan-3.js",
+      "sha256": "cee913ff8f444b537e24e48ca17e88df22667d8a9f0103be3a1283f742d31df7",
+      "bytes": 1614,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "euron",
+      "path": "assets/champion-portraits/euron--portraits-lan-4.jpg",
+      "source_script": "portraits-lan-4.js",
+      "sha256": "902117211a6c47ef4845cecb45ac049ae697fe182db6d6af8798cd519b37e30e",
+      "bytes": 1713,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "jaime",
+      "path": "assets/champion-portraits/jaime--portraits-lan-4.jpg",
+      "source_script": "portraits-lan-4.js",
+      "sha256": "b200d6d561b20cb7661c2dd299292be6aa542faecf4be8e8c61c5e7f5514b8d7",
+      "bytes": 1668,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "meryn",
+      "path": "assets/champion-portraits/meryn--portraits-lan-4.jpg",
+      "source_script": "portraits-lan-4.js",
+      "sha256": "3732a1ae79ca1479a6f8ade6a620d73ec20dd2c79786e9040ae7db8de24a619b",
+      "bytes": 1745,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "tyland",
+      "path": "assets/champion-portraits/tyland--portraits-lan-5.jpg",
+      "source_script": "portraits-lan-5.js",
+      "sha256": "f16f54f1c1f95c50f5bf406d81f1d0f1b06b593a0f115a8a3a6eda6e1d81aaf8",
+      "bytes": 1563,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    },
+    {
+      "legacy_key": "bronn",
+      "path": "assets/champion-portraits/bronn--portraits-lan-5.jpg",
+      "source_script": "portraits-lan-5.js",
+      "sha256": "cd2ab93c98be0611c133aad3723c81390674bad08f34a43c6a490ff08c278a34",
+      "bytes": 1611,
+      "review_state": "legacy_embedded_portrait_source_screenshot_unlinked"
+    }
+  ],
+  "invalid_definitions": [
+    {
+      "legacy_key": "alliser",
+      "source_script": "p-alliser.js",
+      "reason": "Excess data after padding"
+    },
+    {
+      "legacy_key": "caraxes",
+      "source_script": "p-caraxes.js",
+      "reason": "JPEG decoder rejected image: broken data stream when reading image file"
+    },
+    {
+      "legacy_key": "criston",
+      "source_script": "p-criston.js",
+      "reason": "Excess data after padding"
+    },
+    {
+      "legacy_key": "gendry",
+      "source_script": "p-gendry.js",
+      "reason": "Incorrect padding"
+    },
+    {
+      "legacy_key": "littlefinger",
+      "source_script": "p-littlefinger.js",
+      "reason": "Incorrect padding"
+    },
+    {
+      "legacy_key": "oberyn",
+      "source_script": "p-oberyn.js",
+      "reason": "Excess data after padding"
+    },
+    {
+      "legacy_key": "olenna",
+      "source_script": "p-olenna.js",
+      "reason": "Incorrect padding"
+    },
+    {
+      "legacy_key": "wunwun",
+      "source_script": "p-wunwun.js",
+      "reason": "Excess data after padding"
+    },
+    {
+      "legacy_key": "adolescentviserion",
+      "source_script": "portraits-fc-1.js",
+      "reason": "JPEG marker missing"
+    },
+    {
+      "legacy_key": "adolescentrhaegal",
+      "source_script": "portraits-fc-1a.js",
+      "reason": "Excess padding not allowed"
+    },
+    {
+      "legacy_key": "cersei",
+      "source_script": "portraits-lan-5.js",
+      "reason": "JPEG decoder rejected image: broken data stream when reading image file"
+    }
+  ],
+  "conflicting_keys": [
+    "adolescentviserion",
+    "brienne",
+    "euron",
+    "joffrey",
+    "sandor",
+    "tyland",
+    "varys"
+  ]
+}

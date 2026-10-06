@@ -17,8 +17,8 @@ const heading = (title, intro) => `<p class="eyebrow">Source snapshot · ${esc(s
 const paragraph = text => `<p class="text">${esc(text)}</p>`;
 
 function abilityCard(ability) {
-  const label = ability.kind.replaceAll('_', ' ');
-  const proof = ability.kind === 'boss' ? tag('See boss source review', 'warn') : evidence(ability.reviewStatus, ability.sourceState);
+  const label = ability.kind === 'boss' ? 'Legendary Assault' : ability.kind.replaceAll('_', ' ');
+  const proof = ability.kind === 'boss' ? tag('See Legendary Assault source review', 'warn') : evidence(ability.reviewStatus, ability.sourceState);
   return `<article class="card"><h3>${esc(ability.name)}</h3><div>${tag(label)}${proof}</div>${paragraph(ability.text || 'Visible text was not captured.')}${source(ability.sourceId)}</article>`;
 }
 
@@ -118,13 +118,13 @@ function alliesPage(data) {
 }
 
 function dragonsPage(data) {
-  return `${heading('Dragon & boss battles', 'Boss mechanics and official tips are shown only where the verified snapshot has records. A partial boss profile is labeled incomplete.')}
+  return `${heading('Legendary Assault', 'Dragon mechanics and battle tips are shown only where the verified snapshot has records. An incomplete encounter profile is labeled.')}
     ${data.bosses.length ? data.bosses.map(boss => `<section class="section"><h2>${esc(boss.name)} ${boss.subtitle ? `· ${esc(boss.subtitle)}` : ''}</h2>
       ${reviewed(boss.reviewStatus)}<div class="grid">${boss.abilities.map(ability => `<article class="card"><h3>${esc(ability.name)}</h3>
       ${ability.reviewStatus === 'complete' && ability.verifiedSources > 0 ? tag('Screenshot verified', 'good') : tag('Review incomplete', 'warn')}
-      ${ability.scope ? `<p class="meta">${esc(ability.scope)}</p>` : ''}${paragraph(ability.text)}</article>`).join('') || empty('No boss abilities are recorded.')}</div>
+      ${ability.scope ? `<p class="meta">${esc(ability.scope)}</p>` : ''}${paragraph(ability.text)}</article>`).join('') || empty('No encounter abilities are recorded.')}</div>
       <h3 class="section">Visible battle tips</h3><div class="grid">${boss.tips.length ? boss.tips.map(tip => `<article class="card">
-      ${evidence(tip.reviewStatus, tip.sourceState)}${paragraph(tip.text)}${source(tip.sourceId)}</article>`).join('') : empty('No boss tips are recorded.')}</div></section>`).join('') : empty('No boss records are available.')}
+      ${evidence(tip.reviewStatus, tip.sourceState)}${paragraph(tip.text)}${source(tip.sourceId)}</article>`).join('') : empty('No encounter tips are recorded.')}</div></section>`).join('') : empty('No Legendary Assault records are available.')}
     <div class="notice">Other dragons from the archived guide are awaiting verified records. Observed battle compositions appear on the <a href="builder.html">team examples</a> page.</div>`;
 }
 
@@ -184,9 +184,9 @@ function strategyPage(data) {
     <div class="grid">
       <a class="card" href="raids.html"><h2>Raid</h2><p>Rules and observed attacks or defenses.</p></a>
       <a class="card" href="builder.html"><h2>Teams</h2><p>Observed Raid, War, and dragon lineups.</p></a>
-      <a class="card" href="dragons.html"><h2>Boss</h2><p>Visible boss mechanics and battle tips.</p></a>
+      <a class="card" href="dragons.html"><h2>Legendary Assault</h2><p>Visible dragon mechanics and battle tips.</p></a>
       <a class="card" href="abilities.html"><h2>Abilities</h2><p>Exact visible skill and mechanic text.</p></a>
-    </div><section class="section"><h2>Evidence available now</h2><p class="muted">${data.champions.length} champion records, ${data.abilities.length} ability records, ${data.teams.length} observed strategy teams, and ${data.bosses.length} boss record.</p></section>
+    </div><section class="section"><h2>Evidence available now</h2><p class="muted">${data.champions.length} champion records, ${data.abilities.length} ability records, ${data.teams.length} observed strategy teams, and ${data.bosses.length} Legendary Assault encounter record.</p></section>
     <section class="section"><h2>Announced in the snapshot</h2>${announcements(data)}
     <h3 class="section">Announced rule text</h3><div class="grid">${data.announcements.flatMap(update => update.rules.map(rule => `<article class="card">${tag('Announced in snapshot', 'announced')}${tag(rule.category)}${paragraph(rule.text)}${source(update.sourceId)}</article>`)).join('') || empty('No announced rules are recorded.')}</div></section>`;
 }
@@ -194,7 +194,7 @@ function strategyPage(data) {
 function homePage(data) {
   const complete = data.champions.filter(champion => champion.reviewStatus === 'complete').length;
   return `${heading('Make the next battle decision', 'Live, source-aware GOT: Legends knowledge for Old Peeps on Porches. Start with the question you have right now.')}
-    <div class="actions"><a class="btn" href="raids.html">Plan a Raid</a><a class="btn secondary" href="dragons.html">Fight a boss</a><a class="btn secondary" href="champions.html">Find a champion</a></div>
+    <div class="actions"><a class="btn" href="raids.html">Plan a Raid</a><a class="btn secondary" href="dragons.html">Legendary Assault</a><a class="btn secondary" href="champions.html">Find a champion</a></div>
     <section class="section"><h2>Explore the guide</h2><div class="grid">
       <a class="card" href="builder.html"><h3>Team examples</h3><p>${data.teams.length} observed compositions with evidence labels.</p></a>
       <a class="card" href="abilities.html"><h3>Abilities</h3><p>${data.abilities.length} visible ability records.</p></a>

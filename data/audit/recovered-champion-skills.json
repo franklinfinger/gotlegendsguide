@@ -1,0 +1,33 @@
+{
+  "review_note": "Complete wording was visually checked against the named original screenshots. These historical cards do not establish the current release state.",
+  "skills": [
+    {
+      "id": "audit-champion-skill-jaqen-hghar",
+      "champion_id": 21,
+      "name": "A Man Takes a Name",
+      "stamina_speed": "Very Slow",
+      "tags": ["PHYSICAL DAMAGE", "TREASURY", "GRANT STAMINA"],
+      "exact_visible_text": "Jaqen strikes the Weakest enemy for 100% ATK True Damage. He then grants a target team member +35% Dodge Chance for 3 turns. TREASURY (5): If Jaqen chose a non-Beast ally, he Takes Their Face at 70% HP.",
+      "source_images": ["IMG_1991.PNG"],
+      "completion_state": "complete"
+    },
+    {
+      "id": "audit-champion-skill-roose-bolton",
+      "champion_id": 64,
+      "name": "Send Their Regards",
+      "stamina_speed": "Normal",
+      "tags": ["PHYSICAL DAMAGE", "BLEED", "REMOVE BUFF", "GRANT STAMINA"],
+      "exact_visible_text": "Roose deals 74% ATK Physical Damage to a single enemy, afflicting them with 1 BLEED. For each BLEED on the target, deal a bonus 90% ATK Physical Damage and REMOVE 1 Buff. If this attack strikes the enemy Leader, Roose gains +50% Stamina.",
+      "source_images": ["IMG_2285.PNG", "IMG_2286.PNG"],
+      "completion_state": "complete"
+    },
+    { "id": "audit-champion-skill-aegonii", "variant_id": "legacy-champion-aegonii", "name": "As Fearsome As Any", "stamina_speed": "Slow", "tags": ["BIRTHRIGHT", "ADD BUFF", "DAMAGE", "FIRE DAMAGE"], "exact_visible_text": "For each BIRTHRIGHT he has, Aegon II gains a +3% ATK Buff for 2 turns. He then deals +195% ATK Fire Damage to a single enemy.", "source_images": ["IMG_2305.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-aemond", "variant_id": "legacy-champion-aemond", "name": "Screaming in Flames", "stamina_speed": "Slow", "tags": ["DAMAGE", "FIRE DAMAGE", "BIRTHRIGHT"], "exact_visible_text": "Aemond deals 30% ATK Fire Damage to a single enemy and loses 1 BIRTHRIGHT. This attack deals a bonus 29% ATK Fire Damage for each BIRTHRIGHT Aemond has.", "source_images": ["IMG_2295.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-caraxes", "variant_id": "legacy-champion-caraxes", "name": "Bloodwyrm's Shriek", "stamina_speed": "Fast", "tags": ["PHYSICAL DAMAGE", "DESTROY GEM"], "exact_visible_text": "Caraxes deals 114% ATK Physical Damage to all enemies. He then destroys 1 Gem, prioritizing a Power-Up and has a 80% chance to destroy 3 Hazards.", "source_images": ["IMG_2301.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-theon", "variant_id": "legacy-champion-theon", "name": "The Sea Is My Blood", "stamina_speed": "Fast", "tags": ["PHYSICAL DAMAGE", "ICE", "RAID"], "exact_visible_text": "Theon deals 275% ATK Physical Damage to a target. If this is the first Skill used in a turn, his target is afflicted with 1 ICE and RAID with a 65% chance for 1 bonus ICE and RAID.", "source_images": ["IMG_2187.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-thoros", "variant_id": "legacy-champion-thoros", "name": "R'hllor's Mercy", "stamina_speed": "Slow", "tags": ["REVIVE"], "exact_visible_text": "Thoros targets an ally. If they are alive, Thoros HEALS them for 65% ATK. The HEAL can Critically HEAL. If the target was defeated, Thoros sacrifices 35% of his Current HP and REVIVES them with 40% of their Max HP.", "source_images": ["IMG_2313.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-tyland", "variant_id": "legacy-champion-tyland", "name": "Wrestle For Me", "stamina_speed": "Slow", "tags": ["TAUNT", "ADD BUFF", "TREASURY", "BIRTHRIGHT", "STUN", "BLOCK"], "exact_visible_text": "Tyland grants a target team member TAUNT, 80% Power for 3 turns and 4 BIRTHRIGHT. If the target is a Greens ally, Tyland also grants 1 BLOCK. TREASURY(4): Tyland STUNS the Strongest and Weakest enemies for 3 turns.", "source_images": ["IMG_2240.PNG", "IMG_2241.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-wunwun", "variant_id": "legacy-champion-wunwun", "name": "Giant Roar", "stamina_speed": "Very Slow", "tags": ["DAMAGE", "PHYSICAL DAMAGE", "ADD BUFF"], "exact_visible_text": "Wun Wun gains +17% DEF for 4 turns, then strikes an enemy for 390% ATK Physical Damage.", "source_images": ["IMG_2317.PNG"], "completion_state": "complete" },
+    { "id": "audit-champion-skill-yara", "variant_id": "legacy-champion-yara", "name": "We Do Not Sow", "stamina_speed": "Fast", "tags": ["DAMAGE", "PHYSICAL DAMAGE", "RAID"], "exact_visible_text": "Yara strikes an enemy for 105% ATK Physical Damage and deals a bonus 60% ATK Physical Damage for each RAID on the target.", "source_images": ["IMG_2280.PNG"], "completion_state": "complete" }
+  ]
+}

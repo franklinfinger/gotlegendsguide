@@ -1,0 +1,16 @@
+{
+  "review_note": "Original image visually checked. This is a historical game card; current release state is not independently established.",
+  "items": [
+    {
+      "id": "audit-item-house-stark-garb",
+      "name": "House Stark Garb",
+      "owner_variant_id": "legacy-champion-theon",
+      "shown_level": 15,
+      "ability_id": "audit-iconic-ability-better-to-be-cruel-iv",
+      "ability_name": "Better To Be Cruel IV",
+      "exact_visible_text": "If Theon used his Skill first this turn, for the rest of the turn when an enemy is inflicted with ICE or RAID, he will strike that enemy for 10% ATK Physical Damage. When Theon strikes an enemy with his Skill, he inflicts them with 1 RAID indefinitely. When a RAIDED enemy is defeated, Theon grants his team 20% Stamina. Greyjoy team members gain bonus 10% Stamina.",
+      "source_images": ["IMG_2188.PNG"],
+      "completion_state": "complete"
+    }
+  ]
+}
