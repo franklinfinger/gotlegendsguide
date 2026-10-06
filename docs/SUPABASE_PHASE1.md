@@ -43,4 +43,12 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 
 ## Validation
 
-Run `npm run lint`, `npm run typecheck`, `npm run build`, and `npm run db:validate`. The last command validates the source and generated seed locally. After applying, the importer itself compares every Postgres mirror count with SQLite and also checks the derived identity/effect/image counts in the same transaction. Live count comparison cannot be claimed until a Postgres connection URI is supplied and the importer completes.
+Run `npm run lint`, `npm run typecheck`, `npm run build`, and `npm run db:validate`. The last command validates the source and generated seed locally. The seed checks every Postgres mirror count against SQLite and checks the derived identity/effect/image counts inside the import transaction. Independently query live table counts after each import.
+
+## Live setup verified on 2026-10-06
+
+The `got-legends-guide` Supabase project (`tstpqjungenftjukoqbu`) is connected. The committed migration was applied through the authenticated Supabase CLI Management API, and version `20261005000000` is recorded as applied in Supabase migration history. The SHA-256-checked SQLite snapshot was imported in one transaction with the seed's count assertions. No database password or service-role key was required or placed in Git.
+
+An independent live query matched the expected counts for all 36 tables: all 27 source tables plus nine derived/import tables. Key counts are 86 champions, 86 characters and variants, 188 abilities and effects, 18 factions, 36 current faction memberships, 620 sources and source images, and one import run. The import run's source hash matches `supabase/source-manifest.json`. The public `got_data_health()` API returns those expected summary counts and version `verified-sqlite-2026-10-05`; `got_current_champions()` returns 24 reviewed, complete champions.
+
+The browser configuration in `.env.local` was already present and remains ignored by Git. No production deployment or existing page data-source migration was performed.
