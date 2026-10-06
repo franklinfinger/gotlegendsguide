@@ -1,0 +1,179 @@
+{
+  "matches": [
+    {
+      "filename": "IMG_2595.PNG",
+      "source_id": 102595,
+      "ability_id": "viserion-claw-swipe-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2597.PNG",
+      "source_id": 102597,
+      "ability_id": "viserion-claw-swipe-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2598.PNG",
+      "source_id": 102598,
+      "ability_id": "viserion-claw-swipe-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2596.PNG",
+      "source_id": 102596,
+      "ability_id": "viserion-own-pace",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2599.PNG",
+      "source_id": 102599,
+      "ability_id": "viserion-own-pace",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2600.PNG",
+      "source_id": 102600,
+      "ability_id": "viserion-rude-awakening-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2601.PNG",
+      "source_id": 102601,
+      "ability_id": "viserion-rude-awakening-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2602.PNG",
+      "source_id": 102602,
+      "ability_id": "viserion-golden-scales",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2603.PNG",
+      "source_id": 102603,
+      "ability_id": "viserion-patience-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2604.PNG",
+      "source_id": 102604,
+      "ability_id": "viserion-patience-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2605.PNG",
+      "source_id": 102605,
+      "ability_id": "viserion-patience-ii",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2606.PNG",
+      "source_id": 102606,
+      "ability_id": "viserion-unchained-dragon",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2607.PNG",
+      "source_id": 102607,
+      "ability_id": "viserion-unchained-dragon",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2657.PNG",
+      "source_id": 102657,
+      "ability_id": "rhaegal-sqlite-1",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2658.PNG",
+      "source_id": 102658,
+      "ability_id": "rhaegal-sqlite-1",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2659.PNG",
+      "source_id": 102659,
+      "ability_id": "rhaegal-sqlite-2",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2660.PNG",
+      "source_id": 102660,
+      "ability_id": "rhaegal-sqlite-3",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2661.PNG",
+      "source_id": 102661,
+      "ability_id": "rhaegal-sqlite-3",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2662.PNG",
+      "source_id": 102662,
+      "ability_id": "rhaegal-sqlite-3",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2663.PNG",
+      "source_id": 102663,
+      "ability_id": "rhaegal-sqlite-6",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2664.PNG",
+      "source_id": 102664,
+      "ability_id": "rhaegal-sqlite-6",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2665.PNG",
+      "source_id": 102665,
+      "ability_id": "rhaegal-sqlite-5",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2666.PNG",
+      "source_id": 102666,
+      "ability_id": "rhaegal-sqlite-5",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2667.PNG",
+      "source_id": 102667,
+      "ability_id": "rhaegal-sqlite-4",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2668.PNG",
+      "source_id": 102668,
+      "ability_id": "rhaegal-sqlite-4",
+      "basis": "ocr_ability_title_or_adjacent_continuation",
+      "review_state": "ability_identity_ocr_pending_visual_review"
+    }
+  ]
+}

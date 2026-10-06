@@ -19,6 +19,7 @@ RECOVERED = ROOT / 'data/source-images/recovered'
 ALLY_CARDS = ROOT / 'data/audit/companion-ally-candidates.json'
 DRIVE_CARDS = ROOT / 'data/audit/recovered-drive-cards.json'
 ITEM_MATCHES = ROOT / 'data/audit/item-image-matches.json'
+ASSAULT_MATCHES = ROOT / 'data/audit/legendary-assault-image-matches.json'
 
 
 def rows(path):
@@ -34,6 +35,7 @@ def main():
     allies = json.loads(ALLY_CARDS.read_text())['cards']
     drive_cards = json.loads(DRIVE_CARDS.read_text())
     item_matches = json.loads(ITEM_MATCHES.read_text())['matches']
+    assault_matches = json.loads(ASSAULT_MATCHES.read_text())['matches']
     if len(images) != 833 or len(history) != 615:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -104,6 +106,12 @@ def main():
             match_basis TEXT NOT NULL,
             review_state TEXT NOT NULL
         );
+        CREATE TABLE legendary_assault_image_matches (
+            source_id INTEGER PRIMARY KEY REFERENCES source_image_reconciliation(source_id),
+            ability_id TEXT NOT NULL,
+            match_basis TEXT NOT NULL,
+            review_state TEXT NOT NULL
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -136,6 +144,15 @@ def main():
     out.executemany('INSERT INTO item_image_matches VALUES (?,?,?,?)', [
         (r['source_id'], int(r['item_id'].split('-')[-1]), r['basis'], r['review_state'])
         for r in item_matches
+    ])
+    known_assault_ids = {r['id'] for r in json.loads(
+        (ROOT / 'data/audit/legendary-assault-recovered.json').read_text()
+    )['abilities']} | {f'rhaegal-sqlite-{i}' for i in range(1, 7)}
+    if len(assault_matches) != 25 or any(r['ability_id'] not in known_assault_ids for r in assault_matches):
+        raise SystemExit('Expected 25 links to existing Legendary Assault abilities')
+    out.executemany('INSERT INTO legendary_assault_image_matches VALUES (?,?,?,?)', [
+        (r['source_id'], r['ability_id'], r['basis'], r['review_state'])
+        for r in assault_matches
     ])
     historic_values = []
     for r in history:

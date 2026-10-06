@@ -91,6 +91,12 @@ def load_known_records(db):
             'table': 'iconic_item_catalog', 'id': match['item_id'],
             'basis': 'unique_ocr_item_title_identity_only'
         })
+    assault_matches = json.loads((ROOT / 'data/audit/legendary-assault-image-matches.json').read_text())['matches']
+    for match in assault_matches:
+        by_file[match['filename']].append({
+            'table': 'legendary_assault_abilities', 'id': match['ability_id'],
+            'basis': 'ocr_ability_identity_only'
+        })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file
