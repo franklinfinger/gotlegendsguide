@@ -97,6 +97,12 @@ def load_known_records(db):
             'table': 'legendary_assault_abilities', 'id': match['ability_id'],
             'basis': 'ocr_ability_identity_only'
         })
+    skill_matches = json.loads((ROOT / 'data/audit/champion-skill-image-matches.json').read_text())['matches']
+    for match in skill_matches:
+        by_file[match['filename']].append({
+            'table': 'abilities', 'id': match['ability_id'],
+            'basis': 'unique_ocr_skill_title_identity_only'
+        })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file

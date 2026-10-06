@@ -1,0 +1,748 @@
+{
+  "matches": [
+    {
+      "filename": "IMG_1898.PNG",
+      "source_id": 101898,
+      "ability_id": "sqlite-champion_skills-2",
+      "ability_name": "Show Of Dominance",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1915.PNG",
+      "source_id": 101915,
+      "ability_id": "sqlite-champion_skills-4",
+      "ability_name": "Archers, Stand To!",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1916.PNG",
+      "source_id": 101916,
+      "ability_id": "sqlite-champion_skills-4",
+      "ability_name": "Archers, Stand To!",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1925.PNG",
+      "source_id": 101925,
+      "ability_id": "sqlite-champion_skills-5",
+      "ability_name": "You Must Send Me",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1933.PNG",
+      "source_id": 101933,
+      "ability_id": "sqlite-champion_skills-6",
+      "ability_name": "Accept Me As Your Queen",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1934.PNG",
+      "source_id": 101934,
+      "ability_id": "sqlite-champion_skills-6",
+      "ability_name": "Accept Me As Your Queen",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1941.PNG",
+      "source_id": 101941,
+      "ability_id": "sqlite-champion_skills-7",
+      "ability_name": "The Hateful Things I Do",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1942.PNG",
+      "source_id": 101942,
+      "ability_id": "sqlite-champion_skills-7",
+      "ability_name": "The Hateful Things I Do",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1948.PNG",
+      "source_id": 101948,
+      "ability_id": "sqlite-champion_skills-8",
+      "ability_name": "Dracarys!",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1960.PNG",
+      "source_id": 101960,
+      "ability_id": "sqlite-champion_skills-10",
+      "ability_name": "Lead The Charge",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1964.PNG",
+      "source_id": 101964,
+      "ability_id": "sqlite-champion_skills-11",
+      "ability_name": "Thick As A Castle Wall",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1975.PNG",
+      "source_id": 101975,
+      "ability_id": "sqlite-champion_skills-13",
+      "ability_name": "Hard Truths",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1980.PNG",
+      "source_id": 101980,
+      "ability_id": "sqlite-champion_skills-14",
+      "ability_name": "I Want It Served Now.",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1985.PNG",
+      "source_id": 101985,
+      "ability_id": "sqlite-champion_skills-15",
+      "ability_name": "Ride To Battle & Glory",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1995.PNG",
+      "source_id": 101995,
+      "ability_id": "sqlite-champion_skills-16",
+      "ability_name": "My Sun & Stars",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2001.PNG",
+      "source_id": 102001,
+      "ability_id": "sqlite-champion_skills-17",
+      "ability_name": "Too Slow On The Draw",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2002.PNG",
+      "source_id": 102002,
+      "ability_id": "sqlite-champion_skills-17",
+      "ability_name": "Too Slow On The Draw",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2007.PNG",
+      "source_id": 102007,
+      "ability_id": "sqlite-champion_skills-23",
+      "ability_name": "Unite The Clans",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2008.PNG",
+      "source_id": 102008,
+      "ability_id": "sqlite-champion_skills-23",
+      "ability_name": "Unite The Clans",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2021.PNG",
+      "source_id": 102021,
+      "ability_id": "sqlite-champion_skills-19",
+      "ability_name": "No Clan Can Stop Them",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2027.PNG",
+      "source_id": 102027,
+      "ability_id": "sqlite-champion_skills-21",
+      "ability_name": "Valorous Blaze",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2031.PNG",
+      "source_id": 102031,
+      "ability_id": "sqlite-champion_skills-22",
+      "ability_name": "Claw Swipe",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2032.PNG",
+      "source_id": 102032,
+      "ability_id": "sqlite-champion_skills-22",
+      "ability_name": "Claw Swipe",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2036.PNG",
+      "source_id": 102036,
+      "ability_id": "sqlite-champion_skills-24",
+      "ability_name": "I Never Miss",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2044.PNG",
+      "source_id": 102044,
+      "ability_id": "sqlite-champion_skills-20",
+      "ability_name": "A Girl Takes A Name",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2049.PNG",
+      "source_id": 102049,
+      "ability_id": "sqlite-champion_skills-30",
+      "ability_name": "Snapping Dragon",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2053.PNG",
+      "source_id": 102053,
+      "ability_id": "sqlite-champion_skills-32",
+      "ability_name": "Blightfire",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2058.PNG",
+      "source_id": 102058,
+      "ability_id": "sqlite-champion_skills-34",
+      "ability_name": "Keep Your Tongue",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2062.PNG",
+      "source_id": 102062,
+      "ability_id": "sqlite-champion_skills-33",
+      "ability_name": "Scorpion Shot",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2066.PNG",
+      "source_id": 102066,
+      "ability_id": "sqlite-champion_skills-27",
+      "ability_name": "Ember Storm",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2074.PNG",
+      "source_id": 102074,
+      "ability_id": "sqlite-champion_skills-25",
+      "ability_name": "Sworn Protector",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2079.PNG",
+      "source_id": 102079,
+      "ability_id": "sqlite-champion_skills-35",
+      "ability_name": "The Sea Snake",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2083.PNG",
+      "source_id": 102083,
+      "ability_id": "sqlite-champion_skills-28",
+      "ability_name": "The North Remembers",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2144.PNG",
+      "source_id": 102144,
+      "ability_id": "sqlite-champion_skills-31",
+      "ability_name": "Give Them Your Love",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2149.PNG",
+      "source_id": 102149,
+      "ability_id": "sqlite-champion_skills-39",
+      "ability_name": "Heartseeker",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2153.PNG",
+      "source_id": 102153,
+      "ability_id": "sqlite-champion_skills-45",
+      "ability_name": "Here I Stand",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2154.PNG",
+      "source_id": 102154,
+      "ability_id": "sqlite-champion_skills-45",
+      "ability_name": "Here I Stand",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2158.PNG",
+      "source_id": 102158,
+      "ability_id": "sqlite-champion_skills-38",
+      "ability_name": "No Reason To Be Afraid",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2164.PNG",
+      "source_id": 102164,
+      "ability_id": "sqlite-champion_skills-40",
+      "ability_name": "Waking The Dragon",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2169.PNG",
+      "source_id": 102169,
+      "ability_id": "sqlite-champion_skills-43",
+      "ability_name": "Unsullied Fear Nothing",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2175.PNG",
+      "source_id": 102175,
+      "ability_id": "sqlite-champion_skills-44",
+      "ability_name": "The Kingslayer",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2181.PNG",
+      "source_id": 102181,
+      "ability_id": "sqlite-champion_skills-46",
+      "ability_name": "Makeshift Remedy",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2192.PNG",
+      "source_id": 102192,
+      "ability_id": "sqlite-champion_skills-49",
+      "ability_name": "Little Birds",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2197.PNG",
+      "source_id": 102197,
+      "ability_id": "sqlite-champion_skills-42",
+      "ability_name": "Do You Think Nothing Of Your Oath?",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2201.PNG",
+      "source_id": 102201,
+      "ability_id": "sqlite-champion_skills-51",
+      "ability_name": "Red Eyed Fury",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2207.PNG",
+      "source_id": 102207,
+      "ability_id": "sqlite-champion_skills-52",
+      "ability_name": "A Dream Of Summer",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2212.PNG",
+      "source_id": 102212,
+      "ability_id": "sqlite-champion_skills-54",
+      "ability_name": "Stab Of Cold",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2216.PNG",
+      "source_id": 102216,
+      "ability_id": "sqlite-champion_skills-55",
+      "ability_name": "Sky Full Of Suns",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2220.PNG",
+      "source_id": 102220,
+      "ability_id": "sqlite-champion_skills-41",
+      "ability_name": "The Purest Death",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2224.PNG",
+      "source_id": 102224,
+      "ability_id": "sqlite-champion_skills-47",
+      "ability_name": "First Ranger's Strike",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2228.PNG",
+      "source_id": 102228,
+      "ability_id": "sqlite-champion_skills-60",
+      "ability_name": "Reckless Swing",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2235.PNG",
+      "source_id": 102235,
+      "ability_id": "sqlite-champion_skills-56",
+      "ability_name": "I'm No Fighter, I'm A Smith",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2246.PNG",
+      "source_id": 102246,
+      "ability_id": "sqlite-champion_skills-48",
+      "ability_name": "No One Threatens His Grace",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2250.PNG",
+      "source_id": 102250,
+      "ability_id": "sqlite-champion_skills-61",
+      "ability_name": "Unholy Tribute",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2255.PNG",
+      "source_id": 102255,
+      "ability_id": "sqlite-champion_skills-58",
+      "ability_name": "R'hllor's Fire",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2259.PNG",
+      "source_id": 102259,
+      "ability_id": "sqlite-champion_skills-53",
+      "ability_name": "He Dies, You Die",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2264.PNG",
+      "source_id": 102264,
+      "ability_id": "sqlite-champion_skills-57",
+      "ability_name": "You Are The Challenge",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2265.PNG",
+      "source_id": 102265,
+      "ability_id": "sqlite-champion_skills-57",
+      "ability_name": "You Are The Challenge",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2271.PNG",
+      "source_id": 102271,
+      "ability_id": "sqlite-champion_skills-62",
+      "ability_name": "I Have Something For You",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2291.PNG",
+      "source_id": 102291,
+      "ability_id": "sqlite-champion_skills-59",
+      "ability_name": "Rally The North",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2326.PNG",
+      "source_id": 102326,
+      "ability_id": "sqlite-champion_skills-64",
+      "ability_name": "Kill Them All!",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2331.PNG",
+      "source_id": 102331,
+      "ability_id": "sqlite-champion_skills-65",
+      "ability_name": "Nick The Artery",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2335.PNG",
+      "source_id": 102335,
+      "ability_id": "sqlite-champion_skills-67",
+      "ability_name": "Bastard's Barrage",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2341.PNG",
+      "source_id": 102341,
+      "ability_id": "sqlite-champion_skills-66",
+      "ability_name": "Set Aside Your Grievances",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2342.PNG",
+      "source_id": 102342,
+      "ability_id": "sqlite-champion_skills-66",
+      "ability_name": "Set Aside Your Grievances",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2347.PNG",
+      "source_id": 102347,
+      "ability_id": "sqlite-champion_skills-68",
+      "ability_name": "You Win, Or You Die",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2348.PNG",
+      "source_id": 102348,
+      "ability_id": "sqlite-champion_skills-68",
+      "ability_name": "You Win, Or You Die",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2349.PNG",
+      "source_id": 102349,
+      "ability_id": "sqlite-champion_skills-68",
+      "ability_name": "You Win, Or You Die",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2353.PNG",
+      "source_id": 102353,
+      "ability_id": "sqlite-champion_skills-69",
+      "ability_name": "A Mother's Prayer",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2358.PNG",
+      "source_id": 102358,
+      "ability_id": "sqlite-champion_skills-71",
+      "ability_name": "Dirty Fighting",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2359.PNG",
+      "source_id": 102359,
+      "ability_id": "sqlite-champion_skills-71",
+      "ability_name": "Dirty Fighting",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2365.PNG",
+      "source_id": 102365,
+      "ability_id": "sqlite-champion_skills-72",
+      "ability_name": "Let's Go Kill Them",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2366.PNG",
+      "source_id": 102366,
+      "ability_id": "sqlite-champion_skills-72",
+      "ability_name": "Let's Go Kill Them",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2370.PNG",
+      "source_id": 102370,
+      "ability_id": "sqlite-champion_skills-73",
+      "ability_name": "Cost Of The Crown",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2375.PNG",
+      "source_id": 102375,
+      "ability_id": "sqlite-champion_skills-63",
+      "ability_name": "Personal Guardian",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2376.PNG",
+      "source_id": 102376,
+      "ability_id": "sqlite-champion_skills-63",
+      "ability_name": "Personal Guardian",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2382.PNG",
+      "source_id": 102382,
+      "ability_id": "sqlite-champion_skills-74",
+      "ability_name": "Not The King's Equal",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2387.PNG",
+      "source_id": 102387,
+      "ability_id": "sqlite-champion_skills-75",
+      "ability_name": "Man Of Honor",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2391.PNG",
+      "source_id": 102391,
+      "ability_id": "sqlite-champion_skills-77",
+      "ability_name": "Serve, Obey, Protect",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2401.PNG",
+      "source_id": 102401,
+      "ability_id": "sqlite-champion_skills-79",
+      "ability_name": "Finest In All The Realm!",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2406.PNG",
+      "source_id": 102406,
+      "ability_id": "sqlite-champion_skills-80",
+      "ability_name": "Baiting The Trap",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2410.PNG",
+      "source_id": 102410,
+      "ability_id": "sqlite-champion_skills-81",
+      "ability_name": "Take His Power",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2418.PNG",
+      "source_id": 102418,
+      "ability_id": "sqlite-champion_skills-83",
+      "ability_name": "Hospitality You Deserve",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2423.PNG",
+      "source_id": 102423,
+      "ability_id": "sqlite-champion_skills-82",
+      "ability_name": "Cut Out The Rot",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2428.PNG",
+      "source_id": 102428,
+      "ability_id": "sqlite-champion_skills-76",
+      "ability_name": "Counsel & Comfort",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2433.PNG",
+      "source_id": 102433,
+      "ability_id": "sqlite-champion_skills-70",
+      "ability_name": "The Dragon's Bond",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2434.PNG",
+      "source_id": 102434,
+      "ability_id": "sqlite-champion_skills-70",
+      "ability_name": "The Dragon's Bond",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2461.PNG",
+      "source_id": 102461,
+      "ability_id": "sqlite-champion_skills-2",
+      "ability_name": "Show Of Dominance",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2472.PNG",
+      "source_id": 102472,
+      "ability_id": "sqlite-champion_skills-2",
+      "ability_name": "Show Of Dominance",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2482.PNG",
+      "source_id": 102482,
+      "ability_id": "sqlite-champion_skills-5",
+      "ability_name": "You Must Send Me",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2528.PNG",
+      "source_id": 102528,
+      "ability_id": "sqlite-champion_skills-45",
+      "ability_name": "Here I Stand",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2649.PNG",
+      "source_id": 102649,
+      "ability_id": "sqlite-champion_skills-4",
+      "ability_name": "Archers, Stand To!",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2771.PNG",
+      "source_id": 102771,
+      "ability_id": "sqlite-champion_skills-50",
+      "ability_name": "Two Quick Deaths",
+      "basis": "unique_skill_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    }
+  ]
+}
