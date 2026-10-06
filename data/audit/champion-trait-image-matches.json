@@ -1,0 +1,2476 @@
+{
+  "matches": [
+    {
+      "filename": "IMG_1897.PNG",
+      "source_id": 101897,
+      "trait_id": 9,
+      "trait_name": "The Great Stallion III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1902.PNG",
+      "source_id": 101902,
+      "trait_id": 5,
+      "trait_name": "The Silent Provocation II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1902.PNG",
+      "source_id": 101902,
+      "trait_id": 6,
+      "trait_name": "Why Won't You Die! III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1907.PNG",
+      "source_id": 101907,
+      "trait_id": 11,
+      "trait_name": "Teaching Me This Lesson III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1912.PNG",
+      "source_id": 101912,
+      "trait_id": 13,
+      "trait_name": "Plunder The Greatest City III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1914.PNG",
+      "source_id": 101914,
+      "trait_id": 13,
+      "trait_name": "Plunder The Greatest City III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1918.PNG",
+      "source_id": 101918,
+      "trait_id": 5,
+      "trait_name": "The Silent Provocation II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1918.PNG",
+      "source_id": 101918,
+      "trait_id": 6,
+      "trait_name": "Why Won't You Die! III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1919.PNG",
+      "source_id": 101919,
+      "trait_id": 5,
+      "trait_name": "The Silent Provocation II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1919.PNG",
+      "source_id": 101919,
+      "trait_id": 6,
+      "trait_name": "Why Won't You Die! III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1923.PNG",
+      "source_id": 101923,
+      "trait_id": 15,
+      "trait_name": "Retreat Is Not An Option III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1924.PNG",
+      "source_id": 101924,
+      "trait_id": 15,
+      "trait_name": "Retreat Is Not An Option III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1929.PNG",
+      "source_id": 101929,
+      "trait_id": 16,
+      "trait_name": "You Kneel Quickly II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1929.PNG",
+      "source_id": 101929,
+      "trait_id": 17,
+      "trait_name": "How Have You Served The Realm? III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1930.PNG",
+      "source_id": 101930,
+      "trait_id": 16,
+      "trait_name": "You Kneel Quickly II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1930.PNG",
+      "source_id": 101930,
+      "trait_id": 17,
+      "trait_name": "How Have You Served The Realm? III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1931.PNG",
+      "source_id": 101931,
+      "trait_id": 16,
+      "trait_name": "You Kneel Quickly II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1931.PNG",
+      "source_id": 101931,
+      "trait_id": 17,
+      "trait_name": "How Have You Served The Realm? III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1932.PNG",
+      "source_id": 101932,
+      "trait_id": 17,
+      "trait_name": "How Have You Served The Realm? III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1937.PNG",
+      "source_id": 101937,
+      "trait_id": 19,
+      "trait_name": "Save Yourself Some Pain III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1938.PNG",
+      "source_id": 101938,
+      "trait_id": 19,
+      "trait_name": "Save Yourself Some Pain III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1945.PNG",
+      "source_id": 101945,
+      "trait_id": 21,
+      "trait_name": "The True Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1945.PNG",
+      "source_id": 101945,
+      "trait_id": 22,
+      "trait_name": "Let It Be Fear III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1946.PNG",
+      "source_id": 101946,
+      "trait_id": 21,
+      "trait_name": "The True Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1946.PNG",
+      "source_id": 101946,
+      "trait_id": 22,
+      "trait_name": "Let It Be Fear III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1947.PNG",
+      "source_id": 101947,
+      "trait_id": 22,
+      "trait_name": "Let It Be Fear III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1951.PNG",
+      "source_id": 101951,
+      "trait_id": 23,
+      "trait_name": "I'd Like To Confess II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1951.PNG",
+      "source_id": 101951,
+      "trait_id": 24,
+      "trait_name": "An Alternate Approach III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1952.PNG",
+      "source_id": 101952,
+      "trait_id": 23,
+      "trait_name": "I'd Like To Confess II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1952.PNG",
+      "source_id": 101952,
+      "trait_id": 24,
+      "trait_name": "An Alternate Approach III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1962.PNG",
+      "source_id": 101962,
+      "trait_id": 28,
+      "trait_name": "Knight Of The Realm II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1962.PNG",
+      "source_id": 101962,
+      "trait_id": 29,
+      "trait_name": "Unyielding Frame III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1963.PNG",
+      "source_id": 101963,
+      "trait_id": 29,
+      "trait_name": "Unyielding Frame III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1966.PNG",
+      "source_id": 101966,
+      "trait_id": 30,
+      "trait_name": "The Rains Of Castamere II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1966.PNG",
+      "source_id": 101966,
+      "trait_id": 31,
+      "trait_name": "Lord Of Casterly Rock III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1967.PNG",
+      "source_id": 101967,
+      "trait_id": 30,
+      "trait_name": "The Rains Of Castamere II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1967.PNG",
+      "source_id": 101967,
+      "trait_id": 31,
+      "trait_name": "Lord Of Casterly Rock III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1973.PNG",
+      "source_id": 101973,
+      "trait_id": 34,
+      "trait_name": "Only Forward III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1974.PNG",
+      "source_id": 101974,
+      "trait_id": 34,
+      "trait_name": "Only Forward III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1978.PNG",
+      "source_id": 101978,
+      "trait_id": 35,
+      "trait_name": "Knocked Into The Dirt II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1978.PNG",
+      "source_id": 101978,
+      "trait_id": 36,
+      "trait_name": "Wouldn't Let You Marry That Beast III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1979.PNG",
+      "source_id": 101979,
+      "trait_id": 36,
+      "trait_name": "Wouldn't Let You Marry That Beast III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1983.PNG",
+      "source_id": 101983,
+      "trait_id": 37,
+      "trait_name": "The Realm's Delight II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1988.PNG",
+      "source_id": 101988,
+      "trait_id": 43,
+      "trait_name": "A Man Pays His Debts II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1993.PNG",
+      "source_id": 101993,
+      "trait_id": 39,
+      "trait_name": "The Stallion That Mounts The World II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1993.PNG",
+      "source_id": 101993,
+      "trait_id": 40,
+      "trait_name": "Heart Of The Horse Lord III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1994.PNG",
+      "source_id": 101994,
+      "trait_id": 40,
+      "trait_name": "Heart Of The Horse Lord III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1998.PNG",
+      "source_id": 101998,
+      "trait_id": 41,
+      "trait_name": "Tell Your Father I'm Here II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1998.PNG",
+      "source_id": 101998,
+      "trait_id": 42,
+      "trait_name": "The Viper's Bite III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1999.PNG",
+      "source_id": 101999,
+      "trait_id": 41,
+      "trait_name": "Tell Your Father I'm Here II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_1999.PNG",
+      "source_id": 101999,
+      "trait_id": 42,
+      "trait_name": "The Viper's Bite III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2005.PNG",
+      "source_id": 102005,
+      "trait_id": 57,
+      "trait_name": "Let Me Burn II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2005.PNG",
+      "source_id": 102005,
+      "trait_id": 58,
+      "trait_name": "I'm Not A King III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2006.PNG",
+      "source_id": 102006,
+      "trait_id": 57,
+      "trait_name": "Let Me Burn II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2006.PNG",
+      "source_id": 102006,
+      "trait_id": 58,
+      "trait_name": "I'm Not A King III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2010.PNG",
+      "source_id": 102010,
+      "trait_id": 47,
+      "trait_name": "I'm. Not. Tired! III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2018.PNG",
+      "source_id": 102018,
+      "trait_id": 49,
+      "trait_name": "Mark Of The Night King II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2018.PNG",
+      "source_id": 102018,
+      "trait_id": 50,
+      "trait_name": "Born Of Ice III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2019.PNG",
+      "source_id": 102019,
+      "trait_id": 49,
+      "trait_name": "Mark Of The Night King II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2019.PNG",
+      "source_id": 102019,
+      "trait_id": 50,
+      "trait_name": "Born Of Ice III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2020.PNG",
+      "source_id": 102020,
+      "trait_id": 49,
+      "trait_name": "Mark Of The Night King II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2020.PNG",
+      "source_id": 102020,
+      "trait_id": 50,
+      "trait_name": "Born Of Ice III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2025.PNG",
+      "source_id": 102025,
+      "trait_id": 54,
+      "trait_name": "Elder Scales II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2026.PNG",
+      "source_id": 102026,
+      "trait_id": 54,
+      "trait_name": "Elder Scales II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2029.PNG",
+      "source_id": 102029,
+      "trait_id": 55,
+      "trait_name": "Own Pace III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2029.PNG",
+      "source_id": 102029,
+      "trait_id": 56,
+      "trait_name": "Liberation Of Slaver's Bay II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2030.PNG",
+      "source_id": 102030,
+      "trait_id": 55,
+      "trait_name": "Own Pace III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2030.PNG",
+      "source_id": 102030,
+      "trait_id": 56,
+      "trait_name": "Liberation Of Slaver's Bay II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2034.PNG",
+      "source_id": 102034,
+      "trait_id": 60,
+      "trait_name": "You've Always Been Too Slow III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2035.PNG",
+      "source_id": 102035,
+      "trait_id": 60,
+      "trait_name": "You've Always Been Too Slow III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2042.PNG",
+      "source_id": 102042,
+      "trait_id": 51,
+      "trait_name": "A Girl Is No One II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2042.PNG",
+      "source_id": 102042,
+      "trait_id": 52,
+      "trait_name": "Eyes She Will Shut III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2043.PNG",
+      "source_id": 102043,
+      "trait_id": 51,
+      "trait_name": "A Girl Is No One II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2043.PNG",
+      "source_id": 102043,
+      "trait_id": 52,
+      "trait_name": "Eyes She Will Shut III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2047.PNG",
+      "source_id": 102047,
+      "trait_id": 69,
+      "trait_name": "The Cunning Dragon III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2047.PNG",
+      "source_id": 102047,
+      "trait_id": 70,
+      "trait_name": "Catacombs Of Meereen II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2048.PNG",
+      "source_id": 102048,
+      "trait_id": 69,
+      "trait_name": "The Cunning Dragon III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2048.PNG",
+      "source_id": 102048,
+      "trait_id": 70,
+      "trait_name": "Catacombs Of Meereen II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2051.PNG",
+      "source_id": 102051,
+      "trait_id": 74,
+      "trait_name": "Relentless Advance II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2052.PNG",
+      "source_id": 102052,
+      "trait_id": 74,
+      "trait_name": "Relentless Advance II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2055.PNG",
+      "source_id": 102055,
+      "trait_id": 1,
+      "trait_name": "Blood of Old Valyria II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2055.PNG",
+      "source_id": 102055,
+      "trait_id": 77,
+      "trait_name": "Blood For Blood III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2056.PNG",
+      "source_id": 102056,
+      "trait_id": 1,
+      "trait_name": "Blood of Old Valyria II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2056.PNG",
+      "source_id": 102056,
+      "trait_id": 77,
+      "trait_name": "Blood For Blood III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2057.PNG",
+      "source_id": 102057,
+      "trait_id": 1,
+      "trait_name": "Blood of Old Valyria II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2057.PNG",
+      "source_id": 102057,
+      "trait_id": 77,
+      "trait_name": "Blood For Blood III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2061.PNG",
+      "source_id": 102061,
+      "trait_id": 76,
+      "trait_name": "The Silence III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2065.PNG",
+      "source_id": 102065,
+      "trait_id": 65,
+      "trait_name": "Untamed Hunger III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2065.PNG",
+      "source_id": 102065,
+      "trait_id": 66,
+      "trait_name": "Intense Flames II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2068.PNG",
+      "source_id": 102068,
+      "trait_id": 67,
+      "trait_name": "Blood Of The Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2069.PNG",
+      "source_id": 102069,
+      "trait_id": 67,
+      "trait_name": "Blood Of The Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2069.PNG",
+      "source_id": 102069,
+      "trait_id": 68,
+      "trait_name": "I Will Fight III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2072.PNG",
+      "source_id": 102072,
+      "trait_id": 61,
+      "trait_name": "Oathkeeper II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2072.PNG",
+      "source_id": 102072,
+      "trait_id": 62,
+      "trait_name": "Warrior Of Sapphire Isle III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2073.PNG",
+      "source_id": 102073,
+      "trait_id": 62,
+      "trait_name": "Warrior Of Sapphire Isle III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2077.PNG",
+      "source_id": 102077,
+      "trait_id": 78,
+      "trait_name": "Worth Must Be Made II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2077.PNG",
+      "source_id": 102077,
+      "trait_id": 79,
+      "trait_name": "Pursuit Of Legacy III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2078.PNG",
+      "source_id": 102078,
+      "trait_id": 78,
+      "trait_name": "Worth Must Be Made II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2078.PNG",
+      "source_id": 102078,
+      "trait_id": 79,
+      "trait_name": "Pursuit Of Legacy III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2081.PNG",
+      "source_id": 102081,
+      "trait_id": 4,
+      "trait_name": "The Enemy is Real III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2082.PNG",
+      "source_id": 102082,
+      "trait_id": 4,
+      "trait_name": "The Enemy is Real III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2086.PNG",
+      "source_id": 102086,
+      "trait_id": 2,
+      "trait_name": "Winter is Coming II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2086.PNG",
+      "source_id": 102086,
+      "trait_id": 80,
+      "trait_name": "No One Needs To Die III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2087.PNG",
+      "source_id": 102087,
+      "trait_id": 2,
+      "trait_name": "Winter is Coming II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2087.PNG",
+      "source_id": 102087,
+      "trait_id": 80,
+      "trait_name": "No One Needs To Die III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2142.PNG",
+      "source_id": 102142,
+      "trait_id": 71,
+      "trait_name": "The Lowest Among Us II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2143.PNG",
+      "source_id": 102143,
+      "trait_id": 71,
+      "trait_name": "The Lowest Among Us II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2147.PNG",
+      "source_id": 102147,
+      "trait_id": 85,
+      "trait_name": "If We Die, We Die II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2147.PNG",
+      "source_id": 102147,
+      "trait_id": 86,
+      "trait_name": "You Know Nothin' III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2148.PNG",
+      "source_id": 102148,
+      "trait_id": 85,
+      "trait_name": "If We Die, We Die II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2148.PNG",
+      "source_id": 102148,
+      "trait_id": 86,
+      "trait_name": "You Know Nothin' III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2152.PNG",
+      "source_id": 102152,
+      "trait_id": 99,
+      "trait_name": "Loyalty Means Everything III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2156.PNG",
+      "source_id": 102156,
+      "trait_id": 83,
+      "trait_name": "Someone Had To Be The First II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2156.PNG",
+      "source_id": 102156,
+      "trait_id": 84,
+      "trait_name": "Steward In Training III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2157.PNG",
+      "source_id": 102157,
+      "trait_id": 84,
+      "trait_name": "Steward In Training III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2161.PNG",
+      "source_id": 102161,
+      "trait_id": 88,
+      "trait_name": "A Crown For A King III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2162.PNG",
+      "source_id": 102162,
+      "trait_id": 87,
+      "trait_name": "Last Hope Of A Dynasty II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2162.PNG",
+      "source_id": 102162,
+      "trait_id": 88,
+      "trait_name": "A Crown For A King III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2163.PNG",
+      "source_id": 102163,
+      "trait_id": 87,
+      "trait_name": "Last Hope Of A Dynasty II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2163.PNG",
+      "source_id": 102163,
+      "trait_id": 88,
+      "trait_name": "A Crown For A King III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2167.PNG",
+      "source_id": 102167,
+      "trait_id": 94,
+      "trait_name": "I Was Always Bravest III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2168.PNG",
+      "source_id": 102168,
+      "trait_id": 94,
+      "trait_name": "I Was Always Bravest III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2171.PNG",
+      "source_id": 102171,
+      "trait_id": 95,
+      "trait_name": "The Things I Do For Love II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2171.PNG",
+      "source_id": 102171,
+      "trait_id": 96,
+      "trait_name": "They Always Seem To Miss III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2172.PNG",
+      "source_id": 102172,
+      "trait_id": 95,
+      "trait_name": "The Things I Do For Love II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2172.PNG",
+      "source_id": 102172,
+      "trait_id": 96,
+      "trait_name": "They Always Seem To Miss III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2178.PNG",
+      "source_id": 102178,
+      "trait_id": 101,
+      "trait_name": "Patchwork Protector III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2179.PNG",
+      "source_id": 102179,
+      "trait_id": 101,
+      "trait_name": "Patchwork Protector III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2180.PNG",
+      "source_id": 102180,
+      "trait_id": 101,
+      "trait_name": "Patchwork Protector III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2190.PNG",
+      "source_id": 102190,
+      "trait_id": 107,
+      "trait_name": "Servant Of The Realm II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2190.PNG",
+      "source_id": 102190,
+      "trait_id": 108,
+      "trait_name": "The Spider III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2191.PNG",
+      "source_id": 102191,
+      "trait_id": 107,
+      "trait_name": "Servant Of The Realm II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2191.PNG",
+      "source_id": 102191,
+      "trait_id": 108,
+      "trait_name": "The Spider III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2194.PNG",
+      "source_id": 102194,
+      "trait_id": 92,
+      "trait_name": "My Thanks To The Queen Dowager III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2195.PNG",
+      "source_id": 102195,
+      "trait_id": 92,
+      "trait_name": "My Thanks To The Queen Dowager III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2196.PNG",
+      "source_id": 102196,
+      "trait_id": 92,
+      "trait_name": "My Thanks To The Queen Dowager III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2199.PNG",
+      "source_id": 102199,
+      "trait_id": 111,
+      "trait_name": "Menacing Snarl III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2200.PNG",
+      "source_id": 102200,
+      "trait_id": 111,
+      "trait_name": "Menacing Snarl III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2205.PNG",
+      "source_id": 102205,
+      "trait_id": 112,
+      "trait_name": "My Dreams Are Different II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2205.PNG",
+      "source_id": 102205,
+      "trait_id": 113,
+      "trait_name": "Follow The Raven III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2206.PNG",
+      "source_id": 102206,
+      "trait_id": 112,
+      "trait_name": "My Dreams Are Different II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2206.PNG",
+      "source_id": 102206,
+      "trait_id": 113,
+      "trait_name": "Follow The Raven III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2210.PNG",
+      "source_id": 102210,
+      "trait_id": 116,
+      "trait_name": "They Weren't Dead II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2210.PNG",
+      "source_id": 102210,
+      "trait_id": 117,
+      "trait_name": "Winter's Advance III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2211.PNG",
+      "source_id": 102211,
+      "trait_id": 116,
+      "trait_name": "They Weren't Dead II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2211.PNG",
+      "source_id": 102211,
+      "trait_id": 117,
+      "trait_name": "Winter's Advance III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2214.PNG",
+      "source_id": 102214,
+      "trait_id": 118,
+      "trait_name": "The King's Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2214.PNG",
+      "source_id": 102214,
+      "trait_id": 119,
+      "trait_name": "Surprise Arrival II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2218.PNG",
+      "source_id": 102218,
+      "trait_id": 89,
+      "trait_name": "Their Fires Burn Low II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2218.PNG",
+      "source_id": 102218,
+      "trait_id": 90,
+      "trait_name": "Lord Cast Your Light III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2219.PNG",
+      "source_id": 102219,
+      "trait_id": 89,
+      "trait_name": "Their Fires Burn Low II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2219.PNG",
+      "source_id": 102219,
+      "trait_id": 90,
+      "trait_name": "Lord Cast Your Light III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2222.PNG",
+      "source_id": 102222,
+      "trait_id": 102,
+      "trait_name": "It's Not The Wildlings II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2222.PNG",
+      "source_id": 102222,
+      "trait_id": 103,
+      "trait_name": "You're Better Than No One III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2223.PNG",
+      "source_id": 102223,
+      "trait_id": 103,
+      "trait_name": "You're Better Than No One III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2226.PNG",
+      "source_id": 102226,
+      "trait_id": 128,
+      "trait_name": "Barbaric Insight II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2226.PNG",
+      "source_id": 102226,
+      "trait_id": 129,
+      "trait_name": "Giant's Bane II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2227.PNG",
+      "source_id": 102227,
+      "trait_id": 129,
+      "trait_name": "Giant's Bane II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2231.PNG",
+      "source_id": 102231,
+      "trait_id": 120,
+      "trait_name": "Like An Eggshell II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2231.PNG",
+      "source_id": 102231,
+      "trait_id": 121,
+      "trait_name": "Blood Of Kings III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2232.PNG",
+      "source_id": 102232,
+      "trait_id": 120,
+      "trait_name": "Like An Eggshell II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2232.PNG",
+      "source_id": 102232,
+      "trait_id": 121,
+      "trait_name": "Blood Of Kings III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2233.PNG",
+      "source_id": 102233,
+      "trait_id": 121,
+      "trait_name": "Blood Of Kings III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2234.PNG",
+      "source_id": 102234,
+      "trait_id": 121,
+      "trait_name": "Blood Of Kings III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2243.PNG",
+      "source_id": 102243,
+      "trait_id": 104,
+      "trait_name": "Mind Your Place II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2243.PNG",
+      "source_id": 102243,
+      "trait_id": 105,
+      "trait_name": "Revel In Misery III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2244.PNG",
+      "source_id": 102244,
+      "trait_id": 104,
+      "trait_name": "Mind Your Place II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2244.PNG",
+      "source_id": 102244,
+      "trait_id": 105,
+      "trait_name": "Revel In Misery III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2248.PNG",
+      "source_id": 102248,
+      "trait_id": 130,
+      "trait_name": "A Godly Man II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2248.PNG",
+      "source_id": 102248,
+      "trait_id": 131,
+      "trait_name": "Replenish The Ranks III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2249.PNG",
+      "source_id": 102249,
+      "trait_id": 131,
+      "trait_name": "Replenish The Ranks III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2252.PNG",
+      "source_id": 102252,
+      "trait_id": 124,
+      "trait_name": "Bannerless Leader II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2252.PNG",
+      "source_id": 102252,
+      "trait_id": 125,
+      "trait_name": "Life From Light II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2253.PNG",
+      "source_id": 102253,
+      "trait_id": 124,
+      "trait_name": "Bannerless Leader II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2253.PNG",
+      "source_id": 102253,
+      "trait_id": 125,
+      "trait_name": "Life From Light II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2254.PNG",
+      "source_id": 102254,
+      "trait_id": 125,
+      "trait_name": "Life From Light II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2258.PNG",
+      "source_id": 102258,
+      "trait_id": 115,
+      "trait_name": "Help Him Find His Feet III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2261.PNG",
+      "source_id": 102261,
+      "trait_id": 123,
+      "trait_name": "Eye For An Eye II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2262.PNG",
+      "source_id": 102262,
+      "trait_id": 123,
+      "trait_name": "Eye For An Eye II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2263.PNG",
+      "source_id": 102263,
+      "trait_id": 123,
+      "trait_name": "Eye For An Eye II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2268.PNG",
+      "source_id": 102268,
+      "trait_id": 133,
+      "trait_name": "Can't Outrun Them Forever II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2269.PNG",
+      "source_id": 102269,
+      "trait_id": 132,
+      "trait_name": "Drown In Your Blood II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2269.PNG",
+      "source_id": 102269,
+      "trait_id": 133,
+      "trait_name": "Can't Outrun Them Forever II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2270.PNG",
+      "source_id": 102270,
+      "trait_id": 133,
+      "trait_name": "Can't Outrun Them Forever II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2282.PNG",
+      "source_id": 102282,
+      "trait_id": 135,
+      "trait_name": "Flayed Men Have No Secrets III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2283.PNG",
+      "source_id": 102283,
+      "trait_id": 134,
+      "trait_name": "It Dulls The Senses II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2283.PNG",
+      "source_id": 102283,
+      "trait_id": 135,
+      "trait_name": "Flayed Men Have No Secrets III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2284.PNG",
+      "source_id": 102284,
+      "trait_id": 135,
+      "trait_name": "Flayed Men Have No Secrets III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2288.PNG",
+      "source_id": 102288,
+      "trait_id": 126,
+      "trait_name": "The Pack Survives II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2288.PNG",
+      "source_id": 102288,
+      "trait_id": 127,
+      "trait_name": "This Is My Home III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2289.PNG",
+      "source_id": 102289,
+      "trait_id": 126,
+      "trait_name": "The Pack Survives II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2289.PNG",
+      "source_id": 102289,
+      "trait_id": 127,
+      "trait_name": "This Is My Home III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2290.PNG",
+      "source_id": 102290,
+      "trait_id": 127,
+      "trait_name": "This Is My Home III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2323.PNG",
+      "source_id": 102323,
+      "trait_id": 138,
+      "trait_name": "Mine To Torment II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2323.PNG",
+      "source_id": 102323,
+      "trait_id": 139,
+      "trait_name": "Defend Your King II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2324.PNG",
+      "source_id": 102324,
+      "trait_id": 138,
+      "trait_name": "Mine To Torment II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2324.PNG",
+      "source_id": 102324,
+      "trait_id": 139,
+      "trait_name": "Defend Your King II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2333.PNG",
+      "source_id": 102333,
+      "trait_id": 146,
+      "trait_name": "People Who Bore Me",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2337.PNG",
+      "source_id": 102337,
+      "trait_id": 143,
+      "trait_name": "A Peaceful Rule",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2337.PNG",
+      "source_id": 102337,
+      "trait_id": 144,
+      "trait_name": "Infighting Must Cease II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2338.PNG",
+      "source_id": 102338,
+      "trait_id": 143,
+      "trait_name": "A Peaceful Rule",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2338.PNG",
+      "source_id": 102338,
+      "trait_id": 144,
+      "trait_name": "Infighting Must Cease II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2339.PNG",
+      "source_id": 102339,
+      "trait_id": 143,
+      "trait_name": "A Peaceful Rule",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2344.PNG",
+      "source_id": 102344,
+      "trait_id": 147,
+      "trait_name": "Everyone Who Isn't Us Is An Enemy II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2344.PNG",
+      "source_id": 102344,
+      "trait_id": 148,
+      "trait_name": "Worn Like A Badge Of Honor II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2345.PNG",
+      "source_id": 102345,
+      "trait_id": 147,
+      "trait_name": "Everyone Who Isn't Us Is An Enemy II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2345.PNG",
+      "source_id": 102345,
+      "trait_id": 148,
+      "trait_name": "Worn Like A Badge Of Honor II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2351.PNG",
+      "source_id": 102351,
+      "trait_id": 150,
+      "trait_name": "Mother's Protection II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2351.PNG",
+      "source_id": 102351,
+      "trait_id": 151,
+      "trait_name": "Rash Impulse II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2352.PNG",
+      "source_id": 102352,
+      "trait_id": 151,
+      "trait_name": "Rash Impulse II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2355.PNG",
+      "source_id": 102355,
+      "trait_id": 154,
+      "trait_name": "Opportunist II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2355.PNG",
+      "source_id": 102355,
+      "trait_id": 155,
+      "trait_name": "Upjumped Cutthroat II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2356.PNG",
+      "source_id": 102356,
+      "trait_id": 154,
+      "trait_name": "Opportunist II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2356.PNG",
+      "source_id": 102356,
+      "trait_id": 155,
+      "trait_name": "Upjumped Cutthroat II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2361.PNG",
+      "source_id": 102361,
+      "trait_id": 157,
+      "trait_name": "I Chopped Wood Once",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2361.PNG",
+      "source_id": 102361,
+      "trait_id": 158,
+      "trait_name": "Don't Die, My Friend II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2368.PNG",
+      "source_id": 102368,
+      "trait_id": 160,
+      "trait_name": "Favor for Coin",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2368.PNG",
+      "source_id": 102368,
+      "trait_id": 161,
+      "trait_name": "Hardened Heart II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2373.PNG",
+      "source_id": 102373,
+      "trait_id": 137,
+      "trait_name": "Defender's Pursuit II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2374.PNG",
+      "source_id": 102374,
+      "trait_id": 137,
+      "trait_name": "Defender's Pursuit II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2378.PNG",
+      "source_id": 102378,
+      "trait_id": 163,
+      "trait_name": "Patience For Power",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2378.PNG",
+      "source_id": 102378,
+      "trait_id": 164,
+      "trait_name": "An Ugly Game II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2379.PNG",
+      "source_id": 102379,
+      "trait_id": 163,
+      "trait_name": "Patience For Power",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2379.PNG",
+      "source_id": 102379,
+      "trait_id": 164,
+      "trait_name": "An Ugly Game II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2380.PNG",
+      "source_id": 102380,
+      "trait_id": 163,
+      "trait_name": "Patience For Power",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2380.PNG",
+      "source_id": 102380,
+      "trait_id": 164,
+      "trait_name": "An Ugly Game II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2384.PNG",
+      "source_id": 102384,
+      "trait_id": 165,
+      "trait_name": "A True Knight II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2384.PNG",
+      "source_id": 102384,
+      "trait_id": 166,
+      "trait_name": "Heroic Entrance II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2385.PNG",
+      "source_id": 102385,
+      "trait_id": 165,
+      "trait_name": "A True Knight II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2385.PNG",
+      "source_id": 102385,
+      "trait_id": 166,
+      "trait_name": "Heroic Entrance II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2386.PNG",
+      "source_id": 102386,
+      "trait_id": 166,
+      "trait_name": "Heroic Entrance II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2389.PNG",
+      "source_id": 102389,
+      "trait_id": 169,
+      "trait_name": "There Was One Condition II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2389.PNG",
+      "source_id": 102389,
+      "trait_id": 170,
+      "trait_name": "Stoic Guardian II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2390.PNG",
+      "source_id": 102390,
+      "trait_id": 170,
+      "trait_name": "Stoic Guardian II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2393.PNG",
+      "source_id": 102393,
+      "trait_id": 171,
+      "trait_name": "Favor For A Favor II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2393.PNG",
+      "source_id": 102393,
+      "trait_id": 172,
+      "trait_name": "Chaos Is A Ladder II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2394.PNG",
+      "source_id": 102394,
+      "trait_id": 171,
+      "trait_name": "Favor For A Favor II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2394.PNG",
+      "source_id": 102394,
+      "trait_id": 172,
+      "trait_name": "Chaos Is A Ladder II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2398.PNG",
+      "source_id": 102398,
+      "trait_id": 174,
+      "trait_name": "Never Let Them See You Bleed",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2398.PNG",
+      "source_id": 102398,
+      "trait_id": 175,
+      "trait_name": "The King Eats, They Kneel II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2399.PNG",
+      "source_id": 102399,
+      "trait_id": 174,
+      "trait_name": "Never Let Them See You Bleed",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2399.PNG",
+      "source_id": 102399,
+      "trait_id": 175,
+      "trait_name": "The King Eats, They Kneel II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2403.PNG",
+      "source_id": 102403,
+      "trait_id": 176,
+      "trait_name": "Strategic Blockade II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2403.PNG",
+      "source_id": 102403,
+      "trait_id": 177,
+      "trait_name": "Stepstones Positioning II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2404.PNG",
+      "source_id": 102404,
+      "trait_id": 176,
+      "trait_name": "Strategic Blockade II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2404.PNG",
+      "source_id": 102404,
+      "trait_id": 177,
+      "trait_name": "Stepstones Positioning II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2408.PNG",
+      "source_id": 102408,
+      "trait_id": 178,
+      "trait_name": "Brave In The Face Of Fear",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2408.PNG",
+      "source_id": 102408,
+      "trait_id": 179,
+      "trait_name": "Not Your Way",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2416.PNG",
+      "source_id": 102416,
+      "trait_id": 182,
+      "trait_name": "Rid Of Sons And Daughters II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2416.PNG",
+      "source_id": 102416,
+      "trait_id": 183,
+      "trait_name": "Wine Will Flow Red III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2417.PNG",
+      "source_id": 102417,
+      "trait_id": 183,
+      "trait_name": "Wine Will Flow Red III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2421.PNG",
+      "source_id": 102421,
+      "trait_id": 181,
+      "trait_name": "Don't Get Greedy",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2425.PNG",
+      "source_id": 102425,
+      "trait_id": 167,
+      "trait_name": "Nervous Fingernails II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2425.PNG",
+      "source_id": 102425,
+      "trait_id": 168,
+      "trait_name": "Student Of History III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2426.PNG",
+      "source_id": 102426,
+      "trait_id": 167,
+      "trait_name": "Nervous Fingernails II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2426.PNG",
+      "source_id": 102426,
+      "trait_id": 168,
+      "trait_name": "Student Of History III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2427.PNG",
+      "source_id": 102427,
+      "trait_id": 168,
+      "trait_name": "Student Of History III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2430.PNG",
+      "source_id": 102430,
+      "trait_id": 152,
+      "trait_name": "Storm Of Silver",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2430.PNG",
+      "source_id": 102430,
+      "trait_id": 153,
+      "trait_name": "Claimed By Flame",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2431.PNG",
+      "source_id": 102431,
+      "trait_id": 152,
+      "trait_name": "Storm Of Silver",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2431.PNG",
+      "source_id": 102431,
+      "trait_id": 153,
+      "trait_name": "Claimed By Flame",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2451.PNG",
+      "source_id": 102451,
+      "trait_id": 11,
+      "trait_name": "Teaching Me This Lesson III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2452.PNG",
+      "source_id": 102452,
+      "trait_id": 11,
+      "trait_name": "Teaching Me This Lesson III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2458.PNG",
+      "source_id": 102458,
+      "trait_id": 9,
+      "trait_name": "The Great Stallion III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2459.PNG",
+      "source_id": 102459,
+      "trait_id": 9,
+      "trait_name": "The Great Stallion III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2463.PNG",
+      "source_id": 102463,
+      "trait_id": 13,
+      "trait_name": "Plunder The Greatest City III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2468.PNG",
+      "source_id": 102468,
+      "trait_id": 9,
+      "trait_name": "The Great Stallion III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2469.PNG",
+      "source_id": 102469,
+      "trait_id": 9,
+      "trait_name": "The Great Stallion III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2470.PNG",
+      "source_id": 102470,
+      "trait_id": 9,
+      "trait_name": "The Great Stallion III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2474.PNG",
+      "source_id": 102474,
+      "trait_id": 13,
+      "trait_name": "Plunder The Greatest City III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2479.PNG",
+      "source_id": 102479,
+      "trait_id": 15,
+      "trait_name": "Retreat Is Not An Option III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2486.PNG",
+      "source_id": 102486,
+      "trait_id": 22,
+      "trait_name": "Let It Be Fear III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2487.PNG",
+      "source_id": 102487,
+      "trait_id": 21,
+      "trait_name": "The True Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2488.PNG",
+      "source_id": 102488,
+      "trait_id": 23,
+      "trait_name": "I'd Like To Confess II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2488.PNG",
+      "source_id": 102488,
+      "trait_id": 24,
+      "trait_name": "An Alternate Approach III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2495.PNG",
+      "source_id": 102495,
+      "trait_id": 30,
+      "trait_name": "The Rains Of Castamere II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2496.PNG",
+      "source_id": 102496,
+      "trait_id": 36,
+      "trait_name": "Wouldn't Let You Marry That Beast III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2500.PNG",
+      "source_id": 102500,
+      "trait_id": 39,
+      "trait_name": "The Stallion That Mounts The World II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2501.PNG",
+      "source_id": 102501,
+      "trait_id": 42,
+      "trait_name": "The Viper's Bite III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2502.PNG",
+      "source_id": 102502,
+      "trait_id": 42,
+      "trait_name": "The Viper's Bite III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2503.PNG",
+      "source_id": 102503,
+      "trait_id": 57,
+      "trait_name": "Let Me Burn II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2504.PNG",
+      "source_id": 102504,
+      "trait_id": 57,
+      "trait_name": "Let Me Burn II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2508.PNG",
+      "source_id": 102508,
+      "trait_id": 50,
+      "trait_name": "Born Of Ice III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2509.PNG",
+      "source_id": 102509,
+      "trait_id": 49,
+      "trait_name": "Mark Of The Night King II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2511.PNG",
+      "source_id": 102511,
+      "trait_id": 56,
+      "trait_name": "Liberation Of Slaver's Bay II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2512.PNG",
+      "source_id": 102512,
+      "trait_id": 60,
+      "trait_name": "You've Always Been Too Slow III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2513.PNG",
+      "source_id": 102513,
+      "trait_id": 51,
+      "trait_name": "A Girl Is No One II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2514.PNG",
+      "source_id": 102514,
+      "trait_id": 51,
+      "trait_name": "A Girl Is No One II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2515.PNG",
+      "source_id": 102515,
+      "trait_id": 70,
+      "trait_name": "Catacombs Of Meereen II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2517.PNG",
+      "source_id": 102517,
+      "trait_id": 77,
+      "trait_name": "Blood For Blood III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2518.PNG",
+      "source_id": 102518,
+      "trait_id": 1,
+      "trait_name": "Blood of Old Valyria II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2518.PNG",
+      "source_id": 102518,
+      "trait_id": 77,
+      "trait_name": "Blood For Blood III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2520.PNG",
+      "source_id": 1,
+      "trait_id": 1,
+      "trait_name": "Blood of Old Valyria II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2521.PNG",
+      "source_id": 2,
+      "trait_id": 2,
+      "trait_name": "Winter is Coming II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2524.PNG",
+      "source_id": 5,
+      "trait_id": 4,
+      "trait_name": "The Enemy is Real III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2527.PNG",
+      "source_id": 102527,
+      "trait_id": 98,
+      "trait_name": "A Beast In Every Man II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2530.PNG",
+      "source_id": 102530,
+      "trait_id": 101,
+      "trait_name": "Patchwork Protector III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2531.PNG",
+      "source_id": 102531,
+      "trait_id": 107,
+      "trait_name": "Servant Of The Realm II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2532.PNG",
+      "source_id": 102532,
+      "trait_id": 92,
+      "trait_name": "My Thanks To The Queen Dowager III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2535.PNG",
+      "source_id": 102535,
+      "trait_id": 118,
+      "trait_name": "The King's Dragon II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2647.PNG",
+      "source_id": 102647,
+      "trait_id": 107,
+      "trait_name": "Servant Of The Realm II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2647.PNG",
+      "source_id": 102647,
+      "trait_id": 108,
+      "trait_name": "The Spider III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2648.PNG",
+      "source_id": 102648,
+      "trait_id": 107,
+      "trait_name": "Servant Of The Realm II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2648.PNG",
+      "source_id": 102648,
+      "trait_id": 108,
+      "trait_name": "The Spider III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2777.PNG",
+      "source_id": 102777,
+      "trait_id": 81,
+      "trait_name": "You Lost This War II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2777.PNG",
+      "source_id": 102777,
+      "trait_id": 82,
+      "trait_name": "I Have Faith In Vengeance III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2778.PNG",
+      "source_id": 102778,
+      "trait_id": 81,
+      "trait_name": "You Lost This War II",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2778.PNG",
+      "source_id": 102778,
+      "trait_id": 82,
+      "trait_name": "I Have Faith In Vengeance III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    },
+    {
+      "filename": "IMG_2779.PNG",
+      "source_id": 102779,
+      "trait_id": 82,
+      "trait_name": "I Have Faith In Vengeance III",
+      "basis": "globally_unique_trait_title_in_machine_ocr",
+      "review_state": "identity_ocr_pending_visual_review"
+    }
+  ]
+}

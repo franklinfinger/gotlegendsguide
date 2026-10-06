@@ -21,6 +21,7 @@ DRIVE_CARDS = ROOT / 'data/audit/recovered-drive-cards.json'
 ITEM_MATCHES = ROOT / 'data/audit/item-image-matches.json'
 ASSAULT_MATCHES = ROOT / 'data/audit/legendary-assault-image-matches.json'
 SKILL_MATCHES = ROOT / 'data/audit/champion-skill-image-matches.json'
+TRAIT_MATCHES = ROOT / 'data/audit/champion-trait-image-matches.json'
 
 
 def rows(path):
@@ -38,6 +39,7 @@ def main():
     item_matches = json.loads(ITEM_MATCHES.read_text())['matches']
     assault_matches = json.loads(ASSAULT_MATCHES.read_text())['matches']
     skill_matches = json.loads(SKILL_MATCHES.read_text())['matches']
+    trait_matches = json.loads(TRAIT_MATCHES.read_text())['matches']
     if len(images) != 833 or len(history) != 615:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -120,6 +122,13 @@ def main():
             match_basis TEXT NOT NULL,
             review_state TEXT NOT NULL
         );
+        CREATE TABLE champion_trait_image_matches (
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            trait_id INTEGER NOT NULL REFERENCES champion_traits(trait_id),
+            match_basis TEXT NOT NULL,
+            review_state TEXT NOT NULL,
+            PRIMARY KEY (source_id, trait_id)
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -167,6 +176,12 @@ def main():
     out.executemany('INSERT INTO champion_skill_image_matches VALUES (?,?,?,?)', [
         (r['source_id'], int(r['ability_id'].split('-')[-1]), r['basis'], r['review_state'])
         for r in skill_matches
+    ])
+    if len(trait_matches) != 309:
+        raise SystemExit('Expected 309 unique trait title image links')
+    out.executemany('INSERT INTO champion_trait_image_matches VALUES (?,?,?,?)', [
+        (r['source_id'], r['trait_id'], r['basis'], r['review_state'])
+        for r in trait_matches
     ])
     historic_values = []
     for r in history:
