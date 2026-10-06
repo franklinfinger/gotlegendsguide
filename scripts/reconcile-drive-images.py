@@ -73,6 +73,9 @@ def load_known_records(db):
     }
     for filename, key in profile_images.items():
         by_file[filename].append({'table': 'champion_variants', 'id': 'legacy-champion-' + key, 'basis': 'reviewed_profile_identity'})
+    for card in json.loads((ROOT / 'data/audit/companion-ally-candidates.json').read_text())['cards']:
+        filename = card['image']
+        by_file[filename].append({'table': 'ally_gem_cards', 'id': 'ally-gem-' + filename[4:8], 'basis': 'ocr_candidate_imported'})
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file
@@ -204,7 +207,7 @@ def main():
             'unresolved_text_or_identity': ['exact text remains machine OCR, not visual transcription'] + (
                 ['champion identity not reliably resolved from OCR'] if not subject and category in ('champion_trait', 'champion_skill', 'champion_profile') else []
             ),
-            'review_status': 'deterministic_classification_unreviewed',
+            'review_status': 'image_identity_ocr_pending_visual_review' if category == 'companion_ally_card' else 'deterministic_classification_unreviewed',
             'confidence': round(confidence, 3),
         }
         if filename in overrides:
@@ -215,7 +218,7 @@ def main():
     OUTPUT.write_text(''.join(json.dumps(row, ensure_ascii=False, sort_keys=True) + '\n' for row in rows))
     counts = Counter(row['image_category'] for row in rows)
     print(f'Wrote {len(rows)} rows: ' + ', '.join(f'{key}={counts[key]}' for key in sorted(counts)))
-    print(f"Unclassified: {counts['unclassified']}; reviewed overrides: {sum(row['review_status'] != 'deterministic_classification_unreviewed' for row in rows)}")
+    print(f"Unclassified: {counts['unclassified']}; explicit override rows: {len(overrides)}")
 
 
 if __name__ == '__main__':

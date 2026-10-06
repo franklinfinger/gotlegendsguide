@@ -1,0 +1,26 @@
+{
+  "review_state": "image_identified_ocr_wording_unverified",
+  "note": "Ally gem cards are distinct from summoned champion_companions. Names and title candidates are indexed from original IMG_2537-2556 screenshots; exact ability wording remains the raw OCR in the image manifest until visual review.",
+  "cards": [
+    {"image": "IMG_2537.PNG", "owner": "Khal Drogo", "ally": "Daenerys Targaryen - Khaleesi of the Great Grass Sea", "gem_title_candidate": "Sun and Stars Gem"},
+    {"image": "IMG_2538.PNG", "owner": "Davos Seaworth", "ally": "Stannis Baratheon - The One True King", "gem_title_candidate": "Law and Justice"},
+    {"image": "IMG_2539.PNG", "owner": "Rhaenys Targaryen", "ally": "Meleys - The Red Queen", "gem_title_candidate": "Off to Battle Again, Old Girl"},
+    {"image": "IMG_2540.PNG", "owner": "Daenerys Targaryen", "ally": "Grey Worm - Leader of the Unsullied", "gem_title_candidate": "Breaker of Chains"},
+    {"image": "IMG_2541.PNG", "owner": "Tyrion Lannister", "ally": "Bronn - Sellsword for Hire", "gem_title_candidate": "Paid to Kill Gem"},
+    {"image": "IMG_2542.PNG", "owner": "Stannis Baratheon", "ally": "Melisandre - The Red Woman", "gem_title_candidate": "Azor Ahai Proclaimed"},
+    {"image": "IMG_2543.PNG", "owner": "Rhaenyra Targaryen", "ally": "Criston Cole - Personal Escort", "gem_title_candidate": "Love and Duty Gem"},
+    {"image": "IMG_2544.PNG", "owner": "The Night King", "ally": "Icy Viserion - Dragon of the Night King", "gem_title_candidate": "Awakened Horror"},
+    {"image": "IMG_2545.PNG", "owner": "Laenor Velaryon", "ally": "Corlys Velaryon - Lord of the Tides", "gem_title_candidate": "United in Blood"},
+    {"image": "IMG_2546.PNG", "owner": "Arya Stark", "ally": "Sansa Stark - Lady of Winterfell", "gem_title_candidate": "Sisters Reunited Gem"},
+    {"image": "IMG_2547.PNG", "owner": "Daemon Targaryen", "ally": "Caraxes - The Blood Wyrm", "gem_title_candidate": "Dragons Made Us Kings"},
+    {"image": "IMG_2548.PNG", "owner": "Ned Stark", "ally": "Catelyn Stark - The Lady of Winterfell", "gem_title_candidate": "Wardens of the North Gem"},
+    {"image": "IMG_2549.PNG", "owner": "Jon Snow", "ally": "Ghost - Jon Snow's Direwolf", "gem_title_candidate": "A King and His Wolf Gem"},
+    {"image": "IMG_2550.PNG", "owner": "Jaime Lannister", "ally": "Cersei Lannister - Queen of the Andals and the First Men", "gem_title_candidate": "Anything for Love Gem"},
+    {"image": "IMG_2551.PNG", "owner": "Benjen Stark", "ally": "Yoren - Recruiter of the Night's Watch", "gem_title_candidate": "Southern Crows"},
+    {"image": "IMG_2552.PNG", "owner": "Tormund Giantsbane", "ally": "Wun Wun - The Last of His Kind", "gem_title_candidate": "Giant Slayers"},
+    {"image": "IMG_2553.PNG", "owner": "Beric Dondarrion", "ally": "Thoros of Myr - The Red Priest Warrior", "gem_title_candidate": "The Brotherhood Gem"},
+    {"image": "IMG_2554.PNG", "owner": "Roose Bolton", "ally": "Walder Frey - Lord of the Riverlands", "gem_title_candidate": "Malevolent Conspirators"},
+    {"image": "IMG_2555.PNG", "owner": "Joffrey Baratheon", "ally": "Margaery Tyrell - The Lady of House Tyrell", "gem_title_candidate": "Royal Couple"},
+    {"image": "IMG_2556.PNG", "owner": "Viserys Targaryen I", "ally": "Alicent Hightower - Queen Dowager", "gem_title_candidate": "Political Marriage"}
+  ]
+}

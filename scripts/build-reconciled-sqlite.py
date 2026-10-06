@@ -16,6 +16,7 @@ OUTPUT = ROOT / 'data/audit/reconciled-knowledge.sqlite'
 MANIFEST = ROOT / 'data/source-images/reconciliation.jsonl'
 HISTORY = ROOT / 'data/source-images/historical-reference-reconciliation.jsonl'
 RECOVERED = ROOT / 'data/source-images/recovered'
+ALLY_CARDS = ROOT / 'data/audit/companion-ally-candidates.json'
 
 
 def rows(path):
@@ -28,6 +29,7 @@ def main():
         raise SystemExit('Pinned SQLite snapshot hash changed')
     images = rows(MANIFEST)
     history = rows(HISTORY)
+    allies = json.loads(ALLY_CARDS.read_text())['cards']
     if len(images) != 833 or len(history) != 615:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -63,6 +65,16 @@ def main():
             byte_count INTEGER,
             library_search_status TEXT NOT NULL
         );
+        CREATE TABLE ally_gem_cards (
+            id TEXT PRIMARY KEY,
+            source_id INTEGER NOT NULL UNIQUE REFERENCES source_image_reconciliation(source_id),
+            owner_name_candidate TEXT NOT NULL,
+            ally_name_candidate TEXT NOT NULL,
+            gem_title_candidate TEXT NOT NULL,
+            raw_ocr TEXT NOT NULL,
+            review_state TEXT NOT NULL,
+            source_sha256 TEXT NOT NULL
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -70,6 +82,15 @@ def main():
          json.dumps(r['contributes_new_information']), json.dumps(r['information_imported']),
          json.dumps(r['unresolved_text_or_identity']), r['review_status'], r['confidence'])
         for r in images
+    ])
+    image_by_file = {r['filename']: r for r in images}
+    if len(allies) != 20 or len({r['image'] for r in allies}) != 20:
+        raise SystemExit('Expected 20 unique ally card candidates')
+    out.executemany('INSERT INTO ally_gem_cards VALUES (?,?,?,?,?,?,?,?)', [
+        ('ally-gem-' + r['image'][4:8], image_by_file[r['image']]['source_id'],
+         r['owner'], r['ally'], r['gem_title_candidate'], image_by_file[r['image']]['extracted_text'],
+         'image_identified_ocr_wording_unverified', image_by_file[r['image']]['sha256'])
+        for r in allies
     ])
     historic_values = []
     for r in history:
