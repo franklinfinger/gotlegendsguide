@@ -1,62 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Status Effects – Old Peeps on Porches</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { background: #0a0a0c; color: #e8e6e3; }
-    .card { background: linear-gradient(160deg, #16161c 0%, #121216 100%); border: 1px solid #2e2e38; }
-    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
-    .nav-link { color: #a8a6a1; }
-    .nav-link:hover { color: #c9a227; }
-  </style>
-</head>
-<body class="min-h-screen">
-  <div class="accent-bar"></div>
-  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
-      <a href="index.html" class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm shrink-0">GOT</div>
-        <div class="min-w-0">
-          <div class="font-bold text-lg tracking-wide truncate text-[#f0ebe0]">GOT Legends Guide</div>
-          <div class="text-xs text-[#c9a227]">Old Peeps on Porches</div>
-        </div>
-      </a>
-      <nav class="hidden md:flex gap-3 text-sm flex-wrap justify-end">
-        <a href="roster.html" class="nav-link">My Roster</a>
-        <a href="builder.html" class="nav-link">Team Builder</a>
-        <a href="dragons.html" class="nav-link">Dragons</a>
-        <a href="status-effects.html" class="text-[#5b9fd4] font-semibold">Status</a>
-        <a href="factions.html" class="nav-link">Factions</a>
-        <a href="allies.html" class="nav-link">Allies</a>
-        <a href="champions.html" class="nav-link">Champions</a>
-      </nav>
-    </div>
-  </header>
-  <main class="max-w-4xl mx-auto px-4 py-10">
-    <h1 class="text-3xl md:text-4xl font-bold mb-2 text-[#f5f0e8]">Status Effects</h1>
-    <p class="text-[#9a9690] mb-6">Definitions from in-game tooltips shared by the alliance.</p>
-    <div class="space-y-3">
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]"><h2 class="font-bold text-[#e85d4c]">Wound</h2><p class="text-sm mt-1 text-[#c8c4be]">Blocks healing / recovery on the target. Core to Lannister pressure (Gregor, Tywin lines).</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]"><h2 class="font-bold text-[#e85d4c]">Fire</h2><p class="text-sm mt-1 text-[#c8c4be]">Damage over time / Fire gems. Strong with Targaryen and dragon lines.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]"><h2 class="font-bold text-[#5b9fd4]">Ice / Brittle</h2><p class="text-sm mt-1 text-[#c8c4be]">Ice leads into Brittle (double damage windows). Key for Viserion / Icy fights.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]"><h2 class="font-bold text-[#c9a227]">Raid</h2><p class="text-sm mt-1 text-[#c8c4be]">Stacks that weaken the enemy. Euron is the primary skill-Raid leader.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#8b9dc3]"><h2 class="font-bold text-[#8b9dc3]">Taunt</h2><p class="text-sm mt-1 text-[#c8c4be]">Forces the enemy to hit the right target. Brienne, Sandor, Barristan, Jorah.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#7cb342]"><h2 class="font-bold text-[#7cb342]">Poison</h2><p class="text-sm mt-1 text-[#c8c4be]">Damage over time / control. Olenna, Oberyn, Nymeria tools.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]"><h2 class="font-bold text-[#c9a227]">Ruin</h2><p class="text-sm mt-1 text-[#c8c4be]">Stacks that cut max HP (Tywin). Confirmed from in-game tooltips.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#5b9fd4]"><h2 class="font-bold text-[#5b9fd4]">Anger</h2><p class="text-sm mt-1 text-[#c8c4be]">Joffrey line — ties into Treasury triggers.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#c9a227]"><h2 class="font-bold text-[#c9a227]">Treasury</h2><p class="text-sm mt-1 text-[#c8c4be]">Lannister economy / skill fuel.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#e85d4c]"><h2 class="font-bold text-[#e85d4c]">Fury / Enraged</h2><p class="text-sm mt-1 text-[#c8c4be]">Rhaenyra / Rhaenys / Daemon fire pressure lines.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#8b9dc3]"><h2 class="font-bold text-[#8b9dc3]">Reinforce</h2><p class="text-sm mt-1 text-[#c8c4be]">Night King / Ice Warden engines. Careful use on Icy Viserion.</p></div>
-      <div class="card rounded-xl p-5 border-l-4 border-l-[#d4783a]"><h2 class="font-bold text-[#d4783a]">True Damage</h2><p class="text-sm mt-1 text-[#c8c4be]">Bypasses normal defenses (Jaqen, Gwayne tools).</p></div>
-    </div>
-    <p class="text-xs text-[#6a6660] mt-6">More exact tooltip text is added as screenshots come in.</p>
-  </main>
-  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
-    <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
-    <div class="mt-1">gotlegendsguide.com</div>
-  </footer>
-</body>
-</html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Live, source-aware GOT: Legends strategy knowledge for Old Peeps on Porches.">
+<title>Status · GOT Legends Guide</title><link rel="stylesheet" href="guide.css"></head>
+<body data-view="statuses"><div class="topline"></div><header><div class="wrap head">
+<a class="brand" href="index.html">GOT LEGENDS GUIDE<small>Old Peeps on Porches</small></a><nav aria-label="Guide navigation"><a href="index.html">Home</a><a href="raids.html">Raid</a><a href="dragons.html">Bosses</a><a href="builder.html">Teams</a><a href="champions.html">Champions</a><a href="abilities.html">Abilities</a><a href="factions.html">Factions</a><a href="status-effects.html" aria-current="page">Status</a><a href="allies.html">Companions</a></nav>
+</div></header><main class="wrap"><div id="guide-state" class="notice" role="status">Loading verified guide data…</div><div id="guide-content"></div></main>
+<footer><div class="wrap">Verified source snapshot · <a href="health.html">Database health</a> · <a href="strategy.html">Evidence guide</a></div></footer>
+<script src="supabase-config.js"></script><script type="module" src="guide.js"></script></body></html>

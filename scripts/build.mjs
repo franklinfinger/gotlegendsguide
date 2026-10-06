@@ -16,7 +16,7 @@ if (fs.existsSync(envPath)) {
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out);
 for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
-  if (entry.isFile() && /\.(html|js|json)$/.test(entry.name)) {
+  if (entry.isFile() && /\.(html|js|json|css)$/.test(entry.name)) {
     fs.copyFileSync(path.join(root, entry.name), path.join(out, entry.name));
   }
 }

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Roster – Old Peeps on Porches</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0a0a0c; color: #e8e6e3; }
+    .card { background: linear-gradient(160deg, #16161c 0%, #121216 100%); border: 1px solid #2e2e38; }
+    .accent-bar { height: 3px; background: linear-gradient(90deg, #c9a227, #e85d4c, #5b9fd4, #7cb342); }
+    .nav-link { color: #a8a6a1; }
+    .nav-link:hover { color: #c9a227; }
+    .owned { border-color: #c9a227 !important; box-shadow: 0 0 0 1px rgba(201,162,39,0.35); background: linear-gradient(160deg, #1e1a12 0%, #16140e 100%); }
+  </style>
+</head>
+<body class="min-h-screen">
+<div role="note" style="background:#322319;color:#fff0d2;padding:14px 20px;text-align:center;font:16px system-ui;position:sticky;top:0;z-index:9999">Archived legacy guide · strategy and roster data here are unverified. <a style="color:#fff0d2;text-decoration:underline" href="roster.html">Open the live guide</a>.</div>
+  <div class="accent-bar"></div>
+  <header class="border-b border-[#2e2e38] sticky top-0 bg-[#0a0a0c]/95 backdrop-blur z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-3">
+      <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-gradient-to-br from-[#c9a227] to-[#a8841a] flex items-center justify-center font-bold text-black text-sm">GOT</div><div><div class="font-bold text-lg text-[#f0ebe0]">GOT Legends Guide</div><div class="text-xs text-[#c9a227]">Old Peeps on Porches</div></div></a>
+      <nav class="hidden md:flex gap-3 text-sm"><a href="roster.html" class="text-[#c9a227] font-semibold">My Roster</a><a href="builder.html" class="nav-link">Team Builder</a><a href="dragons.html" class="nav-link">Dragons</a><a href="status-effects.html" class="nav-link">Status</a><a href="factions.html" class="nav-link">Factions</a><a href="allies.html" class="nav-link">Allies</a><a href="champions.html" class="nav-link">Champions</a></nav>
+    </div>
+  </header>
+  <section class="max-w-6xl mx-auto px-4 py-10">
+    <h1 class="text-3xl font-bold mb-2 text-[#f5f0e8]">My Roster</h1>
+    <p class="text-[#9a9690] mb-2">Gold (Legendary) champions only. Tap the ones you own. Saved on this device only.</p>
+    <p class="text-sm text-[#c9a227] mb-6 font-medium" id="countLine">0 marked</p>
+    <div class="flex flex-wrap gap-3 mb-6">
+      <button id="selectAll" class="card px-4 py-2 rounded-lg text-sm">Select All</button>
+      <button id="clearAll" class="card px-4 py-2 rounded-lg text-sm">Clear All</button>
+      <a href="builder.html" class="bg-gradient-to-r from-[#c9a227] to-[#b8921f] text-black font-bold px-4 py-2 rounded-lg text-sm">Go to Team Builder →</a>
+    </div>
+    <div id="rosterGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"></div>
+  </section>
+  <footer class="border-t border-[#2e2e38] py-8 text-center text-sm text-[#6a6660]">
+    <div class="font-medium text-[#c9a227]">Old Peeps on Porches</div>
+    <div class="mt-1">gotlegendsguide.com</div>
+  </footer>
+  <script src="portraits-mini.js"></script>
+  <script src="portraits-lan-0.js"></script>
+  <script src="portraits-lan-1.js"></script>
+  <script src="portraits-lan-2.js"></script>
+  <script src="portraits-lan-3.js"></script>
+  <script src="portraits-lan-4.js"></script>
+  <script src="portraits-lan-5.js"></script>
+  <script src="portraits-greyjoy.js"></script>
+  <script src="portraits-bara-0.js"></script>
+  <script src="portraits-bara-1.js"></script>
+  <script src="portraits-bara-2.js"></script>
+  <script src="portraits-fc-0.js"></script>
+  <script src="p-adolescentviserion.js"></script>
+  <script src="p-adolescentrhaegal.js"></script>
+  <script src="p-adolescentdrogon.js"></script>
+  <script src="p-jorah.js"></script>
+  <script src="p-viserys.js"></script>
+  <script src="p-varys.js"></script>
+  <script src="p-thoros.js"></script>
+  <script src="p-rhaenys.js"></script>
+  <script src="p-rhaenyra.js"></script>
+  <script src="p-meleys.js"></script>
+  <script src="p-laenor.js"></script>
+  <script src="p-jacaerys.js"></script>
+  <script src="p-daemon.js"></script>
+  <script src="p-corlys.js"></script>
+  <script src="p-caraxes.js"></script>
+  <script src="p-roose.js"></script>
+  <script src="p-ramsay.js"></script>
+  <script src="p-walder.js"></script>
+  <script src="p-arya.js"></script>
+  <script src="p-gendry.js"></script>
+  <script src="p-beric.js"></script>
+  <script src="p-mance.js"></script>
+  <script src="p-ygritte.js"></script>
+  <script src="p-tormund.js"></script>
+  <script src="p-craster.js"></script>
+  <script src="p-osha.js"></script>
+  <script src="p-wunwun.js"></script>
+  <script src="p-gwayne.js"></script>
+  <script src="p-sunfyre.js"></script>
+  <script src="p-tyland.js"></script>
+  <script src="p-alicent.js"></script>
+  <script src="p-aemond.js"></script>
+  <script src="p-aegonii.js"></script>
+  <script src="p-criston.js"></script>
+  <script src="p-otto.js"></script>
+  <script src="p-samwell.js"></script>
+  <script src="p-benjen.js"></script>
+  <script src="p-alliser.js"></script>
+  <script src="p-yoren.js"></script>
+  <script src="p-jon.js"></script>
+  <script src="p-ned.js"></script>
+  <script src="p-ghost.js"></script>
+  <script src="p-bran.js"></script>
+  <script src="p-sansa.js"></script>
+  <script src="p-catelyn.js"></script>
+  <script src="p-robb.js"></script>
+  <script src="p-talisa.js"></script>
+  <script src="p-duncan.js"></script>
+  <script src="p-olenna.js"></script>
+  <script src="p-oberyn.js"></script>
+  <script src="p-nightking.js"></script>
+  <script src="p-nymeria.js"></script>
+  <script src="p-icyviserion.js"></script>
+  <script src="p-margaery.js"></script>
+  <script src="p-icewarden.js"></script>
+  <script src="p-areo.js"></script>
+  <script src="p-littlefinger.js"></script>
+  <script src="p-craghas.js"></script>
+  <script src="p-egg.js"></script>
+  <script src="p-greyworm.js"></script>
+  <script src="app.js"></script>
+  <script src="avatar-fix.js"></script>
+  <script>
+    let allChamps = [];
+    let roster = loadRoster();
+    function updateCount() {
+      const n = Object.keys(roster).filter(id => roster[id] && roster[id].owned).length;
+      document.getElementById('countLine').textContent = n + ' marked';
+    }
+    function render() {
+      const grid = document.getElementById('rosterGrid');
+      grid.innerHTML = allChamps.map(c => {
+        const owned = isOwned(roster, c.id);
+        return `<button data-id="${c.id}" class="card rounded-xl p-4 text-left ${owned ? 'owned' : ''}"><div class="flex items-center gap-3">${avatarHTML(c, 44)}<div class="min-w-0 flex-1"><div class="font-semibold text-sm leading-snug text-[#f0ebe0]" style="white-space:normal;word-break:break-word">${c.name}</div><div class="text-xs text-[#8a8680] mt-0.5">${(c.roles||[]).slice(0,2).join(' · ')}</div></div></div></button>`;
+      }).join('');
+      grid.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => { roster = toggleOwned(roster, btn.dataset.id); render(); updateCount(); });
+      });
+      updateCount();
+    }
+    document.getElementById('selectAll').onclick = () => { roster = setAllOwned(roster, allChamps, true); render(); };
+    document.getElementById('clearAll').onclick = () => { roster = setAllOwned(roster, allChamps, false); render(); };
+    fetchChampions().then(champs => { allChamps = champs.sort((a,b) => a.name.localeCompare(b.name)); render(); });
+  </script>
+</body>
+</html>
