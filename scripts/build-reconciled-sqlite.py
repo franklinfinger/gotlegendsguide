@@ -27,6 +27,7 @@ WAR_RULES = ROOT / 'data/audit/recovered-war-outpost-rules.json'
 COMMUNITY_TEAMS = ROOT / 'data/audit/recovered-community-teams.json'
 COMPLETED_PARTIALS = ROOT / 'data/audit/completed-partial-records.json'
 PROFILE_MATCHES = ROOT / 'data/audit/champion-profile-image-matches.json'
+TEAM_MEMBER_RESOLUTIONS = ROOT / 'data/audit/team-member-variant-resolutions.json'
 
 
 def rows(path):
@@ -50,6 +51,7 @@ def main():
     community_teams = json.loads(COMMUNITY_TEAMS.read_text())['examples']
     completed_partials = json.loads(COMPLETED_PARTIALS.read_text())['records']
     profile_matches = json.loads(PROFILE_MATCHES.read_text())['matches']
+    team_member_resolutions = json.loads(TEAM_MEMBER_RESOLUTIONS.read_text())
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -196,6 +198,15 @@ def main():
             match_basis TEXT NOT NULL,
             review_state TEXT NOT NULL
         );
+        CREATE TABLE reconciled_team_member_variants (
+            member_id INTEGER PRIMARY KEY REFERENCES strategy_team_members(strategy_team_member_id),
+            original_champion_name TEXT NOT NULL,
+            gem_color TEXT,
+            variant_id TEXT,
+            resolution_state TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES sources(source_id),
+            unresolved_reason TEXT
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -298,6 +309,18 @@ def main():
         (row['source_id'], row['variant_id'], row['image_role'], row['basis'], row['review_state'])
         for row in profile_matches
     ])
+    team_rows = [
+        (row['member_id'], row['original_champion_name'], row.get('gem_color'), row['variant_id'],
+         row['resolution_state'], row['source_id'], None)
+        for row in team_member_resolutions['resolutions']
+    ] + [
+        (row['member_id'], row['original_champion_name'], None, None, 'unresolved_name',
+         row['source_id'], row['reason'])
+        for row in team_member_resolutions['still_unresolved']
+    ]
+    if len(team_rows) != 5 or sum(row[3] is not None for row in team_rows) != 4:
+        raise SystemExit('Expected four resolved and one unresolved team member identity')
+    out.executemany('INSERT INTO reconciled_team_member_variants VALUES (?,?,?,?,?,?,?)', team_rows)
     historic_values = []
     for r in history:
         fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None

@@ -1,0 +1,45 @@
+{
+  "method": "Resolve stored visible team labels only when the normalized variant is unique or the stored gem color uniquely identifies the variant.",
+  "resolutions": [
+    {
+      "member_id": 40,
+      "original_champion_name": "Daenerys Targaryen",
+      "gem_color": "Red",
+      "variant_id": "sqlite-champion-11",
+      "resolution_state": "exact_name_and_gem_color",
+      "source_id": 612
+    },
+    {
+      "member_id": 46,
+      "original_champion_name": "Arya Stark",
+      "gem_color": "Purple",
+      "variant_id": "sqlite-champion-24",
+      "resolution_state": "unique_canonical_name",
+      "source_id": 614
+    },
+    {
+      "member_id": 57,
+      "original_champion_name": "Daenerys Targaryen",
+      "gem_color": "Blue",
+      "variant_id": "sqlite-champion-6",
+      "resolution_state": "exact_name_and_gem_color",
+      "source_id": 616
+    },
+    {
+      "member_id": 58,
+      "original_champion_name": "Daenerys Targaryen",
+      "gem_color": "Yellow",
+      "variant_id": "sqlite-champion-19",
+      "resolution_state": "exact_name_and_gem_color",
+      "source_id": 616
+    }
+  ],
+  "still_unresolved": [
+    {
+      "member_id": 28,
+      "original_champion_name": "Crownlands Knight",
+      "reason": "No matching normalized champion variant; source does not establish an alternate identity.",
+      "source_id": 608
+    }
+  ]
+}

@@ -22,7 +22,7 @@ SELECT jsonb_pretty(jsonb_build_object(
   'legendary_assault_abilities', (SELECT count(*) FROM knowledge.legendary_assault_abilities),
   'dragon_abilities_without_source', (SELECT count(*) FROM knowledge.legendary_assault_abilities a WHERE NOT EXISTS (SELECT 1 FROM knowledge.legendary_assault_ability_sources s WHERE s.ability_id=a.id)),
   'team_member_links', (SELECT count(*) FROM knowledge.team_member_variant_links),
-  'team_member_exact_links', (SELECT count(*) FROM knowledge.team_member_variant_links WHERE resolution_state='exact_name'),
+  'team_member_exact_links', (SELECT count(*) FROM knowledge.team_member_variant_links WHERE variant_id IS NOT NULL),
   'team_member_unresolved_names', (SELECT jsonb_agg(DISTINCT original_champion_name) FROM knowledge.team_member_variant_links WHERE resolution_state='unresolved_name'),
   'observed_teams_mislabeled_wins', (SELECT count(*) FROM knowledge.strategy_team_examples WHERE evidence_status='outcome_verified')
 )) AS audit_validation;
