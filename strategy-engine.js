@@ -124,15 +124,18 @@ function teamEvaluation(team, synergyRules, observedPairs, preferredLeaderId = n
 
 function teamKey(team) { return team.map(member => member.champion.id).sort().join('|'); }
 
-function selectTeam(candidates, synergyRules, observedPairs) {
-  const pool = candidates.slice(0, 24);
-  let beam = [{team:[],score:0,explanations:[],leader:null}];
-  for (let size = 0; size < 5; size += 1) {
+function selectTeam(candidates, synergyRules, observedPairs, requiredVariantIds=[], preferredLeaderVariantId=null) {
+  const required = requiredVariantIds.map(id=>candidates.find(row=>row.champion.id===id));
+  if (required.some(row=>!row) || required.length>5 || new Set(requiredVariantIds).size!==requiredVariantIds.length) throw new Error('Required exact variants must be eligible and distinct.');
+  const pool = [...required,...candidates.filter(row=>!requiredVariantIds.includes(row.champion.id)).slice(0,24-required.length)];
+  const seed=teamEvaluation(required,synergyRules,observedPairs,preferredLeaderVariantId);
+  let beam = [{team:required,...seed}];
+  for (let size = required.length; size < 5; size += 1) {
     const next = new Map();
     for (const state of beam) for (const candidate of pool) {
       if (state.team.some(member => member.champion.id === candidate.champion.id)) continue;
       const team = [...state.team,candidate].sort((a,b)=>a.champion.id.localeCompare(b.champion.id));
-      const evaluation = teamEvaluation(team,synergyRules,observedPairs);
+      const evaluation = teamEvaluation(team,synergyRules,observedPairs,preferredLeaderVariantId);
       const key = teamKey(team);
       if (!next.has(key) || next.get(key).score < evaluation.score) next.set(key,{team,...evaluation});
     }
@@ -185,12 +188,15 @@ function primarySubstitute(member, selectedTeam, candidates, synergyRules, obser
 
 /**
  * Rank exact variants and assemble a five-champion team from verified mechanics.
- * Account roster, stars, levels, gear, and power are deliberately excluded.
+ * An optional owned-ID set constrains eligibility. Level, stars, gear, and
+ * power are stored for future use and do not affect scoring.
  */
-export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds=[]}) {
+export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds=[],ownedVariantIds=null,requiredVariantIds=[],preferredLeaderVariantId=null}) {
   const target = strategyData.targets.find(row=>row.id===targetId);
   if (!target) throw new Error(`Unsupported strategy target: ${targetId}`);
-  const commonWarnings = ['Strategic fit uses verified mechanics only; account power, stars, levels, gear, and owned champions are not included.'];
+  const rosterConstrained=ownedVariantIds!==null;
+  const owned=rosterConstrained?new Set(ownedVariantIds):null;
+  const commonWarnings = [rosterConstrained?'Only owned exact variants are eligible. Level, stars, gear, and power do not affect ordering yet.':'Strategic fit uses verified mechanics only; account power, stars, levels, gear, and owned champions are not included.'];
   if (target.evidenceState === 'insufficient') return {
     status:'insufficient_evidence',target,team:[],leader:null,overallScore:0,teamSynergy:[],approach:target.approach,timing:target.timing,dangers:[target.warning],substitutes:[],confidence:'insufficient',evidenceSummary:{verifiedFacts:0,strategyInferences:0,communityObservations:0},missingDataWarnings:[...commonWarnings,target.warning],candidateStats:{considered:guideData.champions.length,eligible:0,pruned:0}
   };
@@ -202,15 +208,19 @@ export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds
   const candidates = [];
   let unavailable = 0;
   for (const champion of guideData.champions) {
-    if (exclusions.has(champion.id)) continue;
+    if (exclusions.has(champion.id) || (owned && !owned.has(champion.id))) continue;
     const facts = factsByChampion.get(champion.id) || [];
     if (champion.releaseState !== 'live' || facts.some(fact=>fact.mechanicId==='unverified_release')) { unavailable += 1; continue; }
     if (target.battleMode==='legendary-assault' && normalize(champion.name).includes(targetName)) continue;
     candidates.push(championScore(champion,facts,targetRules));
   }
   candidates.sort((a,b)=>b.score-a.score || a.champion.name.localeCompare(b.champion.name));
+  if (rosterConstrained && candidates.length<5) return {
+    status:'insufficient_roster',target,team:[],leader:null,overallScore:0,teamSynergy:[],approach:target.approach,timing:target.timing,dangers:[target.warning],substitutes:[],confidence:'insufficient',evidenceSummary:{verifiedFacts:0,strategyInferences:0,communityObservations:0},missingDataWarnings:[...commonWarnings,`Only ${candidates.length} eligible owned variant${candidates.length===1?' is':'s are'} available for this battle; five are required.`],candidateStats:{considered:guideData.champions.length,eligible:candidates.length,pruned:0}
+  };
+  if (requiredVariantIds.some(id=>!candidates.some(row=>row.champion.id===id))) throw new Error('An official anchor is not an eligible owned exact variant.');
   const observedPairs = observedPairIndex(guideData.teams,guideData.champions);
-  const selected = selectTeam(candidates,synergyRules,observedPairs);
+  const selected = selectTeam(candidates,synergyRules,observedPairs,requiredVariantIds,preferredLeaderVariantId);
   const mechanicById = new Map(strategyData.mechanics.map(mechanic=>[mechanic.id,mechanic]));
   const team = selected.team.map(member=>({
     champion:member.champion,

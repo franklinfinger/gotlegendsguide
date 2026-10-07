@@ -9,7 +9,7 @@ let strategySnapshot;
 let conversationContext = {};
 
 const pages = [
-  ['home','Home','index.html'], ['recommendations','Strategy','recommendations.html'], ['champions','Champions','champions.html'],
+  ['home','Home','index.html'], ['recommendations','Strategy','recommendations.html'], ['champions','Champions','champions.html'], ['roster','My Roster','roster.html'],
   ['items','Items','items.html'], ['teams','Teams','builder.html'],
   ['raid','Raid','raids.html'], ['war','War','war.html'],
   ['legendary-assault','Legendary Assault','dragons.html'],
@@ -27,8 +27,8 @@ function renderShell() {
     <a class="wordmark" href="index.html" aria-label="GOT Legends Guide home"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GOT LEGENDS GUIDE</strong><small>Old Peeps on Porches</small></span></a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span><span class="sr-only">Open guide menu</span></button>
     <nav id="site-menu" class="site-menu" aria-label="Guide sections">${desktop}</nav></div>`;
-  const mobile = [pages[0],pages[2],pages[1],['battle','Battle','raids.html'],pages[9]];
-  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view || (id==='battle'&&['raid','war','legendary-assault'].includes(view))?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',recommendations:'◇',champions:'♙',battle:'⚔',glossary:'≡'}[id]}</span><span>${esc(label)}</span></a>`).join('');
+  const mobile = [pages.find(row=>row[0]==='home'),pages.find(row=>row[0]==='champions'),pages.find(row=>row[0]==='recommendations'),pages.find(row=>row[0]==='roster'),['battle','Battle','raids.html']];
+  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view || (id==='battle'&&['raid','war','legendary-assault'].includes(view))?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',recommendations:'◇',champions:'♙',roster:'▣',battle:'⚔'}[id]}</span><span>${esc(label)}</span></a>`).join('');
   document.querySelector('#site-footer').innerHTML = `<div class="shell footer-inner"><div><strong>GOT Legends Guide</strong><span>Practical battle reference for Old Peeps on Porches.</span></div><div class="system-links"><a href="health.html">System status</a><a href="strategy.html">Data notes</a></div></div>`;
   const button = document.querySelector('.menu-button');
   const menu = document.querySelector('#site-menu');
@@ -69,6 +69,7 @@ function homePage() {
     ['War','Read every verified battlefield rule.','war.html','moss'],
     ['Legendary Assault','Prepare for all four represented encounters.','dragons.html','danger'],
     ['Champions','Find a variant, skill, trait, faction, or item.','champions.html','ice'],
+    ['My Roster','Keep exact variants ready for personal team answers.','roster.html','ember'],
     ['Teams','Browse observed lineups without victory claims.','builder.html','moss'],
     ['Status & mechanics','Look up exact mechanic wording.','status-effects.html','ice']
   ];
@@ -156,6 +157,7 @@ function raidPage() {
   const defense=snapshot.strategyTeams.filter(t=>/defen/i.test(t.role||''));
   const groupCards=Object.entries(groups).map(([category,rules])=>`<section class="rule-group"><h2>${esc(category)}</h2>${rules.map(r=>`<p>${esc(r.text)}</p>`).join('')}</section>`).join('');
   return `${titleBlock('Battle mode','Raid','Use the verified rules to understand opponent choice, attacks, defense, points, rewards, refreshes, leaderboard zones, and team testing.')}
+    <div class="personal-strategy-links"><a href="recommendations.html?q=${encodeURIComponent('What Raid attack team can I make?')}">Find my Raid attack team →</a><a href="recommendations.html?q=${encodeURIComponent("What's my best Raid defense?")}">Find my Raid defense team →</a></div>
     <div class="raid-rule-grid">${groupCards||empty('Raid information unavailable','No verified Raid rules could be loaded.')}</div>
     <section class="split-section"><div><p class="eyebrow">Attacking</p><h2>Attack examples</h2><p>Your attacking team is the lineup you take into the selected opponent.</p>${teamExampleList(attack)}</div><div><p class="eyebrow">Defending</p><h2>Defense examples</h2><p>Your defensive team is the lineup other players face.</p>${teamExampleList(defense)}</div></section>
     <section class="reference-strip"><div><strong>Team testing</strong><span>${esc(snapshot.raidTeams[0]?.context||'No separate verified test-team context is available.')}</span></div>${snapshot.raidTeams[0]?`<div class="mini-lineup">${snapshot.raidTeams[0].members.map(teamPortrait).join('')}</div>`:''}</section>`;
@@ -164,13 +166,14 @@ function teamExampleList(teams) { return teams.length?teams.map(t=>`<article cla
 
 function warPage() {
   return `${titleBlock('Alliance War','War battlefield rules','Scan the outpost value, battlefield effect, and the phase where each verified rule matters.')}
+    <p class="personal-strategy-links"><a href="recommendations.html">Ask for a War team from my roster →</a></p>
     <div class="war-grid">${snapshot.warRules.map(rule=>`<article class="war-card"><header><span>${esc(rule.points.toLocaleString())}</span><small>victory points</small></header><h2>${esc(rule.name)}</h2><dl><div><dt>Battlefield effect</dt><dd>${esc(rule.effect)}</dd></div><div><dt>When it matters</dt><dd>${esc(rule.phaseRule)}</dd></div></dl></article>`).join('')}</div>`;
 }
 
 function legendaryAssaultPage() {
   return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter to see the recommended team, battle plan, abilities, and verified tips.')}
     <nav class="encounter-tabs" aria-label="Legendary Assault encounters">${snapshot.legendaryAssault.map(e=>`<a href="#${slug(e.id)}">${esc(e.name)}</a>`).join('')}</nav>
-    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>{const answer=answerStrategyQuestion({question:`Best team for ${e.name}`,guideData:snapshot,strategyData:strategySnapshot});return `<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p></div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-strategy">${answer.status==='ready'?recommendationMarkup(answer.result):unavailable('A verified team is not available for this encounter.')}<a class="encounter-ask" href="recommendations.html?q=${encodeURIComponent(`Best team for ${e.name}`)}">Ask about ${esc(e.name)} or request another team →</a></div><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available in the verified sources.`)}</div><div><h3>Verified battle tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`No verified encounter tips are available for ${e.name}.`)}</div></div></section>`}).join('')}</div>`;
+    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>{const answer=answerStrategyQuestion({question:`Best team for ${e.name}`,guideData:snapshot,strategyData:strategySnapshot});return `<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p></div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-strategy">${answer.status==='ready'?recommendationMarkup(answer.result):unavailable('A verified team is not available for this encounter.')}<div class="personal-strategy-links"><a href="recommendations.html?q=${encodeURIComponent(`What is my best team for ${e.name}?`)}">Find my ${esc(e.name)} team →</a><a href="recommendations.html?q=${encodeURIComponent(`Best team for ${e.name}`)}">Ask about ${esc(e.name)} or request another team →</a></div></div><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available in the verified sources.`)}</div><div><h3>Verified battle tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`No verified encounter tips are available for ${e.name}.`)}</div></div></section>`}).join('')}</div>`;
 }
 
 function factionsPage() {
@@ -196,28 +199,100 @@ function notesPage() {
     </div>`;
 }
 
+function rosterPage() {
+  const colors=[...new Set(snapshot.champions.map(row=>row.gemColor).filter(Boolean))].sort();
+  const factions=[...new Set(snapshot.champions.flatMap(row=>row.factions))].sort();
+  return `${titleBlock('Your collection','My Roster','Add the exact variants you own so strategy answers can use only your champions.')}
+    <section id="roster-account" class="roster-account" aria-live="polite"><span class="loading-mark" aria-hidden="true"></span> Checking sign-in…</section>
+    <section class="roster-tools" aria-label="Roster filters"><label for="roster-search">Find a champion</label><input id="roster-search" type="search" placeholder="Name or variant…" autocomplete="off"><div class="roster-filter-row"><label>Affinity<select id="roster-color"><option value="">All affinities</option>${colors.map(color=>`<option value="${esc(color.toLowerCase())}">${esc(color)}</option>`).join('')}</select></label><label>Faction<select id="roster-faction"><option value="">All factions</option>${factions.map(faction=>`<option value="${esc(faction.toLowerCase())}">${esc(faction)}</option>`).join('')}</select></label><label class="roster-owned-filter"><input type="checkbox" id="roster-owned-only"> Owned only</label></div><p id="roster-count" class="result-count"></p></section>
+    <div id="roster-status" role="status" aria-live="polite"></div><div id="roster-list" class="roster-list"></div><div id="roster-empty" hidden>${empty('No variants match','Try another name, affinity, or faction.')}</div>
+    <p class="scope-note">Level and stars are saved for reference. They do not affect team ordering yet.</p>`;
+}
+
+function rosterCard(champion,entry,canEdit) {
+  const owned=Boolean(entry?.owned);
+  const factions=champion.factions.join(' · ')||'Faction unavailable';
+  return `<article class="roster-card ${owned?'is-owned':''}" data-id="${esc(champion.id)}" data-search="${esc(`${champion.name} ${champion.rarity||''} ${champion.gemColor||''} ${champion.factions.join(' ')}`.toLowerCase())}" data-color="${esc((champion.gemColor||'').toLowerCase())}" data-factions="${esc(champion.factions.map(row=>row.toLowerCase()).join('|'))}" data-owned="${owned}">
+    ${portrait(champion,'card')}<div class="roster-identity"><strong>${esc(champion.name)}</strong><span>${esc([champion.gemColor,champion.rarity].filter(Boolean).join(' · ')||'Affinity unavailable')}</span><span>${esc(factions)}</span></div>
+    <button type="button" class="roster-own-button" data-action="own" aria-pressed="${owned}" ${canEdit?'':'disabled title="Sign in to manage your roster"'}>${owned?'Owned':'Add'}</button>
+    <div class="roster-progress" ${owned&&canEdit?'':'hidden'}><label>Level<input data-field="level" type="number" inputmode="numeric" min="1" value="${entry?.level??''}" placeholder="—" aria-label="${esc(champion.name)} level"></label><label>Stars<input data-field="stars" type="number" inputmode="numeric" min="0" value="${entry?.stars??''}" placeholder="—" aria-label="${esc(champion.name)} stars"></label></div>
+  </article>`;
+}
+
+async function mountRoster() {
+  const api=await import('./roster-client.js');
+  const account=document.querySelector('#roster-account'),list=document.querySelector('#roster-list'),status=document.querySelector('#roster-status');
+  let session=null;
+  const entries=new Map();
+  const refreshFilters=()=>{
+    const query=document.querySelector('#roster-search').value.trim().toLowerCase();
+    const color=document.querySelector('#roster-color').value;
+    const faction=document.querySelector('#roster-faction').value;
+    const ownedOnly=document.querySelector('#roster-owned-only').checked;
+    let shown=0;
+    list.querySelectorAll('.roster-card').forEach(card=>{
+      const factions=card.dataset.factions.split('|');
+      const visible=(!query||card.dataset.search.includes(query))&&(!color||card.dataset.color===color)&&(!faction||factions.includes(faction))&&(!ownedOnly||card.dataset.owned==='true');
+      card.hidden=!visible; if(visible)shown++;
+    });
+    document.querySelector('#roster-count').textContent=`${shown} variants shown · ${[...entries.values()].filter(row=>row.owned).length} owned`;
+    document.querySelector('#roster-empty').hidden=shown!==0;
+  };
+  const refreshCards=()=>{list.innerHTML=snapshot.champions.map(champion=>rosterCard(champion,entries.get(champion.id),Boolean(session))).join('');refreshFilters();};
+  const renderAccount=()=>{
+    account.innerHTML=session?`<div><strong>Signed in</strong><span>${esc(session.email)}</span></div><button type="button" id="roster-signout">Sign out</button>`:
+      `<div><strong>Save your roster privately</strong><span>Sign in with an email link. Your champion list is visible only to your account.</span></div><form id="roster-signin"><label class="sr-only" for="roster-email">Email address</label><input id="roster-email" type="email" autocomplete="email" placeholder="Email address" required><button type="submit">Send sign-in link</button></form>`;
+    account.querySelector('#roster-signin')?.addEventListener('submit',async event=>{
+      event.preventDefault();const form=event.currentTarget;const button=form.querySelector('button');button.disabled=true;status.textContent='Sending your sign-in link…';
+      try { await api.requestRosterSignIn(form.querySelector('input').value.trim());status.textContent='Check your email for the sign-in link, then return to My Roster.'; }
+      catch(error){status.textContent=error.message||'The sign-in link could not be sent.';button.disabled=false;}
+    });
+    account.querySelector('#roster-signout')?.addEventListener('click',async()=>{try{await api.signOutRoster();session=null;entries.clear();renderAccount();refreshCards();status.textContent='Signed out.';}catch(error){status.textContent=error.message||'Sign-out failed.';}});
+  };
+  for(const selector of ['#roster-search','#roster-color','#roster-faction','#roster-owned-only']) document.querySelector(selector).addEventListener('input',refreshFilters);
+  list.addEventListener('click',async event=>{
+    const button=event.target.closest('[data-action="own"]');if(!button||!session)return;
+    const card=button.closest('.roster-card'),id=card.dataset.id,owned=card.dataset.owned!=='true';button.disabled=true;status.textContent=`Saving ${snapshot.champions.find(row=>row.id===id)?.name||'champion'}…`;
+    try{const entry=await api.saveRosterEntry(session,id,{owned,level:null,stars:null});if(entry)entries.set(id,entry);else entries.delete(id);card.outerHTML=rosterCard(snapshot.champions.find(row=>row.id===id),entry,true);refreshFilters();status.textContent=owned?'Champion added to your roster.':'Champion removed from your roster.';}
+    catch(error){button.disabled=false;status.textContent=error.message||'Roster change failed.';}
+  });
+  list.addEventListener('change',async event=>{
+    const input=event.target.closest('[data-field]');if(!input||!session)return;
+    const card=input.closest('.roster-card'),id=card.dataset.id;
+    const levelText=card.querySelector('[data-field="level"]').value.trim(),starsText=card.querySelector('[data-field="stars"]').value.trim();
+    const level=levelText===''?null:Number(levelText),stars=starsText===''?null:Number(starsText);
+    try{const entry=await api.saveRosterEntry(session,id,{owned:true,level,stars});entries.set(id,entry);status.textContent='Level and stars saved.';}
+    catch(error){status.textContent=error.message||'Could not save progression.';const prior=entries.get(id);card.querySelector('[data-field="level"]').value=prior?.level??'';card.querySelector('[data-field="stars"]').value=prior?.stars??'';}
+  });
+  try{const loaded=await api.loadRoster();session=loaded.session;for(const entry of loaded.entries)entries.set(entry.variant_id,entry);renderAccount();refreshCards();}
+  catch(error){account.innerHTML='<strong>My Roster could not load</strong>';status.textContent=error.message||'The private roster is unavailable. Try refreshing the page.';refreshCards();}
+}
+
 function recommendationsPage() {
-  return `${titleBlock('Battle strategy','Ask the guide','Describe the battle in your own words. Every lineup comes from a verified curated recommendation or the deterministic strategy engine.')}
+  return `${titleBlock('Battle strategy','Ask the guide','Ask for the best known team or the best team from your own exact variants. The deterministic engine selects every lineup.')}
     ${conversationPanel()}`;
 }
 
 function conversationPanel() {
-  const prompts=['Strongest team for Drogon','Best team for Viserion','Who should I use for Raid attack?','What should I use for Ravenous Pack?'];
+  const prompts=['Strongest team for Drogon','What is my best team for Drogon?','Who should I use for Raid attack?','What Raid attack team can I make?'];
   return `<section class="conversation-shell">
       <div class="prompt-suggestions" aria-label="Example questions">${prompts.map(prompt=>`<button type="button" data-prompt="${esc(prompt)}">${esc(prompt)}</button>`).join('')}</div>
       <div id="conversation-log" class="conversation-log" aria-live="polite"><article class="guide-message welcome-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>What battle are you planning?</strong><p>Ask for a team, a substitute, a leader, or how to play the last recommendation.</p></div></article></div>
       <form id="conversation-form" class="conversation-form"><label class="sr-only" for="strategy-question">Ask a strategy question</label><textarea id="strategy-question" rows="2" placeholder="What is the strongest team to fight Drogon?"></textarea><button type="submit">Ask guide</button></form>
-      <p class="scope-note">Recommendations use verified game mechanics. Account power, stars, levels, gear, and owned champions are not included yet.</p>
+      <p class="scope-note">Best known teams are available to everyone. Sign in to <a href="roster.html">My Roster</a> for teams limited to your owned variants. Level and stars do not affect ordering yet.</p>
     </section>`;
 }
 
 function recommendationMarkup(result) {
   if(result.status==='partial_curated') return partialRecommendationMarkup(result);
+  if(result.status==='insufficient_roster') return `<section class="recommendation-empty"><p class="eyebrow">Your roster</p><h2>Five eligible variants needed</h2><p>${esc(result.missingDataWarnings.at(-1))}</p><a href="roster.html">Update My Roster →</a></section>`;
   if(result.status==='insufficient_evidence') return `<section class="recommendation-empty"><p class="eyebrow">Information unavailable</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>I cannot build a team until the encounter mechanics are verified.</p></section>`;
   const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>${result.leader?.champion.id===member.champion.id?'Leader':`Position ${index+1}`}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header><p class="member-role">${esc(member.roles.join(' · '))}</p>${member.item?`<a class="recommended-item" href="items.html#${esc(member.item.id)}">Iconic item: ${esc(member.item.name)}</a>`:''}</article>`).join('');
   const leader=result.leader?`<div class="leader-callout"><span>${portrait(result.leader.champion,'small')}</span><div><strong>Leader: ${esc(result.leader.champion.name)}</strong><p>${esc(result.leader.evidence?.factText||'This exact leader is part of the verified lineup.')}</p></div></div>`:unavailable('No Leader effect has enough supporting evidence for this team.');
   const tier=result.evidenceTier||'Engine-derived recommendation';
-  return `<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended Team</h2><p>${esc(tier)}</p></div>${badge(tier,result.recommendationSource==='curated'?'gold':'quiet')}</section><div class="recommendation-team">${teamCards}</div>${leader}
+  const comparison=result.rosterComparison;
+  const rosterGap=comparison?`<section class="roster-team-gap"><strong>${comparison.exact?`You own ${comparison.ownedCount} of the 5 champions in the first-party team.`:`${comparison.ownedCount} exact first-party positions confirmed in your roster; ${comparison.unresolved.length} position${comparison.unresolved.length===1?'':'s'} still need exact variant identification.`}</strong>${comparison.knownMissing.length?`<p>Missing known variants: ${comparison.knownMissing.map(row=>esc(snapshot.champions.find(champion=>champion.id===row.variantId)?.name||row.displayName)).join(', ')}.</p>`:''}${result.rosterReplacements?.length&&comparison.knownMissing.length?`<p>Based on your roster, use ${result.rosterReplacements.map(row=>esc(row.name)).join(', ')} for the open ${result.rosterReplacements.length===1?'slot':'slots'}. This is your roster team, not the first-party lineup.</p>`:''}${comparison.unresolved.length?`<p>Unresolved first-party positions: ${comparison.unresolved.map(row=>esc(row.displayName)).join(', ')}. A same-name variant is not counted as an exact match.</p>`:''}</section>`:'';
+  return `<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>${comparison?'Best team from your roster':'Recommended Team'}</h2><p>${esc(tier)}</p></div>${badge(tier,['curated','roster_curated'].includes(result.recommendationSource)?'gold':'quiet')}</section>${rosterGap}<div class="recommendation-team">${teamCards}</div>${leader}
     <section class="strategy-explanation-grid"><article><h2>Why this team works</h2><p>${esc(result.approach)}</p>${result.target.evidenceState==='insufficient'?'<p>Individual champion interactions cannot be confirmed until the ability cards are available.</p>':`<ul>${result.teamSynergy.filter(row=>row.evidenceCategory!=='community_observed').slice(0,4).map(row=>`<li>${esc(row.text)}</li>`).join('')||'<li>The champions were selected for their verified fit against this battle.</li>'}</ul>`}</article><article><h2>How to play it</h2><p>${esc(result.timing)}</p></article><article><h2>Substitutes</h2>${result.target.evidenceState==='insufficient'?'<p>No encounter-specific substitution is verified while the ability cards are unavailable.</p>':result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</article><article><h2>Watch out for</h2><ul>${result.dangers.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></article></section>
     <details class="evidence-details"><summary>Evidence and recommendation details</summary><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} deterministic inferences · ${result.evidenceSummary.communityObservations} community observations used as context only.</p>${result.curatedRecommendation?`<p><strong>Curated source:</strong> ${esc(result.curatedRecommendation.provenanceRef)} · ${Math.round(Number(result.curatedRecommendation.confidence)*100)}% confidence</p><p>${esc(result.curatedRecommendation.notes)}</p>`:''}<ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></details>`;
 }
@@ -232,19 +307,47 @@ function partialRecommendationMarkup(result) {
   return `<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended Team</h2><p>First-party lineup · exact variants pending</p></div>${badge('First-party lineup','gold')}</section><div class="recommendation-team">${members}</div><p class="partial-lineup-note">${unresolved.length?`Exact variant confirmation is still needed for ${esc(unresolved.join(', '))}.`:'Exact variants confirmed.'} The listed team is preserved as supplied; unidentified slots have not been guessed.</p><section class="strategy-explanation-grid"><article><h2>Why this team works</h2><p>${esc(result.target.approach)}</p><p>These are verified encounter mechanics. The contribution of each listed champion has not been independently established.</p></article><article><h2>How to play it</h2><p>${esc(result.target.timing)}</p></article><article><h2>Substitutes</h2><p>Exact substitutions for this lineup cannot be mapped until the missing variant identities are confirmed. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Ask for an engine-derived alternative</a>.</p></article><article><h2>Watch out for</h2><p>${esc(result.target.warning)}</p></article></section><details class="evidence-details"><summary>Evidence and recommendation details</summary><p>First-party in-game lineup transcribed by the player. Original recommendation image is not attached to this record.</p><p>${esc(curated.notes)}</p><p>Unresolved: ${esc(unresolved.join(', '))}.</p></details>`;
 }
 
+function rosterAnalysisMarkup(answer) {
+  const {analysis,request}=answer;
+  if(!analysis) return '<p>No exact first-party lineup is available for this target. Your roster can still be used for a deterministic team when the battle rules are supported.</p>';
+  const {curated,comparison,replacement}=analysis;
+  const target=strategySnapshot.targets.find(row=>row.id===curated.targetId);
+  const nameFor=member=>snapshot.champions.find(row=>row.id===member.variantId)?.name||member.displayName;
+  const knownMissing=comparison.knownMissing.map(row=>nameFor(row));
+  const unresolved=comparison.unresolved.map(row=>row.displayName);
+  const headline=request.intent==='closest_official'?`${esc(target?.name||'First-party team')} is your closest fully identified first-party lineup: ${comparison.ownedCount} of 5 owned.`:
+    comparison.exact?`You own ${comparison.ownedCount} of the 5 champions in the ${esc(target?.name||'first-party')} lineup.`:`${comparison.ownedCount} known exact positions are owned in the ${esc(target?.name||'first-party')} lineup.`;
+  const next=request.intent==='build_next'&&knownMissing.length?`<p>The next known exact variant to add toward this lineup is ${esc(knownMissing[0])}. This is a completion gap, not an upgrade value estimate.</p>`:'';
+  const replacementLine=replacement?`<p>The deterministic roster team uses ${esc(replacement.name)} for an open slot.</p>`:'';
+  return `<section class="roster-analysis"><h2>${headline}</h2>${knownMissing.length?`<p>Known missing: ${knownMissing.map(esc).join(', ')}.</p>`:'<p>No known exact variant is missing.</p>'}${unresolved.length?`<p>${unresolved.length} first-party ${unresolved.length===1?'position remains':'positions remain'} unidentified: ${unresolved.map(esc).join(', ')}. They are excluded from exact ownership matching.</p>`:''}${next}${replacementLine}</section>`;
+}
+
 function mountRecommendations() {
   const form=document.querySelector('#conversation-form'),input=document.querySelector('#strategy-question'),log=document.querySelector('#conversation-log');
-  const ask=question=>{
+  const ask=async question=>{
     const text=question.trim(); if(!text)return;
     log.insertAdjacentHTML('beforeend',`<article class="player-message"><p>${esc(text)}</p></article>`);
-    const answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
-    if(answer.status!=='ready') log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>I need one exact match</strong><p>${esc(answer.message)}</p></div></article>`);
+    let answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
+    if(answer.status==='roster_required') {
+      try {
+        const {loadRoster}=await import('./roster-client.js');
+        const loaded=await loadRoster();
+        if(loaded.session) answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext,roster:{ownedVariantIds:loaded.entries.filter(row=>row.owned).map(row=>row.variant_id),levels:Object.fromEntries(loaded.entries.map(row=>[row.variant_id,row.level])),stars:Object.fromEntries(loaded.entries.map(row=>[row.variant_id,row.stars]))}});
+      } catch(error) {answer={status:'roster_error',message:error.message||'Your roster could not be loaded.'};}
+    }
+    if(answer.status==='roster_required') log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>Sign in for a roster team</strong><p>${esc(answer.message)} <a href="roster.html">Open My Roster →</a></p></div></article>`);
+    else if(answer.status==='roster_analysis') {
+      conversationContext=answer.context;
+      log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div>${rosterAnalysisMarkup(answer)}</div></article>`);
+    }
+    else if(answer.status!=='ready') log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>${answer.status==='roster_error'?'Roster unavailable':'I need one exact match'}</strong><p>${esc(answer.message)}</p></div></article>`);
     else {
       conversationContext=answer.context;
       let intro='Here is the strongest verified strategic fit I can support.';
       if(answer.result.recommendationSource==='curated')intro='This is the supplied first-party lineup.';
+      if(answer.result.rosterComparison)intro='This lineup uses only your owned exact variants.';
       if(answer.result.status==='partial_curated')intro='Here is the supplied first-party lineup. Some exact variants still need identification.';
-      if(answer.request.intent==='substitution')intro='I rebuilt the team without that exact variant.';
+      if(answer.request.intent==='substitution')intro='I rebuilt the team without that exact variant. Your saved roster was not changed.';
       if(answer.request.intent==='alternate')intro='Here is a different engine-derived lineup.';
       if(answer.request.intent==='leader')intro=`Use ${esc(answer.result.leader?.champion.name||answer.result.curatedRecommendation?.members.find(member=>member.isLeader)?.displayName||'the Leader shown below')}.`;
       if(answer.request.intent==='how_to')intro=`${esc(answer.result.approach||answer.result.target.approach)} ${esc(answer.result.timing||answer.result.target.timing)}`;
@@ -256,16 +359,17 @@ function mountRecommendations() {
     }
     input.value=''; log.lastElementChild?.scrollIntoView({behavior:'smooth',block:'start'});
   };
-  form.addEventListener('submit',event=>{event.preventDefault();ask(input.value);});
-  document.querySelectorAll('[data-prompt]').forEach(button=>button.addEventListener('click',()=>ask(button.dataset.prompt)));
+  form.addEventListener('submit',event=>{event.preventDefault();void ask(input.value);});
+  document.querySelectorAll('[data-prompt]').forEach(button=>button.addEventListener('click',()=>void ask(button.dataset.prompt)));
   return ask;
 }
 
 function render() {
-  const renderers={home:homePage,recommendations:recommendationsPage,champions:championsPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
+  const renderers={home:homePage,recommendations:recommendationsPage,champions:championsPage,roster:rosterPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
   root.innerHTML=(renderers[view]||homePage)();
   state.hidden=true;
   if(view==='champions') mountChampionFilters();
+  if(view==='roster') void mountRoster().catch(error=>{document.querySelector('#roster-account').innerHTML='<strong>My Roster could not load</strong>';document.querySelector('#roster-status').textContent=error.message||'Try refreshing the page.';});
   if(view==='items') mountSimpleSearch('#item-search','.item-card','#item-count','item','#item-empty');
   if(view==='glossary') mountSimpleSearch('#glossary-search','.glossary-list article','#glossary-count','entry','#glossary-empty');
   if(view==='recommendations') {

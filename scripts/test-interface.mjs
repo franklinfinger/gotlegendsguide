@@ -21,7 +21,7 @@ test('player navigation uses Legendary Assault terminology', () => {
   assert.doesNotMatch(source, /['"`]Bosses['"`]/);
   assert.match(source, /not claims of proven victories/);
   assert.match(source, /Ask the guide/);
-  assert.match(source, /verified curated recommendation or the deterministic strategy engine/);
+  assert.match(source, /deterministic engine selects every lineup/);
 });
 
 test('Home strategy questions render in place and champion search stays separate',()=>{

@@ -2,14 +2,19 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "node --check supabase-client.js && node --check health.js && node --check guide.js && node --check strategy-engine.js && node --check conversation-engine.js && node --check scripts/build.mjs && node --check scripts/build-strategy-migration.mjs && node --check scripts/generate-strategy-acceptance-audit.mjs && python3 scripts/import-verified-sqlite.py --check-migration && node scripts/validate-canonical-data.mjs",
+    "lint": "node --check supabase-client.js && node --check roster-client.js && node --check health.js && node --check guide.js && node --check strategy-engine.js && node --check conversation-engine.js && node --check scripts/build.mjs && node --check scripts/build-strategy-migration.mjs && node --check scripts/generate-strategy-acceptance-audit.mjs && python3 scripts/import-verified-sqlite.py --check-migration && node scripts/validate-canonical-data.mjs",
     "typecheck": "tsc --noEmit",
     "test": "node --test scripts/test-*.mjs",
     "test:live": "node scripts/validate-live-guide.mjs",
     "build": "node scripts/build.mjs",
-    "db:validate": "python3 scripts/import-verified-sqlite.py --check-migration"
+    "db:validate": "python3 scripts/import-verified-sqlite.py --check-migration",
+    "roster:validate": "node scripts/validate-roster-security.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.3"
   }
 }
