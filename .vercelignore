@@ -1,0 +1,6 @@
+# Local evidence and Supabase CLI state are not needed by the static build.
+data/
+supabase/
+.codex/
+.agents/
+*.sqlite
