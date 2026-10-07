@@ -34,12 +34,12 @@ push('# Strategy Engine Acceptance Audit — 2026-10-07','',
   ...results.map(result=>`| ${result.target.name} | ${result.status==='ready'?result.team.map(member=>member.champion.name).join('; '):'Insufficient evidence — no team generated'} | ${result.leader?.champion.name||'—'} |`),'');
 
 for(const result of results){
-  push(`## ${result.target.name}`,'',`**Target:** \`${result.target.id}\`  `,`**Status:** ${result.status}  `,`**Confidence:** ${result.confidence}`,'');
+  push(`## ${result.target.name}`,'',`- **Target:** \`${result.target.id}\``,`- **Status:** ${result.status}`,`- **Confidence:** ${result.confidence}`,'');
   if(result.status!=='ready'){
     push(`No team was generated. ${result.target.warning}`,'','### Missing-data warnings','',...result.missingDataWarnings.map(row=>`- ${row}`),'');
     continue;
   }
-  push(`**Leader:** ${result.leader?.champion.name||'No sufficiently supported leader'}  `,`**Overall team score:** ${result.overallScore}`,'','### Exact five and role-preserving substitutes','');
+  push(`- **Leader:** ${result.leader?.champion.name||'No sufficiently supported leader'}`,`- **Overall team score:** ${result.overallScore}`,'','### Exact five and role-preserving substitutes','');
   for(const member of result.team){
     push(`#### ${member.champion.name} (\`${member.champion.id}\`)`,'',
       `- Role: ${member.roles.join(' / ')}`,
@@ -71,6 +71,10 @@ push('## Acceptance findings and corrections','',
   '- Community co-occurrence previously added a small bonus for every observed pair; ten pair bonuses could collectively outweigh a verified mechanical difference. Community observations now contribute zero points and remain explanatory context only.',
   '- Substitutes previously came from the next global candidate scores. Every selected member now receives a primary substitute chosen first by overlap with that member’s positive target mechanics, then by the projected replacement-team score.',
   '- Leader selection previously accepted any source-backed Leader row. It now requires complete review status and at least 0.8 confidence.',
+  '- Final calibration removed candidate-level fractions of Leader scores and the separate generic Leader-coverage bonus. Leadership now scores exactly once for the selected Leader.',
+  '- Team synergies now use ordinary Skill, Trait, and item mechanics plus the selected Leader’s Leader mechanics. Inactive Leader traits cannot create team coverage or setup/payoff bonuses.',
+  '- The generic shared-faction bonus was removed because faction membership alone does not prove a battle bonus. Explicit encounter and battlefield faction rules remain active.',
+  '- DEF and FIRE-payoff extraction was narrowed so enemy resistance reductions and ordinary FIRE application no longer masquerade as defensive support or payoff.',
   '- The result contract and UI previously omitted explicit roles and individual score contributions. Both are now returned and displayed.',
   '- Beam search already evaluated the full team at every expansion. New tests prove complementary setup/payoff mechanics can displace a higher individual score, redundant candidates lose marginal value relative to complementarity, exclusions produce role-appropriate replacements, and tie-breaking is repeatable.','');
 

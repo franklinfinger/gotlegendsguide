@@ -77,20 +77,25 @@ function championScore(champion, facts, rules) {
   return {
     champion,
     facts,
-    mechanics: new Set(facts.map(fact => fact.mechanicId)),
+    mechanics: activeMechanics,
+    leaderMechanics: eligibleLeaderMechanics,
     contributions,
     leaderFacts,
     leaderPotential,
-    score: directScore + Math.max(0, leaderPotential) * 0.25,
+    // Leadership can affect the team only once. Keep it out of every
+    // candidate's individual score and award it to the selected leader below.
+    score: directScore,
   };
 }
 
 function teamEvaluation(team, synergyRules, observedPairs) {
   let score = team.reduce((sum, member) => sum + member.score, 0);
   const explanations = [];
+  const leader = [...team].filter(member => member.leaderFacts.some(fact => fact.mechanicId === 'leader_effect' && fact.reviewStatus === 'complete' && Number(fact.confidence) >= 0.8)).sort((a,b)=>b.leaderPotential-a.leaderPotential || a.champion.name.localeCompare(b.champion.name))[0] || null;
+  const hasMechanic = (member, mechanicId) => member.mechanics.has(mechanicId) || (member === leader && member.leaderMechanics.has(mechanicId));
   for (const rule of synergyRules) {
-    const primary = team.filter(member => member.mechanics.has(rule.mechanicId));
-    const secondary = rule.pairedMechanicId ? team.filter(member => member.mechanics.has(rule.pairedMechanicId)) : [];
+    const primary = team.filter(member => hasMechanic(member, rule.mechanicId));
+    const secondary = rule.pairedMechanicId ? team.filter(member => hasMechanic(member, rule.pairedMechanicId)) : [];
     let applies = false;
     if (!rule.pairedMechanicId) applies = primary.length > 0;
     else if (rule.mechanicId === rule.pairedMechanicId) applies = primary.length > 1;
@@ -106,23 +111,12 @@ function teamEvaluation(team, synergyRules, observedPairs) {
       confidence: Number(rule.confidence),
     });
   }
-  const factions = new Map();
-  for (const member of team) for (const faction of member.champion.factions) {
-    if (!factions.has(faction)) factions.set(faction, []);
-    factions.get(faction).push(member.champion.name);
-  }
-  for (const [faction, names] of factions) if (names.length > 1) {
-    const bonus = Math.min(4, names.length - 1);
-    score += bonus;
-    explanations.push({id:`shared-faction-${normalize(faction).replaceAll(' ','-')}`,text:`${names.length} ${faction} members share a verified current faction context.`,score:bonus,evidenceCategory:'strategy_inference',provenanceRef:`faction:${faction}`,confidence:0.7});
-  }
   for (let left = 0; left < team.length; left += 1) for (let right = left + 1; right < team.length; right += 1) {
     const key = [team[left].champion.id,team[right].champion.id].sort().join('|');
     const observed = observedPairs.get(key);
     if (!observed) continue;
     explanations.push({id:`observed-${key}`,text:`${team[left].champion.name} and ${team[right].champion.name} appeared together in ${observed.count} observed composition${observed.count===1?'':'s'}; no outcome was shown and this does not change the score.`,score:0,evidenceCategory:'community_observed',provenanceRef:`community_team:${observed.examples.join(',')}`,confidence:0.45});
   }
-  const leader = [...team].filter(member => member.leaderFacts.some(fact => fact.mechanicId === 'leader_effect' && fact.reviewStatus === 'complete' && Number(fact.confidence) >= 0.8)).sort((a,b)=>b.leaderPotential-a.leaderPotential || a.champion.name.localeCompare(b.champion.name))[0] || null;
   if (leader && leader.leaderPotential > 0) score += leader.leaderPotential;
   return {score,explanations,leader};
 }

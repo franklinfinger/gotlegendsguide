@@ -143,6 +143,38 @@ test('strongest means verified target fit, independent of rarity, stars, raw pow
   assert.equal(result.teamSynergy.filter(row=>row.evidenceCategory==='community_observed').every(row=>row.score===0), true);
 });
 
+test('only the selected leader contributes leadership score', () => {
+  const fixture = compositionFixture();
+  const direct = fixture.strategyData.rules.filter(row=>row.kind==='target_fit');
+  for (const id of ['a','b']) {
+    fixture.strategyData.championFacts.push(
+      {id:`leader-${id}`,variantId:id,mechanicId:'leader_effect',effectRole:'leads',context:'leader',factText:'Verified Leader effect.',evidenceCategory:'verified_fact',provenanceRef:`trait:leader-${id}`,sourceId:null,confidence:1,reviewStatus:'complete'},
+      {id:`leader-physical-${id}`,variantId:id,mechanicId:'physical_damage',effectRole:'provides',context:'leader',factText:'Verified leader Physical Damage effect.',evidenceCategory:'verified_fact',provenanceRef:`trait:leader-${id}`,sourceId:null,confidence:1,reviewStatus:'complete'},
+    );
+  }
+  const result = recommendTeam({...fixture,targetId:fixture.target.id});
+  const selectedLeader = result.leader;
+  assert.ok(selectedLeader);
+  const nonLeader = result.team.find(row=>row.champion.id==='b');
+  const physicalRule = direct.find(row=>row.subjectVariantId==='b');
+  assert.equal(nonLeader.score, physicalRule.score, 'non-selected leader potential must not inflate individual fit');
+});
+
+test('inactive leader traits cannot trigger team synergy', () => {
+  const fixture = compositionFixture();
+  fixture.guideData.champions = fixture.guideData.champions.filter(row=>!['f','g'].includes(row.id));
+  fixture.strategyData.championFacts = fixture.strategyData.championFacts.filter(row=>!['f','g'].includes(row.variantId));
+  fixture.strategyData.championFacts.push(
+    {id:'leader-a',variantId:'a',mechanicId:'leader_effect',effectRole:'leads',context:'leader',factText:'Verified Leader effect.',evidenceCategory:'verified_fact',provenanceRef:'trait:leader-a',sourceId:null,confidence:1,reviewStatus:'complete'},
+    {id:'inactive-payoff',variantId:'b',mechanicId:'brittle_payoff',effectRole:'provides',context:'leader',factText:'Leader-only BRITTLE payoff.',evidenceCategory:'verified_fact',provenanceRef:'trait:inactive-payoff',sourceId:null,confidence:1,reviewStatus:'complete'},
+  );
+  const result = recommendTeam({...fixture,targetId:fixture.target.id});
+  assert.equal(result.leader.champion.id, 'a');
+  const inactive = result.team.find(row=>row.champion.id==='b');
+  assert.ok(inactive);
+  assert.equal(result.teamSynergy.some(row=>row.id==='ice-brittle'), false, 'synergy must not come from an inactive leader trait');
+});
+
 test('variant facts and exclusions never leak to another variant of the same character', () => {
   const fixture = compositionFixture();
   fixture.guideData.champions.find(row=>row.id==='a').name='Arya Stark — ICE variant';

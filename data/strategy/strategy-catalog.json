@@ -1,5 +1,5 @@
 {
-  "version": "2026-10-07.1",
+  "version": "2026-10-07.2",
   "mechanics": [
     {"id":"fire_damage","name":"Fire damage","category":"damage"},
     {"id":"physical_damage","name":"Physical damage","category":"damage"},
@@ -84,7 +84,7 @@
     {"mechanicId":"birthright","role":"uses","regex":"birthright"},
     {"mechanicId":"fury","role":"uses","regex":"fury|enraged"},
     {"mechanicId":"critical","role":"supports","regex":"critical"},
-    {"mechanicId":"defense","role":"supports","regex":"def buff|durability|physical resistance|fire resistance|block"},
+    {"mechanicId":"defense","role":"supports","regex":"(gain|gains|gained|grant|grants|granted)[^,.;]{0,35}(def buff|durability|physical resistance|fire resistance|block)|(begin|begins|start|starts|have|has|immune)[^.;]{0,100}(def buff|durability|physical resistance|fire resistance|block)|(def buff|durability|physical resistance|fire resistance|block)[^,.;]{0,35}(gain|gains|gained|grant|grants|granted)|(def buff|durability|physical resistance|fire resistance|block)[^.;]{0,100}(begin|begins|start|starts|have|has|immune)|taunt(s|ing)?[^.]{0,60}durability"},
     {"mechanicId":"unnatural_resistance","role":"supports","regex":"unnatural resistance"},
     {"mechanicId":"revive","role":"supports","regex":"reviv"},
     {"mechanicId":"power_up","role":"uses","regex":"power-up"},
@@ -93,7 +93,7 @@
     {"mechanicId":"bleed_payoff","role":"exploits","regex":"(if|when|for each)[^.]{0,100}bleed|bleeding enem"},
     {"mechanicId":"raid_payoff","role":"exploits","regex":"(if|when|for each|per)[^.]{0,100}raid|raided enemy"},
     {"mechanicId":"brittle_payoff","role":"exploits","regex":"(if|when)[^.]{0,100}brittle|brittle[^.]{0,60}(double|triple|bonus)"},
-    {"mechanicId":"fire_payoff","role":"exploits","regex":"(if|when|for each|per)[^.]{0,100}fire|afflicted with fire"},
+    {"mechanicId":"fire_payoff","role":"exploits","regex":"(when|if)[^,.]{0,100}(enemy|foe|target|champion)[^,.]{0,100}(becomes |is )?afflicted with fire|(each target|enemy|foe)[^,.]{0,50}(becomes |is )?afflicted with fire|(for each|per)[^,.]{0,40}fire (they|the enemy|the target|on (an )?(enemy|target))"},
     {"mechanicId":"shield_payoff","role":"exploits","regex":"(if|when|for each)[^.]{0,100}shield|shield bonus"},
     {"mechanicId":"wound_payoff","role":"exploits","regex":"(if|when)[^.]{0,100}wound|wounded enem"},
     {"mechanicId":"scout_payoff","role":"exploits","regex":"(if|when)[^.]{0,100}scout|scouted enem"},
@@ -214,7 +214,6 @@
     {"id":"coverage-healing","mechanicId":"healing","pairedMechanicId":null,"score":4,"rationale":"The team includes verified healing for sustained battles."},
     {"id":"coverage-defense","mechanicId":"defense","pairedMechanicId":null,"score":4,"rationale":"The team includes verified DEF, Durability, Resistance, or BLOCK support."},
     {"id":"coverage-taunt","mechanicId":"taunt","pairedMechanicId":null,"score":3,"rationale":"The team includes a verified TAUNT option for pressure control."},
-    {"id":"coverage-cleanse","mechanicId":"cleanse","pairedMechanicId":null,"score":3,"rationale":"The team can remove verified debuffs from allies."},
-    {"id":"coverage-leader","mechanicId":"leader_effect","pairedMechanicId":null,"score":2,"rationale":"The team includes at least one source-backed Leader effect."}
+    {"id":"coverage-cleanse","mechanicId":"cleanse","pairedMechanicId":null,"score":3,"rationale":"The team can remove verified debuffs from allies."}
   ]
 }

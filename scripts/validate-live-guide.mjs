@@ -40,7 +40,7 @@ for (const [name,value] of Object.entries(expected)) if (checks[name] !== value)
 if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('Raid attack and defense examples must remain separately available.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
 if (!icy || icy.abilities.length !== 0) throw new Error('Icy Viserion must be present without invented ability cards.');
-if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 93 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
+if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
 for (const target of strategy.targets) {
   const result = recommendTeam({guideData:data,strategyData:strategy,targetId:target.id});
   if (target.evidenceState === 'insufficient') {
