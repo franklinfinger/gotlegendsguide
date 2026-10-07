@@ -228,6 +228,10 @@ def main():
     archive = json.loads(ARCHIVE.read_text())['files']
     ocr = json.loads(OCR.read_text())['transcripts']
     overrides = json.loads(OVERRIDES.read_text()) if OVERRIDES.exists() else {}
+    ally_cards = {
+        card['image']: card
+        for card in json.loads((ROOT / 'data/audit/companion-ally-candidates.json').read_text())['cards']
+    }
     old_sources, linked = load_known_records(db)
     names = known_subjects(db)
     item_names = sorted({row['item_name'] for row in db.execute('SELECT item_name FROM iconic_abilities')}, key=len, reverse=True)
@@ -272,6 +276,15 @@ def main():
         }
         if filename in overrides:
             row.update(overrides[filename])
+        if filename in ally_cards:
+            row.update({
+                'text_review_status': 'human_transcription_verified',
+                'contributes_new_information': True,
+                'information_imported': True,
+                'unresolved_text_or_identity': ['historical card; current release state unverified'],
+                'review_status': 'visual_card_checked_currentness_unknown',
+                'confidence': 1.0,
+            })
         rows.append(row)
     if len(rows) != 833 or len({row['filename'] for row in rows}) != 833:
         raise SystemExit('Expected exactly one reconciliation row for each of 833 images')

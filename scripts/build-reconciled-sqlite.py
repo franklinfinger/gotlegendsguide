@@ -84,11 +84,15 @@ def main():
         CREATE TABLE ally_gem_cards (
             id TEXT PRIMARY KEY,
             source_id INTEGER NOT NULL UNIQUE REFERENCES source_image_reconciliation(source_id),
-            owner_name_candidate TEXT NOT NULL,
-            ally_name_candidate TEXT NOT NULL,
-            gem_title_candidate TEXT NOT NULL,
+            owner_name TEXT NOT NULL,
+            ally_name TEXT NOT NULL,
+            relationship TEXT NOT NULL,
+            replaces_power_up TEXT NOT NULL,
+            gem_title TEXT NOT NULL,
+            exact_visible_effect TEXT NOT NULL,
             raw_ocr TEXT NOT NULL,
             review_state TEXT NOT NULL,
+            currentness_state TEXT NOT NULL,
             source_sha256 TEXT NOT NULL
         );
         CREATE TABLE recovered_drive_cards (
@@ -184,10 +188,11 @@ def main():
     image_by_file = {r['filename']: r for r in images}
     if len(allies) != 20 or len({r['image'] for r in allies}) != 20:
         raise SystemExit('Expected 20 unique ally card candidates')
-    out.executemany('INSERT INTO ally_gem_cards VALUES (?,?,?,?,?,?,?,?)', [
+    out.executemany('INSERT INTO ally_gem_cards VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [
         ('ally-gem-' + r['image'][4:8], image_by_file[r['image']]['source_id'],
-         r['owner'], r['ally'], r['gem_title_candidate'], image_by_file[r['image']]['extracted_text'],
-         'image_identified_ocr_wording_unverified', image_by_file[r['image']]['sha256'])
+         r['owner'], r['ally'], r['relationship'], r['replaces_power_up'], r['gem_title'],
+         r['exact_visible_effect'], image_by_file[r['image']]['extracted_text'],
+         'visually_verified', 'historical_currentness_unknown', image_by_file[r['image']]['sha256'])
         for r in allies
     ])
     out.executemany('INSERT INTO recovered_drive_cards VALUES (?,?,?,?,?,?,?,?)', [
