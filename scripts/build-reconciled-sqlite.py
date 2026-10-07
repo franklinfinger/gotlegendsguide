@@ -22,6 +22,9 @@ ITEM_MATCHES = ROOT / 'data/audit/item-image-matches.json'
 ASSAULT_MATCHES = ROOT / 'data/audit/legendary-assault-image-matches.json'
 SKILL_MATCHES = ROOT / 'data/audit/champion-skill-image-matches.json'
 TRAIT_MATCHES = ROOT / 'data/audit/champion-trait-image-matches.json'
+LOCAL_ARCHIVE = ROOT / 'data/source-images/local-archive-reconciliation.jsonl'
+WAR_RULES = ROOT / 'data/audit/recovered-war-outpost-rules.json'
+COMMUNITY_TEAMS = ROOT / 'data/audit/recovered-community-teams.json'
 
 
 def rows(path):
@@ -40,7 +43,10 @@ def main():
     assault_matches = json.loads(ASSAULT_MATCHES.read_text())['matches']
     skill_matches = json.loads(SKILL_MATCHES.read_text())['matches']
     trait_matches = json.loads(TRAIT_MATCHES.read_text())['matches']
-    if len(images) != 833 or len(history) != 615:
+    local_archive = rows(LOCAL_ARCHIVE)
+    war_rules = json.loads(WAR_RULES.read_text())['rules']
+    community_teams = json.loads(COMMUNITY_TEAMS.read_text())['examples']
+    if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
     if temporary.exists():
@@ -129,6 +135,44 @@ def main():
             review_state TEXT NOT NULL,
             PRIMARY KEY (source_id, trait_id)
         );
+        CREATE TABLE local_archive_reconciliation (
+            source_id INTEGER PRIMARY KEY,
+            filename TEXT NOT NULL UNIQUE,
+            archive_name TEXT NOT NULL,
+            archive_sha256 TEXT NOT NULL,
+            sha256 TEXT NOT NULL,
+            byte_count INTEGER NOT NULL,
+            width INTEGER NOT NULL,
+            height INTEGER NOT NULL,
+            same_stem_as_drive_png INTEGER NOT NULL,
+            image_category TEXT NOT NULL,
+            extracted_text TEXT NOT NULL,
+            review_status TEXT NOT NULL
+        );
+        CREATE TABLE war_outpost_rules (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            outpost_victory_points INTEGER NOT NULL,
+            exact_visible_effect TEXT NOT NULL,
+            exact_visible_phase_rule TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES local_archive_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE community_team_examples (
+            id TEXT PRIMARY KEY,
+            mode TEXT NOT NULL,
+            displayed_team_power INTEGER,
+            leader_position INTEGER,
+            outcome TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES local_archive_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE community_team_members (
+            example_id TEXT NOT NULL REFERENCES community_team_examples(id),
+            position INTEGER NOT NULL,
+            observed_name TEXT NOT NULL,
+            PRIMARY KEY (example_id, position)
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -182,6 +226,32 @@ def main():
     out.executemany('INSERT INTO champion_trait_image_matches VALUES (?,?,?,?)', [
         (r['source_id'], r['trait_id'], r['basis'], r['review_state'])
         for r in trait_matches
+    ])
+    out.executemany('INSERT INTO local_archive_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?)', [
+        (r['source_id'], r['filename'], r['archive'], r['archive_sha256'], r['sha256'],
+         r['bytes'], r['width'], r['height'], int(r['same_stem_as_drive_png']),
+         r['image_category'], r['extracted_text'], r['review_status'])
+        for r in local_archive
+    ])
+    archive_by_file = {r['filename']: r for r in local_archive}
+    if len(war_rules) != 4:
+        raise SystemExit('Expected four visually reviewed War outpost rules')
+    out.executemany('INSERT INTO war_outpost_rules VALUES (?,?,?,?,?,?,?)', [
+        (r['id'], r['name'], r['outpost_victory_points'], r['exact_visible_effect'],
+         r['exact_visible_phase_rule'], archive_by_file[r['source_image']]['source_id'], r['review_state'])
+        for r in war_rules
+    ])
+    if len(community_teams) != 2 or any(len(r['observed_members']) != 5 for r in community_teams):
+        raise SystemExit('Expected two five-member community Attack lineups')
+    out.executemany('INSERT INTO community_team_examples VALUES (?,?,?,?,?,?,?)', [
+        (r['id'], r['mode'], r['displayed_team_power'], r['leader_position'], r['outcome'],
+         archive_by_file[r['source_image']]['source_id'], r['review_state'])
+        for r in community_teams
+    ])
+    out.executemany('INSERT INTO community_team_members VALUES (?,?,?)', [
+        (r['id'], position, name)
+        for r in community_teams
+        for position, name in enumerate(r['observed_members'], start=1)
     ])
     historic_values = []
     for r in history:

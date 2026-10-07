@@ -1,0 +1,36 @@
+{
+  "examples": [
+    {
+      "id": "archive-community-attack-1387",
+      "source_image": "IMG_1387.jpg",
+      "mode": "community_attack_profile",
+      "displayed_team_power": 1167971,
+      "observed_members": [
+        "Arya Stark",
+        "Sandor Clegane",
+        "Jorah Mormont",
+        "Daenerys Targaryen",
+        "Daenerys Targaryen"
+      ],
+      "leader_position": 2,
+      "outcome": "not_shown",
+      "review_state": "screenshot_checked_composition_only"
+    },
+    {
+      "id": "archive-community-attack-1391",
+      "source_image": "IMG_1391.jpg",
+      "mode": "community_attack_profile",
+      "displayed_team_power": 1131074,
+      "observed_members": [
+        "Khal Drogo",
+        "Olenna Tyrell",
+        "Jorah Mormont",
+        "Nymeria Sand",
+        "Daenerys Targaryen"
+      ],
+      "leader_position": 4,
+      "outcome": "not_shown",
+      "review_state": "screenshot_checked_composition_only"
+    }
+  ]
+}

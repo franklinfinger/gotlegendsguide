@@ -1,0 +1,40 @@
+{
+  "rules": [
+    {
+      "id": "maesters-sigil",
+      "name": "Maester's Sigil",
+      "source_image": "IMG_2637.jpg",
+      "outpost_victory_points": 10000,
+      "exact_visible_effect": "All team members gain a +20% Unnatural Resistance Buff",
+      "exact_visible_phase_rule": "Bonuses apply to both teams in Phase 3 and the winning Alliance in Phase 4",
+      "review_state": "historical_screenshot_currentness_unknown"
+    },
+    {
+      "id": "stone-keep",
+      "name": "Stone Keep",
+      "source_image": "IMG_2638.jpg",
+      "outpost_victory_points": 10000,
+      "exact_visible_effect": "All team members gain +10% DEF",
+      "exact_visible_phase_rule": "Bonuses apply to both teams in Phase 3 and the winning Alliance in Phase 4",
+      "review_state": "historical_screenshot_currentness_unknown"
+    },
+    {
+      "id": "barricade",
+      "name": "Barricade",
+      "source_image": "IMG_2639.jpg",
+      "outpost_victory_points": 10000,
+      "exact_visible_effect": "All team members gain +15% Tenacity",
+      "exact_visible_phase_rule": "Bonuses apply to both teams in Phase 3 and the winning Alliance in Phase 4",
+      "review_state": "historical_screenshot_currentness_unknown"
+    },
+    {
+      "id": "baratheon-war-camp",
+      "name": "Baratheon War Camp",
+      "source_image": "IMG_2640.jpg",
+      "outpost_victory_points": 15000,
+      "exact_visible_effect": "All Baratheon team members gain +25% ATK",
+      "exact_visible_phase_rule": "Bonuses apply to both teams in Phase 3 and the winning Alliance in Phase 4",
+      "review_state": "historical_screenshot_currentness_unknown"
+    }
+  ]
+}
