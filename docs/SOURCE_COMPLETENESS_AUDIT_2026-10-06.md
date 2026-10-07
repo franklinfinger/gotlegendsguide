@@ -253,8 +253,8 @@ This table supersedes the earlier post-correction counts. “SQLite” means the
 | 2. Champion portrait coverage | 93 legacy portrait definitions + 108 matched profile screenshots | 108 variant decisions | 82 decoded legacy assets + 25 derived crops | 107 assets; 102 linked to 96 variants | 96 variants covered | 11 malformed legacy definitions remain preserved | 12 variant portraits | 12 variants | 75 asset rows lack an original source-image ID |
 | 3. Champion metadata, traits, colors, rarity, factions | 86 pinned bundles, 206 source-backed trait records, legacy metadata, and matched profiles | 108 bundles / 206 traits | 108 variants / 206 traits represented | 108 variants / 206 traits / 41 live faction edges | 27 bundles; 201 traits fully named and worded | 81 bundles; 3 cropped wordings; 2 cropped recovered titles | 19 gem colors; 72 variants lack a live faction edge; class remains unmodeled | 12 variants | 11 variants; all 41 live faction edges rely on inherited rather than direct evidence |
 | 4. Champion skills and traits | 97 skill records + 206 trait records | 303 abilities | 303 represented | 303 records across the normalized ability and preserved trait tables | 97 skills + 201 traits | 3 partial trait wordings + 2 unresolved recovered trait titles | 11 legacy candidates lack identified skill and trait cards | 11 candidates lack identified cards | 0 stored ability rows lack source lineage |
-| 5. Champion items / gear | 31 named items and owner relationships | 31 | 31 | 31 | 31 | 0 | 0 known identities or owner links | 1 lacks an identified Drive item screenshot | 0 |
-| 6. Item / gear abilities | 31 source-backed ability links | 31 | 31 | 31 | 31 | 0 | 0 known links | 1 lacks an identified Drive item screenshot | 0 |
+| 5. Champion items / gear | 31 named items and owner relationships | 31 | 31 | 31 | 31 | 0 | 0 known identities or owner links | Red Woman's Ruby Necklace lacks an identified Drive item screenshot | 0 |
+| 6. Item / gear abilities | 31 source-backed ability links | 31 | 31 | 31 | 31 | 0 | 0 known links | Red Woman's Ruby Necklace lacks an identified Drive item screenshot | 0 |
 | 7. Status effects | 5 dedicated definitions | 5 | 5 | 5 | 3 | 2 | Unknown beyond the supplied five | 5 lack separate image assets | 0 |
 | 8. Current factions / memberships | 36 pinned claims plus legacy tags and profiles | 13 canonical live factions / 41 supported edges | 18 raw labels / 36 raw edges retained | 13 / 41 across 36 variants | 41 normalized edges | 41 currentness claims lack direct source review | 72 variants have no live edge | N/A | 41 edges |
 | 9. Raid rules / mechanics | 8 atomic rules | 8 | 8 | 8 | 5 source-linked | 3 unsourced | 0 of the known eight; additional legacy prose remains unstructured | 3 lack source images | 3 |
@@ -280,7 +280,7 @@ This table supersedes the earlier post-correction counts. “SQLite” means the
 3. No Icy Viserion Legendary Assault ability card was identified. Its exact ability, modifier, phase, and battle-rule totals remain unknown.
 4. **Crownlands Knight** is the only unresolved structured team-member identity.
 5. Twelve variants lack portraits: **Lyanna Mormont** plus the eleven legacy-only candidates above.
-6. One item lacks an identified Drive item screenshot. The catalog identity, owner, ability, and source lineage are present.
+6. **Red Woman's Ruby Necklace** lacks an identified Drive item screenshot. Its catalog identity, owner, ability, and source lineage are present.
 7. The 612 historical filenames in `data/audit/unresolved-historical-source-files.txt` require the original files to be supplied again unless they become accessible through an authorized archive.
 8. Of the accessible source corpus, 250 Drive images and 95 local archive images retain explicit unresolved or unreviewed content states. No facts were inferred from those images beyond deterministic category/OCR metadata.
 
