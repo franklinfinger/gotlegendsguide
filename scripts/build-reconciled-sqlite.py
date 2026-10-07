@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Preserve the verified SQLite snapshot and add a reproducible audit catalog.
+"""Build a reproducible reconciled copy while preserving the pinned source DB.
 
-The output is a copy of the pinned original with additive reconciliation tables.
-No original fact row or source reference is changed.
+The immutable input is never changed. Source-backed corrections are applied only
+to the generated audit copy and retain their original and continuation evidence.
 """
 
 import hashlib
@@ -25,6 +25,7 @@ TRAIT_MATCHES = ROOT / 'data/audit/champion-trait-image-matches.json'
 LOCAL_ARCHIVE = ROOT / 'data/source-images/local-archive-reconciliation.jsonl'
 WAR_RULES = ROOT / 'data/audit/recovered-war-outpost-rules.json'
 COMMUNITY_TEAMS = ROOT / 'data/audit/recovered-community-teams.json'
+COMPLETED_PARTIALS = ROOT / 'data/audit/completed-partial-records.json'
 
 
 def rows(path):
@@ -46,6 +47,7 @@ def main():
     local_archive = rows(LOCAL_ARCHIVE)
     war_rules = json.loads(WAR_RULES.read_text())['rules']
     community_teams = json.loads(COMMUNITY_TEAMS.read_text())['examples']
+    completed_partials = json.loads(COMPLETED_PARTIALS.read_text())['records']
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -177,6 +179,14 @@ def main():
             observed_name TEXT NOT NULL,
             PRIMARY KEY (example_id, position)
         );
+        CREATE TABLE completed_record_sources (
+            record_kind TEXT NOT NULL,
+            record_id INTEGER NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            evidence_role TEXT NOT NULL,
+            review_state TEXT NOT NULL,
+            PRIMARY KEY (record_kind, record_id, source_id)
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -258,6 +268,21 @@ def main():
         for r in community_teams
         for position, name in enumerate(r['observed_members'], start=1)
     ])
+    if len(completed_partials) != 9:
+        raise SystemExit('Expected nine source-backed partial record completions')
+    for row in completed_partials:
+        table = 'champion_skills' if row['kind'] == 'champion_skill' else 'champion_traits'
+        key = 'skill_id' if row['kind'] == 'champion_skill' else 'trait_id'
+        current = out.execute(f'SELECT completion_state FROM {table} WHERE {key}=?', (row['record_id'],)).fetchone()
+        if current is None or current[0] != 'partial':
+            raise SystemExit(f'Completion target is not an original partial row: {row}')
+        out.execute(f'UPDATE {table} SET exact_visible_text=?, completion_state=\'complete\' WHERE {key}=?',
+                    (row['exact_visible_text'], row['record_id']))
+        out.executemany('INSERT INTO completed_record_sources VALUES (?,?,?,?,?)', [
+            (row['kind'], row['record_id'], image_by_file[filename]['source_id'],
+             'visible_wording_continuation', 'visually_verified')
+            for filename in row['source_images']
+        ])
     historic_values = []
     for r in history:
         fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None

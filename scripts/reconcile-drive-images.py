@@ -109,6 +109,15 @@ def load_known_records(db):
             'table': 'champion_traits', 'id': str(match['trait_id']),
             'basis': 'globally_unique_ocr_trait_title_identity_only'
         })
+    completed = json.loads((ROOT / 'data/audit/completed-partial-records.json').read_text())['records']
+    for record in completed:
+        table = 'champion_skills' if record['kind'] == 'champion_skill' else 'champion_traits'
+        for filename in record['source_images']:
+            by_file[filename].append({
+                'table': table,
+                'id': str(record['record_id']),
+                'basis': 'visually_verified_wording_continuation',
+            })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file
@@ -232,6 +241,11 @@ def main():
         card['image']: card
         for card in json.loads((ROOT / 'data/audit/companion-ally-candidates.json').read_text())['cards']
     }
+    completed_images = {
+        filename
+        for record in json.loads((ROOT / 'data/audit/completed-partial-records.json').read_text())['records']
+        for filename in record['source_images']
+    }
     old_sources, linked = load_known_records(db)
     names = known_subjects(db)
     item_names = sorted({row['item_name'] for row in db.execute('SELECT item_name FROM iconic_abilities')}, key=len, reverse=True)
@@ -283,6 +297,15 @@ def main():
                 'information_imported': True,
                 'unresolved_text_or_identity': ['historical card; current release state unverified'],
                 'review_status': 'visual_card_checked_currentness_unknown',
+                'confidence': 1.0,
+            })
+        if filename in completed_images:
+            row.update({
+                'text_review_status': 'human_transcription_verified',
+                'contributes_new_information': True,
+                'information_imported': True,
+                'unresolved_text_or_identity': [],
+                'review_status': 'visual_wording_continuation_checked',
                 'confidence': 1.0,
             })
         rows.append(row)

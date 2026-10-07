@@ -1,0 +1,68 @@
+{
+  "review_state": "visually_verified_from_continuation_images",
+  "records": [
+    {
+      "kind": "champion_skill",
+      "record_id": 21,
+      "name": "Valorous Blaze",
+      "exact_visible_text": "Meleys deals 300% DEF Fire Damage to an enemy and gains +20% Durability for 3 turns. When she's ENRAGED, all enemies also suffer a -15% Fire Resistance Debuff for 3 turns and she grants herself RENEW.",
+      "source_images": ["IMG_2027.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 5,
+      "name": "The Silent Provocation II",
+      "exact_visible_text": "Starts the battle with 4 Coins in the TREASURY. When Gregor WOUNDS an enemy, he gains COUNTER for 3 turns and adds 2 Coins to the TREASURY.",
+      "source_images": ["IMG_1902.PNG", "IMG_1919.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 7,
+      "name": "Treasury Generator",
+      "exact_visible_text": "Gregor spawns 1 Coin Gem every 5 turns. Begins on turn 1. Enemy side: Adds 1 Coin to the TREASURY every 6 turns. Begins on turn 6.",
+      "source_images": ["IMG_1920.PNG", "IMG_1921.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 25,
+      "name": "Treasury Generator",
+      "exact_visible_text": "Tyrion spawns 1 Coin Gem every 5 turns. Begins on turn 5. Enemy side: Adds 1 Coin to the TREASURY every 6 turns. Begins on turn 2.",
+      "source_images": ["IMG_1953.PNG", "IMG_1955.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 46,
+      "name": "I'm Your Prince, Not Your Lord II",
+      "exact_visible_text": "Start the Battle with 3 Coins in the TREASURY. When an enemy drops below 50% HP, Joffrey spawns 4 Coin Gems, and destroys 3 random Gems.",
+      "source_images": ["IMG_2010.PNG", "IMG_2011.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 95,
+      "name": "The Things I Do For Love II",
+      "exact_visible_text": "At the start of battle Jaime strikes the Weakest enemy for 200% ATK Physical Damage and spawns 3 Coin Gems. When a team member withdraws from the TREASURY, Jaime spawns a Coin Gem and has a 60% chance to repeat this strike.",
+      "source_images": ["IMG_2171.PNG", "IMG_2172.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 132,
+      "name": "Drown In Your Blood II",
+      "exact_visible_text": "All team members start the battle with a 200% Dodge Buff for 6 turns. When a BLEEDING enemy is defeated by any team member's Skill, afflict a random enemy with 3 BLEED then Osha strikes each BLEEDING enemy for 200% ATK Physical Damage.",
+      "source_images": ["IMG_2268.PNG", "IMG_2269.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 152,
+      "name": "Storm Of Silver",
+      "exact_visible_text": "While Seasmoke has an ally marked as SEASMOKE'S FAVORED, the first friendly Skill used each turn will cause him to apply 1 RAID to all enemies, then grant his marked ally 75% of his current Stamina before he loses -75% of his Stamina.",
+      "source_images": ["IMG_2430.PNG", "IMG_2431.PNG"]
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 161,
+      "name": "Hardened Heart II",
+      "exact_visible_text": "Cersei has an HP Guard at 25% HP. When activated, she deals +65% ATK Unnatural Damage to 3 random enemies and adds 3 Coins to the TREASURY.",
+      "source_images": ["IMG_2368.PNG", "IMG_2369.PNG"]
+    }
+  ]
+}
