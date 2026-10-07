@@ -1,0 +1,16 @@
+{
+  "records": [
+    {
+      "kind": "champion_trait",
+      "record_id": 109,
+      "name": "Stand Your Ground!",
+      "source_images": [
+        "IMG_2436.PNG",
+        "IMG_2437.PNG",
+        "IMG_2768.PNG",
+        "IMG_2769.PNG"
+      ],
+      "review_state": "visually_verified_title"
+    }
+  ]
+}

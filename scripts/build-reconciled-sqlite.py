@@ -28,6 +28,7 @@ COMMUNITY_TEAMS = ROOT / 'data/audit/recovered-community-teams.json'
 COMPLETED_PARTIALS = ROOT / 'data/audit/completed-partial-records.json'
 PROFILE_MATCHES = ROOT / 'data/audit/champion-profile-image-matches.json'
 TEAM_MEMBER_RESOLUTIONS = ROOT / 'data/audit/team-member-variant-resolutions.json'
+RESOLVED_PARTIAL_TITLES = ROOT / 'data/audit/resolved-partial-titles.json'
 
 
 def rows(path):
@@ -52,6 +53,7 @@ def main():
     completed_partials = json.loads(COMPLETED_PARTIALS.read_text())['records']
     profile_matches = json.loads(PROFILE_MATCHES.read_text())['matches']
     team_member_resolutions = json.loads(TEAM_MEMBER_RESOLUTIONS.read_text())
+    resolved_partial_titles = json.loads(RESOLVED_PARTIAL_TITLES.read_text())['records']
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -207,6 +209,14 @@ def main():
             source_id INTEGER NOT NULL REFERENCES sources(source_id),
             unresolved_reason TEXT
         );
+        CREATE TABLE resolved_record_title_sources (
+            record_kind TEXT NOT NULL,
+            record_id INTEGER NOT NULL,
+            resolved_name TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            review_state TEXT NOT NULL,
+            PRIMARY KEY (record_kind, record_id, source_id)
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -321,6 +331,19 @@ def main():
     if len(team_rows) != 5 or sum(row[3] is not None for row in team_rows) != 4:
         raise SystemExit('Expected four resolved and one unresolved team member identity')
     out.executemany('INSERT INTO reconciled_team_member_variants VALUES (?,?,?,?,?,?,?)', team_rows)
+    if len(resolved_partial_titles) != 1 or resolved_partial_titles[0]['record_id'] != 109:
+        raise SystemExit('Expected the single source-backed Brienne trait title resolution')
+    for row in resolved_partial_titles:
+        current = out.execute('SELECT trait_name, completion_state FROM champion_traits WHERE trait_id=?',
+                              (row['record_id'],)).fetchone()
+        if current is None or current[1] != 'partial':
+            raise SystemExit('Resolved trait title target is not an original partial row')
+        out.execute("UPDATE champion_traits SET trait_name=?, completion_state='complete' WHERE trait_id=?",
+                    (row['name'], row['record_id']))
+        out.executemany('INSERT INTO resolved_record_title_sources VALUES (?,?,?,?,?)', [
+            (row['kind'], row['record_id'], row['name'], image_by_file[filename]['source_id'], row['review_state'])
+            for filename in row['source_images']
+        ])
     historic_values = []
     for r in history:
         fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None

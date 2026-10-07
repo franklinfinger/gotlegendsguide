@@ -125,6 +125,14 @@ def load_known_records(db):
             'id': match['variant_id'],
             'basis': match['basis'],
         })
+    title_resolutions = json.loads((ROOT / 'data/audit/resolved-partial-titles.json').read_text())['records']
+    for record in title_resolutions:
+        for filename in record['source_images']:
+            by_file[filename].append({
+                'table': 'champion_traits',
+                'id': str(record['record_id']),
+                'basis': 'visually_verified_trait_title',
+            })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file
@@ -257,6 +265,11 @@ def main():
         row['filename']: row
         for row in json.loads((ROOT / 'data/audit/champion-profile-image-matches.json').read_text())['matches']
     }
+    resolved_title_images = {
+        filename
+        for record in json.loads((ROOT / 'data/audit/resolved-partial-titles.json').read_text())['records']
+        for filename in record['source_images']
+    }
     old_sources, linked = load_known_records(db)
     names = known_subjects(db)
     item_names = sorted({row['item_name'] for row in db.execute('SELECT item_name FROM iconic_abilities')}, key=len, reverse=True)
@@ -325,6 +338,12 @@ def main():
                 'information_imported': True,
                 'review_status': match['review_state'],
                 'confidence': 1.0 if match['review_state'] == 'visually_verified_identity' else max(row['confidence'], 0.9),
+            })
+        if filename in resolved_title_images:
+            row.update({
+                'information_imported': True,
+                'review_status': 'visually_verified_trait_title',
+                'confidence': 1.0,
             })
         rows.append(row)
     if len(rows) != 833 or len({row['filename'] for row in rows}) != 833:
