@@ -21,7 +21,8 @@ test('player navigation uses Legendary Assault terminology', () => {
   assert.doesNotMatch(source, /['"`]Bosses['"`]/);
   assert.match(source, /battle outcomes were not shown/i);
   assert.match(source, /Ask the guide/);
-  assert.match(source, /deterministic strategy engine|source-backed teams/i);
+  assert.match(source, /Team Option/);
+  assert.match(source, /Key Battle Rule/);
 });
 
 test('Phase 5 roster controls and sign-in are absent from the public interface',()=>{
@@ -33,9 +34,19 @@ test('Phase 5 roster controls and sign-in are absent from the public interface',
 test('Home strategy questions render in place and champion search stays separate',()=>{
   const source=fs.readFileSync(path.join(root,'guide.js'),'utf8');
   assert.match(source,/id="home-strategy-form"/);
-  assert.match(source,/Ask GOT Legends Guide/);
+  assert.match(source,/What battle are you preparing for/);
+  assert.match(source,/Raid Attack/);
+  assert.match(source,/Raid Defense/);
   assert.match(source,/id="home-strategy-result"/);
   assert.doesNotMatch(source,/quick-find" action="champions\.html"/);
   assert.match(source,/if\(view==='champions'\) mountChampionFilters/);
   assert.match(source,/encounter-strategy/);
+});
+
+test('Strategy exposes battle selection before the follow-up question',()=>{
+  const source=fs.readFileSync(path.join(root,'guide.js'),'utf8');
+  const page=source.slice(source.indexOf('function recommendationsPage()'),source.indexOf('function conversationPanel()'));
+  assert.match(page,/strategy-battle-grid/);
+  assert.ok(page.indexOf('strategy-battle-grid') < page.indexOf('conversationPanel()'));
+  assert.match(page,/war\.html\?rule=/);
 });

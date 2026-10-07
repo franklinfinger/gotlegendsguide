@@ -1,0 +1,12 @@
+{
+  "variant_id": "sqlite-champion-49",
+  "source_filename": "IMG_2242.PNG",
+  "source_id": 102242,
+  "source_drive_id": "16fB9_XSvjmzFpdR9p4GEG5vtnGqWdYBq",
+  "source_sha256": "d54637a214a823e389f52151541db26b1fa0dca2be688d407fc1e31c91da1275",
+  "legacy_asset_preserved": "assets/champion-portraits/meryn--portraits-lan-4.jpg",
+  "derived_asset": "assets/champion-portraits/derived-sqlite-champion-49.png",
+  "derived_sha256": "4edad15444ed170cd66a6e0406568b087159f8173eac83e1135dd3569f3b0bca",
+  "method": "Fixed crop of verified 1260x2736 profile screenshot; no generated art",
+  "crop": {"offset_y": 500, "offset_x": 210, "height": 840, "width": 840, "output_height": 512, "output_width": 512}
+}

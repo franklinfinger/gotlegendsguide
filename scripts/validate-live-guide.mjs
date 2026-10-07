@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { recommendTeam } from '../strategy-engine.js';
+import { buildTeamOptions } from '../conversation-engine.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 const env = {};
@@ -40,6 +41,14 @@ for (const [name,value] of Object.entries(expected)) if (checks[name] !== value)
 if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('Raid attack and defense examples must remain separately available.');
 if (data.announcements.find(row=>row.id===1)?.status!=='live') throw new Error('The current faction update is still labeled as future.');
 if (data.champions.filter(row=>row.factions.length===2).length < 13) throw new Error('Current dual-faction memberships are incomplete.');
+const byId=new Map(data.champions.map(row=>[row.id,row]));
+for (const champion of data.champions) {
+  if (!champion.portrait) continue;
+  if (!/^assets\/champion-portraits\/[a-z0-9-]+\.(png|jpg)$/.test(champion.portrait) || !fs.existsSync(path.join(root,champion.portrait))) {
+    throw new Error(`Missing or invalid portrait asset for ${champion.id}: ${champion.portrait}`);
+  }
+}
+if (byId.get('sqlite-champion-49')?.portrait !== 'assets/champion-portraits/derived-sqlite-champion-49.png') throw new Error('Meryn Trant is not using the repaired, source-backed portrait.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
 if (!icy || icy.abilities.length !== 0 || icy.tips.length !== 3) throw new Error('Icy Viserion must have three verified tips and no invented ability cards.');
 if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
@@ -68,6 +77,13 @@ for (const target of strategy.targets) {
   if (result.status === 'ready' && result.team.some(member=>!member.roles.length || !member.scoringContributions.length || !member.substitute?.champion?.id)) throw new Error(`${target.id} lacks roles, scoring contributions, or member substitutes.`);
   if (result.teamSynergy.some(row=>row.evidenceCategory==='community_observed' && Number(row.score)!==0)) throw new Error(`${target.id} lets community observations change the score.`);
   if (result.leader && (result.leader.evidence.reviewStatus!=='complete' || Number(result.leader.evidence.confidence)<0.8)) throw new Error(`${target.id} selected an insufficiently reviewed leader.`);
+  for (const option of buildTeamOptions({guideData:data,strategyData:strategy,targetId:target.id})) {
+    if (!option.team) continue;
+    for (const member of option.team) {
+      const canonical=byId.get(member.champion.id);
+      if (!canonical || member.champion.portrait !== canonical.portrait) throw new Error(`Recommendation portrait does not match exact variant ${member.champion.id}`);
+    }
+  }
 }
 checks.strategyMechanics = strategy.mechanics.length;
 checks.strategyTargets = strategy.targets.length;
