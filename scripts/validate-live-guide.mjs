@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import assert from 'node:assert/strict';
 import { recommendTeam } from '../strategy-engine.js';
-import { buildTeamOptions } from '../conversation-engine.js';
+import { answerStrategyQuestion, buildTeamOptions } from '../conversation-engine.js';
+import { answerGuideQuestion } from '../knowledge-engine.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 const env = {};
@@ -20,6 +22,26 @@ const [guideResponse,strategyResponse] = await Promise.all([
 if (!guideResponse.ok) throw new Error(`Live guide RPC failed: ${guideResponse.status}`);
 if (!strategyResponse.ok) throw new Error(`Live strategy RPC failed: ${strategyResponse.status}`);
 const [data,strategy] = await Promise.all([guideResponse.json(),strategyResponse.json()]);
+const ask=question=>answerGuideQuestion({question,guideData:data,strategyData:strategy});
+const poison=ask('Who can use poison?');
+assert.equal(poison.intent,'mechanic_lookup');
+assert.deepEqual(poison.entries.map(row=>row.champion.name),['Nymeria Sand','Oberyn Martell','Olenna Tyrell']);
+assert.ok(poison.entries.every(row=>row.facts.every(fact=>fact.provenance&&/POISON/i.test(fact.wording))));
+const fire=ask('Who applies FIRE?');
+assert.equal(fire.intent,'mechanic_lookup');
+assert.ok(fire.entries.some(row=>row.champion.name==='Daenerys Targaryen - Mother Of Dragons'));
+const stun=ask('Who can STUN?');
+assert.equal(stun.intent,'mechanic_lookup');
+assert.ok(stun.entries.some(row=>row.champion.name==='Meryn Trant'));
+assert.ok(!stun.entries.some(row=>['Adolescent Rhaegal','Lyanna Mormont'].includes(row.champion.name)));
+assert.deepEqual(ask('What faction is Alicent Hightower?').entries[0].champion.factions,['Greens','Targaryen']);
+assert.ok(ask('Who is in the Stark faction?').entries.some(row=>row.champion.name==='Jon Snow — King in the North'));
+const catspaw=ask('What does CatsPaw Dagger do?');
+assert.equal(catspaw.entries[0].champion.name,'Alicent Hightower');
+assert.equal(catspaw.entries[0].facts[0].title,'How Sweetly The Fox Speaks III');
+assert.ok(ask('What does Meryn Trant do?').entries[0].facts.some(row=>row.title==='No One Threatens His Grace'));
+assert.equal(ask('Strongest team for Drogon?').status,'battle');
+assert.equal(answerStrategyQuestion({question:'Strongest team for Drogon?',guideData:data,strategyData:strategy}).result.target.name,'Drogon');
 const checks = {
   championVariants: data.champions?.length,
   portraits: data.champions?.filter(row=>row.portrait).length,

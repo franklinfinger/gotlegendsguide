@@ -1,5 +1,6 @@
 import { getGuideData, getStrategyData } from './supabase-client.js';
 import { answerStrategyQuestion, buildTeamOptions } from './conversation-engine.js';
+import { answerGuideQuestion } from './knowledge-engine.js';
 
 const root = document.querySelector('#guide-content');
 const state = document.querySelector('#guide-state');
@@ -73,8 +74,8 @@ function homePage() {
   return `<section class="battle-home">${titleBlock('Old Peeps on Porches · Battle companion','What battle are you preparing for?','Choose the fight. Learn what matters, compare teams, then take a plan into the game.')}
     <div class="battle-home-grid">${battles.map(([title,copy,href,tone],index)=>`<a class="action-tile ${tone}" href="${href}"><span class="action-rule"></span><span class="battle-number">0${index+1}</span><h2>${title}</h2><p>${copy}</p><span class="action-arrow" aria-hidden="true">→</span></a>`).join('')}</div></section>
     <section class="home-section"><div class="section-title"><h2>Look something up</h2></div><nav class="reference-links" aria-label="Guide references">${references.map(([title,href])=>`<a href="${href}">${title}<span aria-hidden="true">→</span></a>`).join('')}</nav></section>
-    <section class="home-question"><div><p class="eyebrow">Have a specific question?</p><h2>Ask the guide</h2><p>Use a question as a shortcut to a battle plan or a substitute.</p></div><form class="quick-find" id="home-strategy-form"><label for="home-search">Strategy question</label><div><input id="home-search" type="search" placeholder="Who can replace Alicent?" autocomplete="off" required><button type="submit">Ask</button></div></form></section>
-    <section id="home-strategy-result" class="home-strategy-result" hidden><div class="section-title"><h2>Your battle answer</h2></div>${conversationPanel()}</section>`;
+    <section class="home-question"><div><p class="eyebrow">Have a specific question?</p><h2>Ask the guide</h2><p>Ask about a battle, champion, mechanic, faction, or item.</p></div><form class="quick-find" id="home-strategy-form"><label for="home-search">Ask GOT Legends Guide</label><div><input id="home-search" type="search" placeholder="Who can use POISON?" autocomplete="off" required><button type="submit">Ask</button></div></form></section>
+    <section id="home-strategy-result" class="home-strategy-result" hidden><div class="section-title"><h2>Guide answer</h2></div>${conversationPanel()}</section>`;
 }
 
 function championFacts(champion) {
@@ -218,12 +219,12 @@ function recommendationsPage() {
   const wars=strategySnapshot.targets.filter(row=>row.battleMode==='war');
   return `${titleBlock('Battle strategy','Choose your battle','Start with the fight in front of you. Each battle page explains its mechanics before the teams.')}
     <div class="strategy-battle-grid"><details class="strategy-mode-group"><summary><strong>Legendary Assault</strong><span>Choose a dragon</span></summary><div class="strategy-targets">${dragons.map(row=>`<a href="dragons.html#${slug(row.name)}">${esc(row.name)} →</a>`).join('')}</div></details><details class="strategy-mode-group"><summary><strong>War</strong><span>Choose a battlefield rule</span></summary><div class="strategy-targets">${wars.map(row=>`<a href="war.html?rule=${encodeURIComponent(row.id)}">${esc(row.name)} →</a>`).join('')}</div></details><a class="strategy-mode" href="raids.html#raid-attack"><h2>Raid Attack</h2><p>Choose the defense you face →</p></a><a class="strategy-mode" href="raids.html#raid-defense"><h2>Raid Defense</h2><p>Compare defensive teams →</p></a></div>
-    <section class="strategy-followup"><h2>Ask a follow-up</h2><p>Need a substitute or a different approach? Ask a specific question.</p>${conversationPanel()}</section>`;
+    <section class="strategy-followup"><h2>Ask the guide</h2><p>Ask about a battle plan, champion, mechanic, faction, or item.</p>${conversationPanel()}</section>`;
 }
 
 function conversationPanel() {
   return `<section class="conversation-shell">
-      <form id="conversation-form" class="conversation-form"><label class="sr-only" for="strategy-question">Ask a strategy question</label><textarea id="strategy-question" rows="2" placeholder="What is the strongest team to fight Drogon?"></textarea><button type="submit">Ask guide</button></form>
+      <form id="conversation-form" class="conversation-form"><label class="sr-only" for="strategy-question">Ask GOT Legends Guide</label><textarea id="strategy-question" rows="2" placeholder="Who can use POISON? Or ask for a team against Drogon."></textarea><button type="submit">Ask guide</button></form>
       <div id="conversation-log" class="conversation-log" aria-live="polite" hidden></div>
     </section>`;
 }
@@ -254,15 +255,24 @@ function partialRecommendationMarkup(result) {
   return `<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Lineup-specific substitutes are not established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup supplied by the player. The original recommendation image is not connected to this record.</p><p>${esc(curated.notes)}</p>${unresolved.length?`<p>Unconfirmed positions: ${esc(unresolved.join(', '))}.</p>`:''}</details>`;
 }
 
+function knowledgeMarkup(answer) {
+  const facts=(answer.facts||[]).map(row=>`<article class="knowledge-fact"><strong>${esc(row.title)}</strong><p>${esc(row.wording)}</p></article>`).join('');
+  const entries=(answer.entries||[]).map(row=>`<article class="knowledge-card"><header>${portrait(row.champion,'team')}<div><h3>${championLink(row.champion)}</h3><p>${esc([row.champion.gemColor,...row.champion.factions].filter(Boolean).join(' · ')||'Affinity or faction unavailable')}</p></div></header>${row.facts.length?`<div class="knowledge-card-facts">${row.facts.map(fact=>`<section><strong>${fact.href?`<a href="${esc(fact.href)}">${esc(fact.title)}</a>`:esc(fact.title)}</strong><small>${esc(fact.kind||'Verified guidance')}</small><p>${esc(fact.wording)}</p></section>`).join('')}</div>`:''}</article>`).join('');
+  return `<section class="knowledge-answer"><p class="eyebrow">Guide answer</p><h2>${esc(answer.title)}</h2><p>${esc(answer.summary)}</p>${facts?`<div class="knowledge-facts">${facts}</div>`:''}${entries?`<div class="knowledge-grid">${entries}</div>`:answer.showEmpty||!facts?`<p class="knowledge-empty">${esc(answer.emptyMessage)}</p>`:''}</section>`;
+}
+
 function mountRecommendations() {
   const form=document.querySelector('#conversation-form'),input=document.querySelector('#strategy-question'),log=document.querySelector('#conversation-log');
   const ask=question=>{
     const text=question.trim(); if(!text)return;
     log.hidden=false;
     log.insertAdjacentHTML('beforeend',`<article class="player-message"><p>${esc(text)}</p></article>`);
-    const answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
-    if(answer.status!=='ready') log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>I need one exact match</strong><p>${esc(answer.message)}</p></div></article>`);
+    const knowledge=answerGuideQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
+    if(knowledge.status==='ready') log.insertAdjacentHTML('beforeend',`<article class="guide-message knowledge-message"><span class="guide-avatar" aria-hidden="true">G</span><div>${knowledgeMarkup(knowledge)}</div></article>`);
+    else if(knowledge.status==='needs_clarification') log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>One quick detail</strong><p>${esc(knowledge.message)}</p></div></article>`);
     else {
+      const answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
+      if(answer.status!=='ready') {log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>One quick detail</strong><p>${esc(answer.message)}</p></div></article>`);input.value='';return;}
       conversationContext=answer.context;
       let intro=`${answer.options.length} team option${answer.options.length===1?'':'s'} for this battle.`;
       if(answer.result.recommendationSource==='curated')intro='The official in-game team appears first. Other approaches follow where supported.';
