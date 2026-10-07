@@ -1,0 +1,1195 @@
+{
+  "method": "Fixed crop of source-matched full game profile screenshots; no generated art.",
+  "portraits": [
+    {
+      "variant_id": "sqlite-champion-31",
+      "name": "Adolescent Drogon",
+      "previous_asset": "assets/champion-portraits/adolescentdrogon--p-adolescentdrogon.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-31.png",
+      "source_id": 102064,
+      "source_filename": "IMG_2064.PNG",
+      "sha256": "2fde5cb0ab93b7c07271883c417c03c942f3fc23dfa6bf4092bb4af88df76d56",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-33",
+      "name": "Adolescent Rhaegal",
+      "previous_asset": "assets/champion-portraits/adolescentrhaegal--p-adolescentrhaegal.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-33.png",
+      "source_id": 102046,
+      "source_filename": "IMG_2046.PNG",
+      "sha256": "98bd7be9d0885c6802a4ef928c56cc0a634cf41aec6cae54551278267c07196d",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-26",
+      "name": "Adolescent Viserion",
+      "previous_asset": "assets/champion-portraits/adolescentviserion--p-adolescentviserion.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-26.png",
+      "source_id": 102028,
+      "source_filename": "IMG_2028.PNG",
+      "sha256": "dd722479a1ae96178099eb6978a4b6bca3bf7218f22821e6825e60f476f0a808",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "legacy-champion-aegonii",
+      "name": "Aegon II Targaryen",
+      "previous_asset": "assets/champion-portraits/aegonii--p-aegonii.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-legacy-champion-aegonii.png",
+      "source_id": 102302,
+      "source_filename": "IMG_2302.PNG",
+      "sha256": "ce283e0995f37548c5e5a3d91f800e344a99db9680c7e7c8699fd8202b17209a",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "legacy-champion-aemond",
+      "name": "Aemond Targaryen",
+      "previous_asset": "assets/champion-portraits/aemond--p-aemond.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-legacy-champion-aemond.png",
+      "source_id": 102292,
+      "source_filename": "IMG_2292.PNG",
+      "sha256": "3a844f48305ffff8b11f3fe1b7590a69a11950804a73d8265754f808fbcd1f9a",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-58",
+      "name": "Alicent Hightower",
+      "previous_asset": "assets/champion-portraits/alicent--p-alicent.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-58.png",
+      "source_id": 102260,
+      "source_filename": "IMG_2260.PNG",
+      "sha256": "98fdde2041b488e403dbda57ee20b2fd68ab6659f09252cedd8ae9e42c414992",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-79",
+      "name": "Areo Hotah",
+      "previous_asset": "assets/champion-portraits/areo--p-areo.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-79.png",
+      "source_id": 102388,
+      "source_filename": "IMG_2388.PNG",
+      "sha256": "380014b2fdddd474491af58237dfda1c6ddf6a358ed39a54cbf46865ea5135f5",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-77",
+      "name": "Barristan Selmy",
+      "previous_asset": "assets/champion-portraits/barristan--portraits-bara-2.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-77.png",
+      "source_id": 102383,
+      "source_filename": "IMG_2383.PNG",
+      "sha256": "d4d91519320468d4b068f2e6b2dfde8088c248d5505ba261ecf1473679e05112",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-48",
+      "name": "Benjen Stark",
+      "previous_asset": "assets/champion-portraits/benjen--p-benjen.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-48.png",
+      "source_id": 102221,
+      "source_filename": "IMG_2221.PNG",
+      "sha256": "3180cc76c988df2c6df071558e8fe97aff35619a79c5a2f0a47c8f500273e684",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-59",
+      "name": "Beric Dondarrion",
+      "previous_asset": "assets/champion-portraits/beric--p-beric.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-59.png",
+      "source_id": 102251,
+      "source_filename": "IMG_2251.PNG",
+      "sha256": "6411c741680f1ee940813be2a3aeee2988ff8c8c12b13b8eee4167aeba7e23c3",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-53",
+      "name": "Bran Stark",
+      "previous_asset": "assets/champion-portraits/bran--p-bran.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-53.png",
+      "source_id": 102203,
+      "source_filename": "IMG_2203.PNG",
+      "sha256": "2b89c25cca5bf9b095417cf6e1352a41b478f7b7d80f5d10ee83b100da7f604b",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-73",
+      "name": "Bronn",
+      "previous_asset": "assets/champion-portraits/bronn--portraits-lan-5.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-73.png",
+      "source_id": 102354,
+      "source_filename": "IMG_2354.PNG",
+      "sha256": "3b9fac7e38fbda56d697bee699068abba691d51be5905e028ff38b3c4fd302aa",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-71",
+      "name": "Catelyn Stark",
+      "previous_asset": "assets/champion-portraits/catelyn--p-catelyn.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-71.png",
+      "source_id": 102350,
+      "source_filename": "IMG_2350.PNG",
+      "sha256": "74ddfba1c3716795249397ded9ced4a0bc68251480f7e9aa6b8a66076b2e22e7",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-37",
+      "name": "Corlys Velaryon",
+      "previous_asset": "assets/champion-portraits/corlys--p-corlys.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-37.png",
+      "source_id": 102076,
+      "source_filename": "IMG_2076.PNG",
+      "sha256": "b3dcf07672bac3d58471fb0f3e5fe88fc314c259497a97ee3434260d36061a72",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-82",
+      "name": "Craghas Drahar",
+      "previous_asset": "assets/champion-portraits/craghas--p-craghas.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-82.png",
+      "source_id": 102402,
+      "source_filename": "IMG_2402.PNG",
+      "sha256": "dab2311cae48a7f317d534da17da682804240510acf26559e5e0221a7f705b56",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-62",
+      "name": "Craster",
+      "previous_asset": "assets/champion-portraits/craster--p-craster.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-62.png",
+      "source_id": 102247,
+      "source_filename": "IMG_2247.PNG",
+      "sha256": "0b3d12008d4eaccd8ab127ab03e1f58f62e88d1592ab0692616f8dd60b69a682",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-13",
+      "name": "Daario Naharis",
+      "previous_asset": "assets/champion-portraits/daario--portraits-fc-0.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-13.png",
+      "source_id": 101956,
+      "source_filename": "IMG_1956.PNG",
+      "sha256": "8f95c86e0965df665d8bdb56a5f929a73ecda8852053a22a92afa38361b20c6c",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-1",
+      "name": "Daemon Targaryen",
+      "previous_asset": "assets/champion-portraits/daemon--p-daemon.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-1.png",
+      "source_id": 102054,
+      "source_filename": "IMG_2054.PNG",
+      "sha256": "6ee68d269344e9529784f29626ca2f64fba2f0ede8639f8dbdf147e8b7bd5be3",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-7",
+      "name": "Davos Seaworth",
+      "previous_asset": "assets/champion-portraits/davos--portraits-bara-0.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-7.png",
+      "source_id": 101911,
+      "source_filename": "IMG_1911.PNG",
+      "sha256": "e423296dad4d9516c8861d933916f59d92515ce7d84db2d2bfa44c48682f63c6",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-47",
+      "name": "Egg",
+      "previous_asset": "assets/champion-portraits/egg--p-egg.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-47.png",
+      "source_id": 102177,
+      "source_filename": "IMG_2177.PNG",
+      "sha256": "f1259afa9fee8de2817af8f1410d757553022c6ffcf022f17887ef63593958d6",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-36",
+      "name": "Euron Greyjoy",
+      "previous_asset": "assets/champion-portraits/euron--portraits-greyjoy.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-36.png",
+      "source_id": 102059,
+      "source_filename": "IMG_2059.PNG",
+      "sha256": "e8739ce5a5eed1612a9f26a7e816a2cb45f707f3fe572dd3da9cf2affbc1c1ac",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-57",
+      "name": "Gendry",
+      "previous_asset": "assets/champion-portraits/gendry--portraits-bara-2.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-57.png",
+      "source_id": 102230,
+      "source_filename": "IMG_2230.PNG",
+      "sha256": "545fa2e1942ecc288cec96e367a671bf624007c89dddb314472c88fff71eaaa0",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-52",
+      "name": "Ghost",
+      "previous_asset": "assets/champion-portraits/ghost--p-ghost.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-52.png",
+      "source_id": 102198,
+      "source_filename": "IMG_2198.PNG",
+      "sha256": "76ea6eddbf1d4c7cde2ee42df3047650b83ee574deddf54f21844932a80718e2",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-4",
+      "name": "Gregor Clegane",
+      "previous_asset": "assets/champion-portraits/gregor--portraits-lan-0.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-4.png",
+      "source_id": 101896,
+      "source_filename": "IMG_1896.PNG",
+      "sha256": "eed4b082f1b75cddb78be0871127979ef0b8e27736bcd939cc9dc2003a411590",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-44",
+      "name": "Grey Worm",
+      "previous_asset": "assets/champion-portraits/greyworm--p-greyworm.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-44.png",
+      "source_id": 102166,
+      "source_filename": "IMG_2166.PNG",
+      "sha256": "13845ffe352924641c3399a45d480a9712f5b54fe02f7b46f2c230e8a857b991",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-43",
+      "name": "Gwayne Hightower",
+      "previous_asset": "assets/champion-portraits/gwayne--p-gwayne.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-43.png",
+      "source_id": 102193,
+      "source_filename": "IMG_2193.PNG",
+      "sha256": "2a4915e32a8bce02fb7829068deebbf4d16f5d2a23968bc9c026d7e269e0d163",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-55",
+      "name": "Ice Warden",
+      "previous_asset": "assets/champion-portraits/icewarden--p-icewarden.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-55.png",
+      "source_id": 102209,
+      "source_filename": "IMG_2209.PNG",
+      "sha256": "f7750232e3f382f5aece236b62ab5b41832506601f128fad0231335738a0a8d0",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-35",
+      "name": "Icy Viserion",
+      "previous_asset": "assets/champion-portraits/icyviserion--p-icyviserion.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-35.png",
+      "source_id": 102050,
+      "source_filename": "IMG_2050.PNG",
+      "sha256": "02612fcfbf16988d1021cd27d20f96c1211d598264da979ba9eb7f2d24cfcbec",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-32",
+      "name": "Jacaerys Velaryon",
+      "previous_asset": "assets/champion-portraits/jacaerys--p-jacaerys.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-32.png",
+      "source_id": 102067,
+      "source_filename": "IMG_2067.PNG",
+      "sha256": "79ffa1d6b7b78673419528f2846d6e8cf7df956f704e785e3ae8b632c12d700a",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-45",
+      "name": "Jaime Lannister",
+      "previous_asset": "assets/champion-portraits/jaime--portraits-lan-4.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-45.png",
+      "source_id": 102170,
+      "source_filename": "IMG_2170.PNG",
+      "sha256": "07fab5282fd7adde558836db8c6356ebc20c3537414ddf2f451250366a0ecad4",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-21",
+      "name": "Jaqen H'ghar",
+      "previous_asset": "assets/champion-portraits/jaqen--portraits-lan-2.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-21.png",
+      "source_id": 101987,
+      "source_filename": "IMG_1987.PNG",
+      "sha256": "33c487bac6023a898c53bb6e3ff27df51309db20eac0b57b4632f70fe36ec1ea",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-22",
+      "name": "Joffrey Baratheon",
+      "previous_asset": "assets/champion-portraits/joffrey--portraits-bara-1.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-22.png",
+      "source_id": 102009,
+      "source_filename": "IMG_2009.PNG",
+      "sha256": "8a1dbc0ae4ea38d2364a670bab7954fb1c42c488a037d4a044940ebd342b3bd6",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-3",
+      "name": "Jon Snow \u2014 King in the North",
+      "previous_asset": "assets/champion-portraits/jon--p-jon.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-3.png",
+      "source_id": 102080,
+      "source_filename": "IMG_2080.PNG",
+      "sha256": "09faeded40a3394b171c61d97b5e3f888ec18625d0709ff561a1b146a458fa90",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-46",
+      "name": "Jorah Mormont",
+      "previous_asset": "assets/champion-portraits/jorah--p-jorah.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-46.png",
+      "source_id": 102151,
+      "source_filename": "IMG_2151.PNG",
+      "sha256": "0cdf63a824c261755c7382fcf6350c07367b75664e9bb7caeafc214d96a71256",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-5",
+      "name": "Khal Drogo",
+      "previous_asset": "assets/champion-portraits/khaldrogo--portraits-fc-0.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-5.png",
+      "source_id": 101900,
+      "source_filename": "IMG_1900.PNG",
+      "sha256": "43d9a6ccec5abeeccfbd66218dd71d886b61b3e6c6d30cb5406710d5b70a6965",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-30",
+      "name": "Laenor Velaryon",
+      "previous_asset": "assets/champion-portraits/laenor--p-laenor.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-30.png",
+      "source_id": 102037,
+      "source_filename": "IMG_2037.PNG",
+      "sha256": "1624075aad29bf218620a9477fcf0936657bf210c8e5adf54e4f43c6635f4579",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-50",
+      "name": "Lord Varys",
+      "previous_asset": "assets/champion-portraits/varys--p-varys.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-50.png",
+      "source_id": 102189,
+      "source_filename": "IMG_2189.PNG",
+      "sha256": "ed216df6dc5585a6c9ba665696eafe44395dbbb5003ab32b0da822a3be57944e",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-27",
+      "name": "Mance Rayder",
+      "previous_asset": "assets/champion-portraits/mance--p-mance.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-27.png",
+      "source_id": 102003,
+      "source_filename": "IMG_2003.PNG",
+      "sha256": "df2fe4f71e45f49e810219421caaadad9254f10bf041373e132e4ac9479da878",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-34",
+      "name": "Margaery Tyrell",
+      "previous_asset": "assets/champion-portraits/margaery--p-margaery.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-34.png",
+      "source_id": 102141,
+      "source_filename": "IMG_2141.PNG",
+      "sha256": "b2a7509c8af70e73b5cb34d34c49a8988827860fcf78c4919cf310263349ec5c",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-25",
+      "name": "Meleys",
+      "previous_asset": "assets/champion-portraits/meleys--p-meleys.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-25.png",
+      "source_id": 102024,
+      "source_filename": "IMG_2024.PNG",
+      "sha256": "637d4e1a775e82e4c3a4f7376c98d1ba8c113c7577e9f74bf537230b02341730",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-42",
+      "name": "Melisandre",
+      "previous_asset": "assets/champion-portraits/melisandre--portraits-bara-2.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-42.png",
+      "source_id": 102217,
+      "source_filename": "IMG_2217.PNG",
+      "sha256": "51b240717f06bc770d2f90ad592309ee232234d8dffc56f5f32c4d1b74192e39",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-2",
+      "name": "Ned Stark",
+      "previous_asset": "assets/champion-portraits/ned--p-ned.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-2.png",
+      "source_id": 102085,
+      "source_filename": "IMG_2085.PNG",
+      "sha256": "79833e3416c23b2e919517e0b8b078de9ae6195b31a38f33eba8f044a4cd6ae5",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-28",
+      "name": "Nymeria Sand",
+      "previous_asset": "assets/champion-portraits/nymeria--p-nymeria.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-28.png",
+      "source_id": 102033,
+      "source_filename": "IMG_2033.PNG",
+      "sha256": "0c020a23028154cabc5b252ad4a64760e0119eafc5611d510a92bfd53cec60c5",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-63",
+      "name": "Osha",
+      "previous_asset": "assets/champion-portraits/osha--p-osha.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-63.png",
+      "source_id": 102267,
+      "source_filename": "IMG_2267.PNG",
+      "sha256": "275fc41d82cf6476ae27574edfb2e5c82a55a566c30f5c3912be8f4150419c92",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-76",
+      "name": "Otto Hightower",
+      "previous_asset": "assets/champion-portraits/otto--p-otto.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-76.png",
+      "source_id": 102377,
+      "source_filename": "IMG_2377.PNG",
+      "sha256": "847afadeddfe4b3eb64b392c6dd4cb386990a83fc7f12ba11e359dc0eca75486",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-69",
+      "name": "Ramsay Bolton",
+      "previous_asset": "assets/champion-portraits/ramsay--p-ramsay.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-69.png",
+      "source_id": 102332,
+      "source_filename": "IMG_2332.PNG",
+      "sha256": "1023193eaa6305c6699646c552d719f7479addde1439430954793cde0d4753ae",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-9",
+      "name": "Rhaenyra Targaryen",
+      "previous_asset": "assets/champion-portraits/rhaenyra--p-rhaenyra.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-9.png",
+      "source_id": 101928,
+      "source_filename": "IMG_1928.PNG",
+      "sha256": "8ca1807ae53a9b4f7b802016c30569ccc0ec7aedeadc846ab8e7de0cf735d12d",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-8",
+      "name": "Rhaenys Targaryen",
+      "previous_asset": "assets/champion-portraits/rhaenys--p-rhaenys.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-8.png",
+      "source_id": 101922,
+      "source_filename": "IMG_1922.PNG",
+      "sha256": "1ce83f0b49d4e52343982d0f1bb3dd06e6eea802b0bcd7b5493914707d30268d",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-38",
+      "name": "Rickard Karstark",
+      "previous_asset": "assets/champion-portraits/rickard--p-rickard.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-38.png",
+      "source_id": 102444,
+      "source_filename": "IMG_2444.PNG",
+      "sha256": "b8e504099730ecc4db360a6c786f6a7cab11ef0fd95a92ca6b2fae996f43521e",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-83",
+      "name": "Robb Stark",
+      "previous_asset": "assets/champion-portraits/robb--p-robb.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-83.png",
+      "source_id": 102407,
+      "source_filename": "IMG_2407.PNG",
+      "sha256": "8f7df4cb7300270a79f4115e818955f6f0ba19eea468f8565deee01c2b99a0b9",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-81",
+      "name": "Robert Baratheon",
+      "previous_asset": "assets/champion-portraits/robert--portraits-bara-2.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-81.png",
+      "source_id": 102397,
+      "source_filename": "IMG_2397.PNG",
+      "sha256": "0d2b5bd952cd1866aff2dfc38bf12d2effa840b5867500babf6ae91c6f621bd2",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-64",
+      "name": "Roose Bolton",
+      "previous_asset": "assets/champion-portraits/roose--p-roose.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-64.png",
+      "source_id": 102281,
+      "source_filename": "IMG_2281.PNG",
+      "sha256": "df4c2743156559ea8f35c344aa6dafc8075b0b125821adc9cf6cbd28ea3af47b",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-39",
+      "name": "Samwell Tarly",
+      "previous_asset": "assets/champion-portraits/samwell--p-samwell.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-39.png",
+      "source_id": 102155,
+      "source_filename": "IMG_2155.PNG",
+      "sha256": "95ebe20629921ad59a12f391f80d2adcdd9f797eba52dde8ccede8a9791ce5bd",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-10",
+      "name": "Sandor Clegane",
+      "previous_asset": "assets/champion-portraits/sandor--portraits-bara-0.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-10.png",
+      "source_id": 101936,
+      "source_filename": "IMG_1936.PNG",
+      "sha256": "195d3b40accd55b3654c8c87457077ccade8d38f34b8d20b586ddbbd3b32efa2",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-60",
+      "name": "Sansa Stark",
+      "previous_asset": "assets/champion-portraits/sansa--p-sansa.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-60.png",
+      "source_id": 102287,
+      "source_filename": "IMG_2287.PNG",
+      "sha256": "118652428d352c29cffed40e60573fe54cda5920b201266f5421575260aeaa8b",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-14",
+      "name": "Ser Duncan the Tall",
+      "previous_asset": "assets/champion-portraits/duncan--p-duncan.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-14.png",
+      "source_id": 101961,
+      "source_filename": "IMG_1961.PNG",
+      "sha256": "44a163ad4076305f3d0d646868a5cdcb0fe262eb91aa713a81ca0511ccfc5626",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-16",
+      "name": "Stannis Baratheon \u2014 Lord of Storm's End",
+      "previous_asset": "assets/champion-portraits/stannis--portraits-bara-0.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-16.png",
+      "source_id": 101972,
+      "source_filename": "IMG_1972.PNG",
+      "sha256": "9737bf1a55be2dcb6c8c6ab2dc2e6025a73456f0e26811cdbd9cf9293ba0436f",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-56",
+      "name": "Sunfyre",
+      "previous_asset": "assets/champion-portraits/sunfyre--p-sunfyre.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-56.png",
+      "source_id": 102213,
+      "source_filename": "IMG_2213.PNG",
+      "sha256": "4ec12052cb4f0c524ebda033f8381413b78b48d02628ae69d28c55c4208549f0",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-84",
+      "name": "Talisa Stark",
+      "previous_asset": "assets/champion-portraits/talisa--p-talisa.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-84.png",
+      "source_id": 102420,
+      "source_filename": "IMG_2420.PNG",
+      "sha256": "eb3a1e47b76304100303178bb88ec3f6da8d12adff8783c97fed94834d58cda5",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-23",
+      "name": "The Night King",
+      "previous_asset": "assets/champion-portraits/nightking--p-nightking.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-23.png",
+      "source_id": 102016,
+      "source_filename": "IMG_2016.PNG",
+      "sha256": "06eaef7d353bb50d2438ef9e2c33879f4b40d529c016018582c0d5b46d1129ac",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "legacy-champion-theon",
+      "name": "Theon Greyjoy",
+      "previous_asset": "assets/champion-portraits/theon--portraits-greyjoy.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-legacy-champion-theon.png",
+      "source_id": 102182,
+      "source_filename": "IMG_2182.PNG",
+      "sha256": "46913873d8d63cb7c661f3cbb4a5e69f94a96e9e4c4296bbebd43a0e75a12f3f",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "legacy-champion-thoros",
+      "name": "Thoros of Myr",
+      "previous_asset": "assets/champion-portraits/thoros--p-thoros.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-legacy-champion-thoros.png",
+      "source_id": 102310,
+      "source_filename": "IMG_2310.PNG",
+      "sha256": "72ee961196f19a356aabd7f6b0b791921afa115a46da9e12899404dec6c09185",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-61",
+      "name": "Tormund Giantsbane",
+      "previous_asset": "assets/champion-portraits/tormund--p-tormund.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-61.png",
+      "source_id": 102225,
+      "source_filename": "IMG_2225.PNG",
+      "sha256": "e5fb888009cd6bd6d6af5d8193ba6b10e71028e0456dc8cb302ab0e61046a00d",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "legacy-champion-tyland",
+      "name": "Tyland Lannister",
+      "previous_asset": "assets/champion-portraits/tyland--p-tyland.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-legacy-champion-tyland.png",
+      "source_id": 102236,
+      "source_filename": "IMG_2236.PNG",
+      "sha256": "0c68dd3f9af4d3a9c0a5fe10dd904fe29bad5099496c93cd4ba28567f407536f",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-12",
+      "name": "Tyrion Lannister",
+      "previous_asset": "assets/champion-portraits/tyrion--portraits-lan-1.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-12.png",
+      "source_id": 101950,
+      "source_filename": "IMG_1950.PNG",
+      "sha256": "c091cc9c994b3ed606c4711b71a8d5f26b199753236c302ab1c2f6fb9c629104",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-15",
+      "name": "Tywin Lannister",
+      "previous_asset": "assets/champion-portraits/tywin--portraits-lan-2.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-15.png",
+      "source_id": 101965,
+      "source_filename": "IMG_1965.PNG",
+      "sha256": "7dbebf7b0ce4c98d301b6cb2139998ee4aa59e4e3c697858b85fae6f5eabe5c6",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-85",
+      "name": "Walder Frey",
+      "previous_asset": "assets/champion-portraits/walder--p-walder.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-85.png",
+      "source_id": 102415,
+      "source_filename": "IMG_2415.PNG",
+      "sha256": "6435372a5a0348896fc6b86e5768169b944b4aa4dcfd40ee4d747b1cb0787727",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "legacy-champion-yara",
+      "name": "Yara Greyjoy",
+      "previous_asset": "assets/champion-portraits/yara--portraits-greyjoy.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-legacy-champion-yara.png",
+      "source_id": 102276,
+      "source_filename": "IMG_2276.PNG",
+      "sha256": "d4229fdbf2f1ace8eb46d70c06c98a7bdd7bf6cd090e034228ac671a2ef727c2",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-40",
+      "name": "Ygritte",
+      "previous_asset": "assets/champion-portraits/ygritte--p-ygritte.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-40.png",
+      "source_id": 102146,
+      "source_filename": "IMG_2146.PNG",
+      "sha256": "3f9128e8810be3b207defc572fa99ef7877d6ed0b39acc0f1522fa3b2d52da1e",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    },
+    {
+      "variant_id": "sqlite-champion-67",
+      "name": "Yoren",
+      "previous_asset": "assets/champion-portraits/yoren--p-yoren.jpg",
+      "asset_path": "assets/champion-portraits/upgraded-sqlite-champion-67.png",
+      "source_id": 102327,
+      "source_filename": "IMG_2327.PNG",
+      "sha256": "ec5a252da88b90890d02a19f567bf83b1658453f3133fd70565583f784c2d947",
+      "crop": {
+        "offset_y": 520,
+        "offset_x": 430,
+        "height": 420,
+        "width": 420,
+        "output_height": 512,
+        "output_width": 512
+      }
+    }
+  ]
+}

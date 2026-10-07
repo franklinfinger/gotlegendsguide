@@ -31,6 +31,8 @@ TEAM_MEMBER_RESOLUTIONS = ROOT / 'data/audit/team-member-variant-resolutions.jso
 RESOLVED_PARTIAL_TITLES = ROOT / 'data/audit/resolved-partial-titles.json'
 HISTORICAL_VARIANTS = ROOT / 'data/audit/recovered-historical-variants.json'
 DERIVED_PORTRAITS = ROOT / 'data/audit/derived-portrait-manifest.json'
+UPGRADED_PORTRAITS = ROOT / 'data/audit/upgraded-portrait-manifest.json'
+PROFILE_FACTIONS = ROOT / 'data/audit/profile-faction-reconciliation.json'
 FINAL_FACTS = ROOT / 'data/audit/final-accessible-facts.json'
 FINAL_REVIEW = ROOT / 'data/audit/final-accessible-source-review.json'
 
@@ -60,6 +62,14 @@ def main():
     resolved_partial_titles = json.loads(RESOLVED_PARTIAL_TITLES.read_text())['records']
     historical_variants = json.loads(HISTORICAL_VARIANTS.read_text())
     derived_portraits = json.loads(DERIVED_PORTRAITS.read_text())['portraits']
+    upgraded_portraits = json.loads(UPGRADED_PORTRAITS.read_text())['portraits']
+    profile_factions = json.loads(PROFILE_FACTIONS.read_text())['relationships']
+    derived_portraits += [{
+        **row,
+        'id': '0-upgraded-profile-' + row['variant_id'],
+        'review_state': 'derived_profile_center_crop',
+        'attribution': 'User supplied GOT: Legends game image; game art remains with its rights holder.',
+    } for row in upgraded_portraits]
     final_facts = json.loads(FINAL_FACTS.read_text())
     final_review = json.loads(FINAL_REVIEW.read_text())
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
@@ -260,6 +270,15 @@ def main():
             review_state TEXT NOT NULL,
             attribution TEXT NOT NULL
         );
+        CREATE TABLE profile_faction_reconciliation (
+            variant_id TEXT NOT NULL,
+            faction_id TEXT NOT NULL,
+            faction_name TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            source_filename TEXT NOT NULL,
+            basis TEXT NOT NULL,
+            PRIMARY KEY (variant_id, faction_id)
+        );
         CREATE TABLE final_source_review_resolutions (
             source_id INTEGER PRIMARY KEY,
             corpus TEXT NOT NULL,
@@ -455,8 +474,8 @@ def main():
         (row['id'], image_by_file[filename]['source_id'])
         for row in historical_variants['abilities'] for filename in row['source_images']
     ])
-    if len(derived_portraits) != 25 or len({row['variant_id'] for row in derived_portraits}) != 25:
-        raise SystemExit('Expected 25 distinct derived champion portraits')
+    if len(derived_portraits) != 95 or len({row['variant_id'] for row in derived_portraits}) != 95:
+        raise SystemExit('Expected 95 distinct derived champion portraits')
     for row in derived_portraits:
         path = ROOT / row['asset_path']
         if hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
@@ -465,6 +484,12 @@ def main():
         (row['id'], row['variant_id'], row['asset_path'], row['sha256'], row['source_id'],
          row['source_filename'], json.dumps(row['crop'], sort_keys=True), row['review_state'], row['attribution'])
         for row in derived_portraits
+    ])
+    if len(profile_factions) != 101:
+        raise SystemExit('Expected 101 individually sourced profile faction relationships')
+    out.executemany('INSERT INTO profile_faction_reconciliation VALUES (?,?,?,?,?,?)', [
+        (row['variant_id'], row['faction_id'], row['faction'], row['source_id'], row['source_image'], row['basis'])
+        for row in profile_factions
     ])
     if len(final_review['records']) != 345:
         raise SystemExit('Expected 345 individually reviewed final sources')

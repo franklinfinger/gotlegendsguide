@@ -87,11 +87,11 @@ function championFacts(champion) {
 
 function championCard(champion, open=false) {
   const {skills,traits,items} = championFacts(champion);
-  const subtle = champion.releaseState==='unverified' ? `<p class="subtle-note">This distinct variant is source-backed; current availability is not confirmed.</p>` : '';
+  const subtle = champion.releaseState==='unverified' ? `<p class="subtle-note">This variant's current availability is not confirmed.</p>` : '';
   return `<details class="champion-card" data-search="${esc(`${champion.name} ${champion.gemColor||''} ${champion.rarity||''} ${champion.factions.join(' ')}`.toLowerCase())}" data-color="${esc((champion.gemColor||'unknown').toLowerCase())}" data-factions="${esc(champion.factions.join('|').toLowerCase())}" ${open?'open':''}>
     <summary><span class="champion-summary">${portrait(champion)}<span class="champion-identity"><strong>${esc(champion.name)}</strong><span>${esc([champion.rarity,champion.gemColor].filter(Boolean).join(' · ')||'Classification unavailable')}</span><span>${esc(champion.factions.join(' · ')||'Faction not recorded')}</span></span><span class="expand-mark" aria-hidden="true">＋</span></span></summary>
     <div class="champion-detail">${subtle}<div class="detail-grid"><section><h3>Skill</h3>${skills.length?skills.map(abilityBlock).join(''):unavailable('No verified skill card is available for this variant.')}</section><section><h3>Traits</h3>${traits.length?traits.map(abilityBlock).join(''):unavailable('No verified trait card is available for this variant.')}</section></div>
-    <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<a class="item-link" href="items.html#${esc(item.id)}"><strong>${esc(item.name)}</strong><span>${esc(item.abilities[0]?.name||'View item ability')}</span></a>`).join(''):unavailable('No verified champion-item relationship is available.')}</section></div></details>`;
+    <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<a class="item-link" href="items.html#${esc(item.id)}"><strong>${esc(item.name)}</strong><span>${esc(item.abilities[0]?.name||'View item ability')}</span></a>`).join(''):unavailable('No iconic item is listed for this variant.')}</section></div></details>`;
 }
 
 function abilityBlock(ability) {
@@ -130,7 +130,7 @@ function mountChampionFilters() {
 }
 
 function itemsPage() {
-  return `${titleBlock('Champion equipment','Items','Browse every verified iconic item, its champion relationship, and its complete recorded ability wording.')}
+  return `${titleBlock('Champion equipment','Items','Find an iconic item, its champion, and what its ability does.')}
     <label class="search-label" for="item-search">Search items or champions</label><input class="wide-search" id="item-search" type="search" placeholder="Item or champion name…"><p id="item-count" class="result-count"></p>
     <div id="item-list" class="item-grid">${snapshot.items.map(item=>{const owner=snapshot.champions.find(c=>c.id===item.ownerVariantId);return `<article class="item-card" id="${esc(item.id)}" data-search="${esc(`${item.name} ${item.ownerName||''}`.toLowerCase())}"><div class="item-owner">${portrait(owner,'small')}<span><small>Iconic item for</small>${championLink(owner,item.ownerName||'Champion unavailable')}</span></div><h2>${esc(item.name)}</h2>${item.abilities.length?item.abilities.map(abilityBlock).join(''):unavailable('Verified ability wording is unavailable.')}</article>`}).join('')}</div><div id="item-empty" hidden>${empty('No items match','Try another item or champion name.')}</div>`;
 }
@@ -146,7 +146,7 @@ function teamsPage() {
     ${battleTargetPicker('library-target','Choose a battle')}
     <div class="library-filters"><label>Mechanic<select id="library-mechanic"><option value="">All mechanics</option>${strategySnapshot.mechanics.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}</option>`).join('')}</select></label><label>Faction<select id="library-faction"><option value="">All factions</option>${snapshot.factions.map(row=>`<option value="${esc(row.name)}">${esc(row.name)}</option>`).join('')}</select></label></div>
     <div id="library-options" aria-live="polite"></div>
-    <div class="section-title"><h2>Observed community examples</h2></div><div class="context-note"><strong>Source context</strong><span>These compositions were observed; battle outcomes were not shown and do not change recommendation scores.</span></div>
+    <div class="section-title"><h2>Community team examples</h2></div><div class="context-note"><strong>Observed lineups</strong><span>These show teams players used. Battle outcomes were not shown.</span></div>
     <p class="result-count">${snapshot.teams.length} observed compositions</p><div class="team-grid">${snapshot.teams.map((team,index)=>`<article class="team-card"><header><span>Observed team ${String(index+1).padStart(2,'0')}</span>${badge('Community example','quiet')}</header><div class="team-lineup">${team.members.map(teamPortrait).join('')}</div></article>`).join('')}</div>`;
 }
 
@@ -178,16 +178,23 @@ function warPage() {
 }
 
 function legendaryAssaultPage() {
-  return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter to compare recommended teams, battle plans, abilities, and verified tips.')}
+  return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter to compare recommended teams, battle plans, abilities, and battle tips.')}
     <nav class="encounter-tabs" aria-label="Legendary Assault encounters">${snapshot.legendaryAssault.map(e=>`<a href="#${slug(e.id)}">${esc(e.name)}</a>`).join('')}</nav>
-    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>{const targetId=`legendary-assault:${slug(e.name)}`,options=buildTeamOptions({guideData:snapshot,strategyData:strategySnapshot,targetId}),target=strategySnapshot.targets.find(row=>row.id===targetId);return `<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p>${e.tips[0]?`<p class="encounter-key">${esc(e.tips[0].text)}</p>`:''}</div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-strategy"><h3>Recommended Teams</h3>${teamOptionsMarkup(options)}<a class="encounter-ask" href="recommendations.html?q=${encodeURIComponent(`Give me teams for ${e.name}`)}">Ask a follow-up about ${esc(e.name)} →</a></div><div class="encounter-mechanics"><h3>Encounter Mechanics</h3><p>${esc(target?.warning||'See the verified abilities and tips below.')}</p></div><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available in the verified sources.`)}</div><div><h3>Verified Tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`No verified encounter tips are available for ${e.name}.`)}</div></div></section>`}).join('')}</div>`;
+    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>{const targetId=`legendary-assault:${slug(e.name)}`,options=buildTeamOptions({guideData:snapshot,strategyData:strategySnapshot,targetId}),target=strategySnapshot.targets.find(row=>row.id===targetId);return `<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p>${e.tips[0]?`<p class="encounter-key">${esc(e.tips[0].text)}</p>`:''}</div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-strategy"><h3>Recommended Teams</h3>${teamOptionsMarkup(options)}<a class="encounter-ask" href="recommendations.html?q=${encodeURIComponent(`Give me teams for ${e.name}`)}">Ask a follow-up about ${esc(e.name)} →</a></div><div class="encounter-mechanics"><h3>Encounter Mechanics</h3><p>${esc(target?.warning||'See the abilities and tips below.')}</p></div><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available yet.`)}</div><div><h3>Battle Tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`Battle tips are not available for ${e.name}.`)}</div></div></section>`}).join('')}</div>`;
 }
 
 function factionsPage() {
-  const current=snapshot.factions.filter(f=>f.rules.some(r=>r.kind==='current_bonus'));
-  return `${titleBlock('Current team bonuses','Factions','Build around the live faction bonuses and play styles. Champions may belong to two current factions.')}
-    <div class="faction-grid">${current.map(f=>{const bonus=f.rules.find(r=>r.kind==='current_bonus'),play=f.rules.find(r=>r.kind==='how_to_play');const members=f.memberVariantIds.map(id=>snapshot.champions.find(c=>c.id===id)).filter(Boolean);return `<article class="faction-card"><header><div><p class="eyebrow">Current faction</p><h2>${esc(f.name)}</h2><span>${members.length} champion variant${members.length===1?'':'s'}</span></div></header><div class="faction-copy"><section><h3>Current Bonus</h3><p>${esc(bonus?.text||'Current bonus unavailable.')}</p></section>${play?`<section><h3>How It Plays</h3><p>${esc(play.text)}</p></section>`:''}</div><section class="faction-members"><h3>Champions</h3><div class="member-row">${members.map(c=>`<a href="champions.html?champion=${encodeURIComponent(c.id)}">${portrait(c,'small')}<span><strong>${esc(c.name)}</strong><small>${esc(c.factions.join(' · '))}</small></span></a>`).join('')}</div></section></article>`}).join('')}</div>
-    ${currentFactionNotes()}`;
+  const current=snapshot.factions.filter(f=>f.rules.some(r=>r.kind==='current_bonus')||f.memberVariantIds.length);
+  const championsById=new Map(snapshot.champions.map(c=>[c.id,c]));
+  return `${titleBlock('Battle bonuses','Factions','See each faction bonus, how it plays, and which champions can use it.')}
+    <div class="faction-grid">${current.map(f=>{
+      const bonus=f.rules.find(r=>r.kind==='current_bonus'),play=f.rules.find(r=>r.kind==='how_to_play');
+      const members=f.memberVariantIds.map(id=>championsById.get(id)).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
+      return `<article class="faction-card" id="${slug(f.name)}"><header><div><p class="eyebrow">Faction</p><h2>${esc(f.name)}</h2></div><span class="faction-count">${members.length} champion${members.length===1?'':'s'}</span></header>
+        <div class="faction-bonus"><span>Team bonus</span><strong>${esc(bonus?.text||'Bonus details not available')}</strong></div>
+        ${play&& !/not yet available/i.test(play.text)?`<p class="faction-play"><strong>How it plays</strong>${esc(play.text)}</p>`:''}
+        <section class="faction-members"><h3>Champions</h3>${members.length?`<div class="member-row">${members.map(c=>`<a href="champions.html?champion=${encodeURIComponent(c.id)}">${portrait(c,'small')}<span><strong>${esc(c.name)}</strong><small>${esc(c.gemColor||'Affinity not listed')}${c.factions.length>1?` · Also ${esc(c.factions.filter(name=>name!==f.name).join(' & '))}`:''}</small></span></a>`).join('')}</div>`:'<p>No champion variants are listed for this faction yet.</p>'}</section></article>`;
+    }).join('')}</div>${currentFactionNotes()}`;
 }
 function currentFactionNotes() { const rules=snapshot.announcements.filter(update=>update.status==='live').flatMap(update=>update.rules).filter(rule=>rule.category==='factions'||rule.category==='faction_bonuses'); return rules.length?`<section class="announced-section"><div class="section-title"><h2>Current faction system</h2><span>Live rules</span></div><div class="current-rule-list">${rules.map(rule=>`<p>${esc(rule.text)}</p>`).join('')}</div></section>`:''; }
 
@@ -241,10 +248,10 @@ function partialRecommendationMarkup(result) {
   const curated=result.curatedRecommendation;
   const members=curated.members.map(member=>{
     const champion=member.variantId?snapshot.champions.find(row=>row.id===member.variantId):null;
-    return `<article class="recommendation-member ${champion?'':'unresolved-member'}"><header>${champion?portrait(champion,'card'):'<span class="portrait portrait-card portrait-unresolved" aria-hidden="true">◇</span>'}<div><span>Position ${member.position}</span><h3>${esc(champion?.name||member.displayName)}</h3><p>${champion?esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · ')):'Exact variant being verified'}</p></div>${member.isLeader?badge('Leader','gold'):''}</header></article>`;
+    return `<article class="recommendation-member ${champion?'':'unresolved-member'}"><header>${champion?portrait(champion,'card'):'<span class="portrait portrait-card portrait-unresolved" aria-hidden="true"></span>'}<div><span>Position ${member.position}</span><h3>${esc(champion?.name||member.displayName)}</h3><p>${champion?esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · ')):'Variant not yet confirmed'}</p></div>${member.isLeader?badge('Leader','gold'):''}</header></article>`;
   }).join('');
   const unresolved=curated.members.filter(member=>member.identityStatus==='unresolved').map(member=>`${member.displayName} (position ${member.position})`);
-  return `<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Exact substitutes for this lineup are not yet established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup transcribed by the player. The original recommendation image is not attached to this record.</p><p>${esc(curated.notes)}</p><p>Exact variants being verified: ${esc(unresolved.join(', '))}.</p></details>`;
+  return `<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Lineup-specific substitutes are not established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup supplied by the player. The original recommendation image is not connected to this record.</p><p>${esc(curated.notes)}</p>${unresolved.length?`<p>Unconfirmed positions: ${esc(unresolved.join(', '))}.</p>`:''}</details>`;
 }
 
 function mountRecommendations() {
@@ -259,12 +266,12 @@ function mountRecommendations() {
       conversationContext=answer.context;
       let intro=`${answer.options.length} team option${answer.options.length===1?'':'s'} for this battle.`;
       if(answer.result.recommendationSource==='curated')intro='The official in-game team appears first. Other approaches follow where supported.';
-      if(answer.result.status==='partial_curated')intro='Here is the official in-game team. Some exact variants are still being verified.';
+      if(answer.result.status==='partial_curated')intro='Here is the official in-game team.';
       if(answer.request.intent==='substitution')intro='I rebuilt the team without that exact variant.';
       if(answer.request.intent==='alternate')intro=`Another approach: ${esc(answer.result.strategyLabel||'Team option')}.`;
       if(answer.request.intent==='leader')intro=`Use ${esc(answer.result.leader?.champion.name||answer.result.curatedRecommendation?.members.find(member=>member.isLeader)?.displayName||'the Leader shown below')}.`;
       if(answer.request.intent==='how_to')intro=`${esc(answer.result.approach||answer.result.target.approach)} ${esc(answer.result.timing||answer.result.target.timing)}`;
-      if(answer.request.intent==='explanation'&&answer.focus.subjectVariantId){const member=answer.result.team.find(row=>row.champion.id===answer.focus.subjectVariantId);intro=member?.reasons.length?member.reasons.map(row=>esc(row.text)).join(' '):`${esc(member?.champion.name||'That champion')} is part of the source-backed lineup, but no separate verified mechanic explanation is available.`;}
+      if(answer.request.intent==='explanation'&&answer.focus.subjectVariantId){const member=answer.result.team.find(row=>row.champion.id===answer.focus.subjectVariantId);intro=member?.reasons.length?member.reasons.map(row=>esc(row.text)).join(' '):`${esc(member?.champion.name||'That champion')} is part of the lineup, but a separate battle role is not documented.`;}
       if(answer.request.intent==='explanation'&&answer.focus.rules.length)intro=answer.focus.rules.map(row=>esc(row.rationale)).join(' ');
       if(answer.result.status==='partial_curated'&&answer.request.intent==='explanation')intro='The encounter guidance is verified, but the lineup-specific reason for this champion is not established by the available evidence.';
       const showTeam=answer.result.status==='partial_curated'||['recommendation','substitution','alternate'].includes(answer.request.intent);

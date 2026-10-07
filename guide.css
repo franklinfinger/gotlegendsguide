@@ -41,5 +41,28 @@
 @media(max-width:1000px){.battle-home-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.faction-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.battle-home .page-heading h1{font-size:37px}.battle-home-grid .action-tile{min-height:170px}.battle-home-grid h2{font-size:22px}.home-question{grid-template-columns:1fr;gap:15px;margin-top:30px;padding:16px}.strategy-battle-grid{grid-template-columns:1fr}.strategy-targets{grid-template-columns:repeat(2,minmax(0,1fr))}.recommendation-team,.strategy-answer .recommendation-team,.encounter-strategy .recommendation-team,.battle-advisor .recommendation-team{grid-template-columns:repeat(2,minmax(0,1fr))}.recommendation-member>header,.strategy-answer .recommendation-member>header,.encounter-strategy .recommendation-member>header{grid-template-columns:42px minmax(0,1fr)}.recommendation-member .portrait-card,.strategy-answer .recommendation-member .portrait-card,.encounter-strategy .portrait-card{width:42px;height:42px}.team-plan{grid-template-columns:1fr}.team-option>summary small{width:auto;margin-left:0}.faction-copy{grid-template-columns:1fr;gap:0}.faction-card .member-row{grid-template-columns:1fr}.encounter-key{font-size:13px}}
 @media(max-width:390px){.battle-home-grid .action-tile{padding:14px}.battle-home-grid h2{font-size:19px}.recommendation-member{padding:6px}.recommendation-member h3{font-size:11px}.strategy-targets{grid-template-columns:1fr}}
+
+/* Current factions: bonus first, then play style and the exact member variants. */
+.faction-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+.faction-card{min-width:0;padding:20px;border:1px solid var(--line);border-top:3px solid #a98b48;background:linear-gradient(155deg,#24241d,#171b19 42%)}
+.faction-card>header{display:flex;align-items:start;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.faction-card h2{margin:2px 0 0;font-family:Georgia,serif;font-size:clamp(22px,2.4vw,29px);line-height:1.1}
+.faction-count{white-space:nowrap;color:var(--dim);font-size:11px}
+.faction-bonus{display:grid;gap:5px;margin:14px 0;padding:15px;border-left:3px solid var(--gold);background:#282619}
+.faction-bonus span,.faction-play strong{display:block;color:var(--gold-bright);font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.faction-bonus strong{font-size:15px;line-height:1.4}
+.faction-play{display:grid;gap:5px;margin:0 0 16px;color:var(--muted);font-size:13px;line-height:1.5}
+.faction-members{padding-top:12px;border-top:1px solid var(--line)}
+.faction-members h3{margin:0 0 9px;color:var(--paper);font-size:12px;letter-spacing:.04em;text-transform:none}
+.faction-card .member-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:0}
+.faction-card .member-row a{display:flex;align-items:center;gap:9px;min-width:0;min-height:57px;padding:5px;border:1px solid var(--line);background:#181c19;color:var(--paper);text-decoration:none}
+.faction-card .member-row a:hover,.faction-card .member-row a:focus-visible{border-color:var(--gold)}
+.faction-card .member-row a>span:last-child{display:grid;gap:2px;min-width:0}
+.faction-card .member-row strong{font-size:11px;line-height:1.2;overflow-wrap:anywhere}
+.faction-card .member-row small{color:var(--dim);font-size:10px;line-height:1.25;overflow-wrap:anywhere}
+.faction-card .member-row .portrait-small{width:44px;height:44px}
+.portrait-unresolved{border-color:#635c4b;background:linear-gradient(145deg,#34332b,#242722)}
+@media(max-width:760px){.faction-grid{grid-template-columns:1fr}.faction-card{padding:16px}.faction-card .member-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.faction-card .member-row{grid-template-columns:1fr}.faction-count{font-size:10px}}
 .strategy-mode-group{min-width:0;padding:20px;border:1px solid var(--line);background:var(--surface)}.strategy-mode-group>summary{display:grid;gap:4px;min-height:55px;cursor:pointer;list-style:none}.strategy-mode-group>summary::-webkit-details-marker{display:none}.strategy-mode-group>summary:after{content:'＋';float:right;position:absolute;right:18px;top:18px;color:var(--gold)}.strategy-mode-group{position:relative}.strategy-mode-group[open]>summary:after{content:'−'}.strategy-mode-group>summary strong{font-family:Georgia,serif;font-size:25px}.strategy-mode-group>summary span{color:var(--muted);font-size:13px}.strategy-mode-group .strategy-targets{margin-top:14px}
 @media(max-width:760px){.battle-home-grid .action-tile{min-height:194px}.battle-home-grid .action-tile p{padding-bottom:22px}.battle-home-grid .action-arrow{right:12px;bottom:10px}}

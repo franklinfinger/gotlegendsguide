@@ -1,0 +1,1023 @@
+{
+  "method": "Individual champion profile faction banners reconciled against legacy-factions.html; new current factions from source 620 retained",
+  "historical_exclusions": [
+    "Martell",
+    "Tyrell",
+    "Wildling"
+  ],
+  "not_imported": [
+    "Grey Wind: no verified champion variant ID in current read model"
+  ],
+  "relationships": [
+    {
+      "variant_id": "audit-variant-stannis-one-true-king",
+      "variant_name": "Stannis Baratheon \u2014 The One True King",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102272,
+      "source_image": "IMG_2272.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-10",
+      "variant_name": "Sandor Clegane",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 101936,
+      "source_image": "IMG_1936.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-16",
+      "variant_name": "Stannis Baratheon \u2014 Lord of Storm's End",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 101972,
+      "source_image": "IMG_1972.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-22",
+      "variant_name": "Joffrey Baratheon",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102009,
+      "source_image": "IMG_2009.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-42",
+      "variant_name": "Melisandre",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102217,
+      "source_image": "IMG_2217.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-50",
+      "variant_name": "Lord Varys",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102189,
+      "source_image": "IMG_2189.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-51",
+      "variant_name": "Brienne of Tarth - True Knight",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102435,
+      "source_image": "IMG_2435.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-57",
+      "variant_name": "Gendry",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102230,
+      "source_image": "IMG_2230.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-7",
+      "variant_name": "Davos Seaworth",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 101911,
+      "source_image": "IMG_1911.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-77",
+      "variant_name": "Barristan Selmy",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102383,
+      "source_image": "IMG_2383.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-81",
+      "variant_name": "Robert Baratheon",
+      "faction": "Baratheon",
+      "faction_id": "sqlite-faction-426172617468656f6e",
+      "source_id": 102397,
+      "source_image": "IMG_2397.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-caraxes",
+      "variant_name": "Caraxes",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 102296,
+      "source_image": "IMG_2296.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-1",
+      "variant_name": "Daemon Targaryen",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 102054,
+      "source_image": "IMG_2054.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-25",
+      "variant_name": "Meleys",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 102024,
+      "source_image": "IMG_2024.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-30",
+      "variant_name": "Laenor Velaryon",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 102037,
+      "source_image": "IMG_2037.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-32",
+      "variant_name": "Jacaerys Velaryon",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 102067,
+      "source_image": "IMG_2067.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-37",
+      "variant_name": "Corlys Velaryon",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 102076,
+      "source_image": "IMG_2076.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-8",
+      "variant_name": "Rhaenys Targaryen",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 101922,
+      "source_image": "IMG_1922.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-9",
+      "variant_name": "Rhaenyra Targaryen",
+      "faction": "Blacks",
+      "faction_id": "audit-faction-blacks",
+      "source_id": 101928,
+      "source_image": "IMG_1928.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-38",
+      "variant_name": "Rickard Karstark",
+      "faction": "Bolton",
+      "faction_id": "audit-faction-bolton",
+      "source_id": 102444,
+      "source_image": "IMG_2444.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-64",
+      "variant_name": "Roose Bolton",
+      "faction": "Bolton",
+      "faction_id": "audit-faction-bolton",
+      "source_id": 102281,
+      "source_image": "IMG_2281.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-69",
+      "variant_name": "Ramsay Bolton",
+      "faction": "Bolton",
+      "faction_id": "audit-faction-bolton",
+      "source_id": 102332,
+      "source_image": "IMG_2332.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-85",
+      "variant_name": "Walder Frey",
+      "faction": "Bolton",
+      "faction_id": "audit-faction-bolton",
+      "source_id": 102415,
+      "source_image": "IMG_2415.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-thoros",
+      "variant_name": "Thoros of Myr",
+      "faction": "Brotherhood",
+      "faction_id": "audit-faction-brotherhood",
+      "source_id": 102310,
+      "source_image": "IMG_2310.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-24",
+      "variant_name": "Arya Stark - Winterfell Returned",
+      "faction": "Brotherhood",
+      "faction_id": "audit-faction-brotherhood",
+      "source_id": 102041,
+      "source_image": "IMG_2041.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-57",
+      "variant_name": "Gendry",
+      "faction": "Brotherhood",
+      "faction_id": "audit-faction-brotherhood",
+      "source_id": 102230,
+      "source_image": "IMG_2230.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-59",
+      "variant_name": "Beric Dondarrion",
+      "faction": "Brotherhood",
+      "faction_id": "audit-faction-brotherhood",
+      "source_id": 102251,
+      "source_image": "IMG_2251.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-thoros",
+      "variant_name": "Thoros of Myr",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102310,
+      "source_image": "IMG_2310.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-13",
+      "variant_name": "Daario Naharis",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 101956,
+      "source_image": "IMG_1956.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-19",
+      "variant_name": "Daenerys Targaryen - Khaleesi of the Great Grass Sea",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 101992,
+      "source_image": "IMG_1992.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-26",
+      "variant_name": "Adolescent Viserion",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102028,
+      "source_image": "IMG_2028.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-31",
+      "variant_name": "Adolescent Drogon",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102064,
+      "source_image": "IMG_2064.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-33",
+      "variant_name": "Adolescent Rhaegal",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102046,
+      "source_image": "IMG_2046.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-41",
+      "variant_name": "Viserys Targaryen III",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102160,
+      "source_image": "IMG_2160.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-46",
+      "variant_name": "Jorah Mormont",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102151,
+      "source_image": "IMG_2151.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-5",
+      "variant_name": "Khal Drogo",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 101900,
+      "source_image": "IMG_1900.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-50",
+      "variant_name": "Lord Varys",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 102189,
+      "source_image": "IMG_2189.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-6",
+      "variant_name": "Daenerys Targaryen - Conqueror Of Qarth",
+      "faction": "Free Cities",
+      "faction_id": "sqlite-faction-4672656520436974696573",
+      "source_id": 101906,
+      "source_image": "IMG_1906.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "legacy-champion-wunwun",
+      "variant_name": "Wun Wun",
+      "faction": "Free Folk",
+      "faction_id": "sqlite-faction-4672656520466f6c6b",
+      "source_id": 102306,
+      "source_image": "IMG_2306.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-27",
+      "variant_name": "Mance Rayder",
+      "faction": "Free Folk",
+      "faction_id": "sqlite-faction-4672656520466f6c6b",
+      "source_id": 102003,
+      "source_image": "IMG_2003.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-40",
+      "variant_name": "Ygritte",
+      "faction": "Free Folk",
+      "faction_id": "sqlite-faction-4672656520466f6c6b",
+      "source_id": 102146,
+      "source_image": "IMG_2146.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-61",
+      "variant_name": "Tormund Giantsbane",
+      "faction": "Free Folk",
+      "faction_id": "sqlite-faction-4672656520466f6c6b",
+      "source_id": 102225,
+      "source_image": "IMG_2225.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-62",
+      "variant_name": "Craster",
+      "faction": "Free Folk",
+      "faction_id": "sqlite-faction-4672656520466f6c6b",
+      "source_id": 102247,
+      "source_image": "IMG_2247.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-63",
+      "variant_name": "Osha",
+      "faction": "Free Folk",
+      "faction_id": "sqlite-faction-4672656520466f6c6b",
+      "source_id": 102267,
+      "source_image": "IMG_2267.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "audit-variant-criston-kingmaker",
+      "variant_name": "Criston Cole \u2014 Kingmaker",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102318,
+      "source_image": "IMG_2318.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-aegonii",
+      "variant_name": "Aegon II Targaryen",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102302,
+      "source_image": "IMG_2302.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-aemond",
+      "variant_name": "Aemond Targaryen",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102292,
+      "source_image": "IMG_2292.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-tyland",
+      "variant_name": "Tyland Lannister",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102236,
+      "source_image": "IMG_2236.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-43",
+      "variant_name": "Gwayne Hightower",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102193,
+      "source_image": "IMG_2193.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-56",
+      "variant_name": "Sunfyre",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102213,
+      "source_image": "IMG_2213.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-58",
+      "variant_name": "Alicent Hightower",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102260,
+      "source_image": "IMG_2260.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-76",
+      "variant_name": "Otto Hightower",
+      "faction": "Greens",
+      "faction_id": "sqlite-faction-477265656e73",
+      "source_id": 102377,
+      "source_image": "IMG_2377.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-theon",
+      "variant_name": "Theon Greyjoy",
+      "faction": "Greyjoy",
+      "faction_id": "audit-faction-greyjoy",
+      "source_id": 102182,
+      "source_image": "IMG_2182.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-yara",
+      "variant_name": "Yara Greyjoy",
+      "faction": "Greyjoy",
+      "faction_id": "audit-faction-greyjoy",
+      "source_id": 102276,
+      "source_image": "IMG_2276.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-36",
+      "variant_name": "Euron Greyjoy",
+      "faction": "Greyjoy",
+      "faction_id": "audit-faction-greyjoy",
+      "source_id": 102059,
+      "source_image": "IMG_2059.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-tyland",
+      "variant_name": "Tyland Lannister",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102236,
+      "source_image": "IMG_2236.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-10",
+      "variant_name": "Sandor Clegane",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 101936,
+      "source_image": "IMG_1936.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-12",
+      "variant_name": "Tyrion Lannister",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 101950,
+      "source_image": "IMG_1950.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-15",
+      "variant_name": "Tywin Lannister",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 101965,
+      "source_image": "IMG_1965.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-21",
+      "variant_name": "Jaqen H'ghar",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 101987,
+      "source_image": "IMG_1987.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-22",
+      "variant_name": "Joffrey Baratheon",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102009,
+      "source_image": "IMG_2009.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-36",
+      "variant_name": "Euron Greyjoy",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102059,
+      "source_image": "IMG_2059.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-4",
+      "variant_name": "Gregor Clegane",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 101896,
+      "source_image": "IMG_1896.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-45",
+      "variant_name": "Jaime Lannister",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102170,
+      "source_image": "IMG_2170.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-49",
+      "variant_name": "Meryn Trant",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102242,
+      "source_image": "IMG_2242.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-66",
+      "variant_name": "Joffrey Baratheon - Protector of the Realm",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102322,
+      "source_image": "IMG_2322.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-70",
+      "variant_name": "Cersei Lannister",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102343,
+      "source_image": "IMG_2343.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-73",
+      "variant_name": "Bronn",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102354,
+      "source_image": "IMG_2354.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-74",
+      "variant_name": "Tyrion Lannister - The Half Man",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102360,
+      "source_image": "IMG_2360.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-75",
+      "variant_name": "Cersei Lannister - Queen of the Seven Kingdoms",
+      "faction": "Lannister",
+      "faction_id": "sqlite-faction-4c616e6e6973746572",
+      "source_id": 102367,
+      "source_image": "IMG_2367.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-39",
+      "variant_name": "Samwell Tarly",
+      "faction": "Night's Watch",
+      "faction_id": "sqlite-faction-4e696768742773205761746368",
+      "source_id": 102155,
+      "source_image": "IMG_2155.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-48",
+      "variant_name": "Benjen Stark",
+      "faction": "Night's Watch",
+      "faction_id": "sqlite-faction-4e696768742773205761746368",
+      "source_id": 102221,
+      "source_image": "IMG_2221.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-54",
+      "variant_name": "Alliser Thorne",
+      "faction": "Night's Watch",
+      "faction_id": "sqlite-faction-4e696768742773205761746368",
+      "source_id": 102257,
+      "source_image": "IMG_2257.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-62",
+      "variant_name": "Craster",
+      "faction": "Night's Watch",
+      "faction_id": "sqlite-faction-4e696768742773205761746368",
+      "source_id": 102247,
+      "source_image": "IMG_2247.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-67",
+      "variant_name": "Yoren",
+      "faction": "Night's Watch",
+      "faction_id": "sqlite-faction-4e696768742773205761746368",
+      "source_id": 102327,
+      "source_image": "IMG_2327.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "audit-variant-jon-battle-of-the-bastards",
+      "variant_name": "Jon Snow \u2014 Battle of the Bastards",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102411,
+      "source_image": "IMG_2411.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "legacy-champion-theon",
+      "variant_name": "Theon Greyjoy",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102182,
+      "source_image": "IMG_2182.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-2",
+      "variant_name": "Ned Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102085,
+      "source_image": "IMG_2085.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-24",
+      "variant_name": "Arya Stark - Winterfell Returned",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102041,
+      "source_image": "IMG_2041.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-3",
+      "variant_name": "Jon Snow \u2014 King in the North",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102080,
+      "source_image": "IMG_2080.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-38",
+      "variant_name": "Rickard Karstark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102444,
+      "source_image": "IMG_2444.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-48",
+      "variant_name": "Benjen Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102221,
+      "source_image": "IMG_2221.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-51",
+      "variant_name": "Brienne of Tarth - True Knight",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102435,
+      "source_image": "IMG_2435.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-52",
+      "variant_name": "Ghost",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102198,
+      "source_image": "IMG_2198.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-53",
+      "variant_name": "Bran Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102203,
+      "source_image": "IMG_2203.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-60",
+      "variant_name": "Sansa Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102287,
+      "source_image": "IMG_2287.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-71",
+      "variant_name": "Catelyn Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102350,
+      "source_image": "IMG_2350.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-83",
+      "variant_name": "Robb Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102407,
+      "source_image": "IMG_2407.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-84",
+      "variant_name": "Talisa Stark",
+      "faction": "Stark",
+      "faction_id": "sqlite-faction-537461726b",
+      "source_id": 102420,
+      "source_image": "IMG_2420.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "legacy-champion-aegonii",
+      "variant_name": "Aegon II Targaryen",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102302,
+      "source_image": "IMG_2302.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-11",
+      "variant_name": "Daenerys Targaryen - Mother Of Dragons",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 101944,
+      "source_image": "IMG_1944.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-18",
+      "variant_name": "Rhaenyra Targaryen - The King's Chosen Heir",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 101982,
+      "source_image": "IMG_1982.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-31",
+      "variant_name": "Adolescent Drogon",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102064,
+      "source_image": "IMG_2064.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-41",
+      "variant_name": "Viserys Targaryen III",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102160,
+      "source_image": "IMG_2160.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-44",
+      "variant_name": "Grey Worm",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102166,
+      "source_image": "IMG_2166.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-47",
+      "variant_name": "Egg",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102177,
+      "source_image": "IMG_2177.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-58",
+      "variant_name": "Alicent Hightower",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102260,
+      "source_image": "IMG_2260.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-65",
+      "variant_name": "Criston Cole \u2014 Personal Escort",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102372,
+      "source_image": "IMG_2372.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-68",
+      "variant_name": "Viserys Targaryen I",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 102336,
+      "source_image": "IMG_2336.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": false
+    },
+    {
+      "variant_id": "sqlite-champion-8",
+      "variant_name": "Rhaenys Targaryen",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 101922,
+      "source_image": "IMG_1922.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    },
+    {
+      "variant_id": "sqlite-champion-9",
+      "variant_name": "Rhaenyra Targaryen",
+      "faction": "Targaryen",
+      "faction_id": "sqlite-faction-54617267617279656e",
+      "source_id": 101928,
+      "source_image": "IMG_1928.PNG",
+      "basis": "individual champion profile faction banner, cross-checked with archived faction roster",
+      "already_live": true
+    }
+  ]
+}

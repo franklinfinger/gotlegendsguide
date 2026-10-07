@@ -35,13 +35,35 @@ const checks = {
   strategyTeams: data.strategyTeams?.length,
   raidAttackExamples: data.strategyTeams?.filter(row=>/attack/i.test(row.role||'')).length,
   raidDefenseExamples: data.strategyTeams?.filter(row=>/defen/i.test(row.role||'')).length,
+  currentFactions: data.factions?.filter(row=>row.rules.some(rule=>rule.kind==='current_bonus')||row.memberVariantIds.length).length,
+  currentMemberships: data.factions?.reduce((sum,row)=>sum+row.memberVariantIds.length,0),
+  dualFactionVariants: data.champions?.filter(row=>row.factions.length===2).length,
+  upgradedPortraits: data.champions?.filter(row=>row.portrait?.startsWith('assets/champion-portraits/upgraded-')).length,
 };
-const expected = {championVariants:108,portraits:96,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:9,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15};
+const expected = {championVariants:108,portraits:96,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:9,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15,currentFactions:17,currentMemberships:129,dualFactionVariants:35,upgradedPortraits:70};
 for (const [name,value] of Object.entries(expected)) if (checks[name] !== value) throw new Error(`${name}: expected ${value}, received ${checks[name]}`);
 if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('Raid attack and defense examples must remain separately available.');
 if (data.announcements.find(row=>row.id===1)?.status!=='live') throw new Error('The current faction update is still labeled as future.');
-if (data.champions.filter(row=>row.factions.length===2).length < 13) throw new Error('Current dual-faction memberships are incomplete.');
+if (data.champions.filter(row=>row.factions.length===2).length < 35) throw new Error('Current dual-faction memberships are incomplete.');
 const byId=new Map(data.champions.map(row=>[row.id,row]));
+const requiredMemberships = new Map([
+  ['audit-faction-bolton',['sqlite-champion-38','sqlite-champion-64','sqlite-champion-69','sqlite-champion-85']],
+  ['audit-faction-greyjoy',['sqlite-champion-36','legacy-champion-theon','legacy-champion-yara']],
+  ['sqlite-faction-4672656520466f6c6b',['sqlite-champion-63']],
+]);
+for (const [factionId,members] of requiredMemberships) {
+  const faction=data.factions.find(row=>row.id===factionId);
+  if (!faction || members.some(id=>!faction.memberVariantIds.includes(id))) throw new Error(`Profile-backed faction members missing: ${factionId}`);
+}
+if (data.factions.some(row=>['Martell','Tyrell','Wildling'].includes(row.name))) throw new Error('Superseded icon-description factions remain live.');
+for (const faction of data.factions) for (const id of faction.memberVariantIds) {
+  const champion=byId.get(id);
+  if (!champion || !champion.factions.includes(faction.name)) throw new Error(`Faction read model mismatch: ${faction.name} / ${id}`);
+}
+for (const champion of data.champions) {
+  if (champion.factions.length>2) throw new Error(`Champion exceeds the two-faction limit: ${champion.id}`);
+  for (const name of champion.factions) if (!data.factions.some(faction=>faction.name===name && faction.memberVariantIds.includes(champion.id))) throw new Error(`Reverse faction read model mismatch: ${champion.id} / ${name}`);
+}
 for (const champion of data.champions) {
   if (!champion.portrait) continue;
   if (!/^assets\/champion-portraits\/[a-z0-9-]+\.(png|jpg)$/.test(champion.portrait) || !fs.existsSync(path.join(root,champion.portrait))) {
@@ -49,6 +71,7 @@ for (const champion of data.champions) {
   }
 }
 if (byId.get('sqlite-champion-49')?.portrait !== 'assets/champion-portraits/derived-sqlite-champion-49.png') throw new Error('Meryn Trant is not using the repaired, source-backed portrait.');
+if (byId.get('sqlite-champion-84')?.portrait !== 'assets/champion-portraits/upgraded-sqlite-champion-84.png') throw new Error('Talisa Stark is not using her source-backed portrait.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
 if (!icy || icy.abilities.length !== 0 || icy.tips.length !== 3) throw new Error('Icy Viserion must have three verified tips and no invented ability cards.');
 if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
