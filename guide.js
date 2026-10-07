@@ -1,12 +1,14 @@
-import { getGuideData } from './supabase-client.js';
+import { getGuideData, getStrategyData } from './supabase-client.js';
+import { parseStrategyQuestion, recommendTeam } from './strategy-engine.js';
 
 const root = document.querySelector('#guide-content');
 const state = document.querySelector('#guide-state');
 const view = document.body.dataset.view || 'home';
 let snapshot;
+let strategySnapshot;
 
 const pages = [
-  ['home','Home','index.html'], ['champions','Champions','champions.html'],
+  ['home','Home','index.html'], ['recommendations','Strategy','recommendations.html'], ['champions','Champions','champions.html'],
   ['items','Items','items.html'], ['teams','Teams','builder.html'],
   ['raid','Raid','raids.html'], ['war','War','war.html'],
   ['legendary-assault','Legendary Assault','dragons.html'],
@@ -24,8 +26,8 @@ function renderShell() {
     <a class="wordmark" href="index.html" aria-label="GOT Legends Guide home"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GOT LEGENDS GUIDE</strong><small>Old Peeps on Porches</small></span></a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span><span class="sr-only">Open guide menu</span></button>
     <nav id="site-menu" class="site-menu" aria-label="Guide sections">${desktop}</nav></div>`;
-  const mobile = [pages[0],pages[1],pages[3],['battle','Battle','raids.html'],pages[8]];
-  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view || (id==='battle'&&['raid','war','legendary-assault'].includes(view))?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',champions:'♙',teams:'◇',battle:'⚔',glossary:'≡'}[id]}</span><span>${esc(label)}</span></a>`).join('');
+  const mobile = [pages[0],pages[2],pages[1],['battle','Battle','raids.html'],pages[9]];
+  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view || (id==='battle'&&['raid','war','legendary-assault'].includes(view))?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',recommendations:'◇',champions:'♙',battle:'⚔',glossary:'≡'}[id]}</span><span>${esc(label)}</span></a>`).join('');
   document.querySelector('#site-footer').innerHTML = `<div class="shell footer-inner"><div><strong>GOT Legends Guide</strong><span>Practical battle reference for Old Peeps on Porches.</span></div><div class="system-links"><a href="health.html">System status</a><a href="strategy.html">Data notes</a></div></div>`;
   const button = document.querySelector('.menu-button');
   const menu = document.querySelector('#site-menu');
@@ -192,18 +194,64 @@ function notesPage() {
     </div>`;
 }
 
+function recommendationsPage() {
+  const modes = [['legendary-assault','Legendary Assault'],['raid','Raid'],['war','War']];
+  const targets = strategySnapshot.targets.filter(target=>target.battleMode==='legendary-assault');
+  return `${titleBlock('Deterministic strategy engine','Strategy recommendations','Build a five-champion team from verified mechanics, explicit encounter rules, and reviewed battlefield effects.')}
+    <section class="strategy-workbench">
+      <form id="question-form" class="question-form"><label for="strategy-question">Ask a supported strategy question</label><div><input id="strategy-question" type="search" placeholder="What is the strongest team to fight Drogon?"><button type="submit">Use question</button></div><p id="question-feedback" class="form-feedback" role="status">Questions are parsed locally. Unsupported wording will return you to the selectors.</p></form>
+      <div class="strategy-controls"><label>Battle mode<select id="strategy-mode">${modes.map(([id,label])=>`<option value="${id}">${label}</option>`).join('')}</select></label><label>Target or rule<select id="strategy-target">${targets.map(target=>`<option value="${esc(target.id)}">${esc(target.name)}</option>`).join('')}</select></label></div>
+      <div class="exclusion-control"><label for="strategy-exclude">Exclude an exact champion variant <span>optional</span></label><div><input id="strategy-exclude" list="champion-options" placeholder="Search an exact variant…"><button id="add-exclusion" type="button">Exclude</button></div><datalist id="champion-options">${snapshot.champions.map(champion=>`<option value="${esc(champion.name)}"></option>`).join('')}</datalist><div id="exclusion-list" class="exclusion-list"></div><p id="exclusion-feedback" class="form-feedback" role="status"></p></div>
+      <button id="recommend-team" class="recommend-button" type="button">Recommend Team</button>
+      <p class="scope-note">“Strongest” means strongest verified strategic fit. Your owned champions, power, stars, levels, and gear are not included.</p>
+    </section>
+    <div id="recommendation-result" class="recommendation-result" aria-live="polite"></div>`;
+}
+
+function evidenceLabel(category) {
+  return category==='community_observed'?'Observed example':category==='verified_fact'?'Verified fact':'Strategy inference';
+}
+
+function renderRecommendation(result) {
+  const resultRoot=document.querySelector('#recommendation-result');
+  if(result.status==='insufficient_evidence') {
+    resultRoot.innerHTML=`<section class="recommendation-empty"><p class="eyebrow">Insufficient evidence</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>No team was generated, because doing so would require inventing encounter mechanics.</p></section>`;
+    return;
+  }
+  const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>Selection ${index+1}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header><div class="selection-score">Strategic fit ${esc(member.score)}</div><ul>${member.reasons.map(reason=>`<li><span>${esc(reason.text)}</span><small>${evidenceLabel(reason.evidenceCategory)} · ${Math.round(reason.confidence*100)}% confidence</small></li>`).join('')}</ul>${member.item?`<a class="recommended-item" href="items.html#${esc(member.item.id)}">Iconic item: ${esc(member.item.name)}</a>`:''}${member.dangers.length?`<div class="member-warning">${member.dangers.map(row=>esc(row.text)).join(' ')}</div>`:''}</article>`).join('');
+  const leader=result.leader?`<div class="leader-callout"><span>${portrait(result.leader.champion,'small')}</span><div><strong>Recommended leader: ${esc(result.leader.champion.name)}</strong><p>${esc(result.leader.evidence?.factText||'A reviewed Leader effect supports this choice.')}</p></div></div>`:unavailable('No Leader effect has enough supporting evidence for this team.');
+  resultRoot.innerHTML=`<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended five</h2><p>${esc(result.approach)}</p></div><dl><div><dt>Team score</dt><dd>${esc(result.overallScore)}</dd></div><div><dt>Confidence</dt><dd>${esc(result.confidence)}</dd></div></dl></section>${leader}<div class="recommendation-team">${teamCards}</div>
+    <section class="strategy-explanation-grid"><article><h2>Why the team works</h2><ul>${result.teamSynergy.map(row=>`<li>${esc(row.text)} <small>${evidenceLabel(row.evidenceCategory)}</small></li>`).join('')||'<li>Selections are driven by their individual target fit.</li>'}</ul></article><article><h2>Battle approach and timing</h2><p>${esc(result.approach)}</p><p>${esc(result.timing)}</p></article><article><h2>Important dangers</h2><ul>${result.dangers.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></article><article><h2>Evidence used</h2><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} strategy inferences · ${result.evidenceSummary.communityObservations} observed composition links.</p><p>${result.candidateStats.considered} exact variants considered; ${result.candidateStats.eligible} eligible; ${result.candidateStats.pruned} scored in the final search pool.</p></article></section>
+    <section class="substitute-section"><h2>Substitutes</h2><div>${result.substitutes.map(row=>`<article>${portrait(row.champion,'small')}<span><strong>${esc(row.champion.name)}</strong><small>${esc(row.reason?.text||'Provides the next-highest verified strategic fit.')}</small></span></article>`).join('')}</div></section>
+    <section class="missing-data"><h2>Limits to keep in mind</h2><ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></section>`;
+}
+
+function mountRecommendations() {
+  const mode=document.querySelector('#strategy-mode'), target=document.querySelector('#strategy-target');
+  const exclusions=new Set();
+  const updateTargets=()=>{const rows=strategySnapshot.targets.filter(row=>row.battleMode===mode.value);target.innerHTML=rows.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}</option>`).join('');};
+  mode.addEventListener('change',updateTargets);
+  const renderExclusions=()=>{document.querySelector('#exclusion-list').innerHTML=[...exclusions].map(id=>{const champion=snapshot.champions.find(row=>row.id===id);return `<button type="button" data-remove="${esc(id)}">${esc(champion?.name||id)} ×</button>`}).join('');document.querySelectorAll('[data-remove]').forEach(button=>button.addEventListener('click',()=>{exclusions.delete(button.dataset.remove);renderExclusions();}));};
+  document.querySelector('#add-exclusion').addEventListener('click',()=>{const input=document.querySelector('#strategy-exclude');const matches=snapshot.champions.filter(champion=>champion.name.toLowerCase()===input.value.trim().toLowerCase());const feedback=document.querySelector('#exclusion-feedback');if(matches.length!==1){feedback.textContent='Choose one exact variant from the suggestions; no exclusion was added.';return;}exclusions.add(matches[0].id);input.value='';feedback.textContent=`Excluded ${matches[0].name}.`;renderExclusions();});
+  const recommend=()=>{const result=recommendTeam({guideData:snapshot,strategyData:strategySnapshot,targetId:target.value,excludeVariantIds:[...exclusions]});renderRecommendation(result);document.querySelector('#recommendation-result').scrollIntoView({behavior:'smooth',block:'start'});};
+  document.querySelector('#recommend-team').addEventListener('click',recommend);
+  document.querySelector('#question-form').addEventListener('submit',event=>{event.preventDefault();const parsed=parseStrategyQuestion(document.querySelector('#strategy-question').value,strategySnapshot.targets);const feedback=document.querySelector('#question-feedback');if(!parsed){feedback.textContent='That question is not specific enough for a safe match. Choose the battle mode and target below.';return;}mode.value=parsed.battleMode;updateTargets();target.value=parsed.id;feedback.textContent=`Matched ${parsed.name}.`;recommend();});
+}
+
 function render() {
-  const renderers={home:homePage,champions:championsPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
+  const renderers={home:homePage,recommendations:recommendationsPage,champions:championsPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
   root.innerHTML=(renderers[view]||homePage)();
   state.hidden=true;
   if(view==='champions') mountChampionFilters();
   if(view==='items') mountSimpleSearch('#item-search','.item-card','#item-count','item','#item-empty');
   if(view==='glossary') mountSimpleSearch('#glossary-search','.glossary-list article','#glossary-count','entry','#glossary-empty');
+  if(view==='recommendations') mountRecommendations();
 }
 
 renderShell();
 try {
-  snapshot=await getGuideData();
+  if(view==='recommendations') [snapshot,strategySnapshot]=await Promise.all([getGuideData(),getStrategyData()]);
+  else snapshot=await getGuideData();
   render();
 } catch(error) {
   state.hidden=true;

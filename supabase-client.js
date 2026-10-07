@@ -10,6 +10,10 @@
 /** @typedef {{id:string,mode:string,outcome:string,displayedPower:number|null,members:GuideTeamMember[]}} GuideObservedTeam */
 /** @typedef {{id:string,name:string,subtitle:string|null,reviewStatus:string,releaseState:string,abilities:Array<{id:string,name:string,scope:string|null,text:string,reviewStatus:string}>,tips:Array<{id:string,text:string,reviewStatus:string}>}} GuideEncounter */
 /** @typedef {{version:string,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],statuses:unknown[],mechanics:unknown[],companions:unknown[],legendaryAssault:GuideEncounter[],warRules:unknown[],raidRules:unknown[],raidTeams:unknown[],strategyTeams:unknown[],teams:GuideObservedTeam[],announcements:unknown[]}} GuideData */
+/** @typedef {{id:string,battleMode:'legendary-assault'|'raid'|'war',kind:string,name:string,evidenceState:'verified'|'insufficient',approach:string,timing:string,warning:string,provenanceRef:string,reviewStatus:string}} StrategyTarget */
+/** @typedef {{id:string,kind:'target_fit'|'team_synergy',battleMode:string,targetId:string|null,subjectVariantId:string|null,mechanicId:string,pairedMechanicId:string|null,score:number,rationale:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyRule */
+/** @typedef {{id:string,variantId:string,mechanicId:string,effectRole:string,context:string,factText:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyChampionFact */
+/** @typedef {{version:string,mechanics:Array<{id:string,name:string,category:string}>,targets:StrategyTarget[],rules:StrategyRule[],championFacts:StrategyChampionFact[]}} StrategyData */
 
 /** @type {SupabaseConfig | undefined} */
 const config = /** @type {typeof globalThis & {GOT_SUPABASE_CONFIG?: SupabaseConfig}} */ (globalThis).GOT_SUPABASE_CONFIG;
@@ -41,4 +45,15 @@ export async function getGuideData() {
   }
   if (typeof data.version !== 'string') throw new Error('The guide data has no verified version.');
   return /** @type {GuideData} */ (data);
+}
+
+/** @returns {Promise<StrategyData>} */
+export async function getStrategyData() {
+  const data = await rpc('got_strategy_data');
+  const collections = ['mechanics','targets','rules','championFacts'];
+  if (!data || typeof data !== 'object' || collections.some(key => !Array.isArray(data[key]))) {
+    throw new Error('The database returned an incomplete strategy result.');
+  }
+  if (typeof data.version !== 'string') throw new Error('The strategy data has no verified version.');
+  return /** @type {StrategyData} */ (data);
 }

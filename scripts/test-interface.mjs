@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const routes = ['index.html','champions.html','items.html','builder.html','raids.html','war.html','dragons.html','factions.html','status-effects.html'];
+const routes = ['index.html','recommendations.html','champions.html','items.html','builder.html','raids.html','war.html','dragons.html','factions.html','status-effects.html'];
 
 test('all restored product routes use the shared live guide shell', () => {
   for (const route of routes) {
@@ -20,4 +20,5 @@ test('player navigation uses Legendary Assault terminology', () => {
   assert.match(source, /Legendary Assault/);
   assert.doesNotMatch(source, /['"`]Bosses['"`]/);
   assert.match(source, /not claims of proven victories/);
+  assert.match(source, /Strategy recommendations/);
 });
