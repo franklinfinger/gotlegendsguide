@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the exact, reviewable list of source files that remain unresolved."""
+"""Build the post-review list of genuinely unresolved material evidence."""
 
 import csv
 import json
@@ -8,37 +8,36 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DRIVE = ROOT / "data/source-images/reconciliation.jsonl"
-HISTORICAL = ROOT / "data/source-images/historical-reference-reconciliation.jsonl"
-ARCHIVE = ROOT / "data/source-images/local-archive-reconciliation.jsonl"
+MATERIALITY = ROOT / "data/audit/historical-source-materiality.jsonl"
 OUTPUT = ROOT / "data/audit/remaining-unresolved-sources.tsv"
 
+ACCESSIBLE = {
+    "IMG_2183.PNG": "Theon's first trait title is above the visible crop; its effect wording is complete.",
+    "IMG_2184.PNG": "Theon's first trait title remains above the visible crop; continuation confirms only the effect wording.",
+    "IMG_2186.PNG": "Theon's first trait title remains outside the crop.",
+    "IMG_2311.PNG": "Thoros of Myr's first trait title is above the visible crop; its effect wording is complete across adjacent images.",
+    "IMG_2325.PNG": "Joffrey Protector's Treasury Generator wording ends below the visible crop.",
+    "IMG_2346.PNG": "Cersei Lannister's Treasury Generator wording ends below the visible crop.",
+}
 
-def load(path):
+
+def lines(path):
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
 def main():
-    rows = []
-    for row in load(DRIVE):
-        if row["contributes_new_information"] == "unresolved" or row["information_imported"] == "unresolved":
-            rows.append(("google_drive", row["source_id"], row["filename"], "unresolved_content", row["unresolved_text_or_identity"]))
-    for row in load(HISTORICAL):
-        if row["status"] == "unresolved":
-            rows.append(("historical_reference", row["source_id"], row["filename"], "original_bytes_unresolved", "Original file bytes were not recovered from authorized sources."))
-    for row in load(ARCHIVE):
-        if row["review_status"] == "archive_bytes_verified_content_unreviewed":
-            rows.append(("local_archive", row["source_id"], row["filename"], "content_unreviewed", row["unresolved_text_or_identity"]))
-
-    counts = {corpus: sum(row[0] == corpus for row in rows) for corpus in ("google_drive", "historical_reference", "local_archive")}
-    expected = {"google_drive": 250, "historical_reference": 612, "local_archive": 95}
-    if counts != expected:
-        raise SystemExit(f"Unresolved source counts changed: expected {expected}, found {counts}")
-
+    drive = {row["filename"]: row for row in lines(DRIVE)}
+    materiality = lines(MATERIALITY)
+    rows = [("google_drive", drive[name]["source_id"], name, "cropped_text", reason) for name, reason in ACCESSIBLE.items()]
+    rows.extend(("historical_reference", row["source_id"], row["filename"], "material_resupply_needed", row["reason"])
+                for row in materiality if row["disposition"] == "material_resupply_needed")
+    if len(rows) != 11:
+        raise SystemExit(f"Expected 6 accessible crop sources and 5 material historical sources, found {len(rows)}")
     with OUTPUT.open("w", newline="") as handle:
         writer = csv.writer(handle, delimiter="\t", lineterminator="\n")
         writer.writerow(("corpus", "source_id", "filename", "status", "reason"))
         writer.writerows(sorted(rows, key=lambda row: (row[0], str(row[2]))))
-    print(f"Wrote {len(rows)} unresolved source rows to {OUTPUT}")
+    print(f"Wrote {len(rows)} genuinely unresolved/material source rows to {OUTPUT}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,2089 @@
+{
+  "review_date": "2026-10-07",
+  "drive_images_reviewed": 250,
+  "archive_images_reviewed": 95,
+  "drive_resolution_counts": {
+    "cropped text": 3,
+    "duplicate": 20,
+    "irrelevant to the game database": 21,
+    "missing relationship or attribution": 4,
+    "visible information already represented": 135,
+    "visible new information requiring import": 67
+  },
+  "archive_resolution_counts": {
+    "duplicate": 72,
+    "irrelevant to the game database": 23
+  },
+  "records": [
+    {
+      "corpus": "google_drive",
+      "source_id": 101830,
+      "filename": "IMG_1830.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101831,
+      "filename": "IMG_1831.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101832,
+      "filename": "IMG_1832.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101833,
+      "filename": "IMG_1833.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101834,
+      "filename": "IMG_1834.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101835,
+      "filename": "IMG_1835.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101836,
+      "filename": "IMG_1836.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101838,
+      "filename": "IMG_1838.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101856,
+      "filename": "IMG_1856.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101858,
+      "filename": "IMG_1858.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101872,
+      "filename": "IMG_1872.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101882,
+      "filename": "IMG_1882.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101886,
+      "filename": "IMG_1886.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101887,
+      "filename": "IMG_1887.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101890,
+      "filename": "IMG_1890.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101891,
+      "filename": "IMG_1891.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101892,
+      "filename": "IMG_1892.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101893,
+      "filename": "IMG_1893.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101894,
+      "filename": "IMG_1894.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101895,
+      "filename": "IMG_1895.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101903,
+      "filename": "IMG_1903.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101904,
+      "filename": "IMG_1904.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101908,
+      "filename": "IMG_1908.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101909,
+      "filename": "IMG_1909.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101913,
+      "filename": "IMG_1913.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101939,
+      "filename": "IMG_1939.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101940,
+      "filename": "IMG_1940.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101954,
+      "filename": "IMG_1954.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101957,
+      "filename": "IMG_1957.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101958,
+      "filename": "IMG_1958.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101959,
+      "filename": "IMG_1959.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101968,
+      "filename": "IMG_1968.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101969,
+      "filename": "IMG_1969.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101970,
+      "filename": "IMG_1970.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101971,
+      "filename": "IMG_1971.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101981,
+      "filename": "IMG_1981.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101984,
+      "filename": "IMG_1984.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101989,
+      "filename": "IMG_1989.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 101990,
+      "filename": "IMG_1990.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102012,
+      "filename": "IMG_2012.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102013,
+      "filename": "IMG_2013.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102014,
+      "filename": "IMG_2014.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102017,
+      "filename": "IMG_2017.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102022,
+      "filename": "IMG_2022.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102023,
+      "filename": "IMG_2023.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102038,
+      "filename": "IMG_2038.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102039,
+      "filename": "IMG_2039.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102040,
+      "filename": "IMG_2040.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102060,
+      "filename": "IMG_2060.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102070,
+      "filename": "IMG_2070.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102088,
+      "filename": "IMG_2088.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102090,
+      "filename": "IMG_2090.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102091,
+      "filename": "IMG_2091.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102092,
+      "filename": "IMG_2092.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102093,
+      "filename": "IMG_2093.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102094,
+      "filename": "IMG_2094.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102095,
+      "filename": "IMG_2095.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102096,
+      "filename": "IMG_2096.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102097,
+      "filename": "IMG_2097.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102098,
+      "filename": "IMG_2098.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102099,
+      "filename": "IMG_2099.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102100,
+      "filename": "IMG_2100.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102101,
+      "filename": "IMG_2101.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102102,
+      "filename": "IMG_2102.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102103,
+      "filename": "IMG_2103.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102115,
+      "filename": "IMG_2115.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102116,
+      "filename": "IMG_2116.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102117,
+      "filename": "IMG_2117.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102118,
+      "filename": "IMG_2118.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102119,
+      "filename": "IMG_2119.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102120,
+      "filename": "IMG_2120.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102121,
+      "filename": "IMG_2121.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102122,
+      "filename": "IMG_2122.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102123,
+      "filename": "IMG_2123.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102124,
+      "filename": "IMG_2124.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102128,
+      "filename": "IMG_2128.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102129,
+      "filename": "IMG_2129.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102130,
+      "filename": "IMG_2130.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102131,
+      "filename": "IMG_2131.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102132,
+      "filename": "IMG_2132.PNG",
+      "resolution_category": "missing relationship or attribution"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102133,
+      "filename": "IMG_2133.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102134,
+      "filename": "IMG_2134.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102135,
+      "filename": "IMG_2135.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102136,
+      "filename": "IMG_2136.PNG",
+      "resolution_category": "missing relationship or attribution"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102137,
+      "filename": "IMG_2137.PNG",
+      "resolution_category": "missing relationship or attribution"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102138,
+      "filename": "IMG_2138.PNG",
+      "resolution_category": "missing relationship or attribution"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102139,
+      "filename": "IMG_2139.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102173,
+      "filename": "IMG_2173.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102174,
+      "filename": "IMG_2174.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102186,
+      "filename": "IMG_2186.PNG",
+      "resolution_category": "cropped text"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102208,
+      "filename": "IMG_2208.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102215,
+      "filename": "IMG_2215.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102245,
+      "filename": "IMG_2245.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102279,
+      "filename": "IMG_2279.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102309,
+      "filename": "IMG_2309.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102315,
+      "filename": "IMG_2315.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102316,
+      "filename": "IMG_2316.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102325,
+      "filename": "IMG_2325.PNG",
+      "resolution_category": "cropped text"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102328,
+      "filename": "IMG_2328.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102329,
+      "filename": "IMG_2329.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102330,
+      "filename": "IMG_2330.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102334,
+      "filename": "IMG_2334.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102340,
+      "filename": "IMG_2340.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102346,
+      "filename": "IMG_2346.PNG",
+      "resolution_category": "cropped text"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102357,
+      "filename": "IMG_2357.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102362,
+      "filename": "IMG_2362.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102363,
+      "filename": "IMG_2363.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102364,
+      "filename": "IMG_2364.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102381,
+      "filename": "IMG_2381.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102395,
+      "filename": "IMG_2395.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102396,
+      "filename": "IMG_2396.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102400,
+      "filename": "IMG_2400.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102405,
+      "filename": "IMG_2405.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102409,
+      "filename": "IMG_2409.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102422,
+      "filename": "IMG_2422.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102432,
+      "filename": "IMG_2432.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102438,
+      "filename": "IMG_2438.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102439,
+      "filename": "IMG_2439.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102442,
+      "filename": "IMG_2442.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102445,
+      "filename": "IMG_2445.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102447,
+      "filename": "IMG_2447.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102448,
+      "filename": "IMG_2448.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102449,
+      "filename": "IMG_2449.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102450,
+      "filename": "IMG_2450.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102453,
+      "filename": "IMG_2453.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102454,
+      "filename": "IMG_2454.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102455,
+      "filename": "IMG_2455.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102460,
+      "filename": "IMG_2460.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102471,
+      "filename": "IMG_2471.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102481,
+      "filename": "IMG_2481.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102483,
+      "filename": "IMG_2483.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102489,
+      "filename": "IMG_2489.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102491,
+      "filename": "IMG_2491.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102492,
+      "filename": "IMG_2492.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102493,
+      "filename": "IMG_2493.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102494,
+      "filename": "IMG_2494.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102498,
+      "filename": "IMG_2498.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102499,
+      "filename": "IMG_2499.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102505,
+      "filename": "IMG_2505.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102506,
+      "filename": "IMG_2506.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102516,
+      "filename": "IMG_2516.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102519,
+      "filename": "IMG_2519.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102526,
+      "filename": "IMG_2526.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102533,
+      "filename": "IMG_2533.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102534,
+      "filename": "IMG_2534.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102536,
+      "filename": "IMG_2536.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102557,
+      "filename": "IMG_2557.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102558,
+      "filename": "IMG_2558.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102559,
+      "filename": "IMG_2559.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102560,
+      "filename": "IMG_2560.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102561,
+      "filename": "IMG_2561.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102562,
+      "filename": "IMG_2562.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102563,
+      "filename": "IMG_2563.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102564,
+      "filename": "IMG_2564.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102565,
+      "filename": "IMG_2565.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102566,
+      "filename": "IMG_2566.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102567,
+      "filename": "IMG_2567.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102568,
+      "filename": "IMG_2568.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102569,
+      "filename": "IMG_2569.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102570,
+      "filename": "IMG_2570.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102571,
+      "filename": "IMG_2571.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102572,
+      "filename": "IMG_2572.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102573,
+      "filename": "IMG_2573.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102574,
+      "filename": "IMG_2574.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102575,
+      "filename": "IMG_2575.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102576,
+      "filename": "IMG_2576.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102577,
+      "filename": "IMG_2577.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102580,
+      "filename": "IMG_2580.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102584,
+      "filename": "IMG_2584.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102585,
+      "filename": "IMG_2585.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102586,
+      "filename": "IMG_2586.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102587,
+      "filename": "IMG_2587.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102588,
+      "filename": "IMG_2588.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102589,
+      "filename": "IMG_2589.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102590,
+      "filename": "IMG_2590.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102591,
+      "filename": "IMG_2591.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102592,
+      "filename": "IMG_2592.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102594,
+      "filename": "IMG_2594.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102641,
+      "filename": "IMG_2641.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102642,
+      "filename": "IMG_2642.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102643,
+      "filename": "IMG_2643.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102644,
+      "filename": "IMG_2644.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102645,
+      "filename": "IMG_2645.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102646,
+      "filename": "IMG_2646.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102651,
+      "filename": "IMG_2651.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102652,
+      "filename": "IMG_2652.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102653,
+      "filename": "IMG_2653.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102654,
+      "filename": "IMG_2654.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102655,
+      "filename": "IMG_2655.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102656,
+      "filename": "IMG_2656.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102669,
+      "filename": "IMG_2669.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102670,
+      "filename": "IMG_2670.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102671,
+      "filename": "IMG_2671.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102672,
+      "filename": "IMG_2672.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102673,
+      "filename": "IMG_2673.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102674,
+      "filename": "IMG_2674.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102682,
+      "filename": "IMG_2682.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102683,
+      "filename": "IMG_2683.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102684,
+      "filename": "IMG_2684.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102685,
+      "filename": "IMG_2685.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102686,
+      "filename": "IMG_2686.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102688,
+      "filename": "IMG_2688.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102689,
+      "filename": "IMG_2689.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102691,
+      "filename": "IMG_2691.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102694,
+      "filename": "IMG_2694.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102695,
+      "filename": "IMG_2695.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102696,
+      "filename": "IMG_2696.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102697,
+      "filename": "IMG_2697.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102698,
+      "filename": "IMG_2698.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102699,
+      "filename": "IMG_2699.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102700,
+      "filename": "IMG_2700.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102701,
+      "filename": "IMG_2701.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102702,
+      "filename": "IMG_2702.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102703,
+      "filename": "IMG_2703.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102704,
+      "filename": "IMG_2704.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102705,
+      "filename": "IMG_2705.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102706,
+      "filename": "IMG_2706.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102707,
+      "filename": "IMG_2707.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102708,
+      "filename": "IMG_2708.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102709,
+      "filename": "IMG_2709.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102710,
+      "filename": "IMG_2710.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102711,
+      "filename": "IMG_2711.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102718,
+      "filename": "IMG_2718.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102724,
+      "filename": "IMG_2724.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102736,
+      "filename": "IMG_2736.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102737,
+      "filename": "IMG_2737.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102738,
+      "filename": "IMG_2738.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102739,
+      "filename": "IMG_2739.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102740,
+      "filename": "IMG_2740.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102741,
+      "filename": "IMG_2741.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102742,
+      "filename": "IMG_2742.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102743,
+      "filename": "IMG_2743.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102744,
+      "filename": "IMG_2744.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102745,
+      "filename": "IMG_2745.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102746,
+      "filename": "IMG_2746.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102749,
+      "filename": "IMG_2749.PNG",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102750,
+      "filename": "IMG_2750.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102763,
+      "filename": "IMG_2763.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102764,
+      "filename": "IMG_2764.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102765,
+      "filename": "IMG_2765.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102770,
+      "filename": "IMG_2770.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102772,
+      "filename": "IMG_2772.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102773,
+      "filename": "IMG_2773.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102775,
+      "filename": "IMG_2775.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102776,
+      "filename": "IMG_2776.PNG",
+      "resolution_category": "visible new information requiring import"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102780,
+      "filename": "IMG_2780.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102781,
+      "filename": "IMG_2781.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102784,
+      "filename": "IMG_2784.PNG",
+      "resolution_category": "visible information already represented"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102791,
+      "filename": "IMG_2791.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "google_drive",
+      "source_id": 102792,
+      "filename": "IMG_2792.PNG",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 201611,
+      "filename": "IMG_1611.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 201858,
+      "filename": "IMG_1858.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202592,
+      "filename": "IMG_2592.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202593,
+      "filename": "IMG_2593.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202594,
+      "filename": "IMG_2594.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202597,
+      "filename": "IMG_2597.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202598,
+      "filename": "IMG_2598.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202599,
+      "filename": "IMG_2599.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202600,
+      "filename": "IMG_2600.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202601,
+      "filename": "IMG_2601.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202602,
+      "filename": "IMG_2602.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202603,
+      "filename": "IMG_2603.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202604,
+      "filename": "IMG_2604.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202605,
+      "filename": "IMG_2605.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202606,
+      "filename": "IMG_2606.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202607,
+      "filename": "IMG_2607.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202641,
+      "filename": "IMG_2641.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202642,
+      "filename": "IMG_2642.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202643,
+      "filename": "IMG_2643.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202644,
+      "filename": "IMG_2644.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202645,
+      "filename": "IMG_2645.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202646,
+      "filename": "IMG_2646.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202647,
+      "filename": "IMG_2647.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202648,
+      "filename": "IMG_2648.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202649,
+      "filename": "IMG_2649.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202651,
+      "filename": "IMG_2651.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202652,
+      "filename": "IMG_2652.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202653,
+      "filename": "IMG_2653.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202654,
+      "filename": "IMG_2654.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202655,
+      "filename": "IMG_2655.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202657,
+      "filename": "IMG_2657.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202658,
+      "filename": "IMG_2658.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202659,
+      "filename": "IMG_2659.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202660,
+      "filename": "IMG_2660.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202661,
+      "filename": "IMG_2661.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202662,
+      "filename": "IMG_2662.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202663,
+      "filename": "IMG_2663.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202664,
+      "filename": "IMG_2664.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202665,
+      "filename": "IMG_2665.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202666,
+      "filename": "IMG_2666.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202667,
+      "filename": "IMG_2667.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202668,
+      "filename": "IMG_2668.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202669,
+      "filename": "IMG_2669.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202670,
+      "filename": "IMG_2670.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202675,
+      "filename": "IMG_2675.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202676,
+      "filename": "IMG_2676.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202677,
+      "filename": "IMG_2677.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202679,
+      "filename": "IMG_2679.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202680,
+      "filename": "IMG_2680.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202681,
+      "filename": "IMG_2681.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202686,
+      "filename": "IMG_2686.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202687,
+      "filename": "IMG_2687.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202688,
+      "filename": "IMG_2688.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202689,
+      "filename": "IMG_2689.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202691,
+      "filename": "IMG_2691.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202692,
+      "filename": "IMG_2692.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202693,
+      "filename": "IMG_2693.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202694,
+      "filename": "IMG_2694.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202695,
+      "filename": "IMG_2695.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202696,
+      "filename": "IMG_2696.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202697,
+      "filename": "IMG_2697.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202698,
+      "filename": "IMG_2698.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202701,
+      "filename": "IMG_2701.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202702,
+      "filename": "IMG_2702.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202703,
+      "filename": "IMG_2703.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202704,
+      "filename": "IMG_2704.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202705,
+      "filename": "IMG_2705.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202706,
+      "filename": "IMG_2706.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202709,
+      "filename": "IMG_2709.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202710,
+      "filename": "IMG_2710.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202711,
+      "filename": "IMG_2711.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202712,
+      "filename": "IMG_2712.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202713,
+      "filename": "IMG_2713.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202714,
+      "filename": "IMG_2714.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202715,
+      "filename": "IMG_2715.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202717,
+      "filename": "IMG_2717.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202718,
+      "filename": "IMG_2718.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202719,
+      "filename": "IMG_2719.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202720,
+      "filename": "IMG_2720.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202721,
+      "filename": "IMG_2721.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202722,
+      "filename": "IMG_2722.jpg",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202736,
+      "filename": "IMG_2736.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202738,
+      "filename": "IMG_2738.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202739,
+      "filename": "IMG_2739.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202740,
+      "filename": "IMG_2740.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202742,
+      "filename": "IMG_2742.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202743,
+      "filename": "IMG_2743.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202744,
+      "filename": "IMG_2744.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202745,
+      "filename": "IMG_2745.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 202746,
+      "filename": "IMG_2746.jpg",
+      "resolution_category": "duplicate"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 300001,
+      "filename": "Screenshot 2026-08-25 at 9.25.12\u202fPM.png",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 300002,
+      "filename": "Screenshot 2026-08-26 at 6.40.33\u202fPM.png",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 300003,
+      "filename": "Screenshot 2026-08-26 at 6.40.40\u202fPM.png",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 300004,
+      "filename": "Screenshot 2026-08-26 at 6.40.43\u202fPM.png",
+      "resolution_category": "irrelevant to the game database"
+    },
+    {
+      "corpus": "local_archive",
+      "source_id": 300005,
+      "filename": "Screenshot 2026-08-26 at 6.40.47\u202fPM.png",
+      "resolution_category": "irrelevant to the game database"
+    }
+  ]
+}

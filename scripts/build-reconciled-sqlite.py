@@ -31,6 +31,8 @@ TEAM_MEMBER_RESOLUTIONS = ROOT / 'data/audit/team-member-variant-resolutions.jso
 RESOLVED_PARTIAL_TITLES = ROOT / 'data/audit/resolved-partial-titles.json'
 HISTORICAL_VARIANTS = ROOT / 'data/audit/recovered-historical-variants.json'
 DERIVED_PORTRAITS = ROOT / 'data/audit/derived-portrait-manifest.json'
+FINAL_FACTS = ROOT / 'data/audit/final-accessible-facts.json'
+FINAL_REVIEW = ROOT / 'data/audit/final-accessible-source-review.json'
 
 
 def rows(path):
@@ -58,6 +60,8 @@ def main():
     resolved_partial_titles = json.loads(RESOLVED_PARTIAL_TITLES.read_text())['records']
     historical_variants = json.loads(HISTORICAL_VARIANTS.read_text())
     derived_portraits = json.loads(DERIVED_PORTRAITS.read_text())['portraits']
+    final_facts = json.loads(FINAL_FACTS.read_text())
+    final_review = json.loads(FINAL_REVIEW.read_text())
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -256,6 +260,58 @@ def main():
             review_state TEXT NOT NULL,
             attribution TEXT NOT NULL
         );
+        CREATE TABLE final_source_review_resolutions (
+            source_id INTEGER PRIMARY KEY,
+            corpus TEXT NOT NULL,
+            resolution_category TEXT NOT NULL,
+            reviewed_on TEXT NOT NULL,
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE final_war_outpost_rules (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            outpost_victory_points INTEGER NOT NULL,
+            exact_visible_effect TEXT NOT NULL,
+            exact_visible_phase_rule TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE legendary_assault_tips (
+            id TEXT PRIMARY KEY,
+            encounter_name TEXT NOT NULL,
+            exact_visible_text TEXT NOT NULL,
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE legendary_assault_tip_sources (
+            tip_id TEXT NOT NULL REFERENCES legendary_assault_tips(id),
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            PRIMARY KEY (tip_id, source_id)
+        );
+        CREATE TABLE faction_rules (
+            id TEXT PRIMARY KEY,
+            faction_name TEXT NOT NULL,
+            rule_kind TEXT NOT NULL,
+            exact_visible_text TEXT NOT NULL,
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE faction_rule_sources (
+            rule_id TEXT NOT NULL REFERENCES faction_rules(id),
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            PRIMARY KEY (rule_id, source_id)
+        );
+        CREATE TABLE drive_observed_team_examples (
+            id TEXT PRIMARY KEY,
+            mode TEXT NOT NULL,
+            outcome TEXT NOT NULL CHECK (outcome='not_shown'),
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE drive_observed_team_members (
+            example_id TEXT NOT NULL REFERENCES drive_observed_team_examples(id),
+            position INTEGER NOT NULL,
+            observed_name TEXT NOT NULL,
+            PRIMARY KEY (example_id, position)
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -410,6 +466,44 @@ def main():
          row['source_filename'], json.dumps(row['crop'], sort_keys=True), row['review_state'], row['attribution'])
         for row in derived_portraits
     ])
+    if len(final_review['records']) != 345:
+        raise SystemExit('Expected 345 individually reviewed final sources')
+    out.executemany('INSERT INTO final_source_review_resolutions VALUES (?,?,?,?,?)', [
+        (row['source_id'], row['corpus'], row['resolution_category'], final_review['review_date'],
+         'individually_visually_reviewed') for row in final_review['records']
+    ])
+    if len(final_facts['war_outpost_rules']) != 5 or len(final_facts['legendary_assault_tips']) != 9 or len(final_facts['faction_rules']) != 16 or len(final_facts['observed_teams']) != 38:
+        raise SystemExit('Final accessible fact cardinality changed')
+    out.executemany('INSERT INTO final_war_outpost_rules VALUES (?,?,?,?,?,?,?)', [
+        (row['id'], row['name'], row['outpost_victory_points'], row['exact_visible_effect'],
+         row['exact_visible_phase_rule'], image_by_file[row['source_image']]['source_id'],
+         'screenshot_verified_current') for row in final_facts['war_outpost_rules']
+    ])
+    out.executemany('INSERT INTO legendary_assault_tips VALUES (?,?,?,?)', [
+        (row['id'], row['encounter'], row['exact_visible_text'], 'screenshot_verified_current')
+        for row in final_facts['legendary_assault_tips']
+    ])
+    out.executemany('INSERT INTO legendary_assault_tip_sources VALUES (?,?)', [
+        (row['id'], image_by_file[filename]['source_id'])
+        for row in final_facts['legendary_assault_tips'] for filename in row['source_images']
+    ])
+    out.executemany('INSERT INTO faction_rules VALUES (?,?,?,?,?)', [
+        (row['id'], row['faction'], row['kind'], row['exact_visible_text'], 'screenshot_verified_current')
+        for row in final_facts['faction_rules']
+    ])
+    out.executemany('INSERT INTO faction_rule_sources VALUES (?,?)', [
+        (row['id'], image_by_file[filename]['source_id'])
+        for row in final_facts['faction_rules'] for filename in row['source_images']
+    ])
+    drive_teams = []
+    drive_members = []
+    for key, members in final_facts['observed_teams']:
+        source_file = f"IMG_{key.split('-')[0]}.PNG"
+        example_id = 'drive-observed-' + key
+        drive_teams.append((example_id, 'observed_composition', 'not_shown', image_by_file[source_file]['source_id'], 'screenshot_checked_composition_only'))
+        drive_members.extend((example_id, position, name) for position, name in enumerate(members, 1))
+    out.executemany('INSERT INTO drive_observed_team_examples VALUES (?,?,?,?,?)', drive_teams)
+    out.executemany('INSERT INTO drive_observed_team_members VALUES (?,?,?)', drive_members)
     historic_values = []
     for r in history:
         fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None

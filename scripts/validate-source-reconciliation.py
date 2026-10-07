@@ -12,6 +12,9 @@ ARCHIVE = ROOT / 'data/source-images/drive-archive.json'
 MANIFEST = ROOT / 'data/source-images/reconciliation.jsonl'
 HISTORY = ROOT / 'data/source-images/historical-reference-reconciliation.jsonl'
 RECOVERED = ROOT / 'data/source-images/recovered'
+LOCAL_ARCHIVE = ROOT / 'data/source-images/local-archive-reconciliation.jsonl'
+FINAL_REVIEW = ROOT / 'data/audit/final-accessible-source-review.json'
+MATERIALITY = ROOT / 'data/audit/historical-source-materiality.jsonl'
 
 
 def json_lines(path):
@@ -26,6 +29,9 @@ def main():
     archive = json.loads(ARCHIVE.read_text())['files']
     manifest = json_lines(MANIFEST)
     history = json_lines(HISTORY)
+    local_archive = json_lines(LOCAL_ARCHIVE)
+    final_review = json.loads(FINAL_REVIEW.read_text())
+    materiality = json_lines(MATERIALITY)
     if len(archive) != 833 or len(manifest) != 833 or len(history) != 615:
         raise SystemExit('Archive, manifest, or historical-reference count mismatch')
     by_file = {row['filename']: row for row in manifest}
@@ -56,8 +62,18 @@ def main():
         expected = source['local_exact_name_matches'][0]
         if len(data) != expected['byte_count'] or hashlib.sha256(data).hexdigest() != expected['sha256']:
             raise SystemExit(f'Recovered Library image byte/hash mismatch: {source["filename"]}')
+    if len(local_archive) != 101 or len(final_review['records']) != 345:
+        raise SystemExit('Local archive or final visual-review cardinality mismatch')
+    if sum(row.get('review_status') == 'individually_visually_reviewed' for row in local_archive) != 95:
+        raise SystemExit('Expected all 95 formerly pending archive images to have individual review')
+    reviewed_drive = [row for row in manifest if row.get('review_status') == 'individually_visually_reviewed']
+    if len(reviewed_drive) != 250:
+        raise SystemExit('Expected all 250 formerly unresolved Drive images to have individual review')
+    if len(materiality) != 612 or sum(row['disposition'] == 'material_resupply_needed' for row in materiality) != 5:
+        raise SystemExit('Historical materiality analysis must cover 612 references with five material resupply files')
     print(f'Validated {len(archive)} original Drive PNG byte hashes, sizes, and dimensions; '
-          f'{recovered} recovered Library image hashes; {len(history)} historical-reference statuses.')
+          f'{recovered} recovered Library image hashes; {len(history)} historical-reference statuses; '
+          '345 final visual reviews; 5 material historical resupply files.')
 
 
 if __name__ == '__main__':
