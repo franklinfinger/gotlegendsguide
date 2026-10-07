@@ -222,3 +222,9 @@ Migration `20261006160000_resolve_team_member_variants.sql` updates those four p
 Four accessible Brienne of Tarth True Knight trait screens visibly identify original partial trait 109 as **Stand Your Ground!** The stored wording was already complete; only its cropped historical title was unresolved. Migration `20261006170000_resolve_brienne_trait_title.sql` updates the mirror and normalized ability names, marks the record complete, and adds four direct title-evidence links. The additive SQLite copy stores the same correction and lineage.
 
 This reduces partial original champion traits from four to **three**. **Teaching Me This Lesson III**, Joffrey Protector's **Treasury Generator**, and Cersei's **Treasury Generator** remain partial because the accessible images still cut off their final wording. The separate recovered Theon and Thoros records still have cropped titles; no title is inferred for either.
+
+## Source reconciliation checkpoint 17, 2026-10-06
+
+Six accessible screenshots close the three other placeholder titles in the original trait mirror: Khal Drogo's **This Is My Army II**, Davos Seaworth's **Never Known Bells To Mean Surrender II**, and Rhaenys Targaryen's **The Queen That Never Was II**. Their stored wording was already complete. Migration `20261006180000_resolve_original_trait_titles.sql` updates the mirror and normalized ability names and adds direct title evidence for every cited image.
+
+The original 185-trait mirror now has **zero placeholder or null titles**. Its three remaining partial states concern cropped wording, not names. The two cropped names in the separately recovered legacy-only trait set—Theon Greyjoy and Thoros of Myr—remain unresolved because none of the accessible images shows those titles.

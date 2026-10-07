@@ -331,13 +331,13 @@ def main():
     if len(team_rows) != 5 or sum(row[3] is not None for row in team_rows) != 4:
         raise SystemExit('Expected four resolved and one unresolved team member identity')
     out.executemany('INSERT INTO reconciled_team_member_variants VALUES (?,?,?,?,?,?,?)', team_rows)
-    if len(resolved_partial_titles) != 1 or resolved_partial_titles[0]['record_id'] != 109:
-        raise SystemExit('Expected the single source-backed Brienne trait title resolution')
+    if len(resolved_partial_titles) != 4 or {row['record_id'] for row in resolved_partial_titles} != {8, 12, 14, 109}:
+        raise SystemExit('Expected four source-backed original trait title resolutions')
     for row in resolved_partial_titles:
         current = out.execute('SELECT trait_name, completion_state FROM champion_traits WHERE trait_id=?',
                               (row['record_id'],)).fetchone()
-        if current is None or current[1] != 'partial':
-            raise SystemExit('Resolved trait title target is not an original partial row')
+        if current is None or current[0] != row['previous_name']:
+            raise SystemExit('Resolved trait title target does not match the pinned placeholder')
         out.execute("UPDATE champion_traits SET trait_name=?, completion_state='complete' WHERE trait_id=?",
                     (row['name'], row['record_id']))
         out.executemany('INSERT INTO resolved_record_title_sources VALUES (?,?,?,?,?)', [

@@ -3,6 +3,7 @@
     {
       "kind": "champion_trait",
       "record_id": 109,
+      "previous_name": "[Trait name not visible]",
       "name": "Stand Your Ground!",
       "source_images": [
         "IMG_2436.PNG",
@@ -10,6 +11,30 @@
         "IMG_2768.PNG",
         "IMG_2769.PNG"
       ],
+      "review_state": "visually_verified_title"
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 8,
+      "previous_name": "[trait title not visible in source]",
+      "name": "This Is My Army II",
+      "source_images": ["IMG_2457.PNG", "IMG_2467.PNG"],
+      "review_state": "visually_verified_title"
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 12,
+      "previous_name": "[trait title not visible in source]",
+      "name": "Never Known Bells To Mean Surrender II",
+      "source_images": ["IMG_2464.PNG", "IMG_2475.PNG", "IMG_2476.PNG"],
+      "review_state": "visually_verified_title"
+    },
+    {
+      "kind": "champion_trait",
+      "record_id": 14,
+      "previous_name": "[trait title not visible in source]",
+      "name": "The Queen That Never Was II",
+      "source_images": ["IMG_2480.PNG"],
       "review_state": "visually_verified_title"
     }
   ]
