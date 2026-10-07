@@ -31,8 +31,8 @@ test('guide RPC rejects a response missing restored product collections', async 
 
 test('strategy RPC requires its normalized collections', async () => {
   const original = globalThis.fetch;
-  globalThis.fetch = async () => new Response(JSON.stringify({ version: '2026-10-07.1', mechanics: [], targets: [], rules: [], championFacts: [] }));
-  try { assert.equal((await getStrategyData()).version, '2026-10-07.1'); }
+  globalThis.fetch = async () => new Response(JSON.stringify({ version: '2026-10-07.3', mechanics: [], targets: [], rules: [], championFacts: [], curatedRecommendations: [] }));
+  try { assert.equal((await getStrategyData()).version, '2026-10-07.3'); }
   finally { globalThis.fetch = original; }
 });
 

@@ -1,11 +1,12 @@
 import { getGuideData, getStrategyData } from './supabase-client.js';
-import { parseStrategyQuestion, recommendTeam } from './strategy-engine.js';
+import { answerStrategyQuestion } from './conversation-engine.js';
 
 const root = document.querySelector('#guide-content');
 const state = document.querySelector('#guide-state');
 const view = document.body.dataset.view || 'home';
 let snapshot;
 let strategySnapshot;
+let conversationContext = {};
 
 const pages = [
   ['home','Home','index.html'], ['recommendations','Strategy','recommendations.html'], ['champions','Champions','champions.html'],
@@ -173,11 +174,11 @@ function legendaryAssaultPage() {
 
 function factionsPage() {
   const current=snapshot.factions.filter(f=>f.rules.some(r=>r.kind==='current_bonus'));
-  return `${titleBlock('Current team bonuses','Factions','Review current bonuses and play descriptions separately from announced future changes.')}
+  return `${titleBlock('Current team bonuses','Factions','Build around the live faction bonuses and play styles. Champions may belong to two current factions.')}
     <div class="faction-grid">${current.map(f=>{const bonus=f.rules.find(r=>r.kind==='current_bonus'),play=f.rules.find(r=>r.kind==='how_to_play');const members=f.memberVariantIds.map(id=>snapshot.champions.find(c=>c.id===id)).filter(Boolean);return `<article class="faction-card"><header><span class="faction-sigil" aria-hidden="true">${esc(f.name[0])}</span><div><h2>${esc(f.name)}</h2><span>${members.length} represented variant${members.length===1?'':'s'}</span></div></header><section><h3>Current bonus</h3><p>${esc(bonus?.text||'Current bonus unavailable.')}</p></section>${play?`<section><h3>How it plays</h3><p>${esc(play.text)}</p></section>`:''}<div class="member-row">${members.slice(0,8).map(c=>`<a href="champions.html?champion=${encodeURIComponent(c.id)}" title="${esc(c.name)}">${portrait(c,'tiny')}</a>`).join('')}</div></article>`}).join('')}</div>
-    <section class="announced-section"><div class="section-title"><h2>Announced future changes</h2><span>Separate from current bonuses</span></div>${announcements()}</section>`;
+    ${currentFactionNotes()}`;
 }
-function announcements() { const rows=snapshot.announcements.flatMap(update=>update.factions.map(f=>({update,f}))); return rows.length?`<div class="announced-grid">${rows.map(({update,f})=>`<article><header>${badge('Announced','announced')}<strong>${esc(f.name)}</strong></header>${f.playstyle?`<p>${esc(f.playstyle)}</p>`:''}${f.bonus?`<p><strong>Announced bonus:</strong> ${esc(f.bonus)}</p>`:''}<small>${esc(update.title)}${update.date?` · ${esc(update.date)}`:''}</small></article>`).join('')}</div>`:unavailable('No announced changes are available.'); }
+function currentFactionNotes() { const rules=snapshot.announcements.filter(update=>update.status==='live').flatMap(update=>update.rules).filter(rule=>rule.category==='factions'||rule.category==='faction_bonuses'); return rules.length?`<section class="announced-section"><div class="section-title"><h2>Current faction system</h2><span>Live rules</span></div><div class="current-rule-list">${rules.map(rule=>`<p>${esc(rule.text)}</p>`).join('')}</div></section>`:''; }
 
 function glossaryPage() {
   const entries=[...snapshot.statuses.map(x=>({...x,group:'Status'})),...snapshot.mechanics.map(x=>({...x,group:'Mechanic'}))];
@@ -195,47 +196,50 @@ function notesPage() {
 }
 
 function recommendationsPage() {
-  const modes = [['legendary-assault','Legendary Assault'],['raid','Raid'],['war','War']];
-  const targets = strategySnapshot.targets.filter(target=>target.battleMode==='legendary-assault');
-  return `${titleBlock('Deterministic strategy engine','Strategy recommendations','Build a five-champion team from verified mechanics, explicit encounter rules, and reviewed battlefield effects.')}
-    <section class="strategy-workbench">
-      <form id="question-form" class="question-form"><label for="strategy-question">Ask a supported strategy question</label><div><input id="strategy-question" type="search" placeholder="What is the strongest team to fight Drogon?"><button type="submit">Use question</button></div><p id="question-feedback" class="form-feedback" role="status">Questions are parsed locally. Unsupported wording will return you to the selectors.</p></form>
-      <div class="strategy-controls"><label>Battle mode<select id="strategy-mode">${modes.map(([id,label])=>`<option value="${id}">${label}</option>`).join('')}</select></label><label>Target or rule<select id="strategy-target">${targets.map(target=>`<option value="${esc(target.id)}">${esc(target.name)}</option>`).join('')}</select></label></div>
-      <div class="exclusion-control"><label for="strategy-exclude">Exclude an exact champion variant <span>optional</span></label><div><input id="strategy-exclude" list="champion-options" placeholder="Search an exact variant…"><button id="add-exclusion" type="button">Exclude</button></div><datalist id="champion-options">${snapshot.champions.map(champion=>`<option value="${esc(champion.name)}"></option>`).join('')}</datalist><div id="exclusion-list" class="exclusion-list"></div><p id="exclusion-feedback" class="form-feedback" role="status"></p></div>
-      <button id="recommend-team" class="recommend-button" type="button">Recommend Team</button>
-      <p class="scope-note">“Strongest” means strongest verified strategic fit. Your owned champions, power, stars, levels, and gear are not included.</p>
-    </section>
-    <div id="recommendation-result" class="recommendation-result" aria-live="polite"></div>`;
+  const prompts=['Strongest team for Drogon','Best team for Viserion','Who should I use for Raid attack?','What should I use for Ravenous Pack?'];
+  return `${titleBlock('Battle strategy','Ask the guide','Describe the battle in your own words. Every lineup comes from a verified curated recommendation or the deterministic strategy engine.')}
+    <section class="conversation-shell">
+      <div class="prompt-suggestions" aria-label="Example questions">${prompts.map(prompt=>`<button type="button" data-prompt="${esc(prompt)}">${esc(prompt)}</button>`).join('')}</div>
+      <div id="conversation-log" class="conversation-log" aria-live="polite"><article class="guide-message welcome-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>What battle are you planning?</strong><p>Ask for a team, a substitute, a leader, or how to play the last recommendation.</p></div></article></div>
+      <form id="conversation-form" class="conversation-form"><label class="sr-only" for="strategy-question">Ask a strategy question</label><textarea id="strategy-question" rows="2" placeholder="What is the strongest team to fight Drogon?"></textarea><button type="submit">Ask guide</button></form>
+      <p class="scope-note">Recommendations use verified game mechanics. Account power, stars, levels, gear, and owned champions are not included yet.</p>
+    </section>`;
 }
 
-function evidenceLabel(category) {
-  return category==='community_observed'?'Observed example':category==='verified_fact'?'Verified fact':'Strategy inference';
-}
-
-function renderRecommendation(result) {
-  const resultRoot=document.querySelector('#recommendation-result');
-  if(result.status==='insufficient_evidence') {
-    resultRoot.innerHTML=`<section class="recommendation-empty"><p class="eyebrow">Insufficient evidence</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>No team was generated, because doing so would require inventing encounter mechanics.</p></section>`;
-    return;
-  }
-  const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>Selection ${index+1}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header><p class="member-role">${esc(member.roles.join(' · '))}</p><div class="selection-score">Strategic fit ${esc(member.score)}</div><ul>${member.reasons.map(reason=>`<li><span>${esc(reason.text)}</span><small>+${esc(reason.score)} · ${evidenceLabel(reason.evidenceCategory)} · ${Math.round(reason.confidence*100)}% confidence</small></li>`).join('')}</ul>${member.item?`<a class="recommended-item" href="items.html#${esc(member.item.id)}">Iconic item: ${esc(member.item.name)}</a>`:''}${member.substitute?`<div class="member-substitute"><strong>If unavailable: ${esc(member.substitute.champion.name)}</strong><span>${esc(member.substitute.reason)}</span></div>`:''}${member.dangers.length?`<div class="member-warning">${member.dangers.map(row=>esc(row.text)).join(' ')}</div>`:''}</article>`).join('');
-  const leader=result.leader?`<div class="leader-callout"><span>${portrait(result.leader.champion,'small')}</span><div><strong>Recommended leader: ${esc(result.leader.champion.name)}</strong><p>${esc(result.leader.evidence?.factText||'A reviewed Leader effect supports this choice.')}</p></div></div>`:unavailable('No Leader effect has enough supporting evidence for this team.');
-  resultRoot.innerHTML=`<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended five</h2><p>${esc(result.approach)}</p></div><dl><div><dt>Team score</dt><dd>${esc(result.overallScore)}</dd></div><div><dt>Confidence</dt><dd>${esc(result.confidence)}</dd></div></dl></section>${leader}<div class="recommendation-team">${teamCards}</div>
-    <section class="strategy-explanation-grid"><article><h2>Why the team works</h2><ul>${result.teamSynergy.map(row=>`<li>${esc(row.text)} <small>${evidenceLabel(row.evidenceCategory)}</small></li>`).join('')||'<li>Selections are driven by their individual target fit.</li>'}</ul></article><article><h2>Battle approach and timing</h2><p>${esc(result.approach)}</p><p>${esc(result.timing)}</p></article><article><h2>Important dangers</h2><ul>${result.dangers.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></article><article><h2>Evidence used</h2><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} strategy inferences · ${result.evidenceSummary.communityObservations} observed composition links.</p><p>${result.candidateStats.considered} exact variants considered; ${result.candidateStats.eligible} eligible; ${result.candidateStats.pruned} scored in the final search pool.</p></article></section>
-    <section class="substitute-section"><h2>Team-level alternatives</h2><div>${result.substitutes.map(row=>`<article>${portrait(row.champion,'small')}<span><strong>${esc(row.champion.name)}</strong><small>${esc(row.reason||'Provides the closest role-preserving verified fit.')}</small></span></article>`).join('')}</div></section>
-    <section class="missing-data"><h2>Limits to keep in mind</h2><ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></section>`;
+function recommendationMarkup(result) {
+  if(result.status==='insufficient_evidence') return `<section class="recommendation-empty"><p class="eyebrow">Information unavailable</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>I cannot build a team until the encounter mechanics are verified.</p></section>`;
+  const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>${result.leader?.champion.id===member.champion.id?'Leader':`Position ${index+1}`}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header><p class="member-role">${esc(member.roles.join(' · '))}</p>${member.item?`<a class="recommended-item" href="items.html#${esc(member.item.id)}">Iconic item: ${esc(member.item.name)}</a>`:''}</article>`).join('');
+  const leader=result.leader?`<div class="leader-callout"><span>${portrait(result.leader.champion,'small')}</span><div><strong>Leader: ${esc(result.leader.champion.name)}</strong><p>${esc(result.leader.evidence?.factText||'This exact leader is part of the verified lineup.')}</p></div></div>`:unavailable('No Leader effect has enough supporting evidence for this team.');
+  const tier=result.evidenceTier||'Engine-derived recommendation';
+  return `<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended Team</h2><p>${esc(tier)}</p></div>${badge(tier,result.recommendationSource==='curated'?'gold':'quiet')}</section><div class="recommendation-team">${teamCards}</div>${leader}
+    <section class="strategy-explanation-grid"><article><h2>Why this team works</h2><p>${esc(result.approach)}</p><ul>${result.teamSynergy.filter(row=>row.evidenceCategory!=='community_observed').slice(0,4).map(row=>`<li>${esc(row.text)}</li>`).join('')||'<li>The champions were selected for their verified fit against this battle.</li>'}</ul></article><article><h2>How to play it</h2><p>${esc(result.timing)}</p></article><article><h2>Substitutes</h2>${result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</article><article><h2>Watch out for</h2><ul>${result.dangers.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></article></section>
+    <details class="evidence-details"><summary>Evidence and recommendation details</summary><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} deterministic inferences · ${result.evidenceSummary.communityObservations} community observations used as context only.</p>${result.curatedRecommendation?`<p><strong>Curated source:</strong> ${esc(result.curatedRecommendation.provenanceRef)} · ${Math.round(Number(result.curatedRecommendation.confidence)*100)}% confidence</p><p>${esc(result.curatedRecommendation.notes)}</p>`:''}<ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></details>`;
 }
 
 function mountRecommendations() {
-  const mode=document.querySelector('#strategy-mode'), target=document.querySelector('#strategy-target');
-  const exclusions=new Set();
-  const updateTargets=()=>{const rows=strategySnapshot.targets.filter(row=>row.battleMode===mode.value);target.innerHTML=rows.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}</option>`).join('');};
-  mode.addEventListener('change',updateTargets);
-  const renderExclusions=()=>{document.querySelector('#exclusion-list').innerHTML=[...exclusions].map(id=>{const champion=snapshot.champions.find(row=>row.id===id);return `<button type="button" data-remove="${esc(id)}">${esc(champion?.name||id)} ×</button>`}).join('');document.querySelectorAll('[data-remove]').forEach(button=>button.addEventListener('click',()=>{exclusions.delete(button.dataset.remove);renderExclusions();}));};
-  document.querySelector('#add-exclusion').addEventListener('click',()=>{const input=document.querySelector('#strategy-exclude');const matches=snapshot.champions.filter(champion=>champion.name.toLowerCase()===input.value.trim().toLowerCase());const feedback=document.querySelector('#exclusion-feedback');if(matches.length!==1){feedback.textContent='Choose one exact variant from the suggestions; no exclusion was added.';return;}exclusions.add(matches[0].id);input.value='';feedback.textContent=`Excluded ${matches[0].name}.`;renderExclusions();});
-  const recommend=()=>{const result=recommendTeam({guideData:snapshot,strategyData:strategySnapshot,targetId:target.value,excludeVariantIds:[...exclusions]});renderRecommendation(result);document.querySelector('#recommendation-result').scrollIntoView({behavior:'smooth',block:'start'});};
-  document.querySelector('#recommend-team').addEventListener('click',recommend);
-  document.querySelector('#question-form').addEventListener('submit',event=>{event.preventDefault();const parsed=parseStrategyQuestion(document.querySelector('#strategy-question').value,strategySnapshot.targets);const feedback=document.querySelector('#question-feedback');if(!parsed){feedback.textContent='That question is not specific enough for a safe match. Choose the battle mode and target below.';return;}mode.value=parsed.battleMode;updateTargets();target.value=parsed.id;feedback.textContent=`Matched ${parsed.name}.`;recommend();});
+  const form=document.querySelector('#conversation-form'),input=document.querySelector('#strategy-question'),log=document.querySelector('#conversation-log');
+  const ask=question=>{
+    const text=question.trim(); if(!text)return;
+    log.insertAdjacentHTML('beforeend',`<article class="player-message"><p>${esc(text)}</p></article>`);
+    const answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
+    if(answer.status!=='ready') log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>I need one exact match</strong><p>${esc(answer.message)}</p></div></article>`);
+    else {
+      conversationContext=answer.context;
+      let intro='Here is the strongest verified strategic fit I can support.';
+      if(answer.result.recommendationSource==='curated')intro='This is the current best-known verified lineup.';
+      if(answer.request.intent==='substitution')intro='I rebuilt the team without that exact variant.';
+      if(answer.request.intent==='alternate')intro='Here is a different engine-derived lineup.';
+      if(answer.request.intent==='leader')intro=`Use ${esc(answer.result.leader?.champion.name||'the verified Leader shown below')}.`;
+      if(answer.request.intent==='how_to')intro=`${esc(answer.result.approach)} ${esc(answer.result.timing)}`;
+      if(answer.request.intent==='explanation'&&answer.focus.subjectVariantId){const member=answer.result.team.find(row=>row.champion.id===answer.focus.subjectVariantId);intro=member?.reasons.length?member.reasons.map(row=>esc(row.text)).join(' '):`${esc(member?.champion.name||'That champion')} is part of the source-backed lineup, but no separate verified mechanic explanation is available.`;}
+      if(answer.request.intent==='explanation'&&answer.focus.rules.length)intro=answer.focus.rules.map(row=>esc(row.rationale)).join(' ');
+      const showTeam=['recommendation','substitution','alternate'].includes(answer.request.intent);
+      log.insertAdjacentHTML('beforeend',`<article class="guide-message strategy-answer"><span class="guide-avatar" aria-hidden="true">G</span><div><p class="answer-intro">${intro}</p>${showTeam?recommendationMarkup(answer.result):''}</div></article>`);
+    }
+    input.value=''; log.lastElementChild?.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+  form.addEventListener('submit',event=>{event.preventDefault();ask(input.value);});
+  document.querySelectorAll('[data-prompt]').forEach(button=>button.addEventListener('click',()=>ask(button.dataset.prompt)));
 }
 
 function render() {

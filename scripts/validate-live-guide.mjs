@@ -35,12 +35,17 @@ const checks = {
   raidAttackExamples: data.strategyTeams?.filter(row=>/attack/i.test(row.role||'')).length,
   raidDefenseExamples: data.strategyTeams?.filter(row=>/defen/i.test(row.role||'')).length,
 };
-const expected = {championVariants:108,portraits:96,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:12,factionPlayDescriptions:4,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15};
+const expected = {championVariants:108,portraits:96,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:9,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15};
 for (const [name,value] of Object.entries(expected)) if (checks[name] !== value) throw new Error(`${name}: expected ${value}, received ${checks[name]}`);
 if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('Raid attack and defense examples must remain separately available.');
+if (data.announcements.find(row=>row.id===1)?.status!=='live') throw new Error('The current faction update is still labeled as future.');
+if (data.champions.filter(row=>row.factions.length===2).length < 13) throw new Error('Current dual-faction memberships are incomplete.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
 if (!icy || icy.abilities.length !== 0) throw new Error('Icy Viserion must be present without invented ability cards.');
 if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
+const curatedDrogon=strategy.curatedRecommendations?.find(row=>row.id==='curated-drogon-best-2026-10');
+if (!curatedDrogon || !curatedDrogon.active || Number(curatedDrogon.confidence)<.9 || curatedDrogon.leaderVariantId!=='sqlite-champion-19') throw new Error('Curated Drogon recommendation metadata is incomplete.');
+if (curatedDrogon.members.map(row=>row.variantId).join(',')!=='sqlite-champion-19,sqlite-champion-5,sqlite-champion-6,sqlite-champion-58,sqlite-champion-9') throw new Error('Curated Drogon exact variants do not match the verified screenshot.');
 for (const target of strategy.targets) {
   const result = recommendTeam({guideData:data,strategyData:strategy,targetId:target.id});
   if (target.evidenceState === 'insufficient') {

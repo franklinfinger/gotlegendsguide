@@ -20,5 +20,6 @@ test('player navigation uses Legendary Assault terminology', () => {
   assert.match(source, /Legendary Assault/);
   assert.doesNotMatch(source, /['"`]Bosses['"`]/);
   assert.match(source, /not claims of proven victories/);
-  assert.match(source, /Strategy recommendations/);
+  assert.match(source, /Ask the guide/);
+  assert.match(source, /verified curated recommendation or the deterministic strategy engine/);
 });

@@ -13,7 +13,8 @@
 /** @typedef {{id:string,battleMode:'legendary-assault'|'raid'|'war',kind:string,name:string,evidenceState:'verified'|'insufficient',approach:string,timing:string,warning:string,provenanceRef:string,reviewStatus:string}} StrategyTarget */
 /** @typedef {{id:string,kind:'target_fit'|'team_synergy',battleMode:string,targetId:string|null,subjectVariantId:string|null,mechanicId:string,pairedMechanicId:string|null,score:number,rationale:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyRule */
 /** @typedef {{id:string,variantId:string,mechanicId:string,effectRole:string,context:string,factText:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyChampionFact */
-/** @typedef {{version:string,mechanics:Array<{id:string,name:string,category:string}>,targets:StrategyTarget[],rules:StrategyRule[],championFacts:StrategyChampionFact[]}} StrategyData */
+/** @typedef {{id:string,targetId:string,title:string,recommendationType:'best_known'|'verified'|'alternative',confidence:number,provenanceRef:string,sourceId:number|null,notes:string,active:boolean,effectiveDate:string|null,gameVersion:string|null,reviewStatus:string,leaderVariantId:string,members:Array<{position:number,variantId:string}>}} CuratedRecommendation */
+/** @typedef {{version:string,mechanics:Array<{id:string,name:string,category:string}>,targets:StrategyTarget[],rules:StrategyRule[],championFacts:StrategyChampionFact[],curatedRecommendations:CuratedRecommendation[]}} StrategyData */
 
 /** @type {SupabaseConfig | undefined} */
 const config = /** @type {typeof globalThis & {GOT_SUPABASE_CONFIG?: SupabaseConfig}} */ (globalThis).GOT_SUPABASE_CONFIG;
@@ -50,7 +51,7 @@ export async function getGuideData() {
 /** @returns {Promise<StrategyData>} */
 export async function getStrategyData() {
   const data = await rpc('got_strategy_data');
-  const collections = ['mechanics','targets','rules','championFacts'];
+  const collections = ['mechanics','targets','rules','championFacts','curatedRecommendations'];
   if (!data || typeof data !== 'object' || collections.some(key => !Array.isArray(data[key]))) {
     throw new Error('The database returned an incomplete strategy result.');
   }
