@@ -133,6 +133,18 @@ def load_known_records(db):
                 'id': str(record['record_id']),
                 'basis': 'visually_verified_trait_title',
             })
+    historical_variants = json.loads((ROOT / 'data/audit/recovered-historical-variants.json').read_text())
+    for variant in historical_variants['variants']:
+        by_file[variant['profile_image']].append({
+            'table': 'champion_variants', 'id': variant['id'],
+            'basis': 'visible_profile_name_and_subtitle',
+        })
+    for ability in historical_variants['abilities']:
+        for filename in ability['source_images']:
+            by_file[filename].append({
+                'table': 'abilities', 'id': ability['id'],
+                'basis': 'visually_verified_complete_wording',
+            })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file

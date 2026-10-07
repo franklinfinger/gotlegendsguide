@@ -527,9 +527,9 @@
     {
       "filename": "IMG_2272.PNG",
       "source_id": 102272,
-      "variant_id": "sqlite-champion-16",
-      "basis": "unique_profile_subject_identity",
-      "review_state": "identity_ocr_with_profile_layout",
+      "variant_id": "audit-variant-stannis-one-true-king",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
       "image_role": "full_profile_screenshot_evidence"
     },
     {
@@ -615,9 +615,9 @@
     {
       "filename": "IMG_2318.PNG",
       "source_id": 102318,
-      "variant_id": "sqlite-champion-65",
-      "basis": "unique_profile_subject_identity",
-      "review_state": "identity_ocr_with_profile_layout",
+      "variant_id": "audit-variant-criston-kingmaker",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
       "image_role": "full_profile_screenshot_evidence"
     },
     {
@@ -759,9 +759,9 @@
     {
       "filename": "IMG_2411.PNG",
       "source_id": 102411,
-      "variant_id": "sqlite-champion-3",
-      "basis": "unique_profile_subject_identity",
-      "review_state": "identity_ocr_with_profile_layout",
+      "variant_id": "audit-variant-jon-battle-of-the-bastards",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
       "image_role": "full_profile_screenshot_evidence"
     },
     {

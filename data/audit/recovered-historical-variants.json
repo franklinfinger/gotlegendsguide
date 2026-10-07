@@ -1,0 +1,98 @@
+{
+  "review_note": "Visually transcribed from accessible Drive screenshots. Variant identity and wording are verified; current release state is unknown.",
+  "variants": [
+    {
+      "id": "audit-variant-stannis-one-true-king",
+      "character_id": "sqlite-character-16",
+      "display_name": "Stannis Baratheon — The One True King",
+      "rarity": "Legendary",
+      "gem_color": "Purple",
+      "profile_image": "IMG_2272.PNG"
+    },
+    {
+      "id": "audit-variant-criston-kingmaker",
+      "character_id": "sqlite-character-65",
+      "display_name": "Criston Cole — Kingmaker",
+      "rarity": "Legendary",
+      "gem_color": "Red",
+      "profile_image": "IMG_2318.PNG"
+    },
+    {
+      "id": "audit-variant-jon-battle-of-the-bastards",
+      "character_id": "sqlite-character-3",
+      "display_name": "Jon Snow — Battle of the Bastards",
+      "rarity": "Legendary",
+      "gem_color": "Blue",
+      "profile_image": "IMG_2411.PNG"
+    }
+  ],
+  "abilities": [
+    {
+      "id": "audit-stannis-one-true-king-skill",
+      "variant_id": "audit-variant-stannis-one-true-king",
+      "kind": "skill",
+      "name": "Come With Me And Take This City",
+      "stamina_speed": "Fast",
+      "exact_visible_text": "Stannis deals 155% ATK Physical Damage to a single enemy and spawns 1 random Power-Up. He then TAUNTS enemies with a +35% Durability Buff for 2 turns.",
+      "source_images": ["IMG_2275.PNG"]
+    },
+    {
+      "id": "audit-stannis-one-true-king-trait-1",
+      "variant_id": "audit-variant-stannis-one-true-king",
+      "kind": "trait",
+      "name": "I Will Not Retreat II",
+      "exact_visible_text": "Stannis begins the battle with +50% Stamina. When any Power-Up is destroyed while he's TAUNTING, he REMOVES 1 Buff from all enemies.",
+      "source_images": ["IMG_2274.PNG"]
+    },
+    {
+      "id": "audit-criston-kingmaker-skill",
+      "variant_id": "audit-variant-criston-kingmaker",
+      "kind": "skill",
+      "name": "For The True King",
+      "stamina_speed": "Very Slow",
+      "exact_visible_text": "Criston gains a +2% DEF Buff for each BIRTHRIGHT he has, for 4 turns. He then strikes a single enemy for 80% DEF Physical Damage.",
+      "source_images": ["IMG_2321.PNG"]
+    },
+    {
+      "id": "audit-criston-kingmaker-trait-1",
+      "variant_id": "audit-variant-criston-kingmaker",
+      "kind": "trait",
+      "name": "The Kingmaker II",
+      "exact_visible_text": "Anytime Criston is struck by an enemy Skill, he strikes that enemy for +100% ATK Physical Damage and grants all allies +2 BIRTHRIGHT.",
+      "source_images": ["IMG_2319.PNG"]
+    },
+    {
+      "id": "audit-criston-kingmaker-trait-2",
+      "variant_id": "audit-variant-criston-kingmaker",
+      "kind": "trait",
+      "name": "I Send You To Glory II",
+      "exact_visible_text": "Criston begins combat with +8 BIRTHRIGHT and +75% Stamina. When an enemy is defeated, Criston TAUNTS the enemy team for 4 turns.",
+      "source_images": ["IMG_2319.PNG", "IMG_2320.PNG"]
+    },
+    {
+      "id": "audit-jon-battle-of-the-bastards-skill",
+      "variant_id": "audit-variant-jon-battle-of-the-bastards",
+      "kind": "skill",
+      "name": "You Against Me",
+      "stamina_speed": "Normal",
+      "exact_visible_text": "Jon strikes an enemy for 25% ATK Physical Damage. He follows up this attack with 3 bonus strikes that each do 50% ATK Physical Damage and deal triple damage if the target is BRITTLE.",
+      "source_images": ["IMG_2414.PNG"]
+    },
+    {
+      "id": "audit-jon-battle-of-the-bastards-trait-1",
+      "variant_id": "audit-variant-jon-battle-of-the-bastards",
+      "kind": "trait",
+      "name": "Charge The Enemy",
+      "exact_visible_text": "At the start of each turn, any BRITTLE enemy suffers an indefinite -5% ATK Debuff.",
+      "source_images": ["IMG_2412.PNG"]
+    },
+    {
+      "id": "audit-jon-battle-of-the-bastards-trait-2",
+      "variant_id": "audit-variant-jon-battle-of-the-bastards",
+      "kind": "trait",
+      "name": "Avenge The Fallen",
+      "exact_visible_text": "When an ally is defeated, the enemy who dealt the final blow is afflicted with 1 ICE, and Jon gains +25% Stamina.",
+      "source_images": ["IMG_2412.PNG", "IMG_2413.PNG"]
+    }
+  ]
+}

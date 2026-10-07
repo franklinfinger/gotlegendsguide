@@ -29,6 +29,7 @@ COMPLETED_PARTIALS = ROOT / 'data/audit/completed-partial-records.json'
 PROFILE_MATCHES = ROOT / 'data/audit/champion-profile-image-matches.json'
 TEAM_MEMBER_RESOLUTIONS = ROOT / 'data/audit/team-member-variant-resolutions.json'
 RESOLVED_PARTIAL_TITLES = ROOT / 'data/audit/resolved-partial-titles.json'
+HISTORICAL_VARIANTS = ROOT / 'data/audit/recovered-historical-variants.json'
 
 
 def rows(path):
@@ -54,6 +55,7 @@ def main():
     profile_matches = json.loads(PROFILE_MATCHES.read_text())['matches']
     team_member_resolutions = json.loads(TEAM_MEMBER_RESOLUTIONS.read_text())
     resolved_partial_titles = json.loads(RESOLVED_PARTIAL_TITLES.read_text())['records']
+    historical_variants = json.loads(HISTORICAL_VARIANTS.read_text())
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -217,6 +219,30 @@ def main():
             review_state TEXT NOT NULL,
             PRIMARY KEY (record_kind, record_id, source_id)
         );
+        CREATE TABLE recovered_historical_variants (
+            id TEXT PRIMARY KEY,
+            character_id TEXT NOT NULL,
+            display_name TEXT NOT NULL,
+            rarity TEXT NOT NULL,
+            gem_color TEXT NOT NULL,
+            profile_source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            currentness_state TEXT NOT NULL
+        );
+        CREATE TABLE recovered_historical_variant_abilities (
+            id TEXT PRIMARY KEY,
+            variant_id TEXT NOT NULL REFERENCES recovered_historical_variants(id),
+            kind TEXT NOT NULL,
+            name TEXT NOT NULL,
+            stamina_speed TEXT,
+            exact_visible_text TEXT NOT NULL,
+            primary_source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            review_state TEXT NOT NULL
+        );
+        CREATE TABLE recovered_historical_variant_ability_sources (
+            ability_id TEXT NOT NULL REFERENCES recovered_historical_variant_abilities(id),
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            PRIMARY KEY (ability_id, source_id)
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -344,6 +370,22 @@ def main():
             (row['kind'], row['record_id'], row['name'], image_by_file[filename]['source_id'], row['review_state'])
             for filename in row['source_images']
         ])
+    if len(historical_variants['variants']) != 3 or len(historical_variants['abilities']) != 8:
+        raise SystemExit('Expected three recovered historical variants and eight abilities')
+    out.executemany('INSERT INTO recovered_historical_variants VALUES (?,?,?,?,?,?,?)', [
+        (row['id'], row['character_id'], row['display_name'], row['rarity'], row['gem_color'],
+         image_by_file[row['profile_image']]['source_id'], 'historical_currentness_unknown')
+        for row in historical_variants['variants']
+    ])
+    out.executemany('INSERT INTO recovered_historical_variant_abilities VALUES (?,?,?,?,?,?,?,?)', [
+        (row['id'], row['variant_id'], row['kind'], row['name'], row.get('stamina_speed'),
+         row['exact_visible_text'], image_by_file[row['source_images'][0]]['source_id'], 'visually_verified')
+        for row in historical_variants['abilities']
+    ])
+    out.executemany('INSERT INTO recovered_historical_variant_ability_sources VALUES (?,?)', [
+        (row['id'], image_by_file[filename]['source_id'])
+        for row in historical_variants['abilities'] for filename in row['source_images']
+    ])
     historic_values = []
     for r in history:
         fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None

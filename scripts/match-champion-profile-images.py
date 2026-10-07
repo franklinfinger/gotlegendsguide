@@ -16,7 +16,6 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = Path.home() / 'Downloads/got_legends_verified_knowledge.db'
 MANIFEST = ROOT / 'data/source-images/reconciliation.jsonl'
 OUTPUT = ROOT / 'data/audit/champion-profile-image-matches.json'
-MIGRATION = ROOT / 'supabase/migrations/20261006150000_champion_profile_image_evidence.sql'
 
 # These rows were initially classified as profiles because they name a
 # champion, but the image itself is a trait panel rather than a profile screen.
@@ -57,6 +56,9 @@ VISUALLY_REVIEWED_VARIANTS = {
     'IMG_2424.PNG': 'sqlite-champion-78',  # Queen Dowager
     'IMG_2160.PNG': 'sqlite-champion-41',  # Viserys Targaryen III
     'IMG_2336.PNG': 'sqlite-champion-68',  # Viserys Targaryen I / The Peace King
+    'IMG_2272.PNG': 'audit-variant-stannis-one-true-king',
+    'IMG_2318.PNG': 'audit-variant-criston-kingmaker',
+    'IMG_2411.PNG': 'audit-variant-jon-battle-of-the-bastards',
 }
 
 # OCR did not return a subject for these two fully visible, reviewed profiles.
@@ -78,7 +80,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--sqlite', type=Path, default=SOURCE)
     parser.add_argument('--output', type=Path, default=OUTPUT)
-    parser.add_argument('--migration', type=Path, default=MIGRATION)
+    parser.add_argument('--migration', type=Path,
+                        help='Optional SQL output. Applied migration 150000 is intentionally immutable.')
     args = parser.parse_args()
 
     db = sqlite3.connect(f'file:{args.sqlite}?mode=ro', uri=True)
@@ -97,6 +100,7 @@ def main():
 
     manifest = load_rows(MANIFEST)
     variants = {value for values in by_subject.values() for value in values}
+    variants.update({value for value in VISUALLY_REVIEWED_VARIANTS.values() if value.startswith('audit-variant-')})
     matches = []
     unresolved = []
     for row in manifest:
@@ -143,20 +147,21 @@ def main():
         'matches': matches,
     }
     args.output.write_text(json.dumps(payload, indent=2) + '\n')
-    sql = [
-        '-- Full champion profile screenshots linked as identity and image evidence.',
-        '-- These are not clean portrait crops and do not replace champion_portraits.',
-    ]
-    for row in matches:
-        sql.append(
-            'INSERT INTO knowledge.record_evidence '
-            '(record_kind, record_id, source_id, evidence_role, review_state) VALUES ('
-            + ', '.join(sql_literal(value) for value in (
-                'champion_variant', row['variant_id'], row['source_id'],
-                row['image_role'], row['review_state']))
-            + ') ON CONFLICT DO NOTHING;'
-        )
-    args.migration.write_text('\n'.join(sql) + '\n')
+    if args.migration:
+        sql = [
+            '-- Full champion profile screenshots linked as identity and image evidence.',
+            '-- These are not clean portrait crops and do not replace champion_portraits.',
+        ]
+        for row in matches:
+            sql.append(
+                'INSERT INTO knowledge.record_evidence '
+                '(record_kind, record_id, source_id, evidence_role, review_state) VALUES ('
+                + ', '.join(sql_literal(value) for value in (
+                    'champion_variant', row['variant_id'], row['source_id'],
+                    row['image_role'], row['review_state']))
+                + ') ON CONFLICT DO NOTHING;'
+            )
+        args.migration.write_text('\n'.join(sql) + '\n')
     print(f'Wrote {len(matches)} profile image matches covering '
           f'{len({row["variant_id"] for row in matches})} variants')
 
