@@ -1,0 +1,455 @@
+{
+  "method": "Fixed crop of byte-verified profile screenshots; no generative image processing.",
+  "portraits": [
+    {
+      "id": "derived-profile-audit-variant-criston-kingmaker",
+      "variant_id": "audit-variant-criston-kingmaker",
+      "asset_path": "assets/champion-portraits/derived-audit-variant-criston-kingmaker.png",
+      "sha256": "3db1f785fc5d05d9ba00bad3f2aaa994d9cca6f2d6944fad1bd93affd486e135",
+      "source_id": 102318,
+      "source_filename": "IMG_2318.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-audit-variant-jon-battle-of-the-bastards",
+      "variant_id": "audit-variant-jon-battle-of-the-bastards",
+      "asset_path": "assets/champion-portraits/derived-audit-variant-jon-battle-of-the-bastards.png",
+      "sha256": "076873f1c1dc355239f8e4dd71bb8d22b7411d97f037feb79a8bc14a0d5a8ad6",
+      "source_id": 102411,
+      "source_filename": "IMG_2411.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-audit-variant-stannis-one-true-king",
+      "variant_id": "audit-variant-stannis-one-true-king",
+      "asset_path": "assets/champion-portraits/derived-audit-variant-stannis-one-true-king.png",
+      "sha256": "c772ad5a177dd6d4a5477765c9a869b25baad9a1c8e59f97dc1764b0c329bceb",
+      "source_id": 102272,
+      "source_filename": "IMG_2272.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-legacy-champion-caraxes",
+      "variant_id": "legacy-champion-caraxes",
+      "asset_path": "assets/champion-portraits/derived-legacy-champion-caraxes.png",
+      "sha256": "792231d0314e57c57d557b17f7a1430aa53128c9eef0db867a96142d43c9ff4f",
+      "source_id": 102296,
+      "source_filename": "IMG_2296.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-legacy-champion-wunwun",
+      "variant_id": "legacy-champion-wunwun",
+      "asset_path": "assets/champion-portraits/derived-legacy-champion-wunwun.png",
+      "sha256": "1ef5b720a37bfc683888d8e6ae2b16b97a100b56791ebdbb79a8c8560d2ace21",
+      "source_id": 102314,
+      "source_filename": "IMG_2314.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-11",
+      "variant_id": "sqlite-champion-11",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-11.png",
+      "sha256": "e2d68ed6ec734e104e008357f2d9e54135d80fbdd9bd93a811f7473383363370",
+      "source_id": 101944,
+      "source_filename": "IMG_1944.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-17",
+      "variant_id": "sqlite-champion-17",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-17.png",
+      "sha256": "4e7d86c57ffa780e20b79e2177d204b83cb39303b08edef224cbd72dd805cce5",
+      "source_id": 101977,
+      "source_filename": "IMG_1977.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-18",
+      "variant_id": "sqlite-champion-18",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-18.png",
+      "sha256": "d522728b93db67ec5da522afced4d9fe71c68b4461023d2fd7f484e1b9a8a71e",
+      "source_id": 101982,
+      "source_filename": "IMG_1982.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-19",
+      "variant_id": "sqlite-champion-19",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-19.png",
+      "sha256": "05e9a0db6b538ee179da92e8d08f7b307f5a30c4a1afa63c9ef5118e246ea3df",
+      "source_id": 101992,
+      "source_filename": "IMG_1992.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-20",
+      "variant_id": "sqlite-champion-20",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-20.png",
+      "sha256": "484cfff9972ea82fda89d82b76e8c215eb5a9c4de0b8fede28c1406acd9ea4ba",
+      "source_id": 101997,
+      "source_filename": "IMG_1997.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-24",
+      "variant_id": "sqlite-champion-24",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-24.png",
+      "sha256": "bc63d6729d6894d454d31a1e8fb5c19c5ba17342b103f223969f0e827c3e345b",
+      "source_id": 102041,
+      "source_filename": "IMG_2041.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-29",
+      "variant_id": "sqlite-champion-29",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-29.png",
+      "sha256": "c4b5a16d00b440a08e45d5f6df905a740f9271abcf1acf87adcc1a53421c416a",
+      "source_id": 102071,
+      "source_filename": "IMG_2071.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-41",
+      "variant_id": "sqlite-champion-41",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-41.png",
+      "sha256": "4847bb43772a64fa73722c8de8086d81d8f384690f22d67a229c91c2c3db7cc2",
+      "source_id": 102160,
+      "source_filename": "IMG_2160.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-51",
+      "variant_id": "sqlite-champion-51",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-51.png",
+      "sha256": "9c01664bf23440ec400ec9316762c348a84c7edb7ae1abd825088a49bc7bf4db",
+      "source_id": 102435,
+      "source_filename": "IMG_2435.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-54",
+      "variant_id": "sqlite-champion-54",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-54.png",
+      "sha256": "2d81bdb3cc6efa30e01766cda372451a69c7438cb8762e7aae816067812b57c6",
+      "source_id": 102257,
+      "source_filename": "IMG_2257.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-6",
+      "variant_id": "sqlite-champion-6",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-6.png",
+      "sha256": "b64a8397e8939b4781b9fe15e542071f5a9ea464a127f90f8d693a6533d042ab",
+      "source_id": 101906,
+      "source_filename": "IMG_1906.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-65",
+      "variant_id": "sqlite-champion-65",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-65.png",
+      "sha256": "037d8a5a1db40a69fcd3a25a2cdad845b088e2e819818e5bf0c09dd8cf869362",
+      "source_id": 102372,
+      "source_filename": "IMG_2372.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-66",
+      "variant_id": "sqlite-champion-66",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-66.png",
+      "sha256": "986b5748bde299c9d14635838118a18c27df8bf7414881de795a69d877923a4b",
+      "source_id": 102322,
+      "source_filename": "IMG_2322.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-68",
+      "variant_id": "sqlite-champion-68",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-68.png",
+      "sha256": "7a07a171edd380f11592ca722c7995374e190fa5573fef2a234e4c0b815a1b96",
+      "source_id": 102336,
+      "source_filename": "IMG_2336.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-70",
+      "variant_id": "sqlite-champion-70",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-70.png",
+      "sha256": "0a3210b0bc33f622a1b0bfe9722961cbefd2548dbdc1b87f31957b44bd8a9d88",
+      "source_id": 102343,
+      "source_filename": "IMG_2343.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-72",
+      "variant_id": "sqlite-champion-72",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-72.png",
+      "sha256": "23829afe8fa00cff481a7b2dbfe0341ab27a49308ae3ff412d163ce33da762e4",
+      "source_id": 102429,
+      "source_filename": "IMG_2429.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-74",
+      "variant_id": "sqlite-champion-74",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-74.png",
+      "sha256": "54ccb1c6170dabb1db9de252932e84f9ef59b1453bc470afbcc25584a86d3b8a",
+      "source_id": 102360,
+      "source_filename": "IMG_2360.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-75",
+      "variant_id": "sqlite-champion-75",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-75.png",
+      "sha256": "6ebc5405ae25d8ac8da16a5f20877a55596c689dee6cc77fc99d8f050dec82a0",
+      "source_id": 102367,
+      "source_filename": "IMG_2367.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-78",
+      "variant_id": "sqlite-champion-78",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-78.png",
+      "sha256": "e39a2f02d2bf33282545a7b4d5ad002c4e89823ae846f9d9b4c143f50f3f352e",
+      "source_id": 102424,
+      "source_filename": "IMG_2424.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    },
+    {
+      "id": "derived-profile-sqlite-champion-80",
+      "variant_id": "sqlite-champion-80",
+      "asset_path": "assets/champion-portraits/derived-sqlite-champion-80.png",
+      "sha256": "7278163f34661bf1bb77949f68ba8558563273b2c23df6dc2d4b9e98d2f127f2",
+      "source_id": 102392,
+      "source_filename": "IMG_2392.PNG",
+      "crop": {
+        "offset_y": 500,
+        "offset_x": 210,
+        "height": 840,
+        "width": 840,
+        "output_height": 512,
+        "output_width": 512
+      },
+      "review_state": "derived_profile_center_crop",
+      "attribution": "User supplied GOT: Legends game image; game art remains with its rights holder."
+    }
+  ]
+}

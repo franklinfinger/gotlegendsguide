@@ -30,6 +30,7 @@ PROFILE_MATCHES = ROOT / 'data/audit/champion-profile-image-matches.json'
 TEAM_MEMBER_RESOLUTIONS = ROOT / 'data/audit/team-member-variant-resolutions.json'
 RESOLVED_PARTIAL_TITLES = ROOT / 'data/audit/resolved-partial-titles.json'
 HISTORICAL_VARIANTS = ROOT / 'data/audit/recovered-historical-variants.json'
+DERIVED_PORTRAITS = ROOT / 'data/audit/derived-portrait-manifest.json'
 
 
 def rows(path):
@@ -56,6 +57,7 @@ def main():
     team_member_resolutions = json.loads(TEAM_MEMBER_RESOLUTIONS.read_text())
     resolved_partial_titles = json.loads(RESOLVED_PARTIAL_TITLES.read_text())['records']
     historical_variants = json.loads(HISTORICAL_VARIANTS.read_text())
+    derived_portraits = json.loads(DERIVED_PORTRAITS.read_text())['portraits']
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -243,6 +245,17 @@ def main():
             source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
             PRIMARY KEY (ability_id, source_id)
         );
+        CREATE TABLE derived_champion_portraits (
+            id TEXT PRIMARY KEY,
+            variant_id TEXT NOT NULL UNIQUE,
+            asset_path TEXT NOT NULL UNIQUE,
+            sha256 TEXT NOT NULL,
+            source_id INTEGER NOT NULL REFERENCES source_image_reconciliation(source_id),
+            source_filename TEXT NOT NULL,
+            crop_json TEXT NOT NULL,
+            review_state TEXT NOT NULL,
+            attribution TEXT NOT NULL
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -385,6 +398,17 @@ def main():
     out.executemany('INSERT INTO recovered_historical_variant_ability_sources VALUES (?,?)', [
         (row['id'], image_by_file[filename]['source_id'])
         for row in historical_variants['abilities'] for filename in row['source_images']
+    ])
+    if len(derived_portraits) != 25 or len({row['variant_id'] for row in derived_portraits}) != 25:
+        raise SystemExit('Expected 25 distinct derived champion portraits')
+    for row in derived_portraits:
+        path = ROOT / row['asset_path']
+        if hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
+            raise SystemExit(f'Derived portrait hash mismatch: {path}')
+    out.executemany('INSERT INTO derived_champion_portraits VALUES (?,?,?,?,?,?,?,?,?)', [
+        (row['id'], row['variant_id'], row['asset_path'], row['sha256'], row['source_id'],
+         row['source_filename'], json.dumps(row['crop'], sort_keys=True), row['review_state'], row['attribution'])
+        for row in derived_portraits
     ])
     historic_values = []
     for r in history:
