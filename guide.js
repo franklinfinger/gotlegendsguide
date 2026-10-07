@@ -72,10 +72,11 @@ function homePage() {
     ['Teams','Browse observed lineups without victory claims.','builder.html','moss'],
     ['Status & mechanics','Look up exact mechanic wording.','status-effects.html','ice']
   ];
-  return `<section class="home-hero"><div>${titleBlock('Old Peeps on Porches · Battle reference','Find the next right move.','Look up the champion, mode, rule, or mechanic you need while the battle is still in front of you.')}
-    <form class="quick-find" action="champions.html"><label for="home-search">Find a champion</label><div><input id="home-search" name="q" type="search" placeholder="Name, color, or faction…" autocomplete="off"><button type="submit">Search</button></div></form>
+  return `<section class="home-hero"><div>${titleBlock('Old Peeps on Porches · Battle reference','Find the next right move.','Ask about a battle, team, champion choice, or mechanic while the game is still in front of you.')}
+    <form class="quick-find" id="home-strategy-form"><label for="home-search">Ask GOT Legends Guide</label><div><input id="home-search" type="search" placeholder="Strongest team for Drogon?" autocomplete="off" required><button type="submit">Ask guide</button></div></form>
     <div class="quick-links"><a href="dragons.html#drogon">Drogon</a><a href="war.html">War rules</a><a href="factions.html">Faction bonuses</a></div></div>
     <aside class="hero-panel"><p class="panel-label">Verified champion guide</p><div class="portrait-stack">${withPortraits.map(c=>portrait(c,'hero')).join('')}</div><p><strong>${snapshot.champions.length} variants</strong><span>Portrait-led details, exact abilities, and connected items.</span></p></aside></section>
+    <section id="home-strategy-result" class="home-strategy-result" hidden><div class="section-title"><h2>Your strategy answer</h2></div>${conversationPanel()}</section>
     <section class="home-section"><div class="section-title"><h2>What are you trying to do?</h2><span>Choose a path</span></div><div class="action-grid">${actions.map(([title,copy,href,tone])=>`<a class="action-tile ${tone}" href="${href}"><span class="action-rule"></span><h3>${title}</h3><p>${copy}</p><span class="action-arrow" aria-hidden="true">→</span></a>`).join('')}</div></section>`;
 }
 
@@ -167,9 +168,9 @@ function warPage() {
 }
 
 function legendaryAssaultPage() {
-  return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter for verified abilities and battle tips. Missing evidence stays visible without guessed mechanics.')}
+  return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter to see the recommended team, battle plan, abilities, and verified tips.')}
     <nav class="encounter-tabs" aria-label="Legendary Assault encounters">${snapshot.legendaryAssault.map(e=>`<a href="#${slug(e.id)}">${esc(e.name)}</a>`).join('')}</nav>
-    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>`<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p></div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available in the verified sources.`)}</div><div><h3>Verified battle tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`No verified encounter tips are available for ${e.name}.`)}</div></div></section>`).join('')}</div>`;
+    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>{const answer=answerStrategyQuestion({question:`Best team for ${e.name}`,guideData:snapshot,strategyData:strategySnapshot});return `<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p></div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-strategy">${answer.status==='ready'?recommendationMarkup(answer.result):unavailable('A verified team is not available for this encounter.')}<a class="encounter-ask" href="recommendations.html?q=${encodeURIComponent(`Best team for ${e.name}`)}">Ask about ${esc(e.name)} or request another team →</a></div><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available in the verified sources.`)}</div><div><h3>Verified battle tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`No verified encounter tips are available for ${e.name}.`)}</div></div></section>`}).join('')}</div>`;
 }
 
 function factionsPage() {
@@ -196,9 +197,13 @@ function notesPage() {
 }
 
 function recommendationsPage() {
-  const prompts=['Strongest team for Drogon','Best team for Viserion','Who should I use for Raid attack?','What should I use for Ravenous Pack?'];
   return `${titleBlock('Battle strategy','Ask the guide','Describe the battle in your own words. Every lineup comes from a verified curated recommendation or the deterministic strategy engine.')}
-    <section class="conversation-shell">
+    ${conversationPanel()}`;
+}
+
+function conversationPanel() {
+  const prompts=['Strongest team for Drogon','Best team for Viserion','Who should I use for Raid attack?','What should I use for Ravenous Pack?'];
+  return `<section class="conversation-shell">
       <div class="prompt-suggestions" aria-label="Example questions">${prompts.map(prompt=>`<button type="button" data-prompt="${esc(prompt)}">${esc(prompt)}</button>`).join('')}</div>
       <div id="conversation-log" class="conversation-log" aria-live="polite"><article class="guide-message welcome-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>What battle are you planning?</strong><p>Ask for a team, a substitute, a leader, or how to play the last recommendation.</p></div></article></div>
       <form id="conversation-form" class="conversation-form"><label class="sr-only" for="strategy-question">Ask a strategy question</label><textarea id="strategy-question" rows="2" placeholder="What is the strongest team to fight Drogon?"></textarea><button type="submit">Ask guide</button></form>
@@ -207,13 +212,24 @@ function recommendationsPage() {
 }
 
 function recommendationMarkup(result) {
+  if(result.status==='partial_curated') return partialRecommendationMarkup(result);
   if(result.status==='insufficient_evidence') return `<section class="recommendation-empty"><p class="eyebrow">Information unavailable</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>I cannot build a team until the encounter mechanics are verified.</p></section>`;
   const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>${result.leader?.champion.id===member.champion.id?'Leader':`Position ${index+1}`}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header><p class="member-role">${esc(member.roles.join(' · '))}</p>${member.item?`<a class="recommended-item" href="items.html#${esc(member.item.id)}">Iconic item: ${esc(member.item.name)}</a>`:''}</article>`).join('');
   const leader=result.leader?`<div class="leader-callout"><span>${portrait(result.leader.champion,'small')}</span><div><strong>Leader: ${esc(result.leader.champion.name)}</strong><p>${esc(result.leader.evidence?.factText||'This exact leader is part of the verified lineup.')}</p></div></div>`:unavailable('No Leader effect has enough supporting evidence for this team.');
   const tier=result.evidenceTier||'Engine-derived recommendation';
   return `<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended Team</h2><p>${esc(tier)}</p></div>${badge(tier,result.recommendationSource==='curated'?'gold':'quiet')}</section><div class="recommendation-team">${teamCards}</div>${leader}
-    <section class="strategy-explanation-grid"><article><h2>Why this team works</h2><p>${esc(result.approach)}</p><ul>${result.teamSynergy.filter(row=>row.evidenceCategory!=='community_observed').slice(0,4).map(row=>`<li>${esc(row.text)}</li>`).join('')||'<li>The champions were selected for their verified fit against this battle.</li>'}</ul></article><article><h2>How to play it</h2><p>${esc(result.timing)}</p></article><article><h2>Substitutes</h2>${result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</article><article><h2>Watch out for</h2><ul>${result.dangers.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></article></section>
+    <section class="strategy-explanation-grid"><article><h2>Why this team works</h2><p>${esc(result.approach)}</p>${result.target.evidenceState==='insufficient'?'<p>Individual champion interactions cannot be confirmed until the ability cards are available.</p>':`<ul>${result.teamSynergy.filter(row=>row.evidenceCategory!=='community_observed').slice(0,4).map(row=>`<li>${esc(row.text)}</li>`).join('')||'<li>The champions were selected for their verified fit against this battle.</li>'}</ul>`}</article><article><h2>How to play it</h2><p>${esc(result.timing)}</p></article><article><h2>Substitutes</h2>${result.target.evidenceState==='insufficient'?'<p>No encounter-specific substitution is verified while the ability cards are unavailable.</p>':result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</article><article><h2>Watch out for</h2><ul>${result.dangers.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></article></section>
     <details class="evidence-details"><summary>Evidence and recommendation details</summary><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} deterministic inferences · ${result.evidenceSummary.communityObservations} community observations used as context only.</p>${result.curatedRecommendation?`<p><strong>Curated source:</strong> ${esc(result.curatedRecommendation.provenanceRef)} · ${Math.round(Number(result.curatedRecommendation.confidence)*100)}% confidence</p><p>${esc(result.curatedRecommendation.notes)}</p>`:''}<ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></details>`;
+}
+
+function partialRecommendationMarkup(result) {
+  const curated=result.curatedRecommendation;
+  const members=curated.members.map(member=>{
+    const champion=member.variantId?snapshot.champions.find(row=>row.id===member.variantId):null;
+    return `<article class="recommendation-member"><header>${champion?portrait(champion,'card'):'<span class="portrait portrait-card portrait-missing"><span class="portrait-fallback">?</span></span>'}<div><span>${member.isLeader?'Leader':`Position ${member.position}`}</span><h3>${esc(champion?.name||member.displayName)}</h3><p>${champion?esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · ')):'Exact variant, affinity, and factions pending'}</p></div>${member.isLeader?badge('Leader','gold'):''}</header>${!champion?'<p class="variant-notice">Portrait and variant identity need confirmation.</p>':''}</article>`;
+  }).join('');
+  const unresolved=curated.members.filter(member=>member.identityStatus==='unresolved').map(member=>`${member.displayName} (position ${member.position})`);
+  return `<section class="recommendation-summary"><div><p class="eyebrow">${esc(result.target.name)}</p><h2>Recommended Team</h2><p>First-party lineup · exact variants pending</p></div>${badge('First-party lineup','gold')}</section><div class="recommendation-team">${members}</div><p class="partial-lineup-note">${unresolved.length?`Exact variant confirmation is still needed for ${esc(unresolved.join(', '))}.`:'Exact variants confirmed.'} The listed team is preserved as supplied; unidentified slots have not been guessed.</p><section class="strategy-explanation-grid"><article><h2>Why this team works</h2><p>${esc(result.target.approach)}</p><p>These are verified encounter mechanics. The contribution of each listed champion has not been independently established.</p></article><article><h2>How to play it</h2><p>${esc(result.target.timing)}</p></article><article><h2>Substitutes</h2><p>Exact substitutions for this lineup cannot be mapped until the missing variant identities are confirmed. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Ask for an engine-derived alternative</a>.</p></article><article><h2>Watch out for</h2><p>${esc(result.target.warning)}</p></article></section><details class="evidence-details"><summary>Evidence and recommendation details</summary><p>First-party in-game lineup transcribed by the player. Original recommendation image is not attached to this record.</p><p>${esc(curated.notes)}</p><p>Unresolved: ${esc(unresolved.join(', '))}.</p></details>`;
 }
 
 function mountRecommendations() {
@@ -226,20 +242,23 @@ function mountRecommendations() {
     else {
       conversationContext=answer.context;
       let intro='Here is the strongest verified strategic fit I can support.';
-      if(answer.result.recommendationSource==='curated')intro='This is the current best-known verified lineup.';
+      if(answer.result.recommendationSource==='curated')intro='This is the supplied first-party lineup.';
+      if(answer.result.status==='partial_curated')intro='Here is the supplied first-party lineup. Some exact variants still need identification.';
       if(answer.request.intent==='substitution')intro='I rebuilt the team without that exact variant.';
       if(answer.request.intent==='alternate')intro='Here is a different engine-derived lineup.';
-      if(answer.request.intent==='leader')intro=`Use ${esc(answer.result.leader?.champion.name||'the verified Leader shown below')}.`;
-      if(answer.request.intent==='how_to')intro=`${esc(answer.result.approach)} ${esc(answer.result.timing)}`;
+      if(answer.request.intent==='leader')intro=`Use ${esc(answer.result.leader?.champion.name||answer.result.curatedRecommendation?.members.find(member=>member.isLeader)?.displayName||'the Leader shown below')}.`;
+      if(answer.request.intent==='how_to')intro=`${esc(answer.result.approach||answer.result.target.approach)} ${esc(answer.result.timing||answer.result.target.timing)}`;
       if(answer.request.intent==='explanation'&&answer.focus.subjectVariantId){const member=answer.result.team.find(row=>row.champion.id===answer.focus.subjectVariantId);intro=member?.reasons.length?member.reasons.map(row=>esc(row.text)).join(' '):`${esc(member?.champion.name||'That champion')} is part of the source-backed lineup, but no separate verified mechanic explanation is available.`;}
       if(answer.request.intent==='explanation'&&answer.focus.rules.length)intro=answer.focus.rules.map(row=>esc(row.rationale)).join(' ');
-      const showTeam=['recommendation','substitution','alternate'].includes(answer.request.intent);
+      if(answer.result.status==='partial_curated'&&answer.request.intent==='explanation')intro='The encounter guidance is verified, but the lineup-specific reason for this champion is not established by the available evidence.';
+      const showTeam=answer.result.status==='partial_curated'||['recommendation','substitution','alternate'].includes(answer.request.intent);
       log.insertAdjacentHTML('beforeend',`<article class="guide-message strategy-answer"><span class="guide-avatar" aria-hidden="true">G</span><div><p class="answer-intro">${intro}</p>${showTeam?recommendationMarkup(answer.result):''}</div></article>`);
     }
     input.value=''; log.lastElementChild?.scrollIntoView({behavior:'smooth',block:'start'});
   };
   form.addEventListener('submit',event=>{event.preventDefault();ask(input.value);});
   document.querySelectorAll('[data-prompt]').forEach(button=>button.addEventListener('click',()=>ask(button.dataset.prompt)));
+  return ask;
 }
 
 function render() {
@@ -249,12 +268,32 @@ function render() {
   if(view==='champions') mountChampionFilters();
   if(view==='items') mountSimpleSearch('#item-search','.item-card','#item-count','item','#item-empty');
   if(view==='glossary') mountSimpleSearch('#glossary-search','.glossary-list article','#glossary-count','entry','#glossary-empty');
-  if(view==='recommendations') mountRecommendations();
+  if(view==='recommendations') {
+    const ask=mountRecommendations();
+    const initialQuestion=new URLSearchParams(location.search).get('q');
+    if(initialQuestion) ask(initialQuestion);
+  }
+  if(view==='home') {
+    const ask=mountRecommendations();
+    document.querySelector('#home-strategy-form').addEventListener('submit',event=>{
+      event.preventDefault();
+      const input=document.querySelector('#home-search');
+      const question=input.value.trim();
+      if(!question)return;
+      document.querySelector('#home-strategy-result').hidden=false;
+      ask(question);
+      document.querySelector('#home-strategy-result').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+  if(view==='legendary-assault' && location.hash) {
+    const encounter=document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if(encounter) requestAnimationFrame(()=>encounter.scrollIntoView({block:'start'}));
+  }
 }
 
 renderShell();
 try {
-  if(view==='recommendations') [snapshot,strategySnapshot]=await Promise.all([getGuideData(),getStrategyData()]);
+  if(['home','recommendations','legendary-assault'].includes(view)) [snapshot,strategySnapshot]=await Promise.all([getGuideData(),getStrategyData()]);
   else snapshot=await getGuideData();
   render();
 } catch(error) {

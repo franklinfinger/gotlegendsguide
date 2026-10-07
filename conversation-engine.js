@@ -68,8 +68,12 @@ export function parseConversationRequest(question,{targets,context={},guideData,
 
 function currentCurated(strategyData,targetId) {
   return strategyData.curatedRecommendations
-    .filter(row=>row.targetId===targetId && row.active && row.reviewStatus==='reviewed' && Number(row.confidence)>=.9 && row.members.length===5)
+    .filter(row=>row.targetId===targetId && row.active && row.reviewStatus==='reviewed' && Number(row.confidence)>=.9 && row.members.length===5 && row.members.every(member=>member.variantId) && row.leaderVariantId)
     .sort((a,b)=>Number(b.confidence)-Number(a.confidence) || String(b.effectiveDate||'').localeCompare(String(a.effectiveDate||'')))[0]||null;
+}
+
+function partialCurated(strategyData,targetId) {
+  return strategyData.curatedRecommendations.find(row=>row.targetId===targetId && row.active && row.reviewStatus==='partial' && row.members.length===5)||null;
 }
 
 /** Apply the fixed precedence: curated, then deterministic engine. Community
@@ -78,6 +82,9 @@ export function answerStrategyQuestion({question,guideData,strategyData,context=
   const request=parseConversationRequest(question,{targets:strategyData.targets,context:{...context,strategyData},guideData,roster});
   if (request.status!=='ready') return {...request,question};
   const previous=context.lastResult||null;
+  if (previous?.status==='partial_curated' && request.intent==='substitution') {
+    return {status:'needs_clarification',question,request,message:'Some champion variants in this first-party lineup are not identified yet. Ask for an engine-derived alternative team instead.'};
+  }
   if (['leader','how_to','explanation'].includes(request.intent) && previous && previous.target.id===request.targetId) {
     if (request.intent==='explanation' && request.subjectVariantId && !previous.team.some(row=>row.champion.id===request.subjectVariantId)) {
       return {status:'needs_clarification',question,request,message:'That exact variant is not on the current recommended team.'};
@@ -89,10 +96,17 @@ export function answerStrategyQuestion({question,guideData,strategyData,context=
   if (request.intent==='substitution' && request.subjectVariantId) excluded.add(request.subjectVariantId);
   if (request.intent==='alternate' && previous?.target.id===request.targetId) previous.team.forEach(row=>excluded.add(row.champion.id));
   const curated=currentCurated(strategyData,request.targetId);
+  const partial=!curated && excluded.size===0 && request.intent!=='alternate' ? partialCurated(strategyData,request.targetId) : null;
+  if (partial) {
+    const target=strategyData.targets.find(row=>row.id===request.targetId);
+    const result={status:'partial_curated',target,curatedRecommendation:partial,recommendationSource:'curated_partial',team:[],leader:null};
+    return {status:'ready',question,request,result,focus:{intent:request.intent,subjectVariantId:null,mechanicIds:[],rules:[]},context:{targetId:request.targetId,excludedVariantIds:[],lastResult:result}};
+  }
   let result;
   if (curated && excluded.size===0 && request.intent!=='alternate') {
     result=evaluateExactTeam({guideData,strategyData,targetId:request.targetId,variantIds:curated.members.map(row=>row.variantId),leaderVariantId:curated.leaderVariantId});
     result={...result,curatedRecommendation:curated};
+    if (result.target.evidenceState==='insufficient') result={...result,evidenceTier:'First-party lineup · ability details incomplete'};
   } else {
     result=recommendTeam({guideData,strategyData,targetId:request.targetId,excludeVariantIds:[...excluded]});
     if (result.status==='ready' && (request.intent==='substitution'||request.intent==='alternate')) result={...result,evidenceTier:'Alternative viable team',recommendationSource:'engine_alternative'};

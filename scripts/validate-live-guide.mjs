@@ -41,11 +41,23 @@ if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('
 if (data.announcements.find(row=>row.id===1)?.status!=='live') throw new Error('The current faction update is still labeled as future.');
 if (data.champions.filter(row=>row.factions.length===2).length < 13) throw new Error('Current dual-faction memberships are incomplete.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
-if (!icy || icy.abilities.length !== 0) throw new Error('Icy Viserion must be present without invented ability cards.');
+if (!icy || icy.abilities.length !== 0 || icy.tips.length !== 3) throw new Error('Icy Viserion must have three verified tips and no invented ability cards.');
 if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
 const curatedDrogon=strategy.curatedRecommendations?.find(row=>row.id==='curated-drogon-best-2026-10');
 if (!curatedDrogon || !curatedDrogon.active || Number(curatedDrogon.confidence)<.9 || curatedDrogon.leaderVariantId!=='sqlite-champion-19') throw new Error('Curated Drogon recommendation metadata is incomplete.');
 if (curatedDrogon.members.map(row=>row.variantId).join(',')!=='sqlite-champion-19,sqlite-champion-5,sqlite-champion-6,sqlite-champion-58,sqlite-champion-9') throw new Error('Curated Drogon exact variants do not match the verified screenshot.');
+const expectedCurated = new Map([
+  ['legendary-assault:drogon',{leader:'sqlite-champion-19',unresolved:0}],
+  ['legendary-assault:viserion',{leader:'sqlite-champion-48',unresolved:1}],
+  ['legendary-assault:rhaegal',{leader:null,unresolved:3}],
+  ['legendary-assault:icy-viserion',{leader:'sqlite-champion-21',unresolved:0}],
+]);
+for (const [targetId,expectedRow] of expectedCurated) {
+  const row=strategy.curatedRecommendations.find(candidate=>candidate.targetId===targetId && candidate.active);
+  if (!row || row.members.length!==5 || row.leaderVariantId!==expectedRow.leader || row.members.filter(member=>member.isLeader).length!==1 || row.members.filter(member=>member.identityStatus==='unresolved').length!==expectedRow.unresolved) throw new Error(`First-party lineup incomplete: ${targetId}`);
+  for (const member of row.members) if (member.variantId && !data.champions.some(champion=>champion.id===member.variantId)) throw new Error(`Unknown curated variant: ${member.variantId}`);
+}
+if (strategy.curatedRecommendations.length!==4) throw new Error('Expected four distinct Legendary Assault first-party lineups.');
 for (const target of strategy.targets) {
   const result = recommendTeam({guideData:data,strategyData:strategy,targetId:target.id});
   if (target.evidenceState === 'insufficient') {
@@ -61,4 +73,6 @@ checks.strategyMechanics = strategy.mechanics.length;
 checks.strategyTargets = strategy.targets.length;
 checks.strategyRules = strategy.rules.length;
 checks.strategyChampionFacts = strategy.championFacts.length;
+checks.curatedLegendaryAssault = strategy.curatedRecommendations.length;
+checks.unresolvedCuratedPositions = strategy.curatedRecommendations.flatMap(row=>row.members).filter(member=>member.identityStatus==='unresolved').length;
 console.log(JSON.stringify(checks, null, 2));

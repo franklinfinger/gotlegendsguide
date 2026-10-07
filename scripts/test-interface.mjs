@@ -23,3 +23,13 @@ test('player navigation uses Legendary Assault terminology', () => {
   assert.match(source, /Ask the guide/);
   assert.match(source, /verified curated recommendation or the deterministic strategy engine/);
 });
+
+test('Home strategy questions render in place and champion search stays separate',()=>{
+  const source=fs.readFileSync(path.join(root,'guide.js'),'utf8');
+  assert.match(source,/id="home-strategy-form"/);
+  assert.match(source,/Ask GOT Legends Guide/);
+  assert.match(source,/id="home-strategy-result"/);
+  assert.doesNotMatch(source,/quick-find" action="champions\.html"/);
+  assert.match(source,/if\(view==='champions'\) mountChampionFilters/);
+  assert.match(source,/encounter-strategy/);
+});

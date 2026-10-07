@@ -83,3 +83,22 @@ test('conversation responses can only return curated or deterministic teams',()=
     assert.equal(answer.result.team.every(row=>champions.some(champion=>champion.id===row.champion.id)),true);
   }
 });
+
+test('a supplied lineup with unresolved variants is shown without assigning guessed IDs',()=>{
+  const partial={...curated,id:'viserion-first-party',targetId:'legendary-assault:viserion',reviewStatus:'partial',confidence:.8,
+    leaderVariantId:'dany-yellow',members:[...curated.members.slice(0,2),{position:3,variantId:null,displayName:'Jon Snow',identityStatus:'unresolved',isLeader:false},...curated.members.slice(3)]};
+  const answer=answerStrategyQuestion({question:'Best team for Viserion',guideData,strategyData:{...strategyData,curatedRecommendations:[curated,partial]}});
+  assert.equal(answer.result.status,'partial_curated');
+  assert.equal(answer.result.curatedRecommendation.members[2].variantId,null);
+  assert.equal(answer.result.recommendationSource,'curated_partial');
+});
+
+test('a complete first-party Icy Viserion team may be shown while ability evidence remains insufficient',()=>{
+  const icy=target('legendary-assault:icy-viserion','Icy Viserion');
+  icy.evidenceState='insufficient';
+  const recommendation={...curated,id:'icy-first-party',targetId:icy.id,leaderVariantId:'rhaenyra',members:curated.members};
+  const answer=answerStrategyQuestion({question:'Best team for Icy Viserion',guideData,strategyData:{...strategyData,targets:[...targets,icy],curatedRecommendations:[curated,recommendation]}});
+  assert.equal(answer.result.recommendationSource,'curated');
+  assert.equal(answer.result.team.length,5);
+  assert.match(answer.result.evidenceTier,/ability details incomplete/);
+});
