@@ -20,6 +20,8 @@ for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
     fs.copyFileSync(path.join(root, entry.name), path.join(out, entry.name));
   }
 }
+const assets = path.join(root, 'assets');
+if (fs.existsSync(assets)) fs.cpSync(assets, path.join(out, 'assets'), { recursive: true });
 const config = {
   url: env.NEXT_PUBLIC_SUPABASE_URL || '',
   publishableKey: env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || ''

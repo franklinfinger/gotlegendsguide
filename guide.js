@@ -5,238 +5,208 @@ const state = document.querySelector('#guide-state');
 const view = document.body.dataset.view || 'home';
 let snapshot;
 
-const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
-const tag = (label, tone = '') => `<span class="tag ${tone}">${esc(label)}</span>`;
-const empty = message => `<div class="empty">${esc(message)}</div>`;
-const source = id => id ? `<span class="meta">Source #${esc(id)}</span>` : '';
-const reviewed = status => status === 'complete' ? tag('Reviewed profile', 'good') : tag('Incomplete profile', 'warn');
-const evidence = (review, sourceState) => review === 'complete' && sourceState === 'verified_visible'
-  ? tag('Screenshot verified', 'good') : tag('Review incomplete', 'warn');
-const championName = (data, id) => data.champions.find(champion => champion.id === id)?.name || `Champion #${id}`;
-const heading = (title, intro) => `<p class="eyebrow">Source snapshot · ${esc(snapshot.version)}</p><h1>${esc(title)}</h1><p class="intro">${esc(intro)}</p>`;
-const paragraph = text => `<p class="text">${esc(text)}</p>`;
+const pages = [
+  ['home','Home','index.html'], ['champions','Champions','champions.html'],
+  ['items','Items','items.html'], ['teams','Teams','builder.html'],
+  ['raid','Raid','raids.html'], ['war','War','war.html'],
+  ['legendary-assault','Legendary Assault','dragons.html'],
+  ['factions','Factions','factions.html'], ['glossary','Status & mechanics','status-effects.html']
+];
+const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const slug = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+const cleanName = value => String(value || '').split(' — ')[0].trim();
+const badge = (text, tone='') => `<span class="badge ${tone}">${esc(text)}</span>`;
+const empty = (title, copy) => `<div class="empty-state"><span class="empty-icon" aria-hidden="true">◇</span><h2>${esc(title)}</h2><p>${esc(copy)}</p></div>`;
 
-function abilityCard(ability) {
-  const label = ability.kind === 'boss' ? 'Legendary Assault' : ability.kind.replaceAll('_', ' ');
-  const proof = ability.kind === 'boss' ? tag('See Legendary Assault source review', 'warn') : evidence(ability.reviewStatus, ability.sourceState);
-  return `<article class="card"><h3>${esc(ability.name)}</h3><div>${tag(label)}${proof}</div>${paragraph(ability.text || 'Visible text was not captured.')}${source(ability.sourceId)}</article>`;
+function renderShell() {
+  const desktop = pages.map(([id,label,href]) => `<a href="${href}" ${id===view?'aria-current="page"':''}>${esc(label)}</a>`).join('');
+  document.querySelector('#site-header').innerHTML = `<div class="shell header-inner">
+    <a class="wordmark" href="index.html" aria-label="GOT Legends Guide home"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GOT LEGENDS GUIDE</strong><small>Old Peeps on Porches</small></span></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span><span class="sr-only">Open guide menu</span></button>
+    <nav id="site-menu" class="site-menu" aria-label="Guide sections">${desktop}</nav></div>`;
+  const mobile = [pages[0],pages[1],pages[3],['battle','Battle','raids.html'],pages[8]];
+  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view || (id==='battle'&&['raid','war','legendary-assault'].includes(view))?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',champions:'♙',teams:'◇',battle:'⚔',glossary:'≡'}[id]}</span><span>${esc(label)}</span></a>`).join('');
+  document.querySelector('#site-footer').innerHTML = `<div class="shell footer-inner"><div><strong>GOT Legends Guide</strong><span>Practical battle reference for Old Peeps on Porches.</span></div><div class="system-links"><a href="health.html">System status</a><a href="strategy.html">Data notes</a></div></div>`;
+  const button = document.querySelector('.menu-button');
+  const menu = document.querySelector('#site-menu');
+  button.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!open));
+    menu.classList.toggle('open', !open);
+  });
 }
 
-function championCard(data, champion) {
-  const abilities = data.abilities.filter(ability => ability.championId === champion.id);
-  const traits = data.traits.filter(trait => trait.championId === champion.id);
-  return `<article class="card"><h3>${esc(champion.name)}</h3>
-    <div>${reviewed(champion.reviewStatus)}${tag(champion.gemColor || 'Color unrecorded')}</div>
-    <p class="meta">${champion.factions.length ? champion.factions.map(esc).join(' · ') : 'Faction unrecorded'}</p>
-    <details><summary>Visible abilities (${abilities.length})</summary>
-    ${abilities.length ? abilities.map(abilityCard).join('') : empty('No ability text is recorded for this champion yet.')}
-    </details><details><summary>Visible traits (${traits.length})</summary>
-    ${traits.length ? traits.map(trait => `<div class="card"><h3>${esc(trait.name)}</h3>
-    ${evidence(trait.reviewStatus, trait.sourceState)}${trait.type ? tag(trait.type) : ''}${paragraph(trait.text || 'Visible text was not captured.')}${source(trait.sourceId)}</div>`).join('') : empty('No trait text is recorded for this champion yet.')}
-    </details></article>`;
+function titleBlock(kicker,title,copy) {
+  return `<header class="page-heading"><p class="eyebrow">${esc(kicker)}</p><h1>${esc(title)}</h1><p>${esc(copy)}</p></header>`;
 }
 
-function mountChampionSearch(data, container) {
-  const search = container.querySelector('#champion-search');
-  const results = container.querySelector('#champion-results');
-  const count = container.querySelector('#result-count');
-  const render = () => {
-    const query = search.value.trim().toLowerCase();
-    const champions = data.champions.filter(champion =>
-      `${champion.name} ${champion.gemColor || ''} ${champion.factions.join(' ')}`.toLowerCase().includes(query));
-    count.textContent = `${champions.length} of ${data.champions.length} champion records`;
-    results.innerHTML = champions.length ? champions.map(champion => championCard(data, champion)).join('') : empty('No champions match that search.');
+function portrait(champion, size='card') {
+  const initials = champion?.name?.split(/\s|—/).filter(Boolean).slice(0,2).map(part=>part[0]).join('') || '?';
+  const src = champion?.portrait;
+  return `<span class="portrait portrait-${size} ${src?'':'portrait-missing'}">${src?`<img src="${esc(src)}" alt="" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false">`:''}<span class="portrait-fallback" ${src?'hidden':''}>${esc(initials)}</span></span>`;
+}
+
+function championForName(name, gemColor=null) {
+  const target = cleanName(name).toLowerCase();
+  const matches = snapshot.champions.filter(champion => cleanName(champion.name).toLowerCase() === target);
+  return matches.find(champion => gemColor && champion.gemColor?.toLowerCase()===gemColor.toLowerCase() && champion.portrait)
+    || matches.find(champion => gemColor && champion.gemColor?.toLowerCase()===gemColor.toLowerCase())
+    || matches.find(champion => champion.portrait) || matches[0] || null;
+}
+
+function championLink(champion, label=null) {
+  if (!champion) return esc(label || 'Unknown champion');
+  return `<a href="champions.html?champion=${encodeURIComponent(champion.id)}">${esc(label || champion.name)}</a>`;
+}
+
+function homePage() {
+  const withPortraits = snapshot.champions.filter(c=>c.portrait).slice(0,5);
+  const actions = [
+    ['Raid','Choose attack and defense information quickly.','raids.html','ember'],
+    ['War','Read every verified battlefield rule.','war.html','moss'],
+    ['Legendary Assault','Prepare for all four represented encounters.','dragons.html','danger'],
+    ['Champions','Find a variant, skill, trait, faction, or item.','champions.html','ice'],
+    ['Teams','Browse observed lineups without victory claims.','builder.html','moss'],
+    ['Status & mechanics','Look up exact mechanic wording.','status-effects.html','ice']
+  ];
+  return `<section class="home-hero"><div>${titleBlock('Old Peeps on Porches · Battle reference','Find the next right move.','Look up the champion, mode, rule, or mechanic you need while the battle is still in front of you.')}
+    <form class="quick-find" action="champions.html"><label for="home-search">Find a champion</label><div><input id="home-search" name="q" type="search" placeholder="Name, color, or faction…" autocomplete="off"><button type="submit">Search</button></div></form>
+    <div class="quick-links"><a href="dragons.html#drogon">Drogon</a><a href="war.html">War rules</a><a href="factions.html">Faction bonuses</a></div></div>
+    <aside class="hero-panel"><p class="panel-label">Verified champion guide</p><div class="portrait-stack">${withPortraits.map(c=>portrait(c,'hero')).join('')}</div><p><strong>${snapshot.champions.length} variants</strong><span>Portrait-led details, exact abilities, and connected items.</span></p></aside></section>
+    <section class="home-section"><div class="section-title"><h2>What are you trying to do?</h2><span>Choose a path</span></div><div class="action-grid">${actions.map(([title,copy,href,tone])=>`<a class="action-tile ${tone}" href="${href}"><span class="action-rule"></span><h3>${title}</h3><p>${copy}</p><span class="action-arrow" aria-hidden="true">→</span></a>`).join('')}</div></section>`;
+}
+
+function championFacts(champion) {
+  const skills = snapshot.abilities.filter(a=>a.variantId===champion.id && ['skill','champion_skill'].includes(a.kind));
+  const normalizedTraits = snapshot.abilities.filter(a=>a.variantId===champion.id && a.kind==='trait');
+  const traits = [...snapshot.traits.filter(t=>t.variantId===champion.id), ...normalizedTraits];
+  const items = snapshot.items.filter(item=>item.ownerVariantId===champion.id);
+  return {skills,traits,items};
+}
+
+function championCard(champion, open=false) {
+  const {skills,traits,items} = championFacts(champion);
+  const subtle = champion.releaseState==='unverified' ? `<p class="subtle-note">This distinct variant is source-backed; current availability is not confirmed.</p>` : '';
+  return `<details class="champion-card" data-search="${esc(`${champion.name} ${champion.gemColor||''} ${champion.rarity||''} ${champion.factions.join(' ')}`.toLowerCase())}" data-color="${esc((champion.gemColor||'unknown').toLowerCase())}" data-factions="${esc(champion.factions.join('|').toLowerCase())}" ${open?'open':''}>
+    <summary><span class="champion-summary">${portrait(champion)}<span class="champion-identity"><strong>${esc(champion.name)}</strong><span>${esc([champion.rarity,champion.gemColor].filter(Boolean).join(' · ')||'Classification unavailable')}</span><span>${esc(champion.factions.join(' · ')||'Faction not recorded')}</span></span><span class="expand-mark" aria-hidden="true">＋</span></span></summary>
+    <div class="champion-detail">${subtle}<div class="detail-grid"><section><h3>Skill</h3>${skills.length?skills.map(abilityBlock).join(''):unavailable('No verified skill card is available for this variant.')}</section><section><h3>Traits</h3>${traits.length?traits.map(abilityBlock).join(''):unavailable('No verified trait card is available for this variant.')}</section></div>
+    <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<a class="item-link" href="items.html#${esc(item.id)}"><strong>${esc(item.name)}</strong><span>${esc(item.abilities[0]?.name||'View item ability')}</span></a>`).join(''):unavailable('No verified champion-item relationship is available.')}</section></div></details>`;
+}
+
+function abilityBlock(ability) {
+  const partial = ability.reviewStatus && ability.reviewStatus!=='complete';
+  const name = /^title not visible/i.test(ability.name||'') ? 'Trait title unavailable' : ability.name;
+  return `<article class="ability-block"><div><strong>${esc(name)}</strong>${partial?badge('Partial','quiet'):''}</div><p>${esc(ability.text||'Wording unavailable.')}</p></article>`;
+}
+function unavailable(message) { return `<div class="unavailable">${esc(message)}</div>`; }
+
+function championsPage() {
+  const query = new URLSearchParams(location.search);
+  const selected = query.get('champion');
+  const initialSearch = query.get('q') || '';
+  const colors = [...new Set(snapshot.champions.map(c=>c.gemColor).filter(Boolean))].sort();
+  return `${titleBlock('Champion library','Champions','Search exact variants and open a card for its skill, traits, factions, and connected item.')}
+    <section class="filter-panel" aria-label="Champion filters"><label for="champion-search">Search champions</label><input id="champion-search" type="search" value="${esc(initialSearch)}" placeholder="Name, color, rarity, or faction…" autocomplete="off"><div class="filter-row" id="color-filters"><button type="button" class="filter-chip active" data-color="all" aria-pressed="true">All colors</button>${colors.map(color=>`<button type="button" class="filter-chip color-${slug(color)}" data-color="${esc(color.toLowerCase())}" aria-pressed="false">${esc(color)}</button>`).join('')}</div><p id="champion-count" class="result-count"></p></section>
+    <div id="champion-list" class="champion-grid">${snapshot.champions.map(c=>championCard(c,c.id===selected)).join('')}</div><div id="champion-empty" hidden>${empty('No champions match','Try another name, color, rarity, or faction.')}</div>`;
+}
+
+function mountChampionFilters() {
+  const input = document.querySelector('#champion-search');
+  const cards = [...document.querySelectorAll('.champion-card')];
+  const count = document.querySelector('#champion-count');
+  const emptyState = document.querySelector('#champion-empty');
+  let color='all';
+  const render=()=>{
+    const q=input.value.trim().toLowerCase(); let shown=0;
+    cards.forEach(card=>{ const match=(!q||card.dataset.search.includes(q))&&(color==='all'||card.dataset.color===color); card.hidden=!match; if(match) shown++; });
+    count.textContent=`${shown} champion variant${shown===1?'':'s'}`;
+    emptyState.hidden=shown!==0;
   };
-  search.addEventListener('input', render);
+  input.addEventListener('input',render);
+  document.querySelectorAll('#color-filters [data-color]').forEach(button=>button.addEventListener('click',()=>{color=button.dataset.color;document.querySelectorAll('#color-filters [data-color]').forEach(b=>{const active=b===button;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});render();}));
   render();
+  document.querySelector('.champion-card[open]')?.scrollIntoView({block:'start'});
 }
 
-function championsPage(data) {
-  return `${heading('Champions', 'Search the live champion directory. A complete profile is reviewed; an incomplete profile may still have verified ability text.')}
-    <label for="champion-search" class="meta">Search by name, color, or faction</label><br>
-    <input class="search" id="champion-search" type="search" placeholder="Search champions…" autocomplete="off">
-    <p class="result-count" id="result-count"></p><div class="grid" id="champion-results"></div>`;
+function itemsPage() {
+  return `${titleBlock('Champion equipment','Items','Browse every verified iconic item, its champion relationship, and its complete recorded ability wording.')}
+    <label class="search-label" for="item-search">Search items or champions</label><input class="wide-search" id="item-search" type="search" placeholder="Item or champion name…"><p id="item-count" class="result-count"></p>
+    <div id="item-list" class="item-grid">${snapshot.items.map(item=>{const owner=snapshot.champions.find(c=>c.id===item.ownerVariantId);return `<article class="item-card" id="${esc(item.id)}" data-search="${esc(`${item.name} ${item.ownerName||''}`.toLowerCase())}"><div class="item-owner">${portrait(owner,'small')}<span><small>Iconic item for</small>${championLink(owner,item.ownerName||'Champion unavailable')}</span></div><h2>${esc(item.name)}</h2>${item.abilities.length?item.abilities.map(abilityBlock).join(''):unavailable('Verified ability wording is unavailable.')}</article>`}).join('')}</div><div id="item-empty" hidden>${empty('No items match','Try another item or champion name.')}</div>`;
+}
+function mountSimpleSearch(inputSelector,cardSelector,countSelector,label,emptySelector) {
+  const input=document.querySelector(inputSelector), cards=[...document.querySelectorAll(cardSelector)], count=document.querySelector(countSelector);
+  const emptyState=document.querySelector(emptySelector);
+  const render=()=>{const q=input.value.trim().toLowerCase();let shown=0;cards.forEach(card=>{const ok=!q||card.dataset.search.includes(q);card.hidden=!ok;if(ok)shown++;});count.textContent=`${shown} ${label}${shown===1?'':'s'}`;if(emptyState)emptyState.hidden=shown!==0;};input.addEventListener('input',render);render();
 }
 
-function factionsPage(data) {
-  return `${heading('Factions', 'These are the exact faction labels recorded on champion screens. Combined names and icon descriptions have not been split or normalized. No current faction bonus rules are verified in this snapshot.')}
-    <div class="notice">Faction labels are source observations. The announced update below is not confirmed as live guidance in this snapshot.</div>
-    <div class="grid">${data.factions.length ? data.factions.map(faction => `<article class="card"><h3>${esc(faction.name)}</h3>
-      ${tag('Recorded faction label')}<p>${faction.memberIds.length} recorded members</p>
-      <p class="meta">${faction.memberIds.map(id => esc(championName(data, id))).join(' · ') || 'No recorded members'}</p></article>`).join('') : empty('No current faction records are available.')}</div>
-    <section class="section"><h2>Announced changes</h2>${announcements(data)}</section>`;
+function teamPortrait(member) { const champ=championForName(member.name,member.gemColor); return `<div class="team-member">${portrait(champ,'team')}<strong>${esc(member.name)}</strong>${member.isLeader?badge('Leader','gold'):''}</div>`; }
+function teamsPage() {
+  return `${titleBlock('Community examples','Observed teams','These are source-backed team compositions. They are examples to study, not claims of proven victories.')}
+    <div class="context-note"><strong>How to use this page</strong><span>Look for familiar cores and champion relationships. Battle outcomes were not shown in the source images.</span></div>
+    <p class="result-count">${snapshot.teams.length} observed compositions</p><div class="team-grid">${snapshot.teams.map((team,index)=>`<article class="team-card"><header><span>Observed team ${String(index+1).padStart(2,'0')}</span>${badge('Community example','quiet')}</header><div class="team-lineup">${team.members.map(teamPortrait).join('')}</div></article>`).join('')}</div>`;
 }
 
-function announcements(data) {
-  const changes = data.announcements.flatMap(update => update.factions.map(faction => ({ update, faction })));
-  return changes.length ? `<div class="grid">${changes.map(({ update, faction }) => `<article class="card">
-    <h3>${esc(faction.name)}</h3>${tag('Announced in snapshot', 'announced')}${tag(faction.change)}
-    ${faction.playstyle ? paragraph(faction.playstyle) : ''}${faction.bonus ? paragraph(`Proposed bonus: ${faction.bonus}`) : ''}
-    <p class="meta">${esc(update.title)} · ${esc(update.date || 'Date unrecorded')} · ${source(update.sourceId)}</p></article>`).join('')}</div>` : empty('No announced changes are recorded.');
+function raidPage() {
+  const groups=Object.groupBy?Object.groupBy(snapshot.raidRules,r=>r.category):snapshot.raidRules.reduce((a,r)=>((a[r.category]??=[]).push(r),a),{});
+  const attack=snapshot.strategyTeams.filter(t=>/attack/i.test(t.role||''));
+  const defense=snapshot.strategyTeams.filter(t=>/defen/i.test(t.role||''));
+  const groupCards=Object.entries(groups).map(([category,rules])=>`<section class="rule-group"><h2>${esc(category)}</h2>${rules.map(r=>`<p>${esc(r.text)}</p>`).join('')}</section>`).join('');
+  return `${titleBlock('Battle mode','Raid','Use the verified rules to understand opponent choice, attacks, defense, points, rewards, refreshes, leaderboard zones, and team testing.')}
+    <div class="raid-rule-grid">${groupCards||empty('Raid information unavailable','No verified Raid rules could be loaded.')}</div>
+    <section class="split-section"><div><p class="eyebrow">Attacking</p><h2>Attack examples</h2><p>Your attacking team is the lineup you take into the selected opponent.</p>${teamExampleList(attack)}</div><div><p class="eyebrow">Defending</p><h2>Defense examples</h2><p>Your defensive team is the lineup other players face.</p>${teamExampleList(defense)}</div></section>
+    <section class="reference-strip"><div><strong>Team testing</strong><span>${esc(snapshot.raidTeams[0]?.context||'No separate verified test-team context is available.')}</span></div>${snapshot.raidTeams[0]?`<div class="mini-lineup">${snapshot.raidTeams[0].members.map(teamPortrait).join('')}</div>`:''}</section>`;
+}
+function teamExampleList(teams) { return teams.length?teams.map(t=>`<article class="compact-team"><span>${esc(t.mode)} · ${esc(t.role)}</span><div>${t.members.map(m=>championLink(championForName(m.name,m.gemColor),m.name)).join(' · ')}</div></article>`).join(''):unavailable('No separately labeled examples are available for this role.'); }
+
+function warPage() {
+  return `${titleBlock('Alliance War','War battlefield rules','Scan the outpost value, battlefield effect, and the phase where each verified rule matters.')}
+    <div class="war-grid">${snapshot.warRules.map(rule=>`<article class="war-card"><header><span>${esc(rule.points.toLocaleString())}</span><small>victory points</small></header><h2>${esc(rule.name)}</h2><dl><div><dt>Battlefield effect</dt><dd>${esc(rule.effect)}</dd></div><div><dt>When it matters</dt><dd>${esc(rule.phaseRule)}</dd></div></dl></article>`).join('')}</div>`;
 }
 
-function statusesPage(data) {
-  return `${heading('Status effects', 'These are exact visible definitions from source screenshots. Review status is shown for each entry.')}
-    <div class="grid">${data.statuses.length ? data.statuses.map(status => `<article class="card"><h3>${esc(status.name)}</h3>
-    ${evidence(status.reviewStatus, status.sourceState)}${paragraph(status.text)}${source(status.sourceId)}</article>`).join('') : empty('No status definitions are recorded.')}</div>
-    <p class="notice">For other visible mechanic definitions, use the <a href="abilities.html">ability reference</a>.</p>`;
+function legendaryAssaultPage() {
+  return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter for verified abilities and battle tips. Missing evidence stays visible without guessed mechanics.')}
+    <nav class="encounter-tabs" aria-label="Legendary Assault encounters">${snapshot.legendaryAssault.map(e=>`<a href="#${slug(e.id)}">${esc(e.name)}</a>`).join('')}</nav>
+    <div class="encounter-list">${snapshot.legendaryAssault.map(e=>`<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p></div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available in the verified sources.`)}</div><div><h3>Verified battle tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`No verified encounter tips are available for ${e.name}.`)}</div></div></section>`).join('')}</div>`;
 }
 
-function abilitiesPage(data) {
-  const definitions = data.abilities.filter(ability => ability.kind === 'definition');
-  return `${heading('Ability reference', 'Search exact visible ability and mechanic text. Labels distinguish screenshot-verified entries from incomplete ones.')}
-    <label for="ability-search" class="meta">Search visible text</label><br>
-    <input class="search" id="ability-search" type="search" placeholder="Search abilities…" autocomplete="off">
-    <p class="result-count" id="ability-count"></p><div class="grid" id="ability-results"></div>
-    <section class="section"><h2>Iconic items</h2><div class="grid">${data.items.length ? data.items.map(item => `<article class="card"><h3>${esc(item.name)}</h3>
-    ${evidence(item.reviewStatus, item.sourceState)}${item.effectName ? tag(item.effectName) : ''}${paragraph(item.text)}${source(item.sourceId)}</article>`).join('') : empty('No iconic item text is recorded.')}</div></section>
-    <section class="section"><h2>Champion skills</h2><p class="muted">Open a champion in the <a href="champions.html">directory</a> for its recorded skills, traits, and iconic abilities.</p></section>`;
+function factionsPage() {
+  const current=snapshot.factions.filter(f=>f.rules.some(r=>r.kind==='current_bonus'));
+  return `${titleBlock('Current team bonuses','Factions','Review current bonuses and play descriptions separately from announced future changes.')}
+    <div class="faction-grid">${current.map(f=>{const bonus=f.rules.find(r=>r.kind==='current_bonus'),play=f.rules.find(r=>r.kind==='how_to_play');const members=f.memberVariantIds.map(id=>snapshot.champions.find(c=>c.id===id)).filter(Boolean);return `<article class="faction-card"><header><span class="faction-sigil" aria-hidden="true">${esc(f.name[0])}</span><div><h2>${esc(f.name)}</h2><span>${members.length} represented variant${members.length===1?'':'s'}</span></div></header><section><h3>Current bonus</h3><p>${esc(bonus?.text||'Current bonus unavailable.')}</p></section>${play?`<section><h3>How it plays</h3><p>${esc(play.text)}</p></section>`:''}<div class="member-row">${members.slice(0,8).map(c=>`<a href="champions.html?champion=${encodeURIComponent(c.id)}" title="${esc(c.name)}">${portrait(c,'tiny')}</a>`).join('')}</div></article>`}).join('')}</div>
+    <section class="announced-section"><div class="section-title"><h2>Announced future changes</h2><span>Separate from current bonuses</span></div>${announcements()}</section>`;
+}
+function announcements() { const rows=snapshot.announcements.flatMap(update=>update.factions.map(f=>({update,f}))); return rows.length?`<div class="announced-grid">${rows.map(({update,f})=>`<article><header>${badge('Announced','announced')}<strong>${esc(f.name)}</strong></header>${f.playstyle?`<p>${esc(f.playstyle)}</p>`:''}${f.bonus?`<p><strong>Announced bonus:</strong> ${esc(f.bonus)}</p>`:''}<small>${esc(update.title)}${update.date?` · ${esc(update.date)}`:''}</small></article>`).join('')}</div>`:unavailable('No announced changes are available.'); }
+
+function glossaryPage() {
+  const entries=[...snapshot.statuses.map(x=>({...x,group:'Status'})),...snapshot.mechanics.map(x=>({...x,group:'Mechanic'}))];
+  return `${titleBlock('Quick reference','Status & mechanics glossary','Search verified game wording without leaving the battle reference.')}
+    <label class="search-label" for="glossary-search">Search the glossary</label><input class="wide-search" id="glossary-search" type="search" placeholder="Fire, Brittle, stamina…"><p id="glossary-count" class="result-count"></p>
+    <div id="glossary-list" class="glossary-list">${entries.map(entry=>`<article data-search="${esc(`${entry.name} ${entry.text}`.toLowerCase())}"><header>${badge(entry.group,'quiet')}<h2>${esc(entry.name)}</h2></header><p>${esc(entry.text)}</p>${entry.reviewStatus&&entry.reviewStatus!=='complete'?`<small>Definition is incomplete in the available evidence.</small>`:''}</article>`).join('')}</div><div id="glossary-empty" hidden>${empty('No glossary entries match','Try another status or mechanic.')}</div>`;
 }
 
-function mountAbilitySearch(data, container) {
-  const definitions = data.abilities.filter(ability => ability.kind === 'definition');
-  const search = container.querySelector('#ability-search');
-  const results = container.querySelector('#ability-results');
-  const count = container.querySelector('#ability-count');
-  const render = () => {
-    const query = search.value.trim().toLowerCase();
-    const matches = definitions.filter(ability => `${ability.name} ${ability.text}`.toLowerCase().includes(query));
-    count.textContent = `${matches.length} of ${definitions.length} definitions`;
-    results.innerHTML = matches.length ? matches.map(abilityCard).join('') : empty('No definitions match that search.');
-  };
-  search.addEventListener('input', render);
+function notesPage() {
+  return `${titleBlock('Development reference','Verified data notes','The player guide uses the frozen, source-reconciled Supabase read model. These notes are kept outside primary navigation.')}
+    <div class="admin-note-grid">
+      <section><h2>Published guide coverage</h2><ul><li>${snapshot.champions.length} champion variants</li><li>${snapshot.items.length} connected iconic items</li><li>${snapshot.legendaryAssault.length} Legendary Assault encounters</li><li>${snapshot.warRules.length} War rules</li><li>${snapshot.teams.length} observed team compositions</li></ul></section>
+      <section><h2>Known evidence gaps</h2><p>Five historical source files remain prioritized for resupply. Their missing evidence is represented with unavailable or partial states in the guide; no text or outcome is inferred.</p><p>The permanent source completeness report and prioritized resupply manifest remain in the repository.</p></section>
+    </div>`;
+}
+
+function render() {
+  const renderers={home:homePage,champions:championsPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
+  root.innerHTML=(renderers[view]||homePage)();
+  state.hidden=true;
+  if(view==='champions') mountChampionFilters();
+  if(view==='items') mountSimpleSearch('#item-search','.item-card','#item-count','item','#item-empty');
+  if(view==='glossary') mountSimpleSearch('#glossary-search','.glossary-list article','#glossary-count','entry','#glossary-empty');
+}
+
+renderShell();
+try {
+  snapshot=await getGuideData();
   render();
+} catch(error) {
+  state.hidden=true;
+  root.innerHTML=`<div class="error-state" role="alert"><span aria-hidden="true">!</span><h1>The guide could not load</h1><p>${esc(error instanceof Error?error.message:'The guide database is unavailable.')}</p><button type="button" id="retry">Try again</button></div>`;
+  document.querySelector('#retry')?.addEventListener('click',()=>location.reload());
 }
-
-function alliesPage(data) {
-  return `${heading('Companions & allies', 'The verified snapshot records companion abilities. It does not yet establish general ally-pair synergy or substitution rules.')}
-    <div class="grid">${data.companions.length ? data.companions.map(companion => `<article class="card">
-    <h3>${esc(companion.name)}</h3><p class="meta">Companion of ${esc(championName(data, companion.championId))}</p>
-    ${evidence(companion.reviewStatus, companion.sourceState)}<p><strong>${esc(companion.skillName || 'Skill name unrecorded')}</strong></p>
-    ${paragraph(companion.text || 'Visible ability text was not captured.')}${source(companion.sourceId)}</article>`).join('') : empty('No companions are recorded.')}</div>
-    <div class="notice">Ally combinations in the archived guide have not been validated as confirmed strategy.</div>`;
-}
-
-function dragonsPage(data) {
-  return `${heading('Legendary Assault', 'Dragon mechanics and battle tips are shown only where the verified snapshot has records. An incomplete encounter profile is labeled.')}
-    ${data.bosses.length ? data.bosses.map(boss => `<section class="section"><h2>${esc(boss.name)} ${boss.subtitle ? `· ${esc(boss.subtitle)}` : ''}</h2>
-      ${reviewed(boss.reviewStatus)}<div class="grid">${boss.abilities.map(ability => `<article class="card"><h3>${esc(ability.name)}</h3>
-      ${ability.reviewStatus === 'complete' && ability.verifiedSources > 0 ? tag('Screenshot verified', 'good') : tag('Review incomplete', 'warn')}
-      ${ability.scope ? `<p class="meta">${esc(ability.scope)}</p>` : ''}${paragraph(ability.text)}</article>`).join('') || empty('No encounter abilities are recorded.')}</div>
-      <h3 class="section">Visible battle tips</h3><div class="grid">${boss.tips.length ? boss.tips.map(tip => `<article class="card">
-      ${evidence(tip.reviewStatus, tip.sourceState)}${paragraph(tip.text)}${source(tip.sourceId)}</article>`).join('') : empty('No encounter tips are recorded.')}</div></section>`).join('') : empty('No Legendary Assault records are available.')}
-    <div class="notice">Other dragons from the archived guide are awaiting verified records. Observed battle compositions appear on the <a href="builder.html">team examples</a> page.</div>`;
-}
-
-function teamCard(team) {
-  const verified = team.evidenceStatus === 'visible_composition' && team.sourceState === 'verified_visible';
-  return `<article class="card" data-mode="${esc(team.mode.toLowerCase())}">
-    <h3>${esc(team.mode)} · example #${esc(team.id)}</h3>
-    ${verified ? tag('Screenshot verified composition', 'good') : tag('Composition review incomplete', 'warn')}
-    ${tag(team.role)}
-    <p class="meta">This shows a visible lineup, not a proven win or universal recommendation.</p>
-    <ol>${team.members.map(member => `<li>${esc(member.name)}${member.isLeader ? ' · leader' : ''}${member.gemColor ? ` · ${esc(member.gemColor)}` : ''}</li>`).join('')}</ol>
-    ${team.assessments.map(assessment => `<div class="notice">${tag('Community/Observed', 'warn')}${paragraph(assessment.text)}${source(assessment.sourceId)}</div>`).join('')}
-    ${source(team.sourceId)}</article>`;
-}
-
-function teamsPage(data) {
-  return `${heading('Team examples', 'Inspect recorded Raid, War, and dragon compositions. A screenshot establishes who was on a team; it does not prove matchup success.')}
-    <div class="filters" id="team-filters"><button type="button" data-filter="all" aria-pressed="true">All</button>
-    <button type="button" data-filter="raid" aria-pressed="false">Raid</button><button type="button" data-filter="war" aria-pressed="false">War</button>
-    <button type="button" data-filter="battle" aria-pressed="false">Dragon battle</button></div>
-    <p class="result-count" id="team-count"></p><div class="grid" id="team-results">${data.teams.length ? data.teams.map(teamCard).join('') : empty('No team examples are recorded.')}</div>`;
-}
-
-function mountTeamFilters(data, container) {
-  const buttons = [...container.querySelectorAll('#team-filters button')];
-  const cards = [...container.querySelectorAll('#team-results [data-mode]')];
-  const count = container.querySelector('#team-count');
-  buttons.forEach(button => button.addEventListener('click', () => {
-    const filter = button.dataset.filter;
-    buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-    let visible = 0;
-    cards.forEach(card => {
-      const show = filter === 'all' || card.dataset.mode.includes(filter);
-      card.hidden = !show;
-      if (show) visible++;
-    });
-    count.textContent = `${visible} of ${data.teams.length} observed teams`;
-  }));
-  count.textContent = `${data.teams.length} observed teams`;
-}
-
-function raidsPage(data) {
-  return `${heading('Raid strategy evidence', 'Use these recorded Raid rules and observed lineups to inspect options. User-provided rules and team observations are conditional.')}
-    <section><h2>Raid rules</h2><div class="grid">${data.raidRules.length ? data.raidRules.map(rule => `<article class="card">
-    <h3>${esc(rule.category)}</h3>${rule.evidenceType === 'verified_visible' && rule.sourceState === 'verified_visible'
-      ? tag('Screenshot verified', 'good') : tag('Community/Observed', 'warn')}
-    ${paragraph(rule.text)}${source(rule.sourceId)}</article>`).join('') : empty('No Raid rules are recorded.')}</div></section>
-    <section class="section"><h2>Observed Raid teams</h2><div class="grid">${data.teams.filter(team => team.mode.includes('Raid')).map(teamCard).join('') || empty('No strategy team examples are recorded.')}</div></section>
-    <section class="section"><h2>Separate Raid defense snapshot</h2><div class="grid">${data.raidTeams.length ? data.raidTeams.map(team => `<article class="card">
-      <h3>Raid ${esc(team.context)} · source example #${esc(team.id)}</h3>
-      ${team.sourceState === 'verified_visible' ? tag('Screenshot verified composition', 'good') : tag('Composition review incomplete', 'warn')}
-      <p class="meta">This is a separately recorded lineup, with no proven matchup result.</p><ol>${team.members.map(member => `<li>${esc(member.name)}${member.isLeader ? ' · leader' : ''}</li>`).join('')}</ol>${source(team.sourceId)}</article>`).join('') : empty('No separate Raid team snapshot is recorded.')}</div></section>`;
-}
-
-function strategyPage(data) {
-  return `${heading('Strategy evidence', 'Choose a question, then inspect exactly what the verified snapshot supports. Observed teams are examples, not fixed prescriptions.')}
-    <div class="grid">
-      <a class="card" href="raids.html"><h2>Raid</h2><p>Rules and observed attacks or defenses.</p></a>
-      <a class="card" href="builder.html"><h2>Teams</h2><p>Observed Raid, War, and dragon lineups.</p></a>
-      <a class="card" href="dragons.html"><h2>Legendary Assault</h2><p>Visible dragon mechanics and battle tips.</p></a>
-      <a class="card" href="abilities.html"><h2>Abilities</h2><p>Exact visible skill and mechanic text.</p></a>
-    </div><section class="section"><h2>Evidence available now</h2><p class="muted">${data.champions.length} champion records, ${data.abilities.length} ability records, ${data.teams.length} observed strategy teams, and ${data.bosses.length} Legendary Assault encounter record.</p></section>
-    <section class="section"><h2>Announced in the snapshot</h2>${announcements(data)}
-    <h3 class="section">Announced rule text</h3><div class="grid">${data.announcements.flatMap(update => update.rules.map(rule => `<article class="card">${tag('Announced in snapshot', 'announced')}${tag(rule.category)}${paragraph(rule.text)}${source(update.sourceId)}</article>`)).join('') || empty('No announced rules are recorded.')}</div></section>`;
-}
-
-function homePage(data) {
-  const complete = data.champions.filter(champion => champion.reviewStatus === 'complete').length;
-  return `${heading('Make the next battle decision', 'Live, source-aware GOT: Legends knowledge for Old Peeps on Porches. Start with the question you have right now.')}
-    <div class="actions"><a class="btn" href="raids.html">Plan a Raid</a><a class="btn secondary" href="dragons.html">Legendary Assault</a><a class="btn secondary" href="champions.html">Find a champion</a></div>
-    <section class="section"><h2>Explore the guide</h2><div class="grid">
-      <a class="card" href="builder.html"><h3>Team examples</h3><p>${data.teams.length} observed compositions with evidence labels.</p></a>
-      <a class="card" href="abilities.html"><h3>Abilities</h3><p>${data.abilities.length} visible ability records.</p></a>
-      <a class="card" href="factions.html"><h3>Factions</h3><p>${data.factions.length} recorded faction labels plus announced changes.</p></a>
-      <a class="card" href="status-effects.html"><h3>Status effects</h3><p>${data.statuses.length} visible definitions.</p></a>
-    </div></section>
-    <section class="section"><div class="notice">${complete} of ${data.champions.length} champion profiles are complete. Partial profiles and announced content are clearly labeled throughout this preview.</div></section>`;
-}
-
-function rosterPage(data) {
-  return `${heading('Use your collection in the game', 'The game already manages champions, gear, stars, and levels. This guide helps you inspect what each champion can do.')}
-    <div class="actions"><a class="btn" href="champions.html">Browse ${data.champions.length} champions</a><a class="btn secondary" href="builder.html">Inspect team examples</a></div>
-    <div class="notice">The previous device-only roster tracker remains available in the archived legacy page for rollback. This live guide does not require maintaining a second roster.</div>`;
-}
-
-function render(data) {
-  snapshot = data;
-  const pages = {home:homePage,champions:championsPage,factions:factionsPage,statuses:statusesPage,abilities:abilitiesPage,
-    allies:alliesPage,dragons:dragonsPage,teams:teamsPage,raids:raidsPage,strategy:strategyPage,roster:rosterPage};
-  root.innerHTML = (pages[view] || homePage)(data);
-  state.hidden = true;
-  if (view === 'champions') mountChampionSearch(data, root);
-  if (view === 'abilities') mountAbilitySearch(data, root);
-  if (view === 'teams') mountTeamFilters(data, root);
-}
-
-async function load() {
-  state.hidden = false;
-  state.className = 'notice';
-  state.textContent = 'Loading verified guide data…';
-  root.replaceChildren();
-  try { render(await getGuideData()); }
-  catch (error) {
-    state.className = 'notice error';
-    state.textContent = error instanceof Error ? `Database unavailable: ${error.message}` : 'Database unavailable.';
-    const retry = document.createElement('button');
-    retry.className = 'btn secondary';
-    retry.type = 'button';
-    retry.textContent = 'Retry';
-    retry.addEventListener('click', load);
-    root.append(retry);
-  }
-}
-
-load();

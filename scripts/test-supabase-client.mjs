@@ -15,9 +15,16 @@ test('health RPC accepts the table-valued response from PostgREST', async () => 
 
 test('guide RPC requires every curated collection', async () => {
   const original = globalThis.fetch;
-  const data = Object.fromEntries(['champions','abilities','traits','items','factions','statuses','companions','bosses','raidRules','raidTeams','teams','announcements'].map(key => [key, []]));
+  const data = Object.fromEntries(['champions','abilities','traits','items','factions','statuses','mechanics','companions','legendaryAssault','warRules','raidRules','raidTeams','strategyTeams','teams','announcements'].map(key => [key, []]));
   data.version = 'verified-sqlite-2026-10-05';
   globalThis.fetch = async () => new Response(JSON.stringify(data));
   try { assert.equal((await getGuideData()).version, data.version); }
+  finally { globalThis.fetch = original; }
+});
+
+test('guide RPC rejects a response missing restored product collections', async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => new Response(JSON.stringify({ version: 'verified-sqlite-2026-10-05', champions: [] }));
+  try { await assert.rejects(getGuideData, /incomplete guide result/); }
   finally { globalThis.fetch = original; }
 });

@@ -1,35 +1,26 @@
-// The existing app is static. Supabase's read-only REST API is the browser client.
-// Only the publishable key is used; the database grants no browser write access.
+// Read-only browser access to the curated player-facing Supabase model.
+// The publishable key can call fixed RPCs but has no table write privileges.
 /** @typedef {{url:string,publishableKey:string}} SupabaseConfig */
-/** @typedef {{id:number,name:string,rarity:string,gemColor:string|null,reviewStatus:'complete'|'partial',factions:string[]}} GuideChampion */
-/** @typedef {{id:string,kind:string,name:string,championId:number|null,bossId:number|null,text:string,reviewStatus:string|null,sourceId:number|null,sourceState:string|null}} GuideAbility */
-/** @typedef {{id:number,championId:number,name:string,type:string|null,scope:string|null,text:string,reviewStatus:string,sourceId:number|null,sourceState:string|null}} GuideTrait */
-/** @typedef {{id:number,name:string,effectName:string|null,text:string,reviewStatus:string,sourceId:number|null,sourceState:string|null}} GuideItem */
-/** @typedef {{id:string,name:string,memberIds:number[]}} GuideFaction */
-/** @typedef {{id:number,name:string,text:string,reviewStatus:string,sourceId:number|null,sourceState:string|null}} GuideStatus */
-/** @typedef {{id:number,championId:number,name:string,skillName:string|null,text:string|null,reviewStatus:string,sourceId:number|null,sourceState:string|null}} GuideCompanion */
-/** @typedef {{id:number,name:string,scope:string|null,text:string,reviewStatus:string,verifiedSources:number}} GuideBossAbility */
-/** @typedef {{text:string,reviewStatus:string,sourceId:number|null,sourceState:string|null}} GuideTip */
-/** @typedef {{id:number,name:string,subtitle:string|null,reviewStatus:string,abilities:GuideBossAbility[],tips:GuideTip[]}} GuideBoss */
-/** @typedef {{id:number,category:string,text:string,evidenceType:string,sourceId:number|null,sourceState:string|null}} GuideRaidRule */
-/** @typedef {{id:number,context:string,sourceId:number|null,sourceState:string|null,members:GuideTeamMember[]}} GuideRaidTeam */
-/** @typedef {{name:string,isLeader:boolean,gemColor:string|null}} GuideTeamMember */
-/** @typedef {{text:string,evidenceType:string,sourceId:number|null,sourceState:string|null}} GuideAssessment */
-/** @typedef {{id:number,mode:string,role:string,evidenceStatus:string,sourceId:number|null,sourceState:string|null,members:GuideTeamMember[],assessments:GuideAssessment[]}} GuideTeam */
-/** @typedef {{name:string,change:string,playstyle:string|null,bonus:string|null}} GuideAnnouncedFaction */
-/** @typedef {{text:string,category:string}} GuideAnnouncedRule */
-/** @typedef {{id:number,title:string,date:string|null,status:string,sourceId:number|null,sourceState:string|null,factions:GuideAnnouncedFaction[],rules:GuideAnnouncedRule[]}} GuideAnnouncement */
-/** @typedef {{version:string|null,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],statuses:GuideStatus[],companions:GuideCompanion[],bosses:GuideBoss[],raidRules:GuideRaidRule[],raidTeams:GuideRaidTeam[],teams:GuideTeam[],announcements:GuideAnnouncement[]}} GuideData */
+/** @typedef {{id:string,legacyId:number|null,name:string,rarity:string|null,gemColor:string|null,reviewStatus:string,releaseState:string,portrait:string|null,factions:string[],roles:string[]}} GuideChampion */
+/** @typedef {{id:string,kind:string,name:string,variantId:string|null,championId:number|null,text:string,reviewStatus:string|null,provenance:string|null}} GuideAbility */
+/** @typedef {{id:string,variantId:string,championId:number,name:string,type:string|null,scope:string|null,text:string,reviewStatus:string}} GuideTrait */
+/** @typedef {{id:string,name:string,ownerVariantId:string|null,ownerName:string|null,reviewStatus:string,abilities:Array<{id:string,name:string,text:string,reviewStatus:string|null,provenance:string|null}>}} GuideItem */
+/** @typedef {{id:string,name:string,memberVariantIds:string[],rules:Array<{id:string,text:string,kind:'current_bonus'|'how_to_play'}>}} GuideFaction */
+/** @typedef {{name:string,isLeader:boolean,gemColor?:string|null}} GuideTeamMember */
+/** @typedef {{id:string,mode:string,outcome:string,displayedPower:number|null,members:GuideTeamMember[]}} GuideObservedTeam */
+/** @typedef {{id:string,name:string,subtitle:string|null,reviewStatus:string,releaseState:string,abilities:Array<{id:string,name:string,scope:string|null,text:string,reviewStatus:string}>,tips:Array<{id:string,text:string,reviewStatus:string}>}} GuideEncounter */
+/** @typedef {{version:string,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],statuses:unknown[],mechanics:unknown[],companions:unknown[],legendaryAssault:GuideEncounter[],warRules:unknown[],raidRules:unknown[],raidTeams:unknown[],strategyTeams:unknown[],teams:GuideObservedTeam[],announcements:unknown[]}} GuideData */
+
 /** @type {SupabaseConfig | undefined} */
 const config = /** @type {typeof globalThis & {GOT_SUPABASE_CONFIG?: SupabaseConfig}} */ (globalThis).GOT_SUPABASE_CONFIG;
 
 /** @param {string} name */
 async function rpc(name) {
-  if (!config?.url || !config.publishableKey) throw new Error('Supabase is not configured for this build.');
+  if (!config?.url || !config.publishableKey) throw new Error('The guide database is not configured for this build.');
   const response = await fetch(`${config.url.replace(/\/$/, '')}/rest/v1/rpc/${name}`, {
     headers: { apikey: config.publishableKey, Accept: 'application/json' }
   });
-  if (!response.ok) throw new Error(`Supabase request failed (${response.status}).`);
+  if (!response.ok) throw new Error(`The guide database could not be reached (${response.status}).`);
   return response.json();
 }
 
@@ -37,17 +28,17 @@ async function rpc(name) {
 export async function getDataHealth() {
   const result = await rpc('got_data_health');
   const data = Array.isArray(result) ? result[0] : result;
-  if (!data || typeof data.total_champions !== 'number') throw new Error('Supabase returned an incomplete health result.');
+  if (!data || typeof data.total_champions !== 'number') throw new Error('The database returned an incomplete health result.');
   return data;
 }
 
 /** @returns {Promise<GuideData>} */
 export async function getGuideData() {
   const data = await rpc('got_guide_data');
-  const collections = ['champions', 'abilities', 'traits', 'items', 'factions', 'statuses', 'companions', 'bosses', 'raidRules', 'raidTeams', 'teams', 'announcements'];
+  const collections = ['champions','abilities','traits','items','factions','statuses','mechanics','companions','legendaryAssault','warRules','raidRules','raidTeams','strategyTeams','teams','announcements'];
   if (!data || typeof data !== 'object' || collections.some(key => !Array.isArray(data[key]))) {
-    throw new Error('Supabase returned an incomplete guide result.');
+    throw new Error('The database returned an incomplete guide result.');
   }
-  if (typeof data.version !== 'string') throw new Error('Supabase guide data has no verified import version.');
+  if (typeof data.version !== 'string') throw new Error('The guide data has no verified version.');
   return /** @type {GuideData} */ (data);
 }
