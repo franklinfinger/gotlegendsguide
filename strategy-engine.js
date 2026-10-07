@@ -69,8 +69,10 @@ function championScore(champion, facts, rules) {
     const fact = activeFacts.find(row => row.mechanicId === rule.mechanicId);
     contributions.push({score:Number(rule.score),rule,fact});
   }
-  let leaderPotential = leaderFacts.some(fact => fact.mechanicId === 'leader_effect') ? 3 : 0;
-  for (const rule of rules) if (leaderMechanics.has(rule.mechanicId)) leaderPotential += Number(rule.score) * 0.5;
+  const eligibleLeaderFacts = leaderFacts.filter(fact=>fact.reviewStatus==='complete' && Number(fact.confidence)>=0.8);
+  const eligibleLeaderMechanics = new Set(eligibleLeaderFacts.map(fact=>fact.mechanicId));
+  let leaderPotential = eligibleLeaderFacts.some(fact => fact.mechanicId === 'leader_effect') ? 3 : 0;
+  for (const rule of rules) if (eligibleLeaderMechanics.has(rule.mechanicId)) leaderPotential += Number(rule.score) * 0.5;
   const directScore = contributions.reduce((sum, row) => sum + row.score, 0);
   return {
     champion,
@@ -118,11 +120,9 @@ function teamEvaluation(team, synergyRules, observedPairs) {
     const key = [team[left].champion.id,team[right].champion.id].sort().join('|');
     const observed = observedPairs.get(key);
     if (!observed) continue;
-    const bonus = Math.min(1.5, observed.count * 0.5);
-    score += bonus;
-    explanations.push({id:`observed-${key}`,text:`${team[left].champion.name} and ${team[right].champion.name} appeared together in ${observed.count} observed composition${observed.count===1?'':'s'}; no outcome was shown.`,score:bonus,evidenceCategory:'community_observed',provenanceRef:`community_team:${observed.examples.join(',')}`,confidence:0.45});
+    explanations.push({id:`observed-${key}`,text:`${team[left].champion.name} and ${team[right].champion.name} appeared together in ${observed.count} observed composition${observed.count===1?'':'s'}; no outcome was shown and this does not change the score.`,score:0,evidenceCategory:'community_observed',provenanceRef:`community_team:${observed.examples.join(',')}`,confidence:0.45});
   }
-  const leader = [...team].filter(member => member.leaderFacts.some(fact => fact.mechanicId === 'leader_effect')).sort((a,b)=>b.leaderPotential-a.leaderPotential || a.champion.name.localeCompare(b.champion.name))[0] || null;
+  const leader = [...team].filter(member => member.leaderFacts.some(fact => fact.mechanicId === 'leader_effect' && fact.reviewStatus === 'complete' && Number(fact.confidence) >= 0.8)).sort((a,b)=>b.leaderPotential-a.leaderPotential || a.champion.name.localeCompare(b.champion.name))[0] || null;
   if (leader && leader.leaderPotential > 0) score += leader.leaderPotential;
   return {score,explanations,leader};
 }
@@ -153,6 +153,41 @@ function bestReason(member) {
   return useful ? [{text:`Provides ${useful.factText}`,score:0,evidenceCategory:useful.evidenceCategory,provenanceRef:useful.provenanceRef,confidence:Number(useful.confidence),fact:useful.factText,factProvenanceRef:useful.provenanceRef,factEvidenceCategory:useful.evidenceCategory}] : [];
 }
 
+const ROLE_LABELS = {
+  damage:'Damage dealer', status:'Status setup', synergy:'Status payoff', support:'Support', economy:'Treasury enabler', summon:'Reinforcement specialist', survivability:'Protector', control:'Control', buff:'Buff enabler', board:'Board control', tempo:'Tempo control', leadership:'Leader', identity:'Battlefield specialist', faction:'Faction specialist', availability:'Availability limit'
+};
+
+function memberRoles(member, mechanicById) {
+  const categories = [];
+  for (const row of member.contributions.filter(row=>row.score>0).sort((a,b)=>b.score-a.score)) {
+    const category = mechanicById.get(row.rule.mechanicId)?.category;
+    const label = ROLE_LABELS[category];
+    if (label && !categories.includes(label)) categories.push(label);
+  }
+  return categories.slice(0,2).length ? categories.slice(0,2) : ['Team support'];
+}
+
+function positiveMechanicScores(member) {
+  return new Map(member.contributions.filter(row=>row.score>0).map(row=>[row.rule.mechanicId,row.score]));
+}
+
+function primarySubstitute(member, selectedTeam, candidates, synergyRules, observedPairs) {
+  const selectedIds = new Set(selectedTeam.map(row=>row.champion.id));
+  const desired = positiveMechanicScores(member);
+  const alternatives = candidates.filter(row=>!selectedIds.has(row.champion.id)).map(candidate=>{
+    const supplied = [...positiveMechanicScores(candidate).keys()].filter(mechanic=>desired.has(mechanic));
+    const roleMatchScore = supplied.reduce((sum,mechanic)=>sum + desired.get(mechanic),0);
+    const replacement = selectedTeam.map(row=>row.champion.id===member.champion.id?candidate:row);
+    return {candidate,supplied,roleMatchScore,teamScore:teamEvaluation(replacement,synergyRules,observedPairs).score};
+  }).sort((a,b)=>b.roleMatchScore-a.roleMatchScore || b.teamScore-a.teamScore || b.candidate.score-a.candidate.score || a.candidate.champion.name.localeCompare(b.candidate.champion.name));
+  const best = alternatives[0];
+  if (!best) return null;
+  const reason = best.supplied.length
+    ? `Preserves ${best.supplied.map(id=>id.replaceAll('_',' ').toUpperCase()).join(' and ')}, the main verified function supplied by ${member.champion.name}.`
+    : `Provides the closest deterministic team score when ${member.champion.name} is unavailable, but no exact primary-mechanic match is verified.`;
+  return {champion:best.candidate.champion,score:round(best.candidate.score),reason,mechanics:best.supplied,projectedTeamScore:round(best.teamScore)};
+}
+
 /**
  * Rank exact variants and assemble a five-champion team from verified mechanics.
  * Account roster, stars, levels, gear, and power are deliberately excluded.
@@ -181,20 +216,29 @@ export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds
   candidates.sort((a,b)=>b.score-a.score || a.champion.name.localeCompare(b.champion.name));
   const observedPairs = observedPairIndex(guideData.teams,guideData.champions);
   const selected = selectTeam(candidates,synergyRules,observedPairs);
-  const selectedIds = new Set(selected.team.map(member=>member.champion.id));
+  const mechanicById = new Map(strategyData.mechanics.map(mechanic=>[mechanic.id,mechanic]));
   const team = selected.team.map(member=>({
     champion:member.champion,
     score:round(member.score),
+    roles:memberRoles(member,mechanicById),
     reasons:bestReason(member),
+    scoringContributions:member.contributions.sort((a,b)=>b.score-a.score).map(row=>({mechanicId:row.rule.mechanicId,mechanicName:mechanicById.get(row.rule.mechanicId)?.name||row.rule.mechanicId,score:row.score,fact:row.fact.factText,factProvenanceRef:row.fact.provenanceRef,ruleId:row.rule.id,ruleProvenanceRef:row.rule.provenanceRef})),
     dangers:member.contributions.filter(row=>row.score<0).sort((a,b)=>a.score-b.score).slice(0,2).map(row=>({text:row.rule.rationale,score:row.score,evidenceCategory:row.rule.evidenceCategory,provenanceRef:row.rule.provenanceRef,confidence:Number(row.rule.confidence)})),
     item:guideData.items.find(item=>item.ownerVariantId===member.champion.id) || null,
+    substitute:primarySubstitute(member,selected.team,candidates,synergyRules,observedPairs),
   }));
-  const substitutes = candidates.filter(candidate=>!selectedIds.has(candidate.champion.id)).slice(0,3).map(candidate=>({champion:candidate.champion,score:round(candidate.score),reason:bestReason(candidate)[0]||null}));
+  const substitutes = team.map(member=>member.substitute).filter(Boolean).filter((row,index,rows)=>rows.findIndex(other=>other.champion.id===row.champion.id)===index).slice(0,3);
   const evidence = [...team.flatMap(member=>member.reasons),...team.flatMap(member=>member.dangers),...selected.explanations];
   const incomplete = team.filter(member=>member.champion.reviewStatus!=='complete').map(member=>member.champion.name);
   const warnings = [...commonWarnings];
   if (unavailable) warnings.push(`${unavailable} exact variants with unverified current availability were considered and excluded from primary recommendations.`);
   if (incomplete.length) warnings.push(`Some selected profiles have incomplete non-strategy metadata: ${incomplete.join(', ')}.`);
+  const partialFacts = selected.team.flatMap(member=>member.facts.filter(fact=>fact.reviewStatus==='partial' && fact.context!=='metadata').map(fact=>({champion:member.champion.name,fact})));
+  for (const {champion,fact} of partialFacts) {
+    const usedByScore = selected.team.find(member=>member.champion.name===champion)?.contributions.some(row=>row.fact.id===fact.id);
+    const usedBySynergy = selected.explanations.some(row=>row.evidenceCategory==='strategy_inference' && row.id.includes(fact.mechanicId));
+    if (usedByScore || usedBySynergy) warnings.push(`${champion} has partial source wording for ${fact.factText.split(':')[0]}; only the visible verified mechanic was used.`);
+  }
   return {
     status:'ready',target,team,
     leader:selected.leader?{champion:selected.leader.champion,evidence:selected.leader.leaderFacts.find(fact=>fact.mechanicId==='leader_effect'),score:round(selected.leader.leaderPotential)}:null,

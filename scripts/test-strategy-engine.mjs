@@ -29,7 +29,10 @@ const guideData = {champions,items:[],teams:[]};
 test('local parser only returns explicit supported targets', () => {
   assert.equal(parseStrategyQuestion('What is the strongest team to fight Drogon?', strategyData.targets)?.id, 'legendary-assault:drogon');
   assert.equal(parseStrategyQuestion('What team should I use for Raid defense?', strategyData.targets)?.id, 'raid:defense');
+  assert.equal(parseStrategyQuestion('Build a Raid attack team.', strategyData.targets)?.id, 'raid:attack');
   assert.equal(parseStrategyQuestion('Who works best under Ravenous Pack?', strategyData.targets)?.id, 'war:ravenous-pack');
+  assert.equal(parseStrategyQuestion("Build for Maester's Sigil.", strategyData.targets)?.id, 'war:maesters-sigil');
+  assert.equal(parseStrategyQuestion("What works at Scout's Post?", strategyData.targets)?.id, 'war:scouts-post');
   assert.equal(parseStrategyQuestion('Build a Raid team', strategyData.targets), null);
 });
 
@@ -84,4 +87,70 @@ test('an ambiguous observed name is never silently assigned to an exact variant'
   const observedGuide = {...guideData, champions:[...champions,duplicate], teams:[{id:'observed-1',members:[{name:champions[0].name},{name:champions[1].name}]}]};
   const result = recommendTeam({guideData:observedGuide,strategyData,targetId:'raid:attack'});
   assert.equal(result.evidenceSummary.communityObservations, 0);
+});
+
+function compositionFixture() {
+  const target = {id:'raid:composition-test',battleMode:'raid',name:'Composition test',evidenceState:'verified',approach:'Test complementary mechanics.',timing:'Use setup before payoff.',warning:'Test only.'};
+  const rows = [
+    ['a','ICE setup','apply_ice',10], ['b','Raw damage one','physical_damage',9], ['c','Raw damage two','physical_damage',8],
+    ['d','Raw damage three','physical_damage',7], ['e','Redundant ICE','apply_ice',6], ['f','BRITTLE payoff','brittle_payoff',5.5],
+    ['g','Backup BRITTLE','brittle_payoff',4.5],
+  ];
+  const fixtureChampions = rows.map(([id,name])=>({id,name,rarity:id==='f'?'Common':'Legendary',gemColor:'Blue',reviewStatus:'complete',releaseState:'live',portrait:null,factions:[],roles:[],rawPower:id==='e'?999999:1,stars:id==='e'?7:1}));
+  const fixtureStrategy = {
+    version:'test', mechanics:[{id:'apply_ice',name:'Apply ICE',category:'status'},{id:'brittle_payoff',name:'BRITTLE payoff',category:'synergy'},{id:'physical_damage',name:'Physical damage',category:'damage'}], targets:[target],
+    rules:[
+      ...rows.map(([id,,mechanic,score])=>({id:`rule-${id}`,kind:'target_fit',targetId:target.id,subjectVariantId:id,mechanicId:mechanic,pairedMechanicId:null,score,rationale:`${nameFor(mechanic)} fit.`,evidenceCategory:'strategy_inference',provenanceRef:`target:${mechanic}`,confidence:1,reviewStatus:'reviewed'})),
+      {id:'ice-brittle',kind:'team_synergy',targetId:null,subjectVariantId:null,mechanicId:'apply_ice',pairedMechanicId:'brittle_payoff',score:6,rationale:'ICE enables BRITTLE payoff.',evidenceCategory:'strategy_inference',provenanceRef:'derived:test',confidence:1,reviewStatus:'reviewed'},
+    ],
+    championFacts:rows.map(([id,,mechanic])=>({id:`fact-${id}`,variantId:id,mechanicId:mechanic,effectRole:'provides',context:'skill',factText:`Verified ${mechanic}.`,evidenceCategory:'verified_fact',provenanceRef:`ability:${id}`,sourceId:null,confidence:1,reviewStatus:'complete'})),
+  };
+  return {guideData:{champions:fixtureChampions,items:[],teams:[]},strategyData:fixtureStrategy,target};
+}
+const nameFor = id => id.replaceAll('_',' ');
+
+test('beam search chooses complementary mechanics over the fifth individual score', () => {
+  const fixture = compositionFixture();
+  const result = recommendTeam({...fixture,targetId:fixture.target.id});
+  assert.ok(result.team.some(row=>row.champion.id==='f'), 'lower-ranked BRITTLE payoff should enter the team');
+  assert.ok(!result.team.some(row=>row.champion.id==='e'), 'redundant ICE should lose its place to the complementary payoff');
+  assert.ok(result.teamSynergy.some(row=>row.id==='ice-brittle'));
+});
+
+test('excluding a specialist selects a role-preserving replacement', () => {
+  const fixture = compositionFixture();
+  const original = recommendTeam({...fixture,targetId:fixture.target.id});
+  const specialist = original.team.find(row=>row.champion.id==='f');
+  assert.equal(specialist.substitute.champion.id, 'g');
+  assert.deepEqual(specialist.substitute.mechanics, ['brittle_payoff']);
+  const replaced = recommendTeam({...fixture,targetId:fixture.target.id,excludeVariantIds:['f']});
+  assert.ok(replaced.team.some(row=>row.champion.id==='g'));
+});
+
+test('deterministic tie-breaking returns the same exact variants and leader repeatedly', () => {
+  const fixture = compositionFixture();
+  const signatures = Array.from({length:12},()=>{const result=recommendTeam({...fixture,targetId:fixture.target.id});return `${result.team.map(row=>row.champion.id).join(',')}|${result.leader?.champion.id||''}`;});
+  assert.equal(new Set(signatures).size, 1);
+});
+
+test('strongest means verified target fit, independent of rarity, stars, raw power, or popularity', () => {
+  const fixture = compositionFixture();
+  fixture.guideData.teams = Array.from({length:20},(_,index)=>({id:`popular-${index}`,members:[{name:'Redundant ICE'},{name:'Raw damage one'}]}));
+  const result = recommendTeam({...fixture,targetId:fixture.target.id});
+  const common = result.team.find(row=>row.champion.id==='f');
+  assert.ok(common, 'the Common specialist with verified complementary fit must be selected');
+  assert.ok(!result.team.some(row=>row.champion.id==='e'), 'raw power, stars, rarity, and observations must not override mechanics');
+  assert.equal(result.teamSynergy.filter(row=>row.evidenceCategory==='community_observed').every(row=>row.score===0), true);
+});
+
+test('variant facts and exclusions never leak to another variant of the same character', () => {
+  const fixture = compositionFixture();
+  fixture.guideData.champions.find(row=>row.id==='a').name='Arya Stark — ICE variant';
+  fixture.guideData.champions.find(row=>row.id==='e').name='Arya Stark — other variant';
+  const result = recommendTeam({...fixture,targetId:fixture.target.id});
+  assert.ok(result.team.some(row=>row.champion.id==='a'));
+  const excluded = recommendTeam({...fixture,targetId:fixture.target.id,excludeVariantIds:['a']});
+  const other = excluded.team.find(row=>row.champion.id==='e');
+  assert.ok(other);
+  assert.equal(other.scoringContributions.some(row=>row.factProvenanceRef==='ability:a'), false);
 });

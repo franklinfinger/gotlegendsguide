@@ -48,6 +48,9 @@ for (const target of strategy.targets) {
   } else if (result.team.length !== 5 || result.team.some(member=>member.reasons.some(reason=>!reason.provenanceRef || !reason.factProvenanceRef))) {
     throw new Error(`${target.id} did not return five traceable exact variants.`);
   }
+  if (result.status === 'ready' && result.team.some(member=>!member.roles.length || !member.scoringContributions.length || !member.substitute?.champion?.id)) throw new Error(`${target.id} lacks roles, scoring contributions, or member substitutes.`);
+  if (result.teamSynergy.some(row=>row.evidenceCategory==='community_observed' && Number(row.score)!==0)) throw new Error(`${target.id} lets community observations change the score.`);
+  if (result.leader && (result.leader.evidence.reviewStatus!=='complete' || Number(result.leader.evidence.confidence)<0.8)) throw new Error(`${target.id} selected an insufficiently reviewed leader.`);
 }
 checks.strategyMechanics = strategy.mechanics.length;
 checks.strategyTargets = strategy.targets.length;

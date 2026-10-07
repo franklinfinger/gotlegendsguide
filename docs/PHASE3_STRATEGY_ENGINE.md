@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The engine ranks exact champion variants for a selected battle context. It uses the verified Supabase read model plus reviewed scoring rules. It does not use a paid AI API, account roster, power, stars, levels, or equipped gear.
+The engine ranks exact champion variants for a selected battle context. “Strongest” means strongest strategic fit from verified mechanics unless a player later supplies personal roster levels, stars, gear, and items. It does not use a paid AI API, rarity, stars, raw power, popularity, generic champion strength, or account collection state.
 
 ## Data model
 
@@ -23,10 +23,11 @@ The committed catalog contains 57 mechanics and 93 rules: 80 target fit rules an
 2. Match each exact variant's verified facts to target rules.
 3. Apply rewards for counters and useful mechanics and penalties for immunities or punished mechanics.
 4. Keep the best 24 candidates, then use a deterministic beam search to assemble five variants.
-5. Add reviewed team synergy, current shared faction context, and a small observed composition signal when names resolve to one exact variant.
+5. Add reviewed team synergy and current shared faction context. Observed compositions are attached as context with zero score only when names resolve to one exact variant.
 6. Select a leader only when that exact variant has a source backed Leader fact.
+7. Choose each member's primary substitute by overlap with that member's positive target mechanics, then by the projected score of the replacement team.
 
-Rule provenance and the verified fact provenance are returned separately. Community compositions receive weak support only and never imply a win.
+Rule provenance and verified fact provenance are returned separately. Community compositions never change the score and never imply a win. Leader facts must be complete and have at least 0.8 confidence.
 
 ## Supported questions
 
