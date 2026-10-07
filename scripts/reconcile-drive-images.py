@@ -118,6 +118,13 @@ def load_known_records(db):
                 'id': str(record['record_id']),
                 'basis': 'visually_verified_wording_continuation',
             })
+    profile_matches = json.loads((ROOT / 'data/audit/champion-profile-image-matches.json').read_text())['matches']
+    for match in profile_matches:
+        by_file[match['filename']].append({
+            'table': 'champion_variants',
+            'id': match['variant_id'],
+            'basis': match['basis'],
+        })
     for filename, links in by_file.items():
         by_file[filename] = sorted({(x['table'], x['id'], x['basis']) for x in links})
     return old_sources, by_file
@@ -246,6 +253,10 @@ def main():
         for record in json.loads((ROOT / 'data/audit/completed-partial-records.json').read_text())['records']
         for filename in record['source_images']
     }
+    profile_images = {
+        row['filename']: row
+        for row in json.loads((ROOT / 'data/audit/champion-profile-image-matches.json').read_text())['matches']
+    }
     old_sources, linked = load_known_records(db)
     names = known_subjects(db)
     item_names = sorted({row['item_name'] for row in db.execute('SELECT item_name FROM iconic_abilities')}, key=len, reverse=True)
@@ -307,6 +318,13 @@ def main():
                 'unresolved_text_or_identity': [],
                 'review_status': 'visual_wording_continuation_checked',
                 'confidence': 1.0,
+            })
+        if filename in profile_images:
+            match = profile_images[filename]
+            row.update({
+                'information_imported': True,
+                'review_status': match['review_state'],
+                'confidence': 1.0 if match['review_state'] == 'visually_verified_identity' else max(row['confidence'], 0.9),
             })
         rows.append(row)
     if len(rows) != 833 or len({row['filename'] for row in rows}) != 833:

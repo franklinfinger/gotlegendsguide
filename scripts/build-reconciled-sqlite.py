@@ -26,6 +26,7 @@ LOCAL_ARCHIVE = ROOT / 'data/source-images/local-archive-reconciliation.jsonl'
 WAR_RULES = ROOT / 'data/audit/recovered-war-outpost-rules.json'
 COMMUNITY_TEAMS = ROOT / 'data/audit/recovered-community-teams.json'
 COMPLETED_PARTIALS = ROOT / 'data/audit/completed-partial-records.json'
+PROFILE_MATCHES = ROOT / 'data/audit/champion-profile-image-matches.json'
 
 
 def rows(path):
@@ -48,6 +49,7 @@ def main():
     war_rules = json.loads(WAR_RULES.read_text())['rules']
     community_teams = json.loads(COMMUNITY_TEAMS.read_text())['examples']
     completed_partials = json.loads(COMPLETED_PARTIALS.read_text())['records']
+    profile_matches = json.loads(PROFILE_MATCHES.read_text())['matches']
     if len(images) != 833 or len(history) != 615 or len(local_archive) != 101:
         raise SystemExit('Reconciliation input cardinality differs from source audit')
     temporary = OUTPUT.with_suffix('.sqlite.tmp')
@@ -187,6 +189,13 @@ def main():
             review_state TEXT NOT NULL,
             PRIMARY KEY (record_kind, record_id, source_id)
         );
+        CREATE TABLE champion_profile_image_matches (
+            source_id INTEGER PRIMARY KEY REFERENCES source_image_reconciliation(source_id),
+            variant_id TEXT NOT NULL,
+            image_role TEXT NOT NULL,
+            match_basis TEXT NOT NULL,
+            review_state TEXT NOT NULL
+        );
     ''')
     out.executemany('''INSERT INTO source_image_reconciliation VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''', [
         (r['filename'], r['source_id'], r['drive_id'], r['sha256'], r['image_category'],
@@ -283,6 +292,12 @@ def main():
              'visible_wording_continuation', 'visually_verified')
             for filename in row['source_images']
         ])
+    if len(profile_matches) != 108 or len({row['source_id'] for row in profile_matches}) != 108:
+        raise SystemExit('Expected 108 unique champion profile image matches')
+    out.executemany('INSERT INTO champion_profile_image_matches VALUES (?,?,?,?,?)', [
+        (row['source_id'], row['variant_id'], row['image_role'], row['basis'], row['review_state'])
+        for row in profile_matches
+    ])
     historic_values = []
     for r in history:
         fp = r['local_exact_name_matches'][0] if r['local_exact_name_matches'] else None

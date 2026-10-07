@@ -1,0 +1,880 @@
+{
+  "method": "unique local identity matching plus visually reviewed subtitle overrides",
+  "scope_note": "Full profile screenshots are evidence and are not clean portrait assets.",
+  "excluded_non_profile_images": [
+    "IMG_2215.PNG",
+    "IMG_2334.PNG",
+    "IMG_2357.PNG",
+    "IMG_2364.PNG",
+    "IMG_2409.PNG",
+    "IMG_2422.PNG",
+    "IMG_2439.PNG",
+    "IMG_2440.PNG"
+  ],
+  "matches": [
+    {
+      "filename": "IMG_1896.PNG",
+      "source_id": 101896,
+      "variant_id": "sqlite-champion-4",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1900.PNG",
+      "source_id": 101900,
+      "variant_id": "sqlite-champion-5",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1901.PNG",
+      "source_id": 101901,
+      "variant_id": "sqlite-champion-4",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1906.PNG",
+      "source_id": 101906,
+      "variant_id": "sqlite-champion-6",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1911.PNG",
+      "source_id": 101911,
+      "variant_id": "sqlite-champion-7",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1922.PNG",
+      "source_id": 101922,
+      "variant_id": "sqlite-champion-8",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1928.PNG",
+      "source_id": 101928,
+      "variant_id": "sqlite-champion-9",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1936.PNG",
+      "source_id": 101936,
+      "variant_id": "sqlite-champion-10",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1944.PNG",
+      "source_id": 101944,
+      "variant_id": "sqlite-champion-11",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1950.PNG",
+      "source_id": 101950,
+      "variant_id": "sqlite-champion-12",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1956.PNG",
+      "source_id": 101956,
+      "variant_id": "sqlite-champion-13",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1961.PNG",
+      "source_id": 101961,
+      "variant_id": "sqlite-champion-14",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1965.PNG",
+      "source_id": 101965,
+      "variant_id": "sqlite-champion-15",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1972.PNG",
+      "source_id": 101972,
+      "variant_id": "sqlite-champion-16",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1977.PNG",
+      "source_id": 101977,
+      "variant_id": "sqlite-champion-17",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1982.PNG",
+      "source_id": 101982,
+      "variant_id": "sqlite-champion-18",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1987.PNG",
+      "source_id": 101987,
+      "variant_id": "sqlite-champion-21",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1992.PNG",
+      "source_id": 101992,
+      "variant_id": "sqlite-champion-19",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_1997.PNG",
+      "source_id": 101997,
+      "variant_id": "sqlite-champion-20",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2003.PNG",
+      "source_id": 102003,
+      "variant_id": "sqlite-champion-27",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2004.PNG",
+      "source_id": 102004,
+      "variant_id": "sqlite-champion-27",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2009.PNG",
+      "source_id": 102009,
+      "variant_id": "sqlite-champion-22",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2016.PNG",
+      "source_id": 102016,
+      "variant_id": "sqlite-champion-23",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2024.PNG",
+      "source_id": 102024,
+      "variant_id": "sqlite-champion-25",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2028.PNG",
+      "source_id": 102028,
+      "variant_id": "sqlite-champion-26",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2033.PNG",
+      "source_id": 102033,
+      "variant_id": "sqlite-champion-28",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2037.PNG",
+      "source_id": 102037,
+      "variant_id": "sqlite-champion-30",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2041.PNG",
+      "source_id": 102041,
+      "variant_id": "sqlite-champion-24",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2046.PNG",
+      "source_id": 102046,
+      "variant_id": "sqlite-champion-33",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2050.PNG",
+      "source_id": 102050,
+      "variant_id": "sqlite-champion-35",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2054.PNG",
+      "source_id": 102054,
+      "variant_id": "sqlite-champion-1",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2059.PNG",
+      "source_id": 102059,
+      "variant_id": "sqlite-champion-36",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2064.PNG",
+      "source_id": 102064,
+      "variant_id": "sqlite-champion-31",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2067.PNG",
+      "source_id": 102067,
+      "variant_id": "sqlite-champion-32",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2071.PNG",
+      "source_id": 102071,
+      "variant_id": "sqlite-champion-29",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2076.PNG",
+      "source_id": 102076,
+      "variant_id": "sqlite-champion-37",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2080.PNG",
+      "source_id": 102080,
+      "variant_id": "sqlite-champion-3",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2085.PNG",
+      "source_id": 102085,
+      "variant_id": "sqlite-champion-2",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2141.PNG",
+      "source_id": 102141,
+      "variant_id": "sqlite-champion-34",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2146.PNG",
+      "source_id": 102146,
+      "variant_id": "sqlite-champion-40",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2151.PNG",
+      "source_id": 102151,
+      "variant_id": "sqlite-champion-46",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2155.PNG",
+      "source_id": 102155,
+      "variant_id": "sqlite-champion-39",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2160.PNG",
+      "source_id": 102160,
+      "variant_id": "sqlite-champion-41",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2166.PNG",
+      "source_id": 102166,
+      "variant_id": "sqlite-champion-44",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2170.PNG",
+      "source_id": 102170,
+      "variant_id": "sqlite-champion-45",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2177.PNG",
+      "source_id": 102177,
+      "variant_id": "sqlite-champion-47",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2182.PNG",
+      "source_id": 102182,
+      "variant_id": "legacy-champion-theon",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2189.PNG",
+      "source_id": 102189,
+      "variant_id": "sqlite-champion-50",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2193.PNG",
+      "source_id": 102193,
+      "variant_id": "sqlite-champion-43",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2198.PNG",
+      "source_id": 102198,
+      "variant_id": "sqlite-champion-52",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2203.PNG",
+      "source_id": 102203,
+      "variant_id": "sqlite-champion-53",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2209.PNG",
+      "source_id": 102209,
+      "variant_id": "sqlite-champion-55",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2213.PNG",
+      "source_id": 102213,
+      "variant_id": "sqlite-champion-56",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2217.PNG",
+      "source_id": 102217,
+      "variant_id": "sqlite-champion-42",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2221.PNG",
+      "source_id": 102221,
+      "variant_id": "sqlite-champion-48",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2225.PNG",
+      "source_id": 102225,
+      "variant_id": "sqlite-champion-61",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2230.PNG",
+      "source_id": 102230,
+      "variant_id": "sqlite-champion-57",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2236.PNG",
+      "source_id": 102236,
+      "variant_id": "legacy-champion-tyland",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2242.PNG",
+      "source_id": 102242,
+      "variant_id": "sqlite-champion-49",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2247.PNG",
+      "source_id": 102247,
+      "variant_id": "sqlite-champion-62",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2251.PNG",
+      "source_id": 102251,
+      "variant_id": "sqlite-champion-59",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2257.PNG",
+      "source_id": 102257,
+      "variant_id": "sqlite-champion-54",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2260.PNG",
+      "source_id": 102260,
+      "variant_id": "sqlite-champion-58",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2267.PNG",
+      "source_id": 102267,
+      "variant_id": "sqlite-champion-63",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2272.PNG",
+      "source_id": 102272,
+      "variant_id": "sqlite-champion-16",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2273.PNG",
+      "source_id": 102273,
+      "variant_id": "sqlite-champion-16",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2276.PNG",
+      "source_id": 102276,
+      "variant_id": "legacy-champion-yara",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2281.PNG",
+      "source_id": 102281,
+      "variant_id": "sqlite-champion-64",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2287.PNG",
+      "source_id": 102287,
+      "variant_id": "sqlite-champion-60",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2292.PNG",
+      "source_id": 102292,
+      "variant_id": "legacy-champion-aemond",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2296.PNG",
+      "source_id": 102296,
+      "variant_id": "legacy-champion-caraxes",
+      "basis": "visible_profile_name",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2302.PNG",
+      "source_id": 102302,
+      "variant_id": "legacy-champion-aegonii",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2306.PNG",
+      "source_id": 102306,
+      "variant_id": "legacy-champion-wunwun",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2310.PNG",
+      "source_id": 102310,
+      "variant_id": "legacy-champion-thoros",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2314.PNG",
+      "source_id": 102314,
+      "variant_id": "legacy-champion-wunwun",
+      "basis": "visible_profile_name",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2318.PNG",
+      "source_id": 102318,
+      "variant_id": "sqlite-champion-65",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2322.PNG",
+      "source_id": 102322,
+      "variant_id": "sqlite-champion-66",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2327.PNG",
+      "source_id": 102327,
+      "variant_id": "sqlite-champion-67",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2332.PNG",
+      "source_id": 102332,
+      "variant_id": "sqlite-champion-69",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2336.PNG",
+      "source_id": 102336,
+      "variant_id": "sqlite-champion-68",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2343.PNG",
+      "source_id": 102343,
+      "variant_id": "sqlite-champion-70",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2350.PNG",
+      "source_id": 102350,
+      "variant_id": "sqlite-champion-71",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2354.PNG",
+      "source_id": 102354,
+      "variant_id": "sqlite-champion-73",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2360.PNG",
+      "source_id": 102360,
+      "variant_id": "sqlite-champion-74",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2367.PNG",
+      "source_id": 102367,
+      "variant_id": "sqlite-champion-75",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2372.PNG",
+      "source_id": 102372,
+      "variant_id": "sqlite-champion-65",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2377.PNG",
+      "source_id": 102377,
+      "variant_id": "sqlite-champion-76",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2383.PNG",
+      "source_id": 102383,
+      "variant_id": "sqlite-champion-77",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2388.PNG",
+      "source_id": 102388,
+      "variant_id": "sqlite-champion-79",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2392.PNG",
+      "source_id": 102392,
+      "variant_id": "sqlite-champion-80",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2397.PNG",
+      "source_id": 102397,
+      "variant_id": "sqlite-champion-81",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2402.PNG",
+      "source_id": 102402,
+      "variant_id": "sqlite-champion-82",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2407.PNG",
+      "source_id": 102407,
+      "variant_id": "sqlite-champion-83",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2411.PNG",
+      "source_id": 102411,
+      "variant_id": "sqlite-champion-3",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2415.PNG",
+      "source_id": 102415,
+      "variant_id": "sqlite-champion-85",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2420.PNG",
+      "source_id": 102420,
+      "variant_id": "sqlite-champion-84",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2424.PNG",
+      "source_id": 102424,
+      "variant_id": "sqlite-champion-78",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2429.PNG",
+      "source_id": 102429,
+      "variant_id": "sqlite-champion-72",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2435.PNG",
+      "source_id": 102435,
+      "variant_id": "sqlite-champion-51",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2444.PNG",
+      "source_id": 102444,
+      "variant_id": "sqlite-champion-38",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2446.PNG",
+      "source_id": 102446,
+      "variant_id": "sqlite-champion-38",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2510.PNG",
+      "source_id": 102510,
+      "variant_id": "sqlite-champion-23",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2579.PNG",
+      "source_id": 102579,
+      "variant_id": "sqlite-champion-44",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2690.PNG",
+      "source_id": 102690,
+      "variant_id": "sqlite-champion-19",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2693.PNG",
+      "source_id": 102693,
+      "variant_id": "sqlite-champion-19",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2714.PNG",
+      "source_id": 102714,
+      "variant_id": "sqlite-champion-4",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2767.PNG",
+      "source_id": 102767,
+      "variant_id": "sqlite-champion-51",
+      "basis": "visible_profile_name_and_subtitle",
+      "review_state": "visually_verified_identity",
+      "image_role": "full_profile_screenshot_evidence"
+    },
+    {
+      "filename": "IMG_2774.PNG",
+      "source_id": 102774,
+      "variant_id": "sqlite-champion-38",
+      "basis": "unique_profile_subject_identity",
+      "review_state": "identity_ocr_with_profile_layout",
+      "image_role": "full_profile_screenshot_evidence"
+    }
+  ]
+}
