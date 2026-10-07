@@ -2,7 +2,7 @@
 
 Phase 5's personal roster was removed. Strategy requires no account, ownership entry, level, stars, gear, or other player-maintained collection data. The retired `roster.html` address forwards to the public Strategy page so an old link still reaches a useful page.
 
-The forward migration `20261007150000_remove_player_roster.sql` refuses to drop a nonempty `public.player_roster` table. It then removes only that table and its dedicated timestamp function. The applied Phase 5 migration stays in history, and Supabase Auth remains untouched.
+The forward migration `20261007150000_remove_player_roster.sql` refuses to drop a nonempty `public.player_roster` table. It then removes only that table and its dedicated timestamp function. The applied Phase 5 migration stays in history. Supabase Auth itself remains in place; the two roster-specific redirect URLs were removed from its allow-list.
 
 ## Recommendation order
 
