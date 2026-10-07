@@ -19,9 +19,15 @@ test('player navigation uses Legendary Assault terminology', () => {
   const source = fs.readFileSync(path.join(root, 'guide.js'), 'utf8');
   assert.match(source, /Legendary Assault/);
   assert.doesNotMatch(source, /['"`]Bosses['"`]/);
-  assert.match(source, /not claims of proven victories/);
+  assert.match(source, /battle outcomes were not shown/i);
   assert.match(source, /Ask the guide/);
-  assert.match(source, /deterministic engine selects every lineup/);
+  assert.match(source, /deterministic strategy engine|source-backed teams/i);
+});
+
+test('Phase 5 roster controls and sign-in are absent from the public interface',()=>{
+  const source=fs.readFileSync(path.join(root,'guide.js'),'utf8');
+  assert.doesNotMatch(source,/My Roster|roster-own-button|roster-client|sign-in link/);
+  assert.match(fs.readFileSync(path.join(root,'roster.html'),'utf8'),/url=recommendations\.html/);
 });
 
 test('Home strategy questions render in place and champion search stays separate',()=>{

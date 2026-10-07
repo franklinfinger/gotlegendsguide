@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { answerStrategyQuestion, compareCuratedRoster, parseConversationRequest } from '../conversation-engine.js';
+import { answerStrategyQuestion, buildTeamOptions, parseConversationRequest } from '../conversation-engine.js';
+import { recommendDistinctTeams } from '../strategy-engine.js';
 
 const target=(id,name,battleMode='legendary-assault')=>({id,name,battleMode,kind:'encounter',evidenceState:'verified',approach:`Use verified mechanics against ${name}.`,timing:'Set up, then use Skills.',warning:'Watch the encounter rules.',provenanceRef:`target:${id}`,reviewStatus:'reviewed'});
 const targets=[target('legendary-assault:drogon','Drogon'),target('legendary-assault:viserion','Viserion'),target('raid:attack','Raid attack','raid'),target('raid:defense','Raid defense','raid'),target('war:ravenous-pack','Ravenous Pack','war')];
@@ -101,77 +102,40 @@ test('a complete first-party Icy Viserion team may be shown while ability eviden
   assert.equal(answer.result.recommendationSource,'curated');
   assert.equal(answer.result.team.length,5);
   assert.match(answer.result.evidenceTier,/ability details incomplete/);
+  assert.equal(answer.options.length,1);
 });
 
-const fullRoster=curated.members.map(row=>row.variantId);
-test('roster questions require a verified signed-in roster instead of guessed ownership',()=>{
-  const answer=answerStrategyQuestion({question:'What is my best team for Drogon?',guideData,strategyData});
-  assert.equal(answer.status,'roster_required');
+test('public recommendations are multiple, stable, exact, and meaningfully different',()=>{
+  const one=buildTeamOptions({guideData,strategyData,targetId:'legendary-assault:drogon'});
+  const two=buildTeamOptions({guideData,strategyData,targetId:'legendary-assault:drogon'});
+  assert.ok(one.length>=2);
+  assert.equal(one[0].strategyLabel,'Official In-Game Recommendation');
+  assert.equal(one[0].recommendationSource,'curated');
+  assert.ok(one.slice(1).every(row=>row.recommendationSource==='engine'));
+  assert.deepEqual(one.map(row=>row.team.map(member=>member.champion.id)),two.map(row=>row.team.map(member=>member.champion.id)));
+  for(const row of one)assert.equal(new Set(row.team.map(member=>member.champion.id)).size,5);
+  const engine=recommendDistinctTeams({guideData,strategyData,targetId:'raid:attack'});
+  for(let i=0;i<engine.length;i++)for(let j=i+1;j<engine.length;j++)assert.ok(engine[i].team.filter(member=>engine[j].team.some(other=>other.champion.id===member.champion.id)).length<=2);
 });
 
-test('all five owned exact variants preserve the first-party Drogon team and leader',()=>{
-  const answer=answerStrategyQuestion({question:'What is my best team for Drogon?',guideData,strategyData,roster:{ownedVariantIds:fullRoster}});
-  assert.equal(answer.result.recommendationSource,'roster_curated');
-  assert.deepEqual(answer.result.team.map(row=>row.champion.id),fullRoster);
-  assert.equal(answer.result.leader.champion.id,curated.leaderVariantId);
-  assert.equal(answer.result.rosterComparison.ownedCount,5);
+test('War and Raid Defense show several public teams without any account',()=>{
+  assert.ok(buildTeamOptions({guideData,strategyData,targetId:'war:ravenous-pack'}).length>=2);
+  assert.ok(buildTeamOptions({guideData,strategyData,targetId:'raid:defense'}).length>=2);
 });
 
-test('missing one official variant retains four and chooses an owned deterministic replacement',()=>{
-  const owned=[...fullRoster.filter(id=>id!=='alicent'),'sub-one'];
-  const answer=answerStrategyQuestion({question:'Best Drogon team from my roster?',guideData,strategyData,roster:{ownedVariantIds:owned}});
-  assert.equal(answer.result.recommendationSource,'roster_engine');
-  assert.equal(answer.result.rosterComparison.knownMissing[0].variantId,'alicent');
-  assert.deepEqual(new Set(answer.result.team.map(row=>row.champion.id)),new Set(owned));
-  assert.deepEqual(answer.result.rosterReplacements.map(row=>row.id),['sub-one']);
+test('opposing Raid team input is accepted and answers remain deterministic without invented counters',()=>{
+  const enemy=champions.slice(0,5).map(row=>row.id);
+  const first=answerStrategyQuestion({question:'What should I use against this Raid team?',guideData,strategyData,enemyVariantIds:enemy});
+  const second=answerStrategyQuestion({question:'What should I use against this Raid team?',guideData,strategyData,enemyVariantIds:enemy});
+  assert.equal(first.request.targetId,'raid:attack');
+  assert.deepEqual(first.context.enemyVariantIds,enemy);
+  assert.deepEqual(first.options.map(row=>row.team.map(member=>member.champion.id)),second.options.map(row=>row.team.map(member=>member.champion.id)));
+  assert.ok(first.enemyThreats.length>0);
 });
 
-test('roster eligibility uses exact IDs and never leaks an unowned variant of the same character',()=>{
-  const owned=['dany-yellow','drogo','alicent','rhaenyra','sub-one','sub-two'];
-  const answer=answerStrategyQuestion({question:'What Raid attack team can I make?',guideData,strategyData,roster:{ownedVariantIds:owned}});
-  assert.equal(answer.result.team.every(row=>owned.includes(row.champion.id)),true);
-  assert.equal(answer.result.team.some(row=>row.champion.id==='dany-blue'),false);
-});
-
-test('an insufficient owned roster is reported without inserting unowned champions',()=>{
-  const answer=answerStrategyQuestion({question:'My best team for Drogon',guideData,strategyData,roster:{ownedVariantIds:['drogo','alicent','rhaenyra']}});
-  assert.equal(answer.result.status,'insufficient_roster');
-  assert.equal(answer.result.team.length,0);
-});
-
-test('ambiguous first-party positions never become exact roster matches',()=>{
-  const partial={...curated,id:'viserion-first-party',targetId:'legendary-assault:viserion',reviewStatus:'partial',confidence:.8,
-    members:[...curated.members.slice(0,2),{position:3,variantId:null,displayName:'Jon Snow',identityStatus:'unresolved',isLeader:false},...curated.members.slice(3)]};
-  const comparison=compareCuratedRoster(partial,[...fullRoster,'sub-four']);
-  assert.equal(comparison.knownOwned.length,4);
-  assert.equal(comparison.unresolved.length,1);
-  assert.equal(comparison.exact,false);
-});
-
-test('roster follow-ups keep target and explain missing exact official variants',()=>{
-  const roster={ownedVariantIds:[...fullRoster.filter(id=>id!=='alicent'),'sub-one']};
-  const first=answerStrategyQuestion({question:"What's my best team for Drogon?",guideData,strategyData,roster});
-  const missing=answerStrategyQuestion({question:'Who am I missing?',guideData,strategyData,roster,context:first.context});
-  assert.equal(missing.status,'roster_analysis');
-  assert.equal(missing.analysis.comparison.knownMissing[0].variantId,'alicent');
-  const instead=answerStrategyQuestion({question:'Who should I use instead?',guideData,strategyData,roster,context:first.context});
-  assert.equal(instead.request.targetId,'legendary-assault:drogon');
-  assert.equal(instead.result.team.every(row=>roster.ownedVariantIds.includes(row.champion.id)),true);
-});
-
-test('a new ordinary battle question returns to the best known public team',()=>{
-  const roster={ownedVariantIds:[...fullRoster.filter(id=>id!=='alicent'),'sub-one']};
-  const first=answerStrategyQuestion({question:"What's my best team for Drogon?",guideData,strategyData,roster});
-  const next=answerStrategyQuestion({question:'Best team for Drogon',guideData,strategyData,context:first.context});
-  assert.equal(next.result.recommendationSource,'curated');
-  assert.equal(next.request.rosterMode,false);
-});
-
-test('level and stars are retained in request data but do not change team ordering',()=>{
-  const owned=[...fullRoster.filter(id=>id!=='alicent'),'sub-one','sub-two'];
-  const question='Best Drogon team from my roster';
-  const first=answerStrategyQuestion({question,guideData,strategyData,roster:{ownedVariantIds:owned,levels:{'sub-one':1,'sub-two':100},stars:{'sub-one':0,'sub-two':7}}});
-  const second=answerStrategyQuestion({question,guideData,strategyData,roster:{ownedVariantIds:owned,levels:{'sub-one':100,'sub-two':1},stars:{'sub-one':7,'sub-two':0}}});
-  assert.deepEqual(first.result.team.map(row=>row.champion.id),second.result.team.map(row=>row.champion.id));
-  assert.equal(first.request.roster.levels['sub-one'],1);
+test('another team follow-up selects a different supported lineup',()=>{
+  const first=answerStrategyQuestion({question:'Give me teams for Drogon',guideData,strategyData});
+  const next=answerStrategyQuestion({question:'Give me another Drogon team',guideData,strategyData,context:first.context});
+  assert.equal(next.status,'ready');
+  assert.notDeepEqual(next.result.team.map(row=>row.champion.id),first.result.team.map(row=>row.champion.id));
 });

@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { build as bundle } from 'esbuild';
 
 const root = path.resolve(import.meta.dirname, '..');
 const out = path.join(root, 'dist');
@@ -29,5 +28,4 @@ const config = {
 };
 fs.writeFileSync(path.join(out, 'supabase-config.js'),
   `globalThis.GOT_SUPABASE_CONFIG = ${JSON.stringify(config)};\n`);
-await bundle({entryPoints:[path.join(root,'roster-client.js')],outfile:path.join(out,'roster-client.js'),bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true});
 console.log(`Static build complete: ${fs.readdirSync(out).length} files. Supabase config ${config.url && config.publishableKey ? 'present' : 'missing'}.`);
