@@ -1,6 +1,7 @@
 import { getGuideData, getStrategyData } from './supabase-client.js';
 import { answerStrategyQuestion, buildTeamOptions } from './conversation-engine.js';
 import { answerGuideQuestion } from './knowledge-engine.js';
+import { analyzeRaidDefense, raidSelectionTransition, resetRaidSelection } from './raid-engine.js';
 
 const root = document.querySelector('#guide-content');
 const state = document.querySelector('#guide-state');
@@ -164,7 +165,7 @@ function raidPage() {
   const variants=snapshot.champions.filter(row=>row.releaseState==='live').sort((a,b)=>a.name.localeCompare(b.name));
   const enemyPicker=Array.from({length:5},(_,index)=>`<label>Enemy ${index+1}<select class="enemy-select" aria-label="Enemy champion ${index+1}"><option value="">Choose variant</option>${variants.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}${row.gemColor?` · ${esc(row.gemColor)}`:''}</option>`).join('')}</select></label>`).join('');
   return `${titleBlock('Battle mode','Raid','Compare attack and defense lineups, then use the verified rules for opponent choice, points, rewards, and team testing.')}
-    <section class="battle-advisor" id="raid-attack"><div class="section-title"><h2>Raid Attack · opposing team</h2></div><p>Select the five exact variants you face. Attack options use verified Raid mechanics; specific counter ordering and target priority remain unverified.</p><div class="enemy-picker">${enemyPicker}</div><p id="enemy-input-status" role="status"></p><div id="raid-enemy-facts"></div><div id="raid-attack-options"></div></section>
+    <section class="battle-advisor" id="raid-attack"><div class="section-title"><h2>Raid Attack · opposing team</h2><button class="reset-raid" id="reset-raid" type="button">Reset Raid</button></div><p>Select five exact defenders and mark their Leader to compare complete teams.</p><div class="enemy-picker">${enemyPicker}</div><label class="enemy-leader-picker">Enemy Leader<select id="enemy-leader"><option value="">Select the enemy Leader</option></select></label><p id="enemy-input-status" role="status"></p><div id="raid-enemy-team"></div><div id="raid-attack-options" aria-live="polite"></div></section>
     <section class="battle-advisor" id="raid-defense"><div class="section-title"><h2>Raid Defense · recommended teams</h2></div><div id="raid-defense-options">${teamOptionsMarkup(buildTeamOptions({guideData:snapshot,strategyData:strategySnapshot,targetId:'raid:defense'}))}</div></section>
     <div class="raid-rule-grid">${groupCards||empty('Raid information unavailable','No verified Raid rules could be loaded.')}</div>
     <section class="split-section"><div><p class="eyebrow">Attacking</p><h2>Attack examples</h2><p>Your attacking team is the lineup you take into the selected opponent.</p>${teamExampleList(attack)}</div><div><p class="eyebrow">Defending</p><h2>Defense examples</h2><p>Your defensive team is the lineup other players face.</p>${teamExampleList(defense)}</div></section>
@@ -234,12 +235,26 @@ function teamOptionsMarkup(options) {
   return `<div class="team-options">${options.map((option,index)=>{const official=option.recommendationSource==='curated'||option.recommendationSource==='curated_partial';return `<details class="team-option" ${index===0?'open':''}><summary><span>Team Option ${index+1}</span><strong>${official?'Official In-Game Team':esc(option.strategyLabel||'Alternative Team')}</strong><small>${official?'Official recommendation':'Alternative team'}</small></summary>${recommendationMarkup(option)}</details>`;}).join('')}</div>`;
 }
 
+function raidOpponentMarkup(analysis) {
+  const cards=analysis.members.map(champion=>`<article class="raid-enemy-member ${analysis.leader?.id===champion.id?'is-leader':''}">${portrait(champion,'card')}<div><strong>${esc(champion.name)}</strong><span>${esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · '))}</span></div>${analysis.leader?.id===champion.id?badge('Leader','gold'):''}</article>`).join('');
+  const factions=analysis.factionBonuses.map(row=>`<li><strong>${esc(row.factionName)} faction bonus:</strong> ${esc(row.bonusText)} <small>(${row.contributors.length} members: ${esc(row.contributors.map(champion=>champion.name).join(', '))})</small></li>`).join('');
+  const allies=analysis.allyPairs.map(row=>`<li><strong>${esc(row.owner.name)} + ${esc(row.ally.name)} · ${esc(row.gemName)}:</strong> ${esc(row.effect)} <small>Verified card; current availability has not been rechecked.</small></li>`).join('');
+  const leader=analysis.leaderFact?`<li><strong>${esc(analysis.leader.name)} · Leader:</strong> ${esc(analysis.leaderFact.factText)}</li>`:analysis.leader?`<li><strong>${esc(analysis.leader.name)} · Leader:</strong> No complete Leader wording is available.</li>`:'<li>Select the enemy Leader for complete matchup analysis.</li>';
+  const highlights=analysis.highlights.map(row=>`<li><strong>${esc(row.title)}:</strong> ${esc(row.text)}</li>`).join('');
+  const details=analysis.facts.map(fact=>`<li><strong>${esc(analysis.members.find(row=>row.id===fact.variantId)?.name)}:</strong> ${esc(fact.factText)}</li>`).join('');
+  return `<section class="raid-opponent"><h3>Enemy Raid Defense</h3><div class="raid-enemy-team">${cards}</div><h3>Why this defense is strong</h3><ul class="raid-strengths">${factions||'<li>No documented faction threshold is met by this lineup.</li>'}${allies}${leader}${highlights}</ul><details class="enemy-facts"><summary>Opponent details</summary><ul>${details}</ul></details></section>`;
+}
+
 function recommendationMarkup(result) {
   if(result.status==='partial_curated') return partialRecommendationMarkup(result);
   if(result.status==='insufficient_evidence') return `<section class="recommendation-empty"><p class="eyebrow">Information unavailable</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>I cannot build a team until the encounter mechanics are verified.</p></section>`;
   const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>Position ${index+1}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header></article>`).join('');
   const leader=result.leader?`<p class="team-leader">Leader: <strong>${esc(result.leader.champion.name)}</strong></p>`:'';
-  return `<div class="recommendation-team">${teamCards}</div>${leader}
+  const faction=result.factionBonuses?.length?`<p><strong>Faction bonus:</strong> ${result.factionBonuses.map(row=>`${esc(row.factionName)} — ${esc(row.bonusText)}`).join(' · ')}</p>`:'<p><strong>Faction bonus:</strong> No source-confirmed bonus activated.</p>';
+  const allies=result.allyPairs?.length?`<p><strong>Ally pair:</strong> ${result.allyPairs.map(row=>`${esc(row.owner.name)} + ${esc(row.ally.name)} · ${esc(row.gemName)} (historical card; current availability unconfirmed)`).join(' · ')}</p>`:'';
+  const leaderEffect=result.leader?.evidence?.factText?`<p><strong>Leader effect:</strong> ${esc(result.leader.evidence.factText)}</p>`:'';
+  const synergy=['raid','war'].includes(result.target.battleMode)&&result.matchupReasons?`<div class="raid-team-synergy">${faction}${allies}${leaderEffect}<p>${esc(result.missingDataWarnings.find(row=>row.startsWith('This team ')||row.startsWith('This lineup '))||'')}</p></div>`:'';
+  return `<div class="recommendation-team">${teamCards}</div>${leader}${synergy}
     <section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.timing)}</p></div>${result.dangers.length?`<div><h3>Watch Out For</h3><p>${esc(result.dangers[0])}</p></div>`:''}</section>
     <details class="team-secondary"><summary>Substitutes and alternatives</summary>${result.target.evidenceState==='insufficient'?'<p>No encounter-specific substitution is verified while the ability cards are unavailable.</p>':result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</details>
     <details class="evidence-details"><summary>Evidence and recommendation details</summary><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} deterministic inferences · ${result.evidenceSummary.communityObservations} community observations used as context only.</p>${result.curatedRecommendation?`<p><strong>Curated source:</strong> ${esc(result.curatedRecommendation.provenanceRef)} · ${Math.round(Number(result.curatedRecommendation.confidence)*100)}% confidence</p><p>${esc(result.curatedRecommendation.notes)}</p>`:''}<ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></details>`;
@@ -322,16 +337,30 @@ function mountBattleSections() {
     target.addEventListener('change',update);update();
   }
   if(view==='raid') {
-    const controls=[...document.querySelectorAll('.enemy-select')],status=document.querySelector('#enemy-input-status'),facts=document.querySelector('#raid-enemy-facts'),output=document.querySelector('#raid-attack-options');
+    const controls=[...document.querySelectorAll('.enemy-select')],leaderSelect=document.querySelector('#enemy-leader'),status=document.querySelector('#enemy-input-status'),enemyTeam=document.querySelector('#raid-enemy-team'),output=document.querySelector('#raid-attack-options');
+    let selection=resetRaidSelection();
     const update=()=>{
       const ids=controls.map(row=>row.value).filter(Boolean),unique=new Set(ids);
-      if(ids.length!==unique.size){status.textContent='Choose five different exact champion variants.';facts.innerHTML='';output.innerHTML='';return;}
-      status.textContent=ids.length===5?'Five opposing variants selected. The facts below come from verified records.':`${ids.length} of 5 opposing variants selected. General Raid Attack teams are shown below.`;
-      const answer=answerStrategyQuestion({question:'What should I use against this Raid team?',guideData:snapshot,strategyData:strategySnapshot,enemyVariantIds:ids.length===5?ids:[]});
-      facts.innerHTML=ids.length===5?`<details class="enemy-facts" open><summary>Verified opposing champion facts</summary>${answer.enemyThreats.length?`<ul>${answer.enemyThreats.map(row=>`<li><strong>${esc(row.champion)}:</strong> ${esc(row.text)}</li>`).join('')}</ul>`:unavailable('No complete champion mechanic facts are available for this exact defense.')}<p>Specific counter ordering, target priority, and matchup outcomes are not verified. These are general Raid Attack teams.</p></details>`:'';
-      output.innerHTML=teamOptionsMarkup(answer.options||[]);
+      selection=raidSelectionTransition(selection,{enemyVariantIds:controls.map(row=>row.value),leaderVariantId:leaderSelect.value});
+      enemyTeam.replaceChildren();output.replaceChildren();output.removeAttribute('data-defense-signature');
+      const chosen=ids.map(id=>snapshot.champions.find(row=>row.id===id));
+      leaderSelect.innerHTML=`<option value="">Select the enemy Leader</option>${chosen.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}</option>`).join('')}`;
+      leaderSelect.value=selection.leaderVariantId||'';
+      if(ids.length!==unique.size){status.textContent='Choose five different exact champion variants.';return;}
+      if(ids.length!==5){status.textContent=`${ids.length} of 5 opposing variants selected.`;return;}
+      const analysis=analyzeRaidDefense({guideData:snapshot,strategyData:strategySnapshot,enemyVariantIds:ids,leaderVariantId:selection.leaderVariantId});
+      selection.analysis=analysis;
+      enemyTeam.innerHTML=raidOpponentMarkup(analysis);
+      if(!selection.leaderVariantId){status.textContent='Select the enemy Leader for complete matchup analysis.';return;}
+      status.textContent='Matchup recalculated for these five defenders and the selected Leader.';
+      selection.recommendations=buildTeamOptions({guideData:snapshot,strategyData:strategySnapshot,targetId:'raid:attack',raidDefense:analysis,limit:3});
+      output.dataset.defenseSignature=analysis.signature;
+      output.innerHTML=`<h3 class="recommendations-heading">Recommended Counter Teams</h3>${teamOptionsMarkup(selection.recommendations)}`;
     };
-    controls.forEach(row=>row.addEventListener('change',update));update();
+    controls.forEach(row=>row.addEventListener('change',update));
+    leaderSelect.addEventListener('change',update);
+    document.querySelector('#reset-raid').addEventListener('click',()=>{controls.forEach(row=>{row.value='';});leaderSelect.value='';selection=resetRaidSelection();update();});
+    update();
   }
 }
 

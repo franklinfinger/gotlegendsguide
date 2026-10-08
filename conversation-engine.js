@@ -62,7 +62,7 @@ function sameLineup(left,right) {
 
 /** The first-party lineup is first; public engine alternatives follow only when
  * target mechanics support them. Unresolved official positions stay unresolved. */
-export function buildTeamOptions({guideData,strategyData,targetId,excludeVariantIds=[],limit=5}) {
+export function buildTeamOptions({guideData,strategyData,targetId,excludeVariantIds=[],limit=5,raidDefense=null}) {
   const excluded=new Set(excludeVariantIds),options=[];
   const curated=currentCurated(strategyData,targetId);
   const partial=!curated?partialCurated(strategyData,targetId):null;
@@ -74,7 +74,7 @@ export function buildTeamOptions({guideData,strategyData,targetId,excludeVariant
     options.push({status:'partial_curated',target,curatedRecommendation:partial,recommendationSource:'curated_partial',strategyLabel:'Official In-Game Recommendation',team:[],leader:null});
   }
   if(options.length<limit) {
-    const alternatives=recommendDistinctTeams({guideData,strategyData,targetId,excludeVariantIds,limit});
+    const alternatives=recommendDistinctTeams({guideData,strategyData,targetId,excludeVariantIds,limit,raidDefense});
     for(const alternative of alternatives) {
       if(options.length>=limit)break;
       if(options.some(row=>sameLineup(row,alternative)))continue;

@@ -1,3 +1,5 @@
+import { raidTeamEvaluation } from './raid-engine.js';
+
 const DAMAGE_MECHANICS = new Set(['physical_damage','fire_damage','unnatural_damage','true_damage']);
 const CONTROL_MECHANICS = new Set(['apply_bleed','apply_fire','apply_ice','apply_raid','apply_poison','apply_wound','stun','pacify','deceive','buff_removal']);
 const SUPPORT_MECHANICS = new Set(['healing','shield','stamina','cleanse','taunt','defense','revive']);
@@ -88,7 +90,7 @@ function championScore(champion, facts, rules) {
   };
 }
 
-function teamEvaluation(team, synergyRules, observedPairs, preferredLeaderId = null) {
+function teamEvaluation(team, synergyRules, observedPairs, preferredLeaderId = null, guideData = null, raidDefense = null) {
   let score = team.reduce((sum, member) => sum + member.score, 0);
   const explanations = [];
   const eligibleLeaders = [...team].filter(member => member.leaderFacts.some(fact => fact.mechanicId === 'leader_effect' && fact.reviewStatus === 'complete' && Number(fact.confidence) >= 0.8));
@@ -119,24 +121,47 @@ function teamEvaluation(team, synergyRules, observedPairs, preferredLeaderId = n
     explanations.push({id:`observed-${key}`,text:`${team[left].champion.name} and ${team[right].champion.name} appeared together in ${observed.count} observed composition${observed.count===1?'':'s'}; no outcome was shown and this does not change the score.`,score:0,evidenceCategory:'community_observed',provenanceRef:`community_team:${observed.examples.join(',')}`,confidence:0.45});
   }
   if (leader && leader.leaderPotential > 0) score += leader.leaderPotential;
-  return {score,explanations,leader};
+  const raidSynergy=raidDefense&&guideData?raidTeamEvaluation(team,guideData,raidDefense,leader?.champion.id):null;
+  if(raidSynergy){
+    score+=raidSynergy.score;
+    for(const [index,faction] of raidSynergy.factionBonuses.entries())explanations.push({id:`faction-${faction.factionName}`,text:`${faction.contributors.length} ${faction.factionName} members activate: ${faction.bonusText}`,score:(index===0?(raidDefense.mode==='war'?35:55):18)+Math.max(0,faction.contributors.length-faction.requiredMembers)*4,evidenceCategory:'verified_fact',provenanceRef:`source:${faction.sourceId}`,confidence:1});
+    for(const pair of raidSynergy.allyPairs)explanations.push({id:pair.id,text:`${pair.owner.name} + ${pair.ally.name}: ${pair.gemName}. ${pair.effect}`,score:8,evidenceCategory:'verified_fact',provenanceRef:`source:${pair.sourceId}`,confidence:1});
+    for(const match of raidSynergy.matchup)explanations.push({id:`matchup-${match.text}`,text:match.text,score:match.score,evidenceCategory:'strategy_inference',provenanceRef:'verified-opponent-mechanics',confidence:.8});
+  }
+  return {score,explanations,leader,raidSynergy};
 }
 
 function teamKey(team) { return team.map(member => member.champion.id).sort().join('|'); }
 
-function selectTeam(candidates, synergyRules, observedPairs) {
+function selectTeam(candidates, synergyRules, observedPairs, guideData=null, raidDefense=null) {
   const pool = candidates.slice(0, 24);
+  if(raidDefense&&guideData){
+    const present=new Set(pool.map(row=>row.champion.id));
+    for(const activation of guideData.factionActivations||[]){
+      const faction=guideData.factions.find(row=>row.id===activation.factionId);
+      for(const candidate of candidates.filter(row=>faction?.memberVariantIds.includes(row.champion.id)).slice(0,6))if(!present.has(candidate.champion.id)){pool.push(candidate);present.add(candidate.champion.id);}
+    }
+  }
   let beam = [{team:[],score:0,explanations:[],leader:null}];
   for (let size = 0; size < 5; size += 1) {
     const next = new Map();
     for (const state of beam) for (const candidate of pool) {
       if (state.team.some(member => member.champion.id === candidate.champion.id)) continue;
       const team = [...state.team,candidate].sort((a,b)=>a.champion.id.localeCompare(b.champion.id));
-      const evaluation = teamEvaluation(team,synergyRules,observedPairs);
+      const evaluation = teamEvaluation(team,synergyRules,observedPairs,null,guideData,raidDefense);
       const key = teamKey(team);
       if (!next.has(key) || next.get(key).score < evaluation.score) next.set(key,{team,...evaluation});
     }
-    beam = [...next.values()].sort((a,b)=>b.score-a.score || teamKey(a.team).localeCompare(teamKey(b.team))).slice(0, 180);
+    const ranked=[...next.values()].sort((a,b)=>b.score-a.score || teamKey(a.team).localeCompare(teamKey(b.team)));
+    if(!raidDefense){beam=ranked.slice(0,180);continue;}
+    const retained=new Map(ranked.slice(0,90).map(row=>[teamKey(row.team),row]));
+    for(const activation of guideData.factionActivations||[]){
+      const faction=guideData.factions.find(row=>row.id===activation.factionId);
+      const focused=ranked.map(row=>({row,count:row.team.filter(member=>faction?.memberVariantIds.includes(member.champion.id)).length}))
+        .filter(row=>row.count>0).sort((a,b)=>b.count-a.count||b.row.score-a.row.score).slice(0,8);
+      for(const {row} of focused)retained.set(teamKey(row.team),row);
+    }
+    beam=[...retained.values()];
   }
   return beam[0] || {team:[],score:0,explanations:[],leader:null};
 }
@@ -166,15 +191,15 @@ function positiveMechanicScores(member) {
   return new Map(member.contributions.filter(row=>row.score>0).map(row=>[row.rule.mechanicId,row.score]));
 }
 
-function primarySubstitute(member, selectedTeam, candidates, synergyRules, observedPairs) {
+function primarySubstitute(member, selectedTeam, candidates, synergyRules, observedPairs, guideData=null, raidDefense=null) {
   const selectedIds = new Set(selectedTeam.map(row=>row.champion.id));
   const desired = positiveMechanicScores(member);
   const alternatives = candidates.filter(row=>!selectedIds.has(row.champion.id)).map(candidate=>{
     const supplied = [...positiveMechanicScores(candidate).keys()].filter(mechanic=>desired.has(mechanic));
     const roleMatchScore = supplied.reduce((sum,mechanic)=>sum + desired.get(mechanic),0);
     const replacement = selectedTeam.map(row=>row.champion.id===member.champion.id?candidate:row);
-    return {candidate,supplied,roleMatchScore,teamScore:teamEvaluation(replacement,synergyRules,observedPairs).score};
-  }).sort((a,b)=>b.roleMatchScore-a.roleMatchScore || b.teamScore-a.teamScore || b.candidate.score-a.candidate.score || a.candidate.champion.name.localeCompare(b.candidate.champion.name));
+    return {candidate,supplied,roleMatchScore,teamScore:teamEvaluation(replacement,synergyRules,observedPairs,null,guideData,raidDefense).score};
+  }).sort((a,b)=>(raidDefense?b.teamScore-a.teamScore:0)||b.roleMatchScore-a.roleMatchScore || b.teamScore-a.teamScore || b.candidate.score-a.candidate.score || a.candidate.champion.name.localeCompare(b.candidate.champion.name));
   const best = alternatives[0];
   if (!best) return null;
   const reason = best.supplied.length
@@ -187,9 +212,10 @@ function primarySubstitute(member, selectedTeam, candidates, synergyRules, obser
  * Rank exact variants and assemble a five-champion team from verified mechanics.
  * Player account data is outside this public strategy guide.
  */
-export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds=[]}) {
+export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds=[],raidDefense=null}) {
   const target = strategyData.targets.find(row=>row.id===targetId);
   if (!target) throw new Error(`Unsupported strategy target: ${targetId}`);
+  const teamContext=['raid','war'].includes(target.battleMode)?raidDefense||{mode:target.battleMode,mechanics:[],leader:null}:null;
   const commonWarnings = ['Strategic fit uses verified mechanics; compare these options with your own in-game collection.'];
   if (target.evidenceState === 'insufficient') return {
     status:'insufficient_evidence',target,team:[],leader:null,overallScore:0,teamSynergy:[],approach:target.approach,timing:target.timing,dangers:[target.warning],substitutes:[],confidence:'insufficient',evidenceSummary:{verifiedFacts:0,strategyInferences:0,communityObservations:0},missingDataWarnings:[...commonWarnings,target.warning],candidateStats:{considered:guideData.champions.length,eligible:0,pruned:0}
@@ -210,7 +236,7 @@ export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds
   }
   candidates.sort((a,b)=>b.score-a.score || a.champion.name.localeCompare(b.champion.name));
   const observedPairs = observedPairIndex(guideData.teams,guideData.champions);
-  const selected = selectTeam(candidates,synergyRules,observedPairs);
+  const selected = selectTeam(candidates,synergyRules,observedPairs,guideData,teamContext);
   const mechanicById = new Map(strategyData.mechanics.map(mechanic=>[mechanic.id,mechanic]));
   const team = selected.team.map(member=>({
     champion:member.champion,
@@ -220,12 +246,13 @@ export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds
     scoringContributions:member.contributions.sort((a,b)=>b.score-a.score).map(row=>({mechanicId:row.rule.mechanicId,mechanicName:mechanicById.get(row.rule.mechanicId)?.name||row.rule.mechanicId,score:row.score,fact:row.fact.factText,factProvenanceRef:row.fact.provenanceRef,ruleId:row.rule.id,ruleProvenanceRef:row.rule.provenanceRef})),
     dangers:member.contributions.filter(row=>row.score<0).sort((a,b)=>a.score-b.score).slice(0,2).map(row=>({text:row.rule.rationale,score:row.score,evidenceCategory:row.rule.evidenceCategory,provenanceRef:row.rule.provenanceRef,confidence:Number(row.rule.confidence)})),
     item:guideData.items.find(item=>item.ownerVariantId===member.champion.id) || null,
-    substitute:primarySubstitute(member,selected.team,candidates,synergyRules,observedPairs),
+    substitute:primarySubstitute(member,selected.team,candidates,synergyRules,observedPairs,guideData,teamContext),
   }));
   const substitutes = team.map(member=>member.substitute).filter(Boolean).filter((row,index,rows)=>rows.findIndex(other=>other.champion.id===row.champion.id)===index).slice(0,3);
   const evidence = [...team.flatMap(member=>member.reasons),...team.flatMap(member=>member.dangers),...selected.explanations];
   const incomplete = team.filter(member=>member.champion.reviewStatus!=='complete').map(member=>member.champion.name);
   const warnings = [...commonWarnings];
+  if(teamContext)warnings.push(selected.raidSynergy?.factionBonuses.length?'This team is designed to compete through faction and champion synergy rather than raw displayed power alone.':'This lineup relies heavily on individual champion strength. If these champions are not highly developed, prefer a faction-core alternative.');
   if (unavailable) warnings.push(`${unavailable} exact variants with unverified current availability were considered and excluded from primary recommendations.`);
   if (incomplete.length) warnings.push(`Some selected profiles have incomplete non-strategy metadata: ${incomplete.join(', ')}.`);
   const partialFacts = selected.team.flatMap(member=>member.facts.filter(fact=>fact.reviewStatus==='partial' && fact.context!=='metadata').map(fact=>({champion:member.champion.name,fact})));
@@ -239,9 +266,10 @@ export function recommendTeam({guideData,strategyData,targetId,excludeVariantIds
     leader:selected.leader?{champion:selected.leader.champion,evidence:selected.leader.leaderFacts.find(fact=>fact.mechanicId==='leader_effect'),score:round(selected.leader.leaderPotential)}:null,
     overallScore:round(selected.score),
     teamSynergy:selected.explanations,
-    approach:target.approach,
-    timing:target.timing,
-    dangers:[target.warning,...team.flatMap(member=>member.dangers.map(row=>`${member.champion.name}: ${row.text}`))].slice(0,6),
+    factionBonuses:selected.raidSynergy?.factionBonuses||[],allyPairs:selected.raidSynergy?.allyPairs||[],matchupReasons:selected.raidSynergy?.matchup||[],
+    approach:raidDefense?`${selected.raidSynergy?.factionBonuses.length?`${selected.raidSynergy.factionBonuses[0].factionName} members activate a verified faction bonus. `:''}${selected.raidSynergy?.matchup.length?selected.raidSynergy.matchup.map(row=>row.text).join(' '):target.approach}`:target.approach,
+    timing:raidDefense&&selected.raidSynergy?.matchup.some(row=>row.text.startsWith('Fast Skill'))?'Use early Skills before the enemy ICE / BRITTLE cycle develops. Follow the verified timing of your selected Skills for the remaining turns.':target.timing,
+    dangers:[raidDefense?'This is a source-backed matchup plan, not a verified victory. Champion development and the opponent\'s exact build can change the outcome.':target.warning,...team.flatMap(member=>member.dangers.map(row=>`${member.champion.name}: ${row.text}`))].slice(0,6),
     substitutes,
     confidence:target.battleMode==='legendary-assault'?'medium-high':'medium',
     evidenceSummary:{
@@ -263,6 +291,7 @@ export function strategyLabel(result) {
   if (result.recommendationSource==='curated' || result.recommendationSource==='curated_partial') return 'Official In-Game Recommendation';
   const mechanics=mechanicIds(result);
   const count=id=>result.team.filter(member=>member.scoringContributions.some(row=>row.mechanicId===id&&row.score>0)).length;
+  if(result.factionBonuses?.length)return `${result.factionBonuses[0].factionName} faction core${count('stamina')>=2?' · Fast Skills':''}`;
   if (count('birthright')>=2) return 'BIRTHRIGHT Core';
   if (mechanics.has('apply_fire') && mechanics.has('fire_damage')) return 'FIRE Setup and Payoff';
   if (mechanics.has('apply_ice') && mechanics.has('brittle')) return 'ICE / BRITTLE Control';
@@ -277,21 +306,23 @@ export function strategyLabel(result) {
 
 /** Find distinct, evidence-backed public lineups. The exclusion search opens
  * other mechanic packages without random seeds or fabricated champions. */
-export function recommendDistinctTeams({guideData,strategyData,targetId,excludeVariantIds=[],limit=5}) {
-  const first=recommendTeam({guideData,strategyData,targetId,excludeVariantIds});
+export function recommendDistinctTeams({guideData,strategyData,targetId,excludeVariantIds=[],limit=5,raidDefense=null}) {
+  const first=recommendTeam({guideData,strategyData,targetId,excludeVariantIds,raidDefense});
   if (first.status!=='ready' || first.team.length!==5 || first.overallScore<=0 || first.evidenceSummary.verifiedFacts===0) return [];
   const chosen=[first], seen=new Set([lineupIds(first).join('|')]), tried=new Set();
   const queue=[first];
   let attempts=0;
-  while (queue.length && chosen.length<limit && attempts<12) {
+  const teamMode=['raid','war'].includes(strategyData.targets.find(row=>row.id===targetId)?.battleMode);
+  const maxAttempts=teamMode?5:12;
+  while (queue.length && chosen.length<limit && attempts<maxAttempts) {
     const parent=queue.shift();
     const ids=lineupIds(parent);
     const candidates=[];
     for (let a=0;a<ids.length-2;a++) for(let b=a+1;b<ids.length-1;b++) for(let c=b+1;c<ids.length;c++) {
-      if(attempts>=12) break;
+      if(attempts>=maxAttempts) break;
       const bans=[...new Set([...excludeVariantIds,ids[a],ids[b],ids[c]])].sort();
       const banKey=bans.join('|');if(tried.has(banKey))continue;tried.add(banKey);attempts++;
-      const result=recommendTeam({guideData,strategyData,targetId,excludeVariantIds:bans});
+      const result=recommendTeam({guideData,strategyData,targetId,excludeVariantIds:bans,raidDefense});
       if(result.status!=='ready' || result.team.length!==5 || result.overallScore<=0 || result.evidenceSummary.verifiedFacts===0)continue;
       const key=lineupIds(result).join('|');if(seen.has(key))continue;seen.add(key);
       // A distinct option must change at least three exact variants. A lower
@@ -301,7 +332,8 @@ export function recommendDistinctTeams({guideData,strategyData,targetId,excludeV
     }
     candidates.sort((a,b)=>{
       const novel=row=>[...mechanicIds(row)].filter(id=>!chosen.some(other=>mechanicIds(other).has(id))).length;
-      return novel(b)-novel(a) || b.overallScore-a.overallScore || lineupIds(a).join('|').localeCompare(lineupIds(b).join('|'));
+      const newFaction=row=>row.factionBonuses?.some(faction=>!chosen.some(other=>other.factionBonuses?.some(existing=>existing.factionName===faction.factionName)))?1:0;
+      return (raidDefense?newFaction(b)-newFaction(a):0) || novel(b)-novel(a) || b.overallScore-a.overallScore || lineupIds(a).join('|').localeCompare(lineupIds(b).join('|'));
     });
     for(const candidate of candidates) {
       if(chosen.length>=limit)break;

@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { recommendTeam } from '../strategy-engine.js';
 import { answerStrategyQuestion, buildTeamOptions } from '../conversation-engine.js';
 import { answerGuideQuestion } from '../knowledge-engine.js';
+import { analyzeRaidDefense } from '../raid-engine.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 const env = {};
@@ -15,13 +16,26 @@ const url = env.NEXT_PUBLIC_SUPABASE_URL;
 const key = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 if (!url || !key) throw new Error('Missing local publishable Supabase configuration.');
 const headers = {apikey:key,Accept:'application/json'};
-const [guideResponse,strategyResponse] = await Promise.all([
+const [guideResponse,strategyResponse,raidResponse] = await Promise.all([
   fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_guide_data`, {headers}),
   fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_strategy_data`, {headers}),
+  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_raid_synergy_data`, {headers}),
 ]);
 if (!guideResponse.ok) throw new Error(`Live guide RPC failed: ${guideResponse.status}`);
 if (!strategyResponse.ok) throw new Error(`Live strategy RPC failed: ${strategyResponse.status}`);
-const [data,strategy] = await Promise.all([guideResponse.json(),strategyResponse.json()]);
+if (!raidResponse.ok) throw new Error(`Live Raid synergy RPC failed: ${raidResponse.status}`);
+const [baseData,strategy,raidSynergy] = await Promise.all([guideResponse.json(),strategyResponse.json(),raidResponse.json()]);
+const data={...baseData,...raidSynergy};
+assert.equal(data.factionActivations.length,4);
+assert.equal(data.allyGems.length,20);
+const defense=analyzeRaidDefense({guideData:data,strategyData:strategy,enemyVariantIds:['sqlite-champion-24','sqlite-champion-15','sqlite-champion-2','sqlite-champion-17','sqlite-champion-60'],leaderVariantId:'sqlite-champion-2'});
+assert.equal(defense.factionBonuses[0]?.factionName,'Stark');
+assert.equal(defense.allyPairs[0]?.gemName,'Sisters Reunited Gem');
+assert.equal(defense.leader?.name,'Ned Stark');
+assert.match(defense.leaderFact?.factText||'',/At the start of combat.*ICE/);
+assert.ok(defense.highlights.some(row=>row.title==='POISON pressure'));
+const counters=buildTeamOptions({guideData:data,strategyData:strategy,targetId:'raid:attack',raidDefense:defense,limit:3});
+assert.ok(counters.length>=2&&counters.every(row=>row.factionBonuses?.length));
 const ask=question=>answerGuideQuestion({question,guideData:data,strategyData:strategy});
 const poison=ask('Who can use poison?');
 assert.equal(poison.intent,'mechanic_lookup');

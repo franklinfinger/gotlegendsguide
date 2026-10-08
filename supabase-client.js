@@ -9,7 +9,9 @@
 /** @typedef {{name:string,isLeader:boolean,gemColor?:string|null}} GuideTeamMember */
 /** @typedef {{id:string,mode:string,outcome:string,displayedPower:number|null,members:GuideTeamMember[]}} GuideObservedTeam */
 /** @typedef {{id:string,name:string,subtitle:string|null,reviewStatus:string,releaseState:string,abilities:Array<{id:string,name:string,scope:string|null,text:string,reviewStatus:string}>,tips:Array<{id:string,text:string,reviewStatus:string}>}} GuideEncounter */
-/** @typedef {{version:string,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],statuses:unknown[],mechanics:unknown[],companions:unknown[],legendaryAssault:GuideEncounter[],warRules:unknown[],raidRules:unknown[],raidTeams:unknown[],strategyTeams:unknown[],teams:GuideObservedTeam[],announcements:unknown[]}} GuideData */
+/** @typedef {{factionId:string,factionName:string,requiredMembers:number,sourceId:number}} FactionActivation */
+/** @typedef {{id:string,ownerName:string,allyName:string,gemName:string,relationship:string,replacesPowerUp:string,effect:string,reviewState:string,currentnessState:string,sourceId:number}} AllyGem */
+/** @typedef {{version:string,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],factionActivations:FactionActivation[],allyGems:AllyGem[],statuses:unknown[],mechanics:unknown[],companions:unknown[],legendaryAssault:GuideEncounter[],warRules:unknown[],raidRules:unknown[],raidTeams:unknown[],strategyTeams:unknown[],teams:GuideObservedTeam[],announcements:unknown[]}} GuideData */
 /** @typedef {{id:string,battleMode:'legendary-assault'|'raid'|'war',kind:string,name:string,evidenceState:'verified'|'insufficient',approach:string,timing:string,warning:string,provenanceRef:string,reviewStatus:string}} StrategyTarget */
 /** @typedef {{id:string,kind:'target_fit'|'team_synergy',battleMode:string,targetId:string|null,subjectVariantId:string|null,mechanicId:string,pairedMechanicId:string|null,score:number,rationale:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyRule */
 /** @typedef {{id:string,variantId:string,mechanicId:string,effectRole:string,context:string,factText:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyChampionFact */
@@ -39,13 +41,14 @@ export async function getDataHealth() {
 
 /** @returns {Promise<GuideData>} */
 export async function getGuideData() {
-  const data = await rpc('got_guide_data');
+  const [data,raidSynergy] = await Promise.all([rpc('got_guide_data'),rpc('got_raid_synergy_data')]);
   const collections = ['champions','abilities','traits','items','factions','statuses','mechanics','companions','legendaryAssault','warRules','raidRules','raidTeams','strategyTeams','teams','announcements'];
   if (!data || typeof data !== 'object' || collections.some(key => !Array.isArray(data[key]))) {
     throw new Error('The database returned an incomplete guide result.');
   }
   if (typeof data.version !== 'string') throw new Error('The guide data has no verified version.');
-  return /** @type {GuideData} */ (data);
+  if (!Array.isArray(raidSynergy?.factionActivations) || !Array.isArray(raidSynergy?.allyGems)) throw new Error('The Raid synergy data is incomplete.');
+  return /** @type {GuideData} */ ({...data,...raidSynergy});
 }
 
 /** @returns {Promise<StrategyData>} */

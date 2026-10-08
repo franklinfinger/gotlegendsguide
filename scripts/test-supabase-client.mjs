@@ -17,8 +17,8 @@ test('guide RPC requires every curated collection', async () => {
   const original = globalThis.fetch;
   const data = Object.fromEntries(['champions','abilities','traits','items','factions','statuses','mechanics','companions','legendaryAssault','warRules','raidRules','raidTeams','strategyTeams','teams','announcements'].map(key => [key, []]));
   data.version = 'verified-sqlite-2026-10-05';
-  globalThis.fetch = async () => new Response(JSON.stringify(data));
-  try { assert.equal((await getGuideData()).version, data.version); }
+  globalThis.fetch = async url => new Response(JSON.stringify(String(url).includes('got_raid_synergy_data')?{factionActivations:[],allyGems:[]}:data));
+  try { const result=await getGuideData();assert.equal(result.version, data.version);assert.deepEqual(result.allyGems,[]); }
   finally { globalThis.fetch = original; }
 });
 
