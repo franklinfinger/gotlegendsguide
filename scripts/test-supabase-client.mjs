@@ -15,10 +15,11 @@ test('health RPC accepts the table-valued response from PostgREST', async () => 
 
 test('guide RPC requires every curated collection', async () => {
   const original = globalThis.fetch;
+  const requested=[];
   const data = Object.fromEntries(['champions','abilities','traits','items','factions','statuses','mechanics','companions','legendaryAssault','warRules','raidRules','raidTeams','strategyTeams','teams','announcements'].map(key => [key, []]));
   data.version = 'verified-sqlite-2026-10-05';
-  globalThis.fetch = async url => new Response(JSON.stringify(String(url).includes('got_raid_synergy_data')?{factionActivations:[],allyGems:[]}:data));
-  try { const result=await getGuideData();assert.equal(result.version, data.version);assert.deepEqual(result.allyGems,[]); }
+  globalThis.fetch = async url => { requested.push(String(url)); return new Response(JSON.stringify(String(url).includes('got_raid_synergy_data')?{factionActivations:[],allyGems:[]}:data)); };
+  try { const result=await getGuideData();assert.equal(result.version, data.version);assert.deepEqual(result.allyGems,[]);assert.ok(requested.some(url=>url.endsWith('/got_guide_data_preview'))); }
   finally { globalThis.fetch = original; }
 });
 

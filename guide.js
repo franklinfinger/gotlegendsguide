@@ -84,15 +84,17 @@ function championFacts(champion) {
   const normalizedTraits = snapshot.abilities.filter(a=>a.variantId===champion.id && a.kind==='trait');
   const traits = [...snapshot.traits.filter(t=>t.variantId===champion.id), ...normalizedTraits];
   const items = snapshot.items.filter(item=>item.ownerVariantId===champion.id);
-  return {skills,traits,items};
+  const associatedUnits = snapshot.companions.filter(unit=>unit.variantId===champion.id);
+  return {skills,traits,items,associatedUnits};
 }
 
 function championCard(champion, open=false) {
-  const {skills,traits,items} = championFacts(champion);
+  const {skills,traits,items,associatedUnits} = championFacts(champion);
   const subtle = champion.releaseState==='unverified' ? `<p class="subtle-note">This variant's current availability is not confirmed.</p>` : '';
   return `<details class="champion-card" data-search="${esc(`${champion.name} ${champion.gemColor||''} ${champion.rarity||''} ${champion.factions.join(' ')}`.toLowerCase())}" data-color="${esc((champion.gemColor||'unknown').toLowerCase())}" data-factions="${esc(champion.factions.join('|').toLowerCase())}" ${open?'open':''}>
     <summary><span class="champion-summary">${portrait(champion)}<span class="champion-identity"><strong>${esc(champion.name)}</strong><span>${esc([champion.rarity,champion.gemColor].filter(Boolean).join(' · ')||'Classification unavailable')}</span><span>${esc(champion.factions.join(' · ')||'Faction not recorded')}</span></span><span class="expand-mark" aria-hidden="true">＋</span></span></summary>
     <div class="champion-detail">${subtle}<div class="detail-grid"><section><h3>Skill</h3>${skills.length?skills.map(abilityBlock).join(''):unavailable('No verified skill card is available for this variant.')}</section><section><h3>Traits</h3>${traits.length?traits.map(abilityBlock).join(''):unavailable('No verified trait card is available for this variant.')}</section></div>
+    ${associatedUnits.length?`<section class="linked-items"><h3>Associated unit</h3>${associatedUnits.map(unit=>`<article class="ability-block"><strong>${esc(unit.name)}</strong><p>${esc(unit.inheritanceText)}</p></article>${abilityBlock({name:unit.traitName,text:unit.traitText,reviewStatus:unit.reviewStatus})}${abilityBlock({name:unit.skillName,text:unit.skillText,reviewStatus:unit.reviewStatus})}`).join('')}</section>`:''}
     <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<a class="item-link" href="items.html#${esc(item.id)}"><strong>${esc(item.name)}</strong><span>${esc(item.abilities[0]?.name||'View item ability')}</span></a>`).join(''):unavailable('No iconic item is listed for this variant.')}</section></div></details>`;
 }
 

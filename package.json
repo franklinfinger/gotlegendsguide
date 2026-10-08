@@ -7,7 +7,7 @@
     "test": "node --test scripts/test-*.mjs",
     "test:live": "node scripts/validate-live-guide.mjs",
     "build": "node scripts/build.mjs",
-    "db:validate": "python3 scripts/import-verified-sqlite.py --check-migration"
+    "db:validate": "python3 scripts/import-verified-sqlite.py --check-migration && python3 scripts/build-ormund-supplement.py --check"
   },
   "devDependencies": {
     "typescript": "^5.9.3"

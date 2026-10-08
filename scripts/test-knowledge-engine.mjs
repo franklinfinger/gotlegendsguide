@@ -3,20 +3,22 @@ import assert from 'node:assert/strict';
 import {answerGuideQuestion,routeGuideQuestion} from '../knowledge-engine.js';
 
 const champion=(id,name,factions=[])=>({id,name,gemColor:'Red',rarity:'Legendary',portrait:`assets/champion-portraits/${id}.png`,factions,releaseState:'live'});
-const champions=[champion('olenna','Olenna Tyrell'),champion('meryn','Meryn Trant',['Lannister']),champion('alicent','Alicent Hightower',['Greens','Targaryen']),champion('jon','Jon Snow — King in the North',['Stark']),champion('drogon','Adolescent Drogon',['Free Cities'])];
+const champions=[champion('olenna','Olenna Tyrell'),champion('meryn','Meryn Trant',['Lannister']),champion('alicent','Alicent Hightower',['Greens','Targaryen']),champion('jon','Jon Snow — King in the North',['Stark']),champion('drogon','Adolescent Drogon',['Free Cities']),champion('ormund','Ormund Hightower — Beacon of the South')];
 const fact=(id,variantId,mechanicId,factText,context='skill')=>({id,variantId,mechanicId,factText,context,evidenceCategory:'verified_fact',provenanceRef:`source:${id}`,reviewStatus:'complete'});
 const guideData={champions,
   abilities:[{id:'meryn-skill',variantId:'meryn',kind:'champion_skill',name:'No One Threatens His Grace',text:'Meryn TAUNTS enemies.',reviewStatus:'complete',provenance:'source:meryn'}],
-  traits:[],items:[{id:'catspaw',name:'CatsPaw Dagger',ownerVariantId:'alicent',ownerName:'Alicent Hightower',abilities:[{id:'fox',name:'How Sweetly The Fox Speaks III',text:'Alicent grants BIRTHRIGHT.',reviewStatus:'complete'}]}],
+  traits:[],companions:[{id:'guard',variantId:'ormund',name:'Hightower Guardsman',skillName:'Never Apologize For Victory',skillText:'The Guardsman deals Physical Damage to one enemy.',traitName:'We Must Keep A Firm Grip III',traitText:'The Guardsman TAUNTS.',inheritanceText:'Inherits Level, Star Rank, and Skill Level from Ormund.',reviewStatus:'complete'}],items:[{id:'catspaw',name:'CatsPaw Dagger',ownerVariantId:'alicent',ownerName:'Alicent Hightower',abilities:[{id:'fox',name:'How Sweetly The Fox Speaks III',text:'Alicent grants BIRTHRIGHT.',reviewStatus:'complete'}]}],
   factions:[{id:'stark',name:'Stark',memberVariantIds:['jon'],rules:[{kind:'current_bonus',text:'Verified Stark bonus.'}]}],statuses:[],mechanics:[]};
 const strategyData={championFacts:[
   fact('poison','olenna','apply_poison','I Want It Served Now: Olenna afflicts all enemies with POISON for 3 turns.'),
   fact('fire','drogon','apply_fire','Ember Storm: Drogon afflicts a target with FIRE.'),
   fact('stun','meryn','stun','Mind Your Place: Meryn STUNS an enemy.'),
   fact('immunity','drogon','stun','Dragon Skin: Drogon is immune to STUN.','trait'),
-  fact('unverified','jon','apply_poison','Rumor: Jon afflicts an enemy with POISON.','skill')
+  fact('unverified','jon','apply_poison','Rumor: Jon afflicts an enemy with POISON.','skill'),
+  fact('ormund-birthright','ormund','birthright','To Restore The Rightful Line III: All team members gain 8 BIRTHRIGHT.','trait'),
+  fact('ormund-remove','ormund','buff_removal','To Restore The Rightful Line III: Ormund REMOVES 2 Buffs from each enemy.','trait')
 ],mechanics:[],targets:[]};
-strategyData.championFacts.at(-1).reviewStatus='partial';
+strategyData.championFacts.find(row=>row.id==='unverified').reviewStatus='partial';
 const answer=question=>answerGuideQuestion({question,guideData,strategyData});
 
 test('Who can use poison? returns only exact source-backed owners',()=>{
@@ -28,6 +30,15 @@ test('Who can use poison? returns only exact source-backed owners',()=>{
 });
 test('Who applies FIRE? routes to mechanic facts',()=>assert.deepEqual(answer('Who applies FIRE?').entries.map(row=>row.champion.id),['drogon']));
 test('Who can STUN? excludes immunity-only text',()=>assert.deepEqual(answer('Who can STUN?').entries.map(row=>row.champion.id),['meryn']));
+test('Ormund knowledge includes his associated unit without inventing a faction',()=>{
+  const entry=answer('What does Ormund Hightower do?').entries[0];
+  assert.deepEqual(entry.champion.factions,[]);
+  assert.ok(entry.facts.some(row=>row.title==='Hightower Guardsman: Never Apologize For Victory'));
+});
+test('BIRTHRIGHT and buff removal queries resolve Ormund from verified wording',()=>{
+  assert.ok(answer('Who grants BIRTHRIGHT?').entries.some(row=>row.champion.id==='ormund'));
+  assert.ok(answer('Who removes buffs?').entries.some(row=>row.champion.id==='ormund'));
+});
 test('What faction is Alicent Hightower? uses current variant memberships',()=>assert.deepEqual(answer('What faction is Alicent Hightower?').entries[0].champion.factions,['Greens','Targaryen']));
 test('Who is in the Stark faction? returns current members',()=>assert.deepEqual(answer('Who is in the Stark faction?').entries.map(row=>row.champion.id),['jon']));
 test('What does CatsPaw Dagger do? returns owner and complete ability wording',()=>{

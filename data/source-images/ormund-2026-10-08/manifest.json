@@ -1,0 +1,257 @@
+{
+  "corpus": "Photos originals supplied by user",
+  "images": [
+    {
+      "filename": "IMG_3869.PNG",
+      "source_id": 103869,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3869.PNG",
+      "sha256": "e3675031b92ecc5a816999f879e2b1d8d6e3aa860c7b7b649bc0126e63e24baa",
+      "byte_count": 3163908,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion profile",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "Ormund Hightower; Beacon of the South; LEGENDARY; Yellow; Level 325; 179,159 displayed power; ATK 46.3K; DEF 55.7K; HP 130.1K; 6 stars; rank 7 locked; Skill Lvl. 9",
+      "connected_record_types": [
+        "champion_variant",
+        "champion_portrait"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3870.PNG",
+      "source_id": 103870,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3870.PNG",
+      "sha256": "e46ce534b19fbd97d87d74ecf30385edd34f1b966f0b8b1c2f20abdc39ab9730",
+      "byte_count": 3087096,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "leader trait",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "When Dealing With Those Beneath You II; Leader; Once; When combat starts, Ormund grants 1 HOLY PURPOSE to 3 allies at random.",
+      "connected_record_types": [
+        "champion_trait",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3871.PNG",
+      "source_id": 103871,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3871.PNG",
+      "sha256": "a0b81b28a13c7f71f3bfa7fef1fe76bb3fdd82695430628d24450ef6c864818f",
+      "byte_count": 3085788,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "leader trait continuation",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "Ormund grants his team 1 BIRTHRIGHT every time Treasury Coins are spent by the enemy team.",
+      "connected_record_types": [
+        "champion_trait",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3872.PNG",
+      "source_id": 103872,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3872.PNG",
+      "sha256": "65252def5eae2bd66df1b96a424d36722b95e403177ef2381a1192039da734ac",
+      "byte_count": 3085831,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "To Restore The Rightful Line III; Once; For the first 10 turns of combat, Ormund grants all team members a +20% Critical Strike Chance and +15% Critical Strike Damage Buff.",
+      "connected_record_types": [
+        "champion_trait",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3873.PNG",
+      "source_id": 103873,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3873.PNG",
+      "sha256": "a3ba3347977a3d8088eaf13077db2037c15530144c52bfa9181bed1749d12f27",
+      "byte_count": 3083507,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait continuation",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "When Ormund drops to his HP Guard at 50% HP, all team members gain 8 BIRTHRIGHT, he deals 250% ATK Physical Damage to all enemies and REMOVES 2 Buffs from each enemy.",
+      "connected_record_types": [
+        "champion_trait",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3874.PNG",
+      "source_id": 103874,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3874.PNG",
+      "sha256": "638b294a00beb33749b547c5cf6b6f4fb373033b2d6aecf099c3eca67df5ee01",
+      "byte_count": 2870662,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait bonuses",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "Stats Bonus: +10% DEF; +5% HP; +10% ATK. Rank 7 locked bonus: +5% HP.",
+      "connected_record_types": [
+        "champion_trait"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3875.PNG",
+      "source_id": 103875,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3875.PNG",
+      "sha256": "195fb964975f0e35137d86061baf01477093f01db291019c50948fe4ffa16034",
+      "byte_count": 2619852,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "associated unit trait",
+      "subjects": [
+        "Ormund Hightower",
+        "Hightower Guardsman"
+      ],
+      "exact_visible_text": "We Must Keep A Firm Grip III; Once; The Hightower Guardsman TAUNTS for 5 turns, has 5 BIRTHRIGHT, and 75% Stamina.",
+      "connected_record_types": [
+        "associated_unit",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3876.PNG",
+      "source_id": 103876,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3876.PNG",
+      "sha256": "b20c9947e63ceb5e7ce8a4bfb5190fd263aea681d3c297ab1f47d77c25f03782",
+      "byte_count": 2618496,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "associated unit trait continuation",
+      "subjects": [
+        "Ormund Hightower",
+        "Hightower Guardsman"
+      ],
+      "exact_visible_text": "The Guardsman grants all allies 2 BIRTHRIGHT every time he drops to a lower HP Guards at 75%, 50% and 25% each. Stats Bonus: +10% ATK; +5% Dodge. Rank 7 locked bonus: +5% Dodge.",
+      "connected_record_types": [
+        "associated_unit",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Screenshot uses \u201cHP Guards\u201d plural; Guardsman skill tags include AoE and ADD DEBUFF while effect text describes one enemy and a Dodge buff."
+    },
+    {
+      "filename": "IMG_3877.PNG",
+      "source_id": 103877,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3877.PNG",
+      "sha256": "9643286158df567c3fe690ff5c983cef1c55385c27338dfc0055484355b54c23",
+      "byte_count": 2755458,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion skill",
+      "subjects": [
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "Strength, Honour, Wisdom, and Justice; Skill Level 9; Slow; PHYSICAL DAMAGE; AoE; ADD DEBUFF; ADD BUFF. Ormund deals 225% ATK Physical Damage to all enemies. During the first 10 turns of combat, all enemies are dealt a -20% DEF Debuff for 3 turns. From turn 11 onwards, all allies gain a +20% DEF Buff for 3 turns. Level 10 upgrade: -10% DEF Debuff.",
+      "connected_record_types": [
+        "champion_skill",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3878.PNG",
+      "source_id": 103878,
+      "archive_locator": "data/source-images/ormund-2026-10-08/IMG_3878.PNG",
+      "sha256": "a90d1711ec5c13d20ad6123e1fdd2945449930bc7a21c2bfe63b9c392db633af",
+      "byte_count": 2764236,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "associated unit skill",
+      "subjects": [
+        "Ormund Hightower",
+        "Hightower Guardsman"
+      ],
+      "exact_visible_text": "Never Apologize For Victory; Skill Level 9; Fast; PHYSICAL DAMAGE; AoE; ADD DEBUFF; ADD BUFF. The Guardsman deals 185% Physical Damage to one enemy and gains a 20% Dodge Chance Buff for 3 turns. Level 10 upgrade: +2% Dodge Chance. Hightower Guardsman will inherit their Level, Star Rank, and Skill Level from Ormund Hightower.",
+      "connected_record_types": [
+        "associated_unit",
+        "strategy_fact"
+      ],
+      "contributes_new_information": true,
+      "imported": true,
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Screenshot uses \u201cHP Guards\u201d plural; Guardsman skill tags include AoE and ADD DEBUFF while effect text describes one enemy and a Dodge buff."
+    }
+  ]
+}

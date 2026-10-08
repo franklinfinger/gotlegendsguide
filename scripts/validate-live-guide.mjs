@@ -17,7 +17,7 @@ const key = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 if (!url || !key) throw new Error('Missing local publishable Supabase configuration.');
 const headers = {apikey:key,Accept:'application/json'};
 const [guideResponse,strategyResponse,raidResponse] = await Promise.all([
-  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_guide_data`, {headers}),
+  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_guide_data_preview`, {headers}),
   fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_strategy_data`, {headers}),
   fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_raid_synergy_data`, {headers}),
 ]);
@@ -76,12 +76,25 @@ const checks = {
   dualFactionVariants: data.champions?.filter(row=>row.factions.length===2).length,
   upgradedPortraits: data.champions?.filter(row=>row.portrait?.startsWith('assets/champion-portraits/upgraded-')).length,
 };
-const expected = {championVariants:108,portraits:96,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:9,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15,currentFactions:17,currentMemberships:129,dualFactionVariants:35,upgradedPortraits:70};
+const expected = {championVariants:109,portraits:97,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:9,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15,currentFactions:17,currentMemberships:129,dualFactionVariants:35,upgradedPortraits:70};
 for (const [name,value] of Object.entries(expected)) if (checks[name] !== value) throw new Error(`${name}: expected ${value}, received ${checks[name]}`);
 if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('Raid attack and defense examples must remain separately available.');
 if (data.announcements.find(row=>row.id===1)?.status!=='live') throw new Error('The current faction update is still labeled as future.');
 if (data.champions.filter(row=>row.factions.length===2).length < 35) throw new Error('Current dual-faction memberships are incomplete.');
 const byId=new Map(data.champions.map(row=>[row.id,row]));
+const ormund=byId.get('screenshot-variant-ormund-hightower-beacon-of-the-south');
+assert.ok(ormund && ormund.name==='Ormund Hightower — Beacon of the South');
+assert.equal(ormund.rarity,'Legendary');
+assert.equal(ormund.gemColor,'Yellow');
+assert.deepEqual(ormund.factions,[]);
+assert.equal(ormund.portrait,'assets/champion-portraits/ormund-hightower-source-crop.png');
+assert.equal(data.abilities.filter(row=>row.variantId===ormund.id).length,3);
+const guard=data.companions.find(row=>row.variantId===ormund.id);
+assert.ok(guard && guard.name==='Hightower Guardsman' && /inherit their Level, Star Rank, and Skill Level/.test(guard.inheritanceText));
+assert.ok(strategy.championFacts.filter(row=>row.variantId===ormund.id).length>=18);
+assert.ok(ask('What does Ormund Hightower do?').entries[0].facts.some(row=>row.title.includes('Hightower Guardsman')));
+assert.ok(ask('Who grants BIRTHRIGHT?').entries.some(row=>row.champion.id===ormund.id));
+assert.ok(ask('Who removes buffs?').entries.some(row=>row.champion.id===ormund.id));
 const requiredMemberships = new Map([
   ['audit-faction-bolton',['sqlite-champion-38','sqlite-champion-64','sqlite-champion-69','sqlite-champion-85']],
   ['audit-faction-greyjoy',['sqlite-champion-36','legacy-champion-theon','legacy-champion-yara']],
@@ -110,7 +123,7 @@ if (byId.get('sqlite-champion-49')?.portrait !== 'assets/champion-portraits/deri
 if (byId.get('sqlite-champion-84')?.portrait !== 'assets/champion-portraits/upgraded-sqlite-champion-84.png') throw new Error('Talisa Stark is not using her source-backed portrait.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
 if (!icy || icy.abilities.length !== 0 || icy.tips.length !== 3) throw new Error('Icy Viserion must have three verified tips and no invented ability cards.');
-if (strategy.mechanics?.length !== 57 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
+if (strategy.mechanics?.length !== 61 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
 const curatedDrogon=strategy.curatedRecommendations?.find(row=>row.id==='curated-drogon-best-2026-10');
 if (!curatedDrogon || !curatedDrogon.active || Number(curatedDrogon.confidence)<.9 || curatedDrogon.leaderVariantId!=='sqlite-champion-19') throw new Error('Curated Drogon recommendation metadata is incomplete.');
 if (curatedDrogon.members.map(row=>row.variantId).join(',')!=='sqlite-champion-19,sqlite-champion-5,sqlite-champion-6,sqlite-champion-58,sqlite-champion-9') throw new Error('Curated Drogon exact variants do not match the verified screenshot.');

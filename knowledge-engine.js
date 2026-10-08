@@ -15,6 +15,7 @@ const mechanicQueries = [
   {id:'apply_wound',label:'WOUND',aliases:['wound','wounds','wounding'],proof:/\bWOUNDS?\b|\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bWOUND\b/i},
   {id:'apply_ice',label:'ICE',aliases:['ice','icy'],proof:/\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bICE\b|\benemies are afflicted with\b[^.!?]{0,50}\bICE\b/i},
   {id:'taunt',label:'TAUNT',aliases:['taunt','taunts','taunting'],proof:/\bTAUNTS?\b|\b(?:grants?|gains?)\b[^.!?]{0,100}\bTAUNT\b/i},
+  {id:'birthright',label:'BIRTHRIGHT',aliases:['birthright'],proof:/\bgrants?\b[^.!?]{0,100}\bBIRTHRIGHT\b|\bgain\b[^.!?]{0,100}\bBIRTHRIGHT\b/i},
 ];
 
 const nameMatches = (text, rows, name = row => row.name) => rows.filter(row => contains(text, name(row)));
@@ -74,9 +75,12 @@ function championAnswer(route,text,guideData) {
     const abilities=guideData.abilities.filter(row=>row.variantId===champion.id&&complete(row)&&['skill','champion_skill','trait'].includes(row.kind));
     const traits=guideData.traits.filter(row=>row.variantId===champion.id&&complete(row));
     const items=guideData.items.filter(row=>row.ownerVariantId===champion.id);
+    const units=(guideData.companions||[]).filter(row=>row.variantId===champion.id&&complete(row));
     const facts=wantsVersions||wantsFaction?[]:wantsItem?items.map(row=>({title:row.name,kind:'Iconic item',wording:row.abilities.filter(complete).map(ability=>`${ability.name}: ${ability.text}`).join(' ')||'Item ability wording is unavailable.',href:`items.html#${row.id}`})):[
       ...(!wantsTrait?abilities.filter(row=>row.kind!=='trait').map(row=>({title:row.name,kind:'Skill',wording:row.text,provenance:row.provenance})):[]),
-      ...(!wantsSkill?[...traits,...abilities.filter(row=>row.kind==='trait')].map(row=>({title:row.name,kind:'Trait',wording:row.text,provenance:row.provenance})):[])
+      ...(!wantsSkill?[...traits,...abilities.filter(row=>row.kind==='trait')].map(row=>({title:row.name,kind:'Trait',wording:row.text,provenance:row.provenance})):[]),
+      ...(!wantsTrait?units.map(row=>({title:`${row.name}: ${row.skillName}`,kind:'Associated unit skill',wording:`${row.skillText} ${row.inheritanceText}`,provenance:'Screenshot Verified'})):[]),
+      ...(!wantsSkill?units.map(row=>({title:`${row.name}: ${row.traitName}`,kind:'Associated unit trait',wording:row.traitText,provenance:'Screenshot Verified'})):[])
     ];
     return {champion,facts};
   });
