@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { recommendTeam } from '../strategy-engine.js';
 import { answerStrategyQuestion, buildTeamOptions } from '../conversation-engine.js';
 import { answerGuideQuestion } from '../knowledge-engine.js';
-import { analyzeRaidDefense } from '../raid-engine.js';
+import { activeFactionBonuses, analyzeRaidDefense } from '../raid-engine.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 const env = {};
@@ -18,15 +18,15 @@ if (!url || !key) throw new Error('Missing local publishable Supabase configurat
 const headers = {apikey:key,Accept:'application/json'};
 const [guideResponse,strategyResponse,raidResponse] = await Promise.all([
   fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_guide_data_preview`, {headers}),
-  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_strategy_data`, {headers}),
-  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_raid_synergy_data`, {headers}),
+  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_strategy_data_preview`, {headers}),
+  fetch(`${url.replace(/\/$/,'')}/rest/v1/rpc/got_raid_synergy_data_preview`, {headers}),
 ]);
 if (!guideResponse.ok) throw new Error(`Live guide RPC failed: ${guideResponse.status}`);
 if (!strategyResponse.ok) throw new Error(`Live strategy RPC failed: ${strategyResponse.status}`);
 if (!raidResponse.ok) throw new Error(`Live Raid synergy RPC failed: ${raidResponse.status}`);
 const [baseData,strategy,raidSynergy] = await Promise.all([guideResponse.json(),strategyResponse.json(),raidResponse.json()]);
 const data={...baseData,...raidSynergy};
-assert.equal(data.factionActivations.length,4);
+assert.equal(data.factionActivations.length,5);
 assert.equal(data.allyGems.length,20);
 const defense=analyzeRaidDefense({guideData:data,strategyData:strategy,enemyVariantIds:['sqlite-champion-24','sqlite-champion-15','sqlite-champion-2','sqlite-champion-17','sqlite-champion-60'],leaderVariantId:'sqlite-champion-2'});
 assert.equal(defense.factionBonuses[0]?.factionName,'Stark');
@@ -76,7 +76,7 @@ const checks = {
   dualFactionVariants: data.champions?.filter(row=>row.factions.length===2).length,
   upgradedPortraits: data.champions?.filter(row=>row.portrait?.startsWith('assets/champion-portraits/upgraded-')).length,
 };
-const expected = {championVariants:109,portraits:97,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:9,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15,currentFactions:17,currentMemberships:129,dualFactionVariants:35,upgradedPortraits:70};
+const expected = {championVariants:110,portraits:98,items:31,connectedItems:31,legendaryAssault:4,warRules:9,currentFactionBonuses:17,factionPlayDescriptions:10,observedTeams:40,observedTeamsWithClaimedOutcome:0,raidRules:8,strategyTeams:15,currentFactions:17,currentMemberships:131,dualFactionVariants:35,upgradedPortraits:70};
 for (const [name,value] of Object.entries(expected)) if (checks[name] !== value) throw new Error(`${name}: expected ${value}, received ${checks[name]}`);
 if (!checks.raidAttackExamples || !checks.raidDefenseExamples) throw new Error('Raid attack and defense examples must remain separately available.');
 if (data.announcements.find(row=>row.id===1)?.status!=='live') throw new Error('The current faction update is still labeled as future.');
@@ -86,7 +86,7 @@ const ormund=byId.get('screenshot-variant-ormund-hightower-beacon-of-the-south')
 assert.ok(ormund && ormund.name==='Ormund Hightower — Beacon of the South');
 assert.equal(ormund.rarity,'Legendary');
 assert.equal(ormund.gemColor,'Yellow');
-assert.deepEqual(ormund.factions,[]);
+assert.deepEqual(ormund.factions,['Greens']);
 assert.equal(ormund.portrait,'assets/champion-portraits/ormund-hightower-source-crop.png');
 assert.equal(data.abilities.filter(row=>row.variantId===ormund.id).length,3);
 const guard=data.companions.find(row=>row.variantId===ormund.id);
@@ -95,6 +95,41 @@ assert.ok(strategy.championFacts.filter(row=>row.variantId===ormund.id).length>=
 assert.ok(ask('What does Ormund Hightower do?').entries[0].facts.some(row=>row.title.includes('Hightower Guardsman')));
 assert.ok(ask('Who grants BIRTHRIGHT?').entries.some(row=>row.champion.id===ormund.id));
 assert.ok(ask('Who removes buffs?').entries.some(row=>row.champion.id===ormund.id));
+const redNed=byId.get('screenshot-variant-ned-stark-hand-of-the-king-red');
+assert.ok(redNed && redNed.name==='Ned Stark — The Hand of the King');
+assert.equal(redNed.gemColor,'Red');
+assert.deepEqual(redNed.factions,['Stark']);
+assert.equal(redNed.portrait,'assets/champion-portraits/ned-stark-hand-of-the-king-red-source-crop.png');
+assert.equal(data.abilities.filter(row=>row.variantId===redNed.id).length,3);
+assert.deepEqual(ask('What does Ned Stark — The Hand of the King do?').entries.map(row=>row.champion.id),[redNed.id]);
+assert.ok(ask('Who uses LOYALTY?').entries.some(row=>row.champion.id===redNed.id));
+assert.ok(ask('Who can redirect POISON?').entries.some(row=>row.champion.id===redNed.id));
+assert.deepEqual(ask('What faction is Ormund Hightower?').entries[0].champion.factions,['Greens']);
+const greens=data.factions.find(row=>row.name==='Greens');
+const stark=data.factions.find(row=>row.name==='Stark');
+assert.ok(greens.memberVariantIds.includes(ormund.id));
+const greensActivation=data.factionActivations.find(row=>row.factionName==='Greens');
+assert.equal(greensActivation?.requiredMembers,3);
+const greensCore=[ormund.id,...greens.memberVariantIds.filter(id=>id!==ormund.id).slice(0,2)].map(id=>byId.get(id));
+assert.ok(activeFactionBonuses(greensCore,data).some(row=>row.factionName==='Greens'));
+assert.ok(greens.rules.some(row=>row.kind==='current_bonus'&&row.text==='All team members gain +20% Gem Damage and +25% Power.'));
+assert.ok(greens.rules.some(row=>row.kind==='how_to_play'&&row.text==='The Greens start strong with BIRTHRIGHT. They must act quickly, as BIRTHRIGHT fades as the battle goes on.'));
+assert.ok(stark.rules.some(row=>row.kind==='current_bonus'&&row.text==='All team members gain +20% Gem Damage and +25% DEF.'));
+assert.ok(stark.rules.some(row=>row.kind==='how_to_play'&&row.text==='Starks win with ICE. They build up ICE on enemies until they become BRITTLE, then exploit that advantage.'));
+const viserys=byId.get('sqlite-champion-41');
+assert.equal(viserys.name,'Viserys Targaryen III — The Usurped');
+const brooch=data.items.find(row=>row.name==='Dragon Brooch');
+assert.equal(brooch.ownerVariantId,viserys.id);
+assert.equal(brooch.abilities[0].name,'I Am The Dragon IV');
+assert.match(brooch.abilities[0].text,/FIRE on himself/);
+assert.equal(brooch.abilities[0].provenance,'Screenshot Verified');
+assert.equal(ask('What does Dragon Brooch do?').entries[0].champion.id,viserys.id);
+assert.equal(ask('What is Viserys Targaryen III\'s iconic item?').entries[0].facts[0].title,'Dragon Brooch');
+assert.ok(ask('Who grants FURY?').entries.some(row=>row.champion.id===viserys.id));
+assert.ok(!ask('Who applies FIRE?').entries.find(row=>row.champion.id===viserys.id)?.facts.some(row=>row.title==='I Am The Dragon IV'));
+assert.ok(data.statuses.some(row=>row.name==='LOYALTY'&&/POISON, DECEIVE, or SCOUT/.test(row.text)));
+assert.ok(strategy.championFacts.some(row=>row.variantId===redNed.id&&row.mechanicId==='brittle_payoff'&&row.context==='leader'));
+assert.ok(!strategy.championFacts.some(row=>row.variantId===redNed.id&&row.mechanicId==='apply_ice'));
 const requiredMemberships = new Map([
   ['audit-faction-bolton',['sqlite-champion-38','sqlite-champion-64','sqlite-champion-69','sqlite-champion-85']],
   ['audit-faction-greyjoy',['sqlite-champion-36','legacy-champion-theon','legacy-champion-yara']],
@@ -123,7 +158,7 @@ if (byId.get('sqlite-champion-49')?.portrait !== 'assets/champion-portraits/deri
 if (byId.get('sqlite-champion-84')?.portrait !== 'assets/champion-portraits/upgraded-sqlite-champion-84.png') throw new Error('Talisa Stark is not using her source-backed portrait.');
 const icy = data.legendaryAssault.find(row=>row.name==='Icy Viserion');
 if (!icy || icy.abilities.length !== 0 || icy.tips.length !== 3) throw new Error('Icy Viserion must have three verified tips and no invented ability cards.');
-if (strategy.mechanics?.length !== 61 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
+if (strategy.mechanics?.length !== 69 || strategy.targets?.length !== 15 || strategy.rules?.length !== 92 || strategy.championFacts?.length < 500) throw new Error('Live strategy RPC counts are incomplete.');
 const curatedDrogon=strategy.curatedRecommendations?.find(row=>row.id==='curated-drogon-best-2026-10');
 if (!curatedDrogon || !curatedDrogon.active || Number(curatedDrogon.confidence)<.9 || curatedDrogon.leaderVariantId!=='sqlite-champion-19') throw new Error('Curated Drogon recommendation metadata is incomplete.');
 if (curatedDrogon.members.map(row=>row.variantId).join(',')!=='sqlite-champion-19,sqlite-champion-5,sqlite-champion-6,sqlite-champion-58,sqlite-champion-9') throw new Error('Curated Drogon exact variants do not match the verified screenshot.');

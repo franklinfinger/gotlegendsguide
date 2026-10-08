@@ -1,3 +1,5 @@
+import {isSelfOnlyFireApplication} from './mechanic-direction.js';
+
 const normalize=value=>String(value||'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const baseName=value=>normalize(String(value||'').split(/\s+[—-]\s+/)[0]);
 const complete=fact=>fact.reviewStatus==='complete'&&Number(fact.confidence)>=0.8&&fact.provenanceRef&&fact.context!=='metadata';
@@ -62,7 +64,7 @@ export function analyzeRaidDefense({guideData,strategyData,enemyVariantIds,leade
   const leader=leaderVariantId?members.find(row=>row.id===leaderVariantId):null;
   const facts=verifiedFacts(ids,leaderVariantId,strategyData);
   const selected=new Set(ids);
-  const mechanics=[...new Set(strategyData.championFacts.filter(fact=>selected.has(fact.variantId)&&complete(fact)&&(fact.context!=='leader'||fact.variantId===leaderVariantId)).map(row=>row.mechanicId))];
+  const mechanics=[...new Set(strategyData.championFacts.filter(fact=>selected.has(fact.variantId)&&complete(fact)&&!isSelfOnlyFireApplication(fact)&&(fact.context!=='leader'||fact.variantId===leaderVariantId)).map(row=>row.mechanicId))];
   const named=fact=>({champion:members.find(row=>row.id===fact.variantId),fact});
   const byText=pattern=>facts.filter(fact=>pattern.test(fact.factText)).map(named);
   const leaderFact=leader?facts.find(fact=>fact.variantId===leader.id&&fact.context==='leader'):null;
@@ -88,7 +90,7 @@ export function analyzeRaidDefense({guideData,strategyData,enemyVariantIds,leade
 export function raidTeamEvaluation(team,guideData,defense=null,leaderVariantId=null) {
   const factionBonuses=activeFactionBonuses(team,guideData);
   const allyPairs=verifiedAllyPairs(team,guideData);
-  const teamMechanics=new Set(team.flatMap(member=>member.facts.filter(fact=>complete(fact)&&(fact.context!=='leader'||member.champion.id===leaderVariantId)).map(fact=>fact.mechanicId)));
+  const teamMechanics=new Set(team.flatMap(member=>member.facts.filter(fact=>complete(fact)&&!isSelfOnlyFireApplication(fact)&&(fact.context!=='leader'||member.champion.id===leaderVariantId)).map(fact=>fact.mechanicId)));
   const enemy=new Set(defense?.mechanics||[]);
   const matchup=[];
   const add=(condition,score,text)=>{if(condition)matchup.push({score,text});};

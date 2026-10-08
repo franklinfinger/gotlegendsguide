@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseStrategyQuestion, recommendTeam } from '../strategy-engine.js';
+import {isSelfOnlyFireApplication} from '../mechanic-direction.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/strategy/strategy-catalog.json'), 'utf8'));
@@ -25,6 +26,12 @@ strategyData.championFacts = champions.flatMap((champion,index)=>[
   ...(index===0?[{id:'leader-0',variantId:champion.id,mechanicId:'leader_effect',effectRole:'provides',context:'leader',factText:'Verified Leader effect.',evidenceCategory:'verified_fact',provenanceRef:'trait:leader-0',sourceId:2000,confidence:1,reviewStatus:'reviewed'}]:[]),
 ]);
 const guideData = {champions,items:[],teams:[]};
+
+test('self-inflicted FIRE is not enemy FIRE setup', () => {
+  assert.equal(isSelfOnlyFireApplication({mechanicId:'apply_fire',factText:'I Am The Dragon IV: Viserys has a 60% chance to apply FIRE on himself.'}),true);
+  assert.equal(isSelfOnlyFireApplication({mechanicId:'apply_fire',factText:'The enemy is afflicted with FIRE.'}),false);
+  assert.equal(isSelfOnlyFireApplication({mechanicId:'fury',factText:'Viserys grants an ally 1 FURY and applies FIRE on himself.'}),false);
+});
 
 test('local parser only returns explicit supported targets', () => {
   assert.equal(parseStrategyQuestion('What is the strongest team to fight Drogon?', strategyData.targets)?.id, 'legendary-assault:drogon');

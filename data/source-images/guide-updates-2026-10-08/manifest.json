@@ -1,0 +1,282 @@
+{
+  "corpus": "User-supplied Photos originals, October 8, 2026",
+  "images": [
+    {
+      "filename": "IMG_3879.PNG",
+      "source_id": 103879,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3879.PNG",
+      "sha256": "ec44f163092dbe7265e0df6adfb33dfae935283805a6411bcfb66e8efe782b34",
+      "byte_count": 2522030,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "faction",
+      "subjects": [
+        "Greens",
+        "Ormund Hightower"
+      ],
+      "exact_visible_text": "GREENS. The faction which supports Aegon II Targaryen during the Targaryen civil war. 3 MEMBER FACTION BONUS: All team members gain +20% Gem Damage and +25% Power. HOW TO PLAY GREENS: The Greens start strong with BIRTHRIGHT. They must act quickly, as BIRTHRIGHT fades as the battle goes on.",
+      "connected_records": [
+        "faction_rule:greens-bonus",
+        "faction_rule:greens-how-to-play",
+        "faction_membership:screenshot-variant-ormund-hightower-beacon-of-the-south/Greens"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3880.PNG",
+      "source_id": 103880,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3880.PNG",
+      "sha256": "8e804b7cda7f5246c491edeaa9d3a0b7438ae7486114c319077767386459c02f",
+      "byte_count": 2997279,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion main card",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "LEGENDARY. NED STARK. The Hand of the King. Red gem. Stark faction icon. Skill Lvl. 5. Displayed account stats and star rank are not universal champion properties.",
+      "connected_records": [
+        "champion_variant:screenshot-variant-ned-stark-hand-of-the-king-red",
+        "champion_portrait:source-crop-ned-stark-hand-of-the-king-red"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3881.PNG",
+      "source_id": 103881,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3881.PNG",
+      "sha256": "e6268fec155ac0d45969dd65af187f90e93534a356190d347e6205c7645d3b50",
+      "byte_count": 2489782,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "faction",
+      "subjects": [
+        "Stark"
+      ],
+      "exact_visible_text": "STARK. Not only a great House of Westeros, but also the rulers of The North. 3 MEMBER FACTION BONUS: All team members gain +20% Gem Damage and +25% DEF. HOW TO PLAY STARK: Starks win with ICE. They build up ICE on enemies until they become BRITTLE, then exploit that advantage.",
+      "connected_records": [
+        "faction_rule:stark-bonus",
+        "faction_rule:stark-how-to-play"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3882.PNG",
+      "source_id": 103882,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3882.PNG",
+      "sha256": "b4a66a71759f0fffe93a13cb1149a2f08d0b64033604f6ae7765e0490321adc0",
+      "byte_count": 2812796,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion traits",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "THE KING CALLED ON ME TO SERVE. At the start of combat, Ned grants up to 2 random allies LOYALTY, 1 BLOCK and +8% Stamina and spawns 1 <style=Justice>Justice [cropped]. 5-star locked: +7% Stamina and +1 Justice Gems. YOU THINK MY LIFE IS PRECIOUS TO ME? II. Whenever an enemy is afflicted with ICE, up to 3 times a turn, Ned HEALS himself for 8% of his ATK. If that ICE was applied by an ally with LOYALTY, [cropped]. 6-star locked: HEALING increased by 2% ATK, and can trigger 1 additional time per turn.",
+      "connected_records": [
+        "ability:ned-hand-king-called-trait",
+        "ability:ned-hand-life-precious-trait"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Continuation cropped in this image; use adjacent screenshots for the full effect."
+    },
+    {
+      "filename": "IMG_3883.PNG",
+      "source_id": 103883,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3883.PNG",
+      "sha256": "96daaf7b78940448d92a32fb6002538ba35a06bd69f96f78f622330351caeada",
+      "byte_count": 2812217,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait continuation",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "THE KING CALLED ON ME TO SERVE. [previous sentence cropped] BLOCK and +8% Stamina and spawns 1 <style=Justice>Justice Gems. When a <style=Justice>Justice Gem [cropped]. 5-star locked: +7% Stamina and +1 Justice Gems. YOU THINK MY LIFE IS PRECIOUS TO ME? II. Whenever an enemy is afflicted with ICE, up to 3 times a turn, Ned HEALS himself for 8% of his ATK. If that ICE was applied by an ally with LOYALTY, [cropped].",
+      "connected_records": [
+        "ability:ned-hand-king-called-trait",
+        "ability:ned-hand-life-precious-trait"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Continuation cropped in this image; use adjacent screenshots for the full effect."
+    },
+    {
+      "filename": "IMG_3884.PNG",
+      "source_id": 103884,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3884.PNG",
+      "sha256": "f9e977524067188d3a788e7a4abec0c05aca1b2de560b2e6b34d0c3404bcb361",
+      "byte_count": 2810232,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait continuation",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "THE KING CALLED ON ME TO SERVE. When a <style=Justice>Justice Gem hits a BRITTLE enemy, Ned strikes them for 75% ATK Physical Damage. 5-star locked: +7% Stamina and +1 Justice Gems. YOU THINK MY LIFE IS PRECIOUS TO ME? II. Whenever an enemy is afflicted with ICE, up to 3 times a turn, Ned HEALS himself for 8% of his ATK. If that ICE was applied by an ally with LOYALTY, [cropped].",
+      "connected_records": [
+        "ability:ned-hand-king-called-trait",
+        "ability:ned-hand-life-precious-trait"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Continuation cropped in this image; use adjacent screenshots for the full effect."
+    },
+    {
+      "filename": "IMG_3885.PNG",
+      "source_id": 103885,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3885.PNG",
+      "sha256": "24ce3385c5a6a1788489da996f8d8e5f12478545bacb20563380388678af435c",
+      "byte_count": 2543558,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait stats",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "YOU THINK MY LIFE IS PRECIOUS TO ME? II. Whenever an enemy is afflicted with ICE, up to 3 times a turn, Ned HEALS himself for 8% of his ATK. If that ICE was applied by an ally with LOYALTY, [cropped]. 6-star locked: HEALING increased by 2% ATK, and can trigger 1 additional time per turn. STATS BONUS: +5% HP; +10% DEF. 5-star locked: +5% ATK. 7-star locked: +5% DEF.",
+      "connected_records": [
+        "ability:ned-hand-life-precious-trait"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Continuation cropped in this image; use adjacent screenshots for the full effect."
+    },
+    {
+      "filename": "IMG_3886.PNG",
+      "source_id": 103886,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3886.PNG",
+      "sha256": "41e79932b3eee24ddd5e682c2f2209d0f5e8b9ba7464e5507454265d64ffd3d6",
+      "byte_count": 2538766,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion trait continuation",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "YOU THINK MY LIFE IS PRECIOUS TO ME? II. [Previous words cropped] ICE, up to 3 times a turn, Ned HEALS himself for 8% of his ATK. If that ICE was applied by an ally with LOYALTY, that ally is also HEALED. 6-star locked: HEALING increased by 2% ATK, and can trigger 1 additional time per turn. STATS BONUS: +5% HP; +10% DEF. 5-star locked: +5% ATK. 7-star locked: +5% DEF.",
+      "connected_records": [
+        "ability:ned-hand-life-precious-trait"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": "Continuation cropped in this image; use adjacent screenshots for the full effect."
+    },
+    {
+      "filename": "IMG_3887.PNG",
+      "source_id": 103887,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3887.PNG",
+      "sha256": "0d10f3ee1c5bf67df6efae48e962bd1901cef993b64ac60a20101560743c3781",
+      "byte_count": 2714490,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion skill",
+      "subjects": [
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "I WILL NOT HAVE THEIR BLOOD ON MY HANDS. Skill Lvl. 5. Stamina Speed: Normal. ADD BUFF. SPAWN GEM. Ned grants a target ally LOYALTY, with a 45% chance to also grant BLOCK. He then spawns 1 <style=Justice>Justice gem. If Ned is targeted, he spawns 1 additional <style=Justice>Justice gems. Level 6 Upgrade: +5% chance to give BLOCK.",
+      "connected_records": [
+        "ability:ned-hand-blood-on-my-hands-skill"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3888.PNG",
+      "source_id": 103888,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3888.PNG",
+      "sha256": "bfa2e54cb26f155fbbc03a96fddcc82e502f2064b01a957edda25aad2702c12f",
+      "byte_count": 2897748,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "status tooltip",
+      "subjects": [
+        "LOYALTY",
+        "Ned Stark \u2014 The Hand of the King"
+      ],
+      "exact_visible_text": "LOYALTY. If POISON, DECEIVE, or SCOUT is inflicted on this Champion, Ned gains the debuff instead for 3 turns. Ned has a 50% chance to cleanse it from himself immediately.",
+      "connected_records": [
+        "ability:loyalty-ned-hand-definition",
+        "strategy_fact:ned-hand-loyalty-redirect"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3889.PNG",
+      "source_id": 103889,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3889.PNG",
+      "sha256": "301b8d499980c03d91f1a9e99fd998453c3eafe669ab6c883c12afc6437f6800",
+      "byte_count": 3069653,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "champion main card",
+      "subjects": [
+        "Viserys Targaryen III \u2014 The Usurped"
+      ],
+      "exact_visible_text": "LEGENDARY. VISERYS TARGARYEN III. The Usurped. ICONIC Lvl. 17. Displayed account level, power, star rank, and stats are not universal champion properties.",
+      "connected_records": [
+        "champion_variant:sqlite-champion-41",
+        "iconic_item:sqlite-iconic-item-22"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    },
+    {
+      "filename": "IMG_3890.PNG",
+      "source_id": 103890,
+      "archive_locator": "data/source-images/guide-updates-2026-10-08/IMG_3890.PNG",
+      "sha256": "ede45c338da937ea41454946fb0f3f93242a47253cc820d08f129d1fc9519afc",
+      "byte_count": 1821049,
+      "dimensions": {
+        "width": 1260,
+        "height": 2736
+      },
+      "category": "iconic item detail",
+      "subjects": [
+        "Dragon Brooch",
+        "Viserys Targaryen III \u2014 The Usurped"
+      ],
+      "exact_visible_text": "DRAGON BROOCH. Lvl 17. ICONIC ABILITY: I AM THE DRAGON IV. Viserys starts the battle with 50% Stamina and an indefinite 15% Fire Resistance Buff. Once per turn when an ally uses their Skill, Viserys grants them 1 FURY and has a 60% chance to apply FIRE on himself. STAT INCREASE at displayed level: 3.4K ATK; 13% fire/resistance-related icon; 850 DEF.",
+      "connected_records": [
+        "iconic_item:sqlite-iconic-item-22",
+        "ability:sqlite-iconic_abilities-22"
+      ],
+      "review_status": "visually_verified",
+      "confidence": 1,
+      "unresolved": null
+    }
+  ]
+}

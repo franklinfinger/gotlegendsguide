@@ -1,4 +1,5 @@
 // Deterministic answers from the two public, read-only Supabase guide models.
+import {isSelfOnlyFireApplication} from './mechanic-direction.js';
 // A mechanic tag alone is not proof that a champion applies that mechanic.
 const normalize = value => String(value || '').toLowerCase().replace(/[’']s\b/g, '').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 const contains = (text, value) => (` ${text} `).includes(` ${normalize(value)} `);
@@ -6,6 +7,9 @@ const baseName = name => String(name || '').split(/\s+[—-]\s+/)[0];
 const complete = row => row?.reviewStatus === 'complete';
 
 const mechanicQueries = [
+  {id:'loyalty_redirect',label:'POISON redirection',aliases:['redirect poison','redirects poison'],proof:/\bPOISON\b[^.]{0,180}\bgains? the debuff instead\b/i},
+  {id:'loyalty',label:'LOYALTY',aliases:['loyalty'],proof:/\bLOYALTY\b/i},
+  {id:'fury',label:'FURY',aliases:['fury'],proof:/\bgrants?\b[^.!?]{0,110}\bFURY\b/i},
   {id:'apply_poison',label:'POISON',aliases:['poison','poisoned'],proof:/\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bPOISON\b/i},
   {id:'apply_fire',label:'FIRE',aliases:['fire','burn'],proof:/\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bFIRE\b|\benemies begin combat with\b[^.!?]{0,60}\bFIRE\b/i},
   {id:'brittle',label:'BRITTLE',aliases:['brittle'],proof:/\b(?:afflicts?|inflicts?|applies?|causes?)\b[^.!?]{0,110}\bBRITTLE\b/i},
@@ -50,6 +54,7 @@ function verifiedMechanicEntries(mechanic,guideData,strategyData) {
     if(mechanic.id!=='brittle'&&fact.mechanicId!==mechanic.id)continue;
     if(fact.evidenceCategory!=='verified_fact'||!complete(fact)||!fact.provenanceRef||!mechanic.proof.test(fact.factText))continue;
     if(mechanic.id==='apply_ice'&&/\b(?:an?|another) ally afflicts?\b[^.!?]{0,80}\bICE\b/i.test(fact.factText)&&[...fact.factText.matchAll(/\bafflicts?\b/gi)].length===1)continue;
+    if(mechanic.id==='apply_fire'&&isSelfOnlyFireApplication(fact))continue;
     const champion=champions.get(fact.variantId);
     if(!champion||champion.releaseState!=='live')continue;
     const key=`${champion.id}|${fact.factText}`;
@@ -64,9 +69,11 @@ function verifiedMechanicEntries(mechanic,guideData,strategyData) {
 }
 
 function championAnswer(route,text,guideData) {
-  const exact=route.matches.filter(row=>contains(text,row.name));
-  const selected=(exact.length?exact:route.matches).sort((a,b)=>a.name.localeCompare(b.name));
   const wantsVersions=/\b(versions|variants)\b/.test(text);
+  const exact=route.matches.filter(row=>contains(text,row.name));
+  const precise=exact.filter(row=>!exact.some(other=>other!==row&&other.name.length>row.name.length&&contains(normalize(other.name),row.name)));
+  const baseExact=route.matches.filter(row=>contains(text,baseName(row.name)));
+  const selected=(wantsVersions?route.matches:precise.length?precise:baseExact.length?baseExact:route.matches).sort((a,b)=>a.name.localeCompare(b.name));
   const wantsFaction=/\bfaction\b/.test(text);
   const wantsItem=/\b(items?|gear)\b/.test(text);
   const wantsSkill=/\bskill\b/.test(text);

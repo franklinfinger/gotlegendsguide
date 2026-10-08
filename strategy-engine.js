@@ -1,4 +1,5 @@
 import { raidTeamEvaluation } from './raid-engine.js';
+import {isSelfOnlyFireApplication} from './mechanic-direction.js';
 
 const DAMAGE_MECHANICS = new Set(['physical_damage','fire_damage','unnatural_damage','true_damage']);
 const CONTROL_MECHANICS = new Set(['apply_bleed','apply_fire','apply_ice','apply_raid','apply_poison','apply_wound','stun','pacify','deceive','buff_removal']);
@@ -28,6 +29,7 @@ export function parseStrategyQuestion(question, targets) {
 function factIndex(strategyData) {
   const map = new Map();
   for (const fact of strategyData.championFacts) {
+    if (isSelfOnlyFireApplication(fact)) continue;
     if (!map.has(fact.variantId)) map.set(fact.variantId, []);
     map.get(fact.variantId).push(fact);
   }

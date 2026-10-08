@@ -41,7 +41,7 @@ export async function getDataHealth() {
 
 /** @returns {Promise<GuideData>} */
 export async function getGuideData() {
-  const [data,raidSynergy] = await Promise.all([rpc('got_guide_data_preview'),rpc('got_raid_synergy_data')]);
+  const [data,raidSynergy] = await Promise.all([rpc('got_guide_data_preview'),rpc('got_raid_synergy_data_preview')]);
   const collections = ['champions','abilities','traits','items','factions','statuses','mechanics','companions','legendaryAssault','warRules','raidRules','raidTeams','strategyTeams','teams','announcements'];
   if (!data || typeof data !== 'object' || collections.some(key => !Array.isArray(data[key]))) {
     throw new Error('The database returned an incomplete guide result.');
@@ -53,7 +53,7 @@ export async function getGuideData() {
 
 /** @returns {Promise<StrategyData>} */
 export async function getStrategyData() {
-  const data = await rpc('got_strategy_data');
+  const data = await rpc('got_strategy_data_preview');
   const collections = ['mechanics','targets','rules','championFacts','curatedRecommendations'];
   if (!data || typeof data !== 'object' || collections.some(key => !Array.isArray(data[key]))) {
     throw new Error('The database returned an incomplete strategy result.');
