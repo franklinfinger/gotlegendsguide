@@ -1,3 +1,4 @@
+import { createPasswordRecovery } from './password-recovery.js';
 import { validateReadyData } from '../../data-readiness.js';
 import { prepareEvidenceSnapshot, restoreEvidenceSnapshot, prepareIdentityReconciliation } from './evidence.js';
 // Default-off owner store. Public mode never creates this client.
@@ -31,7 +32,7 @@ export class PrivateAccessError extends Error {
 const failure = (code, message) => new PrivateAccessError(code, message);
 const isVariant = value => typeof value === 'string' && value.length > 0 && value.length <= 160 && !/[\u0000-\u001f]/.test(value);
 
-export function createOwnerStore({ config, createClient }) {
+export function createOwnerStore({ config, createClient, location = globalThis.location, history = globalThis.history }) {
   const checked = validateConfiguration(config);
   if (!checked) return { enabled: false };
   const client = createClient(checked.url, checked.publishableKey, {
@@ -39,6 +40,7 @@ export function createOwnerStore({ config, createClient }) {
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: false,
+      flowType: 'pkce',
       storageKey: `got-owner-${new URL(checked.url).host}-auth`,
     },
     global: { headers: { 'X-Client-Info': 'got-private-access-preview' } },
@@ -61,7 +63,9 @@ export function createOwnerStore({ config, createClient }) {
     if (result.data?.user_id !== data.user.id) throw failure('not_owner', 'This account does not have access.');
     return { id: data.user.id, generation };
   }
+  const recovery = createPasswordRecovery({auth:client.auth, owner, location, history, sessionChanged: () => {epoch += 1; signedOut = false;}});
   async function readCollection({ includeGameData = false, includeStrategy = false } = {}) {
+    if (!['none','complete','cancelled'].includes(recovery.passwordRecoveryStatus())) throw failure('password_recovery_required', 'Finish or cancel password recovery before opening the guide.');
     const user = await owner();
     const [roster, guide, evidence, variants, synergy, strategy] = await Promise.all([
       client.from(ROSTER_TABLE).select('variant_id').eq('user_id', user.id).order('variant_id'),
@@ -256,5 +260,5 @@ export function createOwnerStore({ config, createClient }) {
     });
     return () => data.subscription.unsubscribe();
   }
-  return { enabled: true, owner, readCollection, readEvidenceForRecovery, proposeEvidenceReconciliation, prepareEvidence, saveEvidence, setOwned, addCapturedVariants, signIn, signOut, watch };
+  return { enabled: true, ...recovery, owner, readCollection, readEvidenceForRecovery, proposeEvidenceReconciliation, prepareEvidence, saveEvidence, setOwned, addCapturedVariants, signIn, signOut, watch };
 }

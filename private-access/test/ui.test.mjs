@@ -162,3 +162,29 @@ test('cancelled chooser keeps the existing draft; an empty changed selection dis
   input.files=[];await input.handlers.change();assert.equal(saveEvidenceButton(view).disabled,true);
   await saveEvidenceButton(view).handlers.click();assert.equal(fixture.writes.length,0);
 });
+
+test('password request UI is explicit, generic, prevents duplicate requests and supports back',async()=>{
+  let sendCount=0,release;
+  const store={enabled:true,watch(){},readCollection:async()=>{throw Object.assign(new Error('Sign in.'),{code:'signed_out'});},consumePasswordRecovery:async()=>false,cancelPasswordRecovery:async()=>{},requestPasswordReset:()=>{sendCount++;return new Promise(resolve=>release=resolve);}};
+  const {root,status}=await mount(store);
+  const find=text=>root.all().find(row=>row.tag==='button'&&row.textContent===text);
+  find('Set or reset password').handlers.click();
+  assert.match(root.textContent,/Set or reset your password/);assert.equal(root.all().filter(row=>row.type==='password').length,0);
+  root.all().find(row=>row.type==='email').value='owner@example.test';
+  const form=root.all().find(row=>row.tag==='form');const pending=form.handlers.submit({preventDefault(){}});await form.handlers.submit({preventDefault(){}});assert.equal(sendCount,1);
+  release('If this email has an account, a link is on its way.');await pending;assert.match(status.textContent,/If this email/);
+  await find('Back to sign in').handlers.click();assert.match(root.textContent,/Your private collection/);
+});
+test('valid recovery opens password form before any collection read; mismatch never submits',async()=>{
+  let reads=0,updates=0,phase='ready';
+  const store={enabled:true,watch(){},readCollection:async()=>{reads++;return collection();},consumePasswordRecovery:async()=>true,passwordRecoveryStatus:()=>phase,cancelPasswordRecovery:async()=>{phase='none';},finishPasswordRecovery:async()=>{updates++;phase='complete';return {signedOut:true};}};
+  const {root,status}=await mount(store);assert.equal(reads,0);assert.match(root.textContent,/Choose your password/);
+  const inputs=root.all().filter(r=>r.type==='password');inputs[0].value='Synthetic_password_123!';inputs[1].value='different_password';
+  const form=root.all().find(r=>r.tag==='form');await form.handlers.submit({preventDefault(){}});assert.equal(updates,0);assert.match(status.textContent,/do not match/);
+  inputs[1].value=inputs[0].value;await form.handlers.submit({preventDefault(){}});assert.equal(updates,1);assert.equal(reads,0);assert.equal(inputs[0].value,'');assert.equal(inputs[1].value,'');assert.match(root.textContent,/Password saved/);
+});
+test('bad recovery link fails closed before reading private collection',async()=>{
+  let reads=0;
+  const store={enabled:true,watch(){},readCollection:async()=>{reads++;return collection();},consumePasswordRecovery:async()=>{throw new Error('This password link is expired.');}};
+  const {root,status}=await mount(store);assert.equal(reads,0);assert.match(root.textContent,/Set or reset your password/);assert.match(status.textContent,/expired/);assert.equal(root.all().filter(r=>r.type==='password').length,0);
+});

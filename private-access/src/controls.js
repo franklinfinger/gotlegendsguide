@@ -5,6 +5,9 @@ let writing = false;
 let pendingRefresh = false;
 let pageHidden = false;
 let evidenceDraft = null;
+let passwordScreen = null;
+let passwordMessage = '';
+let initializingPassword = true;
 const inactive = () => pageHidden || document.hidden === true;
 const say = message => { state.textContent = message; };
 const node = (tag, text) => { const result = document.createElement(tag); if (text) result.textContent = text; return result; };
@@ -89,6 +92,7 @@ async function showEvidenceRecovery(problem) {
   } catch (error) { if (current === generation) await showFailure(error); }
 }
 function signInPanel() {
+  passwordScreen = null;
   clear();
   const form = node('form');
   const email = node('input'); email.type = 'email'; email.name = 'email'; email.autocomplete = 'username'; email.required = true; email.id = 'email';
@@ -104,10 +108,86 @@ function signInPanel() {
     catch (error) { password.value = ''; say(error.message); }
     finally { writing = false; submit.disabled = false; flushRefresh(); }
   });
-  root.append(node('h2', 'Your private collection'), node('p', 'Sign in with your app account. Your session stays saved on this device. No email or text code is used for ordinary sign-in.'), form);
+  const setup = node('button', 'Set or reset password'); setup.type = 'button'; setup.className = 'secondary';
+  setup.addEventListener('click', () => { if (!writing) passwordRequestPanel(); });
+  root.append(node('h2', 'Your private collection'), node('p', 'Sign in with your app account. Your session stays saved on this device. No email or text code is used for ordinary sign-in.'), form, setup);
+}
+function passwordRequestPanel(message = '') {
+  passwordScreen = 'request'; passwordMessage = message; clear();
+  const form = node('form');
+  const email = node('input'); email.type = 'email'; email.autocomplete = 'username'; email.name = 'email'; email.id = 'recovery-email'; email.required = true;
+  const label = node('label', 'App account email'); label.htmlFor = email.id;
+  const submit = node('button', 'Email password link'); submit.type = 'submit';
+  const back = node('button', 'Back to sign in'); back.type = 'button';
+  back.addEventListener('click', async () => {
+    if (writing) return;
+    writing = true;
+    try { await store.cancelPasswordRecovery(); passwordScreen = null; passwordMessage = ''; signInPanel(); say('Sign in with your app account.'); }
+    catch (error) { say(error.message); }
+    finally { writing = false; flushRefresh(); }
+  });
+  form.append(label, email, submit);
+  form.addEventListener('submit', async event => {
+    event.preventDefault(); if (writing || submit.disabled) return;
+    const current = generation; writing = true; submit.disabled = true; back.disabled = true; say('Requesting a password email…');
+    try {
+      const result = await store.requestPasswordReset(email.value);
+      if (current === generation) {passwordMessage = result; say(result);}
+    } catch (error) { if (current === generation) {passwordMessage=error.message; say(error.message);} }
+    finally { writing = false; submit.disabled = false; back.disabled = false; flushRefresh(); }
+  });
+  root.append(node('h2', 'Set or reset your password'), node('p', 'First time here, or forgot your password? Enter your existing app account email. A secure email link lets you choose a new password. This is separate from your Supabase dashboard login.'), node('p', 'Request the link in the browser you want to use, then open the email link in that same browser and device. No code is needed for ordinary sign-in.'), form, back);
+  if (message) say(message);
+}
+function passwordUpdatePanel() {
+  passwordScreen = 'update'; clear();
+  const form = node('form');
+  const password = node('input'); password.type = 'password'; password.autocomplete = 'new-password'; password.name = 'new-password'; password.id = 'new-password'; password.required = true; password.minLength = 12;
+  const confirmation = node('input'); confirmation.type = 'password'; confirmation.autocomplete = 'new-password'; confirmation.name = 'confirm-password'; confirmation.id = 'confirm-password'; confirmation.required = true; confirmation.minLength = 12;
+  const label = node('label', 'New password'); label.htmlFor = password.id;
+  const confirmLabel = node('label', 'Confirm new password'); confirmLabel.htmlFor = confirmation.id;
+  const submit = node('button', 'Save new password'); submit.type = 'submit';
+  const cancel = node('button', 'Cancel password reset'); cancel.type = 'button';
+  cancel.addEventListener('click', async () => {
+    if (writing) return; writing = true;
+    password.value = ''; confirmation.value = '';
+    try { await store.cancelPasswordRecovery(); passwordScreen = null; signInPanel(); say('Password reset cancelled.'); }
+    catch (error) {passwordRequestPanel(error.message);}
+    finally {writing = false; flushRefresh();}
+  });
+  form.append(label,password,confirmLabel,confirmation,submit);
+  form.addEventListener('submit', async event => {
+    event.preventDefault(); if (writing || submit.disabled) return;
+    if (password.value.length < 12) {say('Use a unique password of at least 12 characters.'); return;}
+    if (password.value !== confirmation.value) {say('The two passwords do not match.'); return;}
+    const current = generation; writing = true; submit.disabled = true; cancel.disabled = true; say('Saving your new password…');
+    try {
+      const result = await store.finishPasswordRecovery(password.value, confirmation.value);
+      password.value = ''; confirmation.value = '';
+      if (current !== generation) return;
+      passwordScreen = 'complete'; clear();
+      const signIn = node('button', 'Continue to sign in'); signIn.type = 'button';
+      signIn.addEventListener('click', async () => {
+        if (writing) return; writing = true;
+        try { await store.cancelPasswordRecovery(); signInPanel(); say('Sign in with your new password.'); }
+        catch (error) {say(error.message);}
+        finally {writing=false;}
+      });
+      root.append(node('h2', 'Password saved'), node('p', result.signedOut ? 'Your new password is ready. Sign in to open your private guide.' : 'Your password was saved, but sign-out could not be confirmed. Reconnect before continuing.'), signIn);
+      say('Password saved.');
+    } catch (error) {
+      password.value = ''; confirmation.value = '';
+      if (current !== generation) return;
+      if (['weak_password','same_password'].includes(error.code)) say(error.message);
+      else passwordRequestPanel(error.message);
+    } finally {writing=false;submit.disabled=false;cancel.disabled=false;flushRefresh();}
+  });
+  root.append(node('h2','Choose your password'), node('p','Use a unique password of at least 12 characters. Your private guide stays locked until you finish. Your password is sent only to the app’s Supabase authentication service.'), form, cancel);
+  say('Password link verified. Choose your new password.');
 }
 function flushRefresh() { if (pendingRefresh) { pendingRefresh = false; scheduleRefresh(); } }
 function scheduleRefresh() {
+  if (initializingPassword) { pendingRefresh = true; return; }
   if (inactive()) { pendingRefresh = true; return; }
   if (writing) { pendingRefresh = true; return; }
   clearTimeout(refreshTimer);
@@ -180,9 +260,16 @@ function evidencePanel(data) {
   panel.append(input, status, save); return panel;
 }
 async function refresh() {
+  if (initializingPassword) {pendingRefresh = true; return;}
   if (inactive()) { pendingRefresh = true; clear(); say('Private screen locked.'); return; }
   pendingRefresh = false;
   if (writing) { pendingRefresh = true; return; }
+  if (passwordScreen) {
+    if (passwordScreen === 'update' && store.passwordRecoveryStatus?.() === 'ready') passwordUpdatePanel();
+    else if (passwordScreen === 'complete') {passwordScreen=null; signInPanel(); say('Password saved. Sign in with your new password.');}
+    else passwordRequestPanel(passwordMessage);
+    return;
+  }
   lockForRefresh(); const current = generation; say('Checking private access…');
   try {
     const data = await loadCollection();
@@ -255,14 +342,18 @@ try {
     root.append(node('p', 'No connection was made. The existing public guide is unchanged. This preview requires an authorized account and database setup before activation.'));
   } else {
     store.watch(event => {
-      if (event === 'SIGNED_OUT') { clear(); say('Signed out.'); }
+      if (event === 'SIGNED_OUT' && !passwordScreen && !initializingPassword) { clear(); say('Signed out.'); }
       scheduleRefresh();
     });
     window.addEventListener('focus', scheduleRefresh);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) scheduleRefresh(); else { clear(); say('Private screen locked.'); } });
     window.addEventListener('pageshow', () => { pageHidden=false; scheduleRefresh(); });
     window.addEventListener('pagehide', () => { pageHidden=true; clearTimeout(refreshTimer); clear(); say('Private screen locked.'); });
-    await refresh();
+    try {
+      const recovering = await store.consumePasswordRecovery?.();
+      initializingPassword = false;
+      if (recovering) passwordUpdatePanel(); else await refresh();
+    } catch (error) {initializingPassword = false; passwordRequestPanel(error.message);}
   }
 } catch (error) { clear(); say(error.message); }
 

@@ -4,9 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "check": "node --check src/client.js && node --check src/app.js && node --check build.mjs && node --check src/evidence.js && node --check src/controls.js && node --check src/guide-entry.js && node --check src/guide-model.js && node --check build-guide.mjs",
+    "check": "node --check src/client.js && node --check src/app.js && node --check build.mjs && node --check src/evidence.js && node --check src/controls.js && node --check src/guide-entry.js && node --check src/guide-model.js && node --check build-guide.mjs && node --check src/password-recovery.js",
     "build": "node build.mjs",
-    "test:browser": "node test/browser-smoke.mjs"
+    "test:browser": "node test/browser-smoke.mjs",
+    "test:password-browser": "node test/password-recovery-browser.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.119.0"
