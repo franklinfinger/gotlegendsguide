@@ -1,3 +1,4 @@
+import { abilityDisplayName } from './reviewed-ability-sections.js';
 import { routeEffectOwnershipQuestion, answerEffectOwnershipQuestion } from './effect-ownership-answers.js';
 import { routePrivateEffectQuestion, answerPrivateEffectQuestion } from './effect-definition-answers.js';
 import {routeIceBrittleSetupQuestion,answerIceBrittleSetupQuestion} from './ice-brittle-answers.js';
@@ -7,8 +8,11 @@ const normalize = value => String(value || '').toLowerCase().replace(/[’']s\b/
 const contains = (text, value) => (` ${text} `).includes(` ${normalize(value)} `);
 const baseName = name => String(name || '').split(/\s+[—-]\s+/)[0];
 const complete = row => row?.reviewStatus === 'complete';
+const readableSection = row => complete(row) || row?.sourceScope === 'reviewed_current_ability_section';
+const sectionFact = (row,kind) => ({title:abilityDisplayName(row),kind:complete(row)?kind:kind+' (partial excerpt)',wording:[row.text,...(row.reviewNotes||[])].join(' '),provenance:row.provenance});
 
 const mechanicQueries = [
+  {id:'apply_bleed',label:'BLEED',aliases:['bleed','bleeding'],proof:/\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bBLEED\b/i},
   {id:'apply_poison',label:'POISON',aliases:['poison','poisoned'],proof:/\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bPOISON\b/i},
   {id:'apply_fire',label:'FIRE',aliases:['fire','burn'],proof:/\b(?:afflicts?|inflicts?|applies?)\b[^.!?]{0,110}\bFIRE\b|\benemies begin combat with\b[^.!?]{0,60}\bFIRE\b/i},
   {id:'brittle',label:'BRITTLE',aliases:['brittle'],proof:/\b(?:afflicts?|inflicts?|applies?|causes?)\b[^.!?]{0,110}\bBRITTLE\b/i},
@@ -43,7 +47,7 @@ export function routeGuideQuestion(question, {guideData,strategyData,context={}}
   const mechanic=mechanicQueries.find(row=>row.aliases.some(alias=>contains(text,alias)));
   if(mechanic)return {intent:/\b(how|what does|explain)\b/.test(text)?'explanation':'mechanic_lookup',entityType:'mechanic',entity:mechanic};
   const champions=guideData.champions.filter(row=>contains(text,row.name)||contains(text,baseName(row.name))||(baseName(row.name).split(' ')[0].length>=5&&contains(text,baseName(row.name).split(' ')[0])));
-  if(champions.length)return {intent:/\b(skill|trait)\b/.test(text)?'skill_trait_lookup':/\b(how|why)\b/.test(text)?'explanation':'champion_lookup',entityType:'champion',matches:champions};
+  if(champions.length)return {intent:/\b(skills?|traits?)\b/.test(text)?'skill_trait_lookup':/\b(how|why)\b/.test(text)?'explanation':'champion_lookup',entityType:'champion',matches:champions};
   if(/\bdual faction\b/.test(text))return {intent:'faction_lookup',entityType:'dual_faction'};
   const factions=nameMatches(text,guideData.factions);
   if(factions.length)return {intent:/\b(how|why)\b/.test(text)?'explanation':'faction_lookup',entityType:'faction',entity:factions.sort((a,b)=>b.name.length-a.name.length)[0]};
@@ -82,20 +86,20 @@ function championAnswer(route,text,guideData) {
   const wantsVersions=/\b(versions|variants)\b/.test(text);
   const wantsFaction=/\bfaction\b/.test(text);
   const wantsItem=/\b(items?|gear)\b/.test(text);
-  const wantsSkill=/\bskill\b/.test(text);
-  const wantsTrait=/\btrait\b/.test(text);
+  const wantsSkill=/\bskills?\b/.test(text);
+  const wantsTrait=/\btraits?\b/.test(text);
   const entries=selected.map(champion=>{
-    const abilities=guideData.abilities.filter(row=>row.variantId===champion.id&&complete(row)&&['skill','champion_skill','trait'].includes(row.kind));
-    const traits=guideData.traits.filter(row=>row.variantId===champion.id&&complete(row));
+    const abilities=guideData.abilities.filter(row=>row.variantId===champion.id&&readableSection(row)&&['skill','champion_skill','trait'].includes(row.kind));
+    const traits=guideData.traits.filter(row=>row.variantId===champion.id&&readableSection(row));
     const items=guideData.items.filter(row=>row.ownerVariantId===champion.id);
     const facts=wantsVersions||wantsFaction?[]:wantsItem?items.map(row=>({title:row.name,kind:'Iconic item',wording:row.abilities.filter(complete).map(ability=>`${ability.name}: ${ability.text}`).join(' ')||'Item ability wording is unavailable.',href:`items.html#${row.id}`})):[
-      ...(!wantsTrait?abilities.filter(row=>row.kind!=='trait').map(row=>({title:row.name,kind:'Skill',wording:row.text,provenance:row.provenance})):[]),
-      ...(!wantsSkill?[...traits,...abilities.filter(row=>row.kind==='trait')].map(row=>({title:row.name,kind:'Trait',wording:row.text,provenance:row.provenance})):[])
+      ...((!wantsTrait||wantsSkill)?abilities.filter(row=>row.kind!=='trait').map(row=>sectionFact(row,'Skill')):[]),
+      ...((!wantsSkill||wantsTrait)?[...traits,...abilities.filter(row=>row.kind==='trait')].map(row=>sectionFact(row,'Trait')):[])
     ];
     return {champion,facts};
   });
   const subject=selected.length===1?selected[0].name:baseName(selected[0]?.name)||'Champions';
-  const summary=wantsVersions?`${selected.length} verified variant${selected.length===1?'':'s'} are listed.`:wantsFaction?'Current faction membership is shown for each exact variant.':wantsItem?'Only connected iconic items with verified ownership are shown.':'Verified skills and traits are shown for each exact variant.';
+  const summary=wantsVersions?`${selected.length} verified variant${selected.length===1?'':'s'} are listed.`:wantsFaction?'Current faction membership is shown for each exact variant.':wantsItem?'Only connected iconic items with verified ownership are shown.':'Source-linked skills and traits are shown for each exact variant. Partial excerpts are labeled and do not establish the complete ability.';
   return {status:'ready',intent:route.intent,kind:'knowledge',title:subject,summary,entries,emptyMessage:`No verified details are available for ${subject}.`};
 }
 

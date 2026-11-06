@@ -1,3 +1,4 @@
+import { prepareReviewedAbilitySections, unconditionalSkillClauses, abilityDisplayName } from './reviewed-ability-sections.js';
 import { prepareCapturedAllyPairs } from './captured-ally-pairs.js';
 import { applyReviewedFactionMemberships } from './reviewed-faction-memberships.js';
 import { hasViserysRemovalTradeoff } from './viserys-removal-model.js';
@@ -159,12 +160,7 @@ function mechanicsFor(record) {
   // self-PACIFY and FIRE replacements. Its complete tradeoff is explained by
   // the source-matched model, without a guessed net-benefit weight.
   if (hasViserysRemovalTradeoff(record)) return [];
-  const sentences = record.text.split(/(?<=[.!?])\s+/);
-  const gate=/\b(if|when|whenever|upon|chance|treasury\s*\(|for each|per \w+|at the start|after|until|while|consumes?|spends?|requires?|at (?:a|the) cost)\b/i;
-  const firstGate=sentences.findIndex(text=>gate.test(text));
-  // A later sentence may still be inside the preceding condition. Do not lift
-  // it out of that scope merely because it lacks its own conditional keyword.
-  const direct=sentences.slice(0,firstGate<0?sentences.length:firstGate);
+  const direct = unconditionalSkillClauses(record.text);
   const found = [];
   const add = (id, sentence) => { if (!found.some(row => row.mechanicId === id)) found.push({mechanicId: id, sentence}); };
   for (const sentence of direct) {
@@ -218,6 +214,7 @@ function reviewedUpdate(input, group) {
  * Registry must come from the pre-existing public catalog, never a guessed roster map. */
 export function integrateVerifiedHandoff({handoff, guideData, strategyData, identities = []}) {
   const groups = validateHandoff(handoff);
+  const sectionReviews = prepareReviewedAbilitySections(handoff, groups);
   if (handoff.review_updates != null && !Array.isArray(handoff.review_updates)) throw Error('Review updates must be an array.');
   for (const update of handoff.review_updates || []) if (![...groups.values()].some(group=>normalize(group.champion)===normalize(update.character)&&normalize(group.exact_variant)===normalize(update.variant))) throw Error('Review update has no matching exact handoff identity.');
   const guide = structuredClone(guideData);
@@ -243,6 +240,12 @@ export function integrateVerifiedHandoff({handoff, guideData, strategyData, iden
       const replacedKinds=new Set(later.records.map(row=>row.kind));
       extracted={records:[...extracted.records.filter(row=>!replacedKinds.has(row.kind)),...later.records],issues:[...extracted.issues.filter(issue=>!later.records.some(row=>row.kind==='trait'&&/trait/.test(issue.field))),...later.records.filter(row=>row.reviewStatus==='partial').map(row=>({groupId:group.capture_group_id,field:row.field,reason:'Clipped later-review wording preserved as partial and excluded from mechanic scoring.'}))]};
       for(const conflict of audit.conflicts.filter(row=>String(row.group).split('/').includes(group.capture_group_id)&&later.update.resolved_fields?.includes(row.field))) {conflict.state='resolved_for_reviewed_build';conflict.resolution=later.update.resolved_issue;conflict.reviewedOn=later.update.review_date;conflict.resolutionSources=later.update.source_files.map(({file_name,library_file_id})=>({file_name,library_file_id}));}
+    }
+    const reviewedSections = sectionReviews.get(group.capture_group_id) || [];
+    if (reviewedSections.some(section => extracted.records.some(row => row.kind === section.kind))) throw Error(`Ability section review: ${group.capture_group_id} already has that ability category; reconcile sources explicitly instead of replacing it.`);
+    if (reviewedSections.length) {
+      extracted.records.push(...reviewedSections);
+      extracted.issues.push({groupId:group.capture_group_id,field:'ability_sections',reason:'Latest screenshot sections integrated; the complete Skill, trait and iconic portfolio has not yet been reconciled.'});
     }
     audit.extractionIssues.push(...extracted.issues);
     if (!extracted.records.some(row => row.kind === 'skill')) audit.missingSkills.push({groupId: group.capture_group_id, variantId, name: fullName});
@@ -282,7 +285,7 @@ export function integrateVerifiedHandoff({handoff, guideData, strategyData, iden
     if (row.kind === 'item') guide.items.push({id: row.id, name: row.itemName, ownerVariantId: row.variantId, ownerName: guide.champions.find(champion => champion.id === row.variantId).name, reviewStatus: row.reviewStatus, abilities: [{...row, provenance}]});
     else if (row.kind === 'trait') guide.traits.push({...row, type: row.context === 'leader' ? 'Leader' : null, scope: null, provenance});
     else guide.abilities.push({...row, provenance});
-    for (const fact of mechanicsFor(row).filter(fact => strategy.mechanics.some(mechanic => mechanic.id === fact.mechanicId))) strategy.championFacts.push({id: row.id + ':' + fact.mechanicId, variantId: row.variantId, mechanicId: fact.mechanicId, effectRole: 'provides', context: row.context, factText: row.name + ': ' + fact.sentence, fullSourceText: row.text, evidenceCategory: 'verified_fact', provenanceRef: provenance, sourceId: null, sourceFilenames: row.sourceFilenames, captureDate: handoff.capture_date, confidence: 1, reviewStatus: row.reviewStatus, extractionScope: 'explicit_unconditional_skill_clause', supportingClause: fact.sentence});
+    for (const fact of mechanicsFor(row).filter(fact => strategy.mechanics.some(mechanic => mechanic.id === fact.mechanicId))) strategy.championFacts.push({id: row.id + ':' + fact.mechanicId, variantId: row.variantId, mechanicId: fact.mechanicId, effectRole: 'provides', context: row.context, factText: abilityDisplayName(row) + ': ' + fact.sentence, fullSourceText: row.text, evidenceCategory: 'verified_fact', provenanceRef: provenance, sourceId: null, sourceFilenames: row.sourceFilenames, captureDate: row.captureDate, reviewCompletedDate:row.reviewCompletedDate, confidence: 1, reviewStatus: row.reviewStatus, extractionScope: 'explicit_unconditional_skill_clause', supportingClause: fact.sentence});
   }
   for (const panel of handoff.faction_panels || []) {
     const matches = guide.factions.filter(row => normalize(row.name) === normalize(panel.Faction));
@@ -315,6 +318,7 @@ export function integrateVerifiedHandoff({handoff, guideData, strategyData, iden
     champion.screenshotState.effectDefinitions=coverage;
     champion.strategyInterpretationStatus=coverage.some(row=>definitionIsUnresolved(row)||row.remainingRules?.length)?'partial':'source_bounded';
   }
+  audit.abilitySectionReviews={groups:sectionReviews.size,records:[...sectionReviews.values()].flat().length,completeBodies:[...sectionReviews.values()].flat().filter(row=>row.reviewStatus==='complete').length,partialBodies:[...sectionReviews.values()].flat().filter(row=>row.reviewStatus==='partial').length};
   const capturedAllies=prepareCapturedAllyPairs({handoff,mappings:audit.mappings});
   audit.capturedAllyPairs=capturedAllies.audit;
   audit.extractionIssues.push(...capturedAllies.issues);
@@ -323,7 +327,7 @@ export function integrateVerifiedHandoff({handoff, guideData, strategyData, iden
   const factionReviews = applyReviewedFactionMemberships({reviews:handoff.faction_membership_reviews,mappings:audit.mappings,guide,strategy,baseMembershipEvidence:(strategyData?.championFacts||[]).filter(row=>row.effectRole==='member'&&row.mechanicId?.startsWith('faction_'))});
   audit.factionMembershipReviews = factionReviews.reviews;
   guide.identityChampions = originalChampions.filter(row => !mappedIds.has(row.id)).concat(guide.champions.filter(row => mappedIds.has(row.id)));
-  guide.verifiedCollection = {captureDate: handoff.capture_date, reviewDates:unique([...(handoff.review_updates||[]).map(row=>row.review_date),...factionReviews.reviews.map(row=>row.reviewedOn),...effectDefinitionUpdates.map(row=>row.reviewCompletedDate),...effectDefinitionExcerpts.map(row=>row.reviewCompletedDate)]), variantIds, audit, records, capturedAllyPairs:capturedAllies.pairs, definitionGaps, supportModelGaps, effectDefinitions, effectDefinitionUpdates, effectDefinitionExcerpts, effectDefinitionCoverage, factionMembershipEvidence:factionReviews.evidence, reviewedGroups:structuredClone(handoff.champion_capture_groups), reviewedUpdates:structuredClone(handoff.review_updates||[]), supplementalPanels:structuredClone(handoff.supplemental_panels||[]), factionPanels:structuredClone(handoff.faction_panels||[])};
+  guide.verifiedCollection = {captureDate: handoff.capture_date, reviewDates:unique([...(handoff.ability_section_reviews||[]).map(row=>row.review_date),...(handoff.review_updates||[]).map(row=>row.review_date),...factionReviews.reviews.map(row=>row.reviewedOn),...effectDefinitionUpdates.map(row=>row.reviewCompletedDate),...effectDefinitionExcerpts.map(row=>row.reviewCompletedDate)]), variantIds, audit, records, capturedAllyPairs:capturedAllies.pairs, definitionGaps, supportModelGaps, effectDefinitions, effectDefinitionUpdates, effectDefinitionExcerpts, effectDefinitionCoverage, factionMembershipEvidence:factionReviews.evidence, reviewedGroups:structuredClone(handoff.champion_capture_groups), reviewedUpdates:structuredClone(handoff.review_updates||[]), reviewedAbilitySections:structuredClone(handoff.ability_section_reviews||[]), supplementalPanels:structuredClone(handoff.supplemental_panels||[]), factionPanels:structuredClone(handoff.faction_panels||[])};
   guide.verifiedCollection.recoveredPortfolios = recoveredPortfolios;
   strategy.verifiedCollection = {captureDate: handoff.capture_date};
   // Historical curated advice remains accessible in the base catalog but cannot
