@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const routes = ['index.html','recommendations.html','champions.html','items.html','builder.html','raids.html','war.html','dragons.html','factions.html','status-effects.html'];
+const routes = ['index.html','recommendations.html','champions.html','builder.html','raids.html','war.html','dragons.html','factions.html','status-effects.html'];
 
 test('all restored product routes use the shared live guide shell', () => {
   for (const route of routes) {
@@ -34,7 +34,7 @@ test('Phase 5 roster controls and sign-in are absent from the public interface',
 test('Home strategy questions render in place and champion search stays separate',()=>{
   const source=fs.readFileSync(path.join(root,'guide.js'),'utf8');
   assert.match(source,/id="home-strategy-form"/);
-  assert.match(source,/What battle are you preparing for/);
+  assert.match(source,/What’s the plan/);
   assert.match(source,/Raid Attack/);
   assert.match(source,/Raid Defense/);
   assert.match(source,/id="home-strategy-result"/);
@@ -49,4 +49,9 @@ test('Strategy exposes battle selection before the follow-up question',()=>{
   assert.match(page,/strategy-battle-grid/);
   assert.ok(page.indexOf('strategy-battle-grid') < page.indexOf('conversationPanel()'));
   assert.match(page,/war\.html\?rule=/);
+});
+
+test('legacy Items URL opens the champion reference without standalone item UI',()=>{
+  const html=fs.readFileSync(path.join(root,'items.html'),'utf8');
+  assert.match(html,/url=champions\.html/);assert.doesNotMatch(html,/data-view="items"/);
 });

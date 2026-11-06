@@ -92,7 +92,7 @@ function championAnswer(route,text,guideData) {
     const abilities=guideData.abilities.filter(row=>row.variantId===champion.id&&readableSection(row)&&['skill','champion_skill','trait'].includes(row.kind));
     const traits=guideData.traits.filter(row=>row.variantId===champion.id&&readableSection(row));
     const items=guideData.items.filter(row=>row.ownerVariantId===champion.id);
-    const facts=wantsVersions||wantsFaction?[]:wantsItem?items.map(row=>({title:row.name,kind:'Iconic item',wording:row.abilities.filter(complete).map(ability=>`${ability.name}: ${ability.text}`).join(' ')||'Item ability wording is unavailable.',href:`items.html#${row.id}`})):[
+    const facts=wantsVersions||wantsFaction?[]:wantsItem?items.map(row=>({title:row.name,kind:'Iconic item',wording:row.abilities.filter(complete).map(ability=>`${ability.name}: ${ability.text}`).join(' ')||'Item ability wording is unavailable.',href:`champions.html?champion=${encodeURIComponent(champion.id)}`})):[
       ...((!wantsTrait||wantsSkill)?abilities.filter(row=>row.kind!=='trait').map(row=>sectionFact(row,'Skill')):[]),
       ...((!wantsSkill||wantsTrait)?[...traits,...abilities.filter(row=>row.kind==='trait')].map(row=>sectionFact(row,'Trait')):[])
     ];
@@ -113,7 +113,7 @@ function factionAnswer(route,text,guideData) {
 }
 
 function itemAnswer(route,guideData) {
-  if(route.entityType==='all_items')return {status:'ready',intent:route.intent,kind:'knowledge',title:'Iconic items',summary:'Verified champion and item relationships.',entries:guideData.items.filter(row=>row.ownerVariantId).map(item=>({champion:guideData.champions.find(row=>row.id===item.ownerVariantId),facts:[{title:item.name,kind:'Iconic item',wording:item.abilities.filter(complete).map(ability=>`${ability.name}: ${ability.text}`).join(' ')||'Ability wording unavailable.',href:`items.html#${item.id}`}]})).filter(row=>row.champion).sort((a,b)=>a.champion.name.localeCompare(b.champion.name)),emptyMessage:'No verified iconic item relationships are listed.'};
+  if(route.entityType==='all_items')return {status:'ready',intent:route.intent,kind:'knowledge',title:'Iconic items',summary:'Verified champion and item relationships.',entries:guideData.items.filter(row=>row.ownerVariantId).map(item=>({champion:guideData.champions.find(row=>row.id===item.ownerVariantId),facts:[{title:item.name,kind:'Iconic item',wording:item.abilities.filter(complete).map(ability=>`${ability.name}: ${ability.text}`).join(' ')||'Ability wording unavailable.',href:`champions.html?champion=${encodeURIComponent(item.ownerVariantId)}`}]})).filter(row=>row.champion).sort((a,b)=>a.champion.name.localeCompare(b.champion.name)),emptyMessage:'No verified iconic item relationships are listed.'};
   const item=route.entity,champion=guideData.champions.find(row=>row.id===item.ownerVariantId);
   return {status:'ready',intent:route.intent,kind:'knowledge',title:item.name,summary:champion?`Iconic item for ${champion.name}.`:'A verified champion relationship is unavailable.',entries:champion?[{champion,facts:item.abilities.filter(complete).map(row=>({title:row.name,kind:'Item ability',wording:row.text,provenance:row.provenance}))}]:[],facts:champion?[]:item.abilities.filter(complete).map(row=>({title:row.name,kind:'Item ability',wording:row.text,provenance:row.provenance})),emptyMessage:`No verified ability wording is recorded for ${item.name}.`};
 }

@@ -5,6 +5,9 @@ import { privateGuideModel } from './guide-model.js';
 import { readinessMarkup } from '../../data-readiness.js';
 
 export async function mountPrivateGuide({anchor, content, requiresStrategy, onClear, onReady, config, createStore = createOwnerStore}) {
+  const details = document.querySelector('#guide-details');
+  const detailsSummary = document.querySelector('#guide-details-summary');
+  let unlocked = false, detailsWasOpen = false, collectionWasOpen = false;
   const store = createStore({config, createClient});
   if (!store.enabled) throw Error('Private access was requested but the private client is disabled.');
   const panel = document.createElement('details'); panel.className = 'private-access-panel'; panel.open = true;
@@ -12,7 +15,7 @@ export async function mountPrivateGuide({anchor, content, requiresStrategy, onCl
   const controls = document.createElement('section');
   const status = document.createElement('p'); status.setAttribute('role','status'); status.setAttribute('aria-live','polite');
   panel.append(summary, status, controls); anchor.after(panel);
-  const clearGuide = () => { onClear(); if(content) content.replaceChildren(); anchor.hidden=false; anchor.className='data-readiness data-loading'; anchor.textContent='Private guide locked while access and saved data are checked.'; };
+  const clearGuide = () => { if(unlocked){detailsWasOpen=Boolean(details?.open);collectionWasOpen=panel.open;} unlocked=false; if(details)details.open=true; if(detailsSummary)detailsSummary.textContent='Access & collection'; panel.open=true; onClear(); if(content) content.replaceChildren(); anchor.hidden=false; anchor.className='data-readiness data-loading'; anchor.textContent='Private guide locked while access and saved data are checked.'; };
   return mountOwnerControls({root:controls, state:status, store,
     loadCollection:() => store.readCollection({includeGameData:true,includeStrategy:requiresStrategy}),
     onClear:clearGuide,
@@ -24,6 +27,9 @@ export async function mountPrivateGuide({anchor, content, requiresStrategy, onCl
       // The collection panel owns refresh and session lifecycle in private mode.
       anchor.querySelector('[data-retry]')?.remove();
       onReady({guide:model.guide,strategy:model.strategy});
-      panel.open=reviewingEvidence;
+      panel.open=reviewingEvidence||collectionWasOpen;
+      if(details)details.open=reviewingEvidence||detailsWasOpen;
+      if(detailsSummary)detailsSummary.textContent='Details · collection & data';
+      unlocked=true;
     }});
 }
