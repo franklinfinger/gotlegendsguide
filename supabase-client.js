@@ -6,12 +6,12 @@
 /** @typedef {{id:string,variantId:string,championId:number,name:string,type:string|null,scope:string|null,text:string,reviewStatus:string}} GuideTrait */
 /** @typedef {{id:string,name:string,ownerVariantId:string|null,ownerName:string|null,reviewStatus:string,abilities:Array<{id:string,name:string,text:string,reviewStatus:string|null,provenance:string|null}>}} GuideItem */
 /** @typedef {{id:string,name:string,memberVariantIds:string[],rules:Array<{id:string,text:string,kind:'current_bonus'|'how_to_play'}>}} GuideFaction */
-/** @typedef {{name:string,isLeader:boolean,gemColor?:string|null}} GuideTeamMember */
+/** @typedef {{name:string,isLeader:boolean|null,gemColor?:string|null}} GuideTeamMember */
 /** @typedef {{id:string,mode:string,outcome:string,displayedPower:number|null,members:GuideTeamMember[]}} GuideObservedTeam */
 /** @typedef {{id:string,name:string,subtitle:string|null,reviewStatus:string,releaseState:string,abilities:Array<{id:string,name:string,scope:string|null,text:string,reviewStatus:string}>,tips:Array<{id:string,text:string,reviewStatus:string}>}} GuideEncounter */
 /** @typedef {{factionId:string,factionName:string,requiredMembers:number,sourceId:number}} FactionActivation */
 /** @typedef {{id:string,ownerName:string,allyName:string,gemName:string,relationship:string,replacesPowerUp:string,effect:string,reviewState:string,currentnessState:string,sourceId:number}} AllyGem */
-/** @typedef {{version:string,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],factionActivations:FactionActivation[],allyGems:AllyGem[],statuses:unknown[],mechanics:unknown[],companions:unknown[],legendaryAssault:GuideEncounter[],warRules:unknown[],raidRules:unknown[],raidTeams:unknown[],strategyTeams:unknown[],teams:GuideObservedTeam[],announcements:unknown[]}} GuideData */
+/** @typedef {{privateCollection?:{saved:boolean,evidenceRevision:number,ownedVariantIds:string[],capturedVariantCount:number,latestEvidenceOnly?:boolean},verifiedCollection?:{captureDate:string,variantIds:string[],reviewDates?:string[],audit?:{effectDefinitionUpdates?:{uniqueDefinitions:number,tooltipSources:number,duplicateSourcesRetained:number,traitExcerpts:number}}},version:string,champions:GuideChampion[],abilities:GuideAbility[],traits:GuideTrait[],items:GuideItem[],factions:GuideFaction[],factionActivations:FactionActivation[],allyGems:AllyGem[],statuses:unknown[],mechanics:unknown[],companions:unknown[],legendaryAssault:GuideEncounter[],warRules:unknown[],raidRules:unknown[],raidTeams:unknown[],strategyTeams:unknown[],teams:GuideObservedTeam[],announcements:unknown[]}} GuideData */
 /** @typedef {{id:string,battleMode:'legendary-assault'|'raid'|'war',kind:string,name:string,evidenceState:'verified'|'insufficient',approach:string,timing:string,warning:string,provenanceRef:string,reviewStatus:string}} StrategyTarget */
 /** @typedef {{id:string,kind:'target_fit'|'team_synergy',battleMode:string,targetId:string|null,subjectVariantId:string|null,mechanicId:string,pairedMechanicId:string|null,score:number,rationale:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyRule */
 /** @typedef {{id:string,variantId:string,mechanicId:string,effectRole:string,context:string,factText:string,evidenceCategory:'verified_fact'|'strategy_inference'|'community_observed',provenanceRef:string,sourceId:number|null,confidence:number,reviewStatus:string}} StrategyChampionFact */
@@ -23,9 +23,12 @@ const config = /** @type {typeof globalThis & {GOT_SUPABASE_CONFIG?: SupabaseCon
 
 /** @param {string} name */
 async function rpc(name) {
+  if (/** @type {typeof globalThis & {GOT_PRIVATE_CONFIG?:{enabled?:boolean}}} */(globalThis).GOT_PRIVATE_CONFIG?.enabled === true) throw new Error('Anonymous guide loading is disabled in private mode.');
   if (!config?.url || !config.publishableKey) throw new Error('The guide database is not configured for this build.');
   const response = await fetch(`${config.url.replace(/\/$/, '')}/rest/v1/rpc/${name}`, {
-    headers: { apikey: config.publishableKey, Accept: 'application/json' }
+    headers: { apikey: config.publishableKey, Accept: 'application/json' },
+    cache: 'no-store',
+    signal: AbortSignal.timeout(20000)
   });
   if (!response.ok) throw new Error(`The guide database could not be reached (${response.status}).`);
   return response.json();

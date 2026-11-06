@@ -4,3 +4,7 @@ supabase/
 .codex/
 .agents/
 *.sqlite
+
+local-evidence/
+**/*handoff*.json
+**/*.private.json

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import { parseStrategyQuestion, recommendTeam } from '../strategy-engine.js';
+import { parseStrategyQuestion, recommendMechanicTeam as recommendTeam } from '../strategy-engine.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'data/strategy/strategy-catalog.json'), 'utf8'));

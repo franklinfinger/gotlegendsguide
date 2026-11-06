@@ -1,3 +1,6 @@
+import { routeEffectOwnershipQuestion, answerEffectOwnershipQuestion } from './effect-ownership-answers.js';
+import { routePrivateEffectQuestion, answerPrivateEffectQuestion } from './effect-definition-answers.js';
+import {routeIceBrittleSetupQuestion,answerIceBrittleSetupQuestion} from './ice-brittle-answers.js';
 // Deterministic answers from the two public, read-only Supabase guide models.
 // A mechanic tag alone is not proof that a champion applies that mechanic.
 const normalize = value => String(value || '').toLowerCase().replace(/[’']s\b/g, '').replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
@@ -23,9 +26,20 @@ const nameMatches = (text, rows, name = row => row.name) => rows.filter(row => c
 export function routeGuideQuestion(question, {guideData,strategyData,context={}}) {
   const text=normalize(question);
   if(!text)return {intent:'clarification',message:'Ask about a champion, mechanic, faction, item, or battle.'};
+  const setup=routeIceBrittleSetupQuestion(question,{guideData,context});
+  if(setup)return setup;
+  const effectOwnership=routeEffectOwnershipQuestion(question,guideData);
+  if(effectOwnership)return effectOwnership;
+  const privateEffect=routePrivateEffectQuestion(question,guideData);
+  if(privateEffect)return privateEffect;
   const battle=/\b(team|teams|lineup|lineups|battle|fight|beat|counter|raid attack|raid defense|war battlefield)\b/.test(text);
   const followUp=Boolean(context.targetId)&&(/\b(dont have|do not have|without|replace|substitute|instead|another team|different team|leader|how to play)\b/.test(text)||(/\bwhy\b/.test(text)&&/\b(this|that) team\b/.test(text)));
-  if(battle||followUp)return {intent:'battle_recommendation'};
+  const contextual=Boolean(context.targetId)&&(
+    /\b(?:another|alternate|alternative|different|more)\s+(?:option|approach)s?\b/.test(text)
+    || (/\b(?:enable|disable|equipped|with|without)\b/.test(text)&&guideData.items.some(row=>contains(text,row.name)))
+    || (/\b(?:why|explain)\b/.test(text)&&(context.lastResult?.team||[]).some(member=>contains(text,member.champion.name)||contains(text,baseName(member.champion.name))||contains(text,baseName(member.champion.name).split(' ')[0])))
+  );
+  if(battle||followUp||contextual)return {intent:'battle_recommendation'};
   const mechanic=mechanicQueries.find(row=>row.aliases.some(alias=>contains(text,alias)));
   if(mechanic)return {intent:/\b(how|what does|explain)\b/.test(text)?'explanation':'mechanic_lookup',entityType:'mechanic',entity:mechanic};
   const champions=guideData.champions.filter(row=>contains(text,row.name)||contains(text,baseName(row.name))||(baseName(row.name).split(' ')[0].length>=5&&contains(text,baseName(row.name).split(' ')[0])));
@@ -102,9 +116,21 @@ function itemAnswer(route,guideData) {
 
 /** Returns a knowledge answer or a battle route for the existing strategy engine. */
 export function answerGuideQuestion({question,guideData,strategyData,context={}}) {
-  const route=routeGuideQuestion(question,{guideData,strategyData,context}),text=normalize(question);
+  const text=normalize(question);
+  const personalScope=Boolean(guideData.privateCollection)&&(/\bmy\b|\bmine\b|\bi (?:own|have)\b/.test(text));
+  if(personalScope) {
+    const owned=new Set(guideData.privateCollection.ownedVariantIds);
+    // Query projection only: retain the saved envelope and source archive. A
+    // personal provider lookup must not imply that an unchecked variant is owned.
+    guideData={...guideData,champions:guideData.champions.filter(row=>owned.has(row.id)),items:guideData.items.filter(row=>owned.has(row.ownerVariantId))};
+    if(strategyData)strategyData={...strategyData,championFacts:strategyData.championFacts.filter(row=>owned.has(row.variantId))};
+  }
+  const route=routeGuideQuestion(question,{guideData,strategyData,context});
   if(route.intent==='battle_recommendation')return {status:'battle',intent:route.intent};
   if(route.intent==='clarification')return {status:'needs_clarification',intent:route.intent,message:route.message};
+  if(route.entityType==='ice_brittle_setup')return answerIceBrittleSetupQuestion(route,guideData);
+  if(route.entityType==='effect_ownership')return answerEffectOwnershipQuestion(route,guideData);
+  if(route.entityType==='private_effect')return answerPrivateEffectQuestion(route,guideData);
   if(route.entityType==='definition')return {status:'ready',intent:route.intent,kind:'knowledge',title:route.entity.name,summary:'Verified guide definition.',facts:[{title:route.entity.name,wording:route.entity.text}],entries:[],emptyMessage:`A verified definition for ${route.entity.name} is unavailable.`};
   if(route.entityType==='mechanic') {
     const matches=verifiedMechanicEntries(route.entity,guideData,strategyData),grouped=new Map();
@@ -114,7 +140,12 @@ export function answerGuideQuestion({question,guideData,strategyData,context={}}
     }
     const entries=[...grouped.values()];
     const definition=guideData.mechanics.find(row=>normalize(row.name)===normalize(route.entity.label))||guideData.statuses.find(row=>normalize(row.name)===normalize(route.entity.label));
-    return {status:'ready',intent:route.intent,kind:'knowledge',title:route.entity.label,summary:`${entries.length} exact champion variant${entries.length===1?'':'s'} with verified wording.`,facts:definition?.text?[{title:'What it does',wording:definition.text}]:[],entries,showEmpty:entries.length===0,emptyMessage:`No verified champion currently matches ${route.entity.label} in the guide.`};
+    const indirect=route.entity.id==='brittle';
+    const scope=indirect?'direct BRITTLE-application wording':'matching mechanic wording';
+    const summary=entries.length?`${entries.length} exact champion variant${entries.length===1?'':'s'}${personalScope?' in your saved owned collection':''} with ${scope} in the indexed facts.`:`No ${scope} was found in the indexed facts. This is a lookup limit, not a claim that no champion can contribute.`;
+    const ownershipScope=guideData.privateCollection ? [{title:'Collection scope',wording:personalScope?'Only variants marked owned in your saved collection are included. Captured ranks and wording remain dated evidence.':'This is a general reference lookup, not a list of your owned champions. Ask “Which of my champions” to use your saved collection.'}] : [];
+    const limit=indirect?'This direct-application lookup does not count ICE setup sequences, BRITTLE payoffs or immunity. Complete captured ability text and a verified five-ICE threshold can support a separate conditional setup.':'The mechanic index is not a complete ability catalog. Conditional, reactive, Leader and item effects may remain source evidence without a scored provider entry.';
+    return {status:'ready',intent:route.intent,kind:'knowledge',title:route.entity.label,summary,facts:[...ownershipScope,...(definition?.text?[{title:'What it does',wording:definition.text}]:[]),...(!entries.length||indirect?[{title:'Lookup scope',wording:limit}]:[])],entries,showEmpty:false,emptyMessage:'No direct application entry is established by this lookup.'};
   }
   if(route.entityType==='champion')return championAnswer(route,text,guideData);
   if(route.entityType==='faction'||route.entityType==='dual_faction')return factionAnswer(route,text,guideData);

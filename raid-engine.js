@@ -1,6 +1,8 @@
+import { mechanicCurrentnessIssue, factionCurrentnessIssue } from './mechanics-currentness.js';
+
 const normalize=value=>String(value||'').toLowerCase().replace(/[’']/g,'').replace(/[^a-z0-9]+/g,' ').trim();
 const baseName=value=>normalize(String(value||'').split(/\s+[—-]\s+/)[0]);
-const complete=fact=>fact.reviewStatus==='complete'&&Number(fact.confidence)>=0.8&&fact.provenanceRef&&fact.context!=='metadata';
+const complete=fact=>fact.reviewStatus==='complete'&&Number(fact.confidence)>=0.8&&fact.provenanceRef&&fact.context!=='metadata'&&!mechanicCurrentnessIssue(fact);
 const cachedSynergy=new WeakMap();
 
 function exactSourceVariant(name,champions) {
@@ -31,7 +33,7 @@ function synergyIndex(guideData) {
   const factions=(guideData.factionActivations||[]).flatMap(rule=>{
     const faction=guideData.factions.find(row=>row.id===rule.factionId);
     const bonus=faction?.rules.find(row=>row.kind==='current_bonus');
-    return bonus?[{rule,faction,bonus,memberIds:faction.memberVariantIds}]:[];
+    return bonus&&!factionCurrentnessIssue(faction)?[{rule,faction,bonus,memberIds:faction.memberVariantIds}]:[];
   });
   const allyPairs=(guideData.allyGems||[]).flatMap(card=>{
     if(card.reviewState!=='visually_verified'||!card.effect||!card.sourceId)return [];
@@ -42,10 +44,10 @@ function synergyIndex(guideData) {
   const index={championById,factions,allyPairs};cachedSynergy.set(guideData,index);return index;
 }
 
-function verifiedFacts(ids,leaderVariantId,strategyData) {
+function verifiedFacts(ids,leaderVariantId,strategyData,itemStates) {
   const selected=new Set(ids),seen=new Set();
   return strategyData.championFacts.filter(fact=>{
-    if(!selected.has(fact.variantId)||!complete(fact)||(fact.context==='leader'&&fact.variantId!==leaderVariantId))return false;
+    if(!selected.has(fact.variantId)||!complete(fact)||(fact.context==='item'&&itemStates[fact.variantId]!=='enabled')||(fact.context==='leader'&&fact.variantId!==leaderVariantId))return false;
     const key=`${fact.variantId}|${fact.factText}`;
     if(seen.has(key))return false;
     seen.add(key);return true;
@@ -53,16 +55,16 @@ function verifiedFacts(ids,leaderVariantId,strategyData) {
 }
 
 /** Analyze five exact variants; no leader is inferred from the roster. */
-export function analyzeRaidDefense({guideData,strategyData,enemyVariantIds,leaderVariantId=null}) {
+export function analyzeRaidDefense({guideData,strategyData,enemyVariantIds,leaderVariantId=null,itemStates={}}) {
   const ids=enemyVariantIds||[];
   if(ids.length!==5||new Set(ids).size!==5)return {status:'incomplete',members:[],factionBonuses:[],allyPairs:[],leader:null,highlights:[],facts:[],mechanics:[]};
   const members=ids.map(id=>guideData.champions.find(row=>row.id===id));
   if(members.some(row=>!row))throw new Error('The defense contains an unknown exact champion variant.');
   if(leaderVariantId&&!ids.includes(leaderVariantId))throw new Error('The enemy Leader must belong to the selected defense.');
   const leader=leaderVariantId?members.find(row=>row.id===leaderVariantId):null;
-  const facts=verifiedFacts(ids,leaderVariantId,strategyData);
+  const facts=verifiedFacts(ids,leaderVariantId,strategyData,itemStates);
   const selected=new Set(ids);
-  const mechanics=[...new Set(strategyData.championFacts.filter(fact=>selected.has(fact.variantId)&&complete(fact)&&(fact.context!=='leader'||fact.variantId===leaderVariantId)).map(row=>row.mechanicId))];
+  const mechanics=[...new Set(strategyData.championFacts.filter(fact=>selected.has(fact.variantId)&&complete(fact)&&(fact.context!=='item'||itemStates[fact.variantId]==='enabled')&&(fact.context!=='leader'||fact.variantId===leaderVariantId)).map(row=>row.mechanicId))];
   const named=fact=>({champion:members.find(row=>row.id===fact.variantId),fact});
   const byText=pattern=>facts.filter(fact=>pattern.test(fact.factText)).map(named);
   const leaderFact=leader?facts.find(fact=>fact.variantId===leader.id&&fact.context==='leader'):null;
@@ -81,14 +83,17 @@ export function analyzeRaidDefense({guideData,strategyData,enemyVariantIds,leade
   if(control.length)highlights.push({title:'Control',text:`${[...new Set(control.map(row=>row.champion.name))].join(', ')} can disrupt targeting or turns.`,facts:control});
   const cleanse=byText(/\bREMOVES?\b[^.!?]{0,45}\b(?:Debuffs?|Buffs?)\b/i);
   if(cleanse.length)highlights.push({title:'Removal',text:`${[...new Set(cleanse.map(row=>row.champion.name))].join(', ')} have verified buff or debuff removal.`,facts:cleanse});
-  return {status:leader?'ready':'leader_needed',members,factionBonuses:activeFactionBonuses(members,guideData),allyPairs:verifiedAllyPairs(members,guideData),leader,leaderFact,highlights,facts,mechanics,signature:`${ids.join('|')}|${leaderVariantId||''}`};
+  const currentnessIssues=[...new Set(strategyData.championFacts.filter(fact=>selected.has(fact.variantId)).map(mechanicCurrentnessIssue).filter(Boolean))];
+  currentnessIssues.push(...(guideData.factions||[]).filter(faction=>faction.memberVariantIds.some(id=>selected.has(id))).map(factionCurrentnessIssue).filter(Boolean));
+  if(currentnessIssues.length)highlights.push({title:'Mechanics need review',text:currentnessIssues.map(issue=>issue.message).join(' '),facts:[],sourceUrls:[...new Set(currentnessIssues.flatMap(issue=>issue.sourceUrls))]});
+  return {status:leader?'ready':'leader_needed',members,factionBonuses:activeFactionBonuses(members,guideData),allyPairs:verifiedAllyPairs(members,guideData),leader,leaderFact,highlights,facts,mechanics,currentnessIssues,signature:`${ids.join('|')}|${leaderVariantId||''}`};
 }
 
 /** Team-level points are internal ranking signals, never a displayed power claim. */
 export function raidTeamEvaluation(team,guideData,defense=null,leaderVariantId=null) {
   const factionBonuses=activeFactionBonuses(team,guideData);
   const allyPairs=verifiedAllyPairs(team,guideData);
-  const teamMechanics=new Set(team.flatMap(member=>member.facts.filter(fact=>complete(fact)&&(fact.context!=='leader'||member.champion.id===leaderVariantId)).map(fact=>fact.mechanicId)));
+  const teamMechanics=new Set(team.flatMap(member=>member.facts.filter(fact=>complete(fact)&&(fact.context!=='item'||member.itemState==='enabled')&&(fact.context!=='leader'||member.champion.id===leaderVariantId)).map(fact=>fact.mechanicId)));
   const enemy=new Set(defense?.mechanics||[]);
   const matchup=[];
   const add=(condition,score,text)=>{if(condition)matchup.push({score,text});};

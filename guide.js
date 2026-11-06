@@ -1,5 +1,13 @@
-import { getGuideData, getStrategyData } from './supabase-client.js';
-import { answerStrategyQuestion, buildTeamOptions } from './conversation-engine.js';
+import { capturedDevelopmentMarkup, describeTeamDevelopment, developmentNoticeMarkup } from './captured-development.js';
+import { mountPrivateGuideIfEnabled } from './guide-access.js';
+import { capturedAllyPairsMarkup } from './captured-ally-pairs.js';
+import { teamExplanationIntro, teamExplanationMarkup } from './team-explanation.js';
+import { prebattleSourceNotesMarkup } from './prebattle-source-notes.js';
+import { iceBrittleSynergyMarkup } from './ice-brittle-synergy.js';
+import { effectCoverageMarkup, tooltipEvidenceMarkup, tooltipGlossaryEntries } from './effect-definition-view.js';
+import { mountLocalHandoffControls } from './local-handoff-controls.js';
+import { createDataReadiness, readinessMarkup } from './data-readiness.js';
+import { answerStrategyQuestion, buildTeamOptions, selectConversationOption } from './conversation-engine.js';
 import { answerGuideQuestion } from './knowledge-engine.js';
 import { analyzeRaidDefense, raidSelectionTransition, resetRaidSelection } from './raid-engine.js';
 
@@ -9,6 +17,7 @@ const view = document.body.dataset.view || 'home';
 let snapshot;
 let strategySnapshot;
 let conversationContext = {};
+let clearLocalHandoffControls = () => {};
 
 const pages = [
   ['home','Home','index.html'], ['recommendations','Strategy','recommendations.html'], ['champions','Champions','champions.html'],
@@ -92,14 +101,14 @@ function championCard(champion, open=false) {
   const subtle = champion.releaseState==='unverified' ? `<p class="subtle-note">This variant's current availability is not confirmed.</p>` : '';
   return `<details class="champion-card" data-search="${esc(`${champion.name} ${champion.gemColor||''} ${champion.rarity||''} ${champion.factions.join(' ')}`.toLowerCase())}" data-color="${esc((champion.gemColor||'unknown').toLowerCase())}" data-factions="${esc(champion.factions.join('|').toLowerCase())}" ${open?'open':''}>
     <summary><span class="champion-summary">${portrait(champion)}<span class="champion-identity"><strong>${esc(champion.name)}</strong><span>${esc([champion.rarity,champion.gemColor].filter(Boolean).join(' · ')||'Classification unavailable')}</span><span>${esc(champion.factions.join(' · ')||'Faction not recorded')}</span></span><span class="expand-mark" aria-hidden="true">＋</span></span></summary>
-    <div class="champion-detail">${subtle}<div class="detail-grid"><section><h3>Skill</h3>${skills.length?skills.map(abilityBlock).join(''):unavailable('No verified skill card is available for this variant.')}</section><section><h3>Traits</h3>${traits.length?traits.map(abilityBlock).join(''):unavailable('No verified trait card is available for this variant.')}</section></div>
+    <div class="champion-detail">${subtle}${champion.screenshotState?`<section class="screenshot-build"><h3>Captured build</h3><p>${esc(champion.screenshotState.profileText)}</p><p class="subtle-note">${champion.screenshotState.reviewedOn?'Reviewed '+esc(champion.screenshotState.reviewedOn):'Captured '+esc(champion.screenshotState.captureDate)}. Not live progression or universal base stats.</p>${champion.screenshotState.resolvedIssue?`<p>${esc(champion.screenshotState.resolvedIssue)}</p>`:''}${champion.screenshotState.definitionGaps?.length?`<p class="subtle-note">Unverified effect definitions: ${esc(champion.screenshotState.definitionGaps.map(row=>row.effectName).join(', '))}. Special effects are not scored or treated as fully understood.</p>`:''}${effectCoverageMarkup(champion.screenshotState.effectDefinitions)}${champion.screenshotState.conflicts.filter(row=>!row.state?.startsWith('resolved')).map(row=>`<p class="subtle-note">Unresolved: ${esc(row.conflict)}</p>`).join('')}</section>`:''}<div class="detail-grid"><section><h3>Skill</h3>${skills.length?skills.map(abilityBlock).join(''):unavailable('No verified skill card is available for this variant.')}</section><section><h3>Traits</h3>${traits.length?traits.map(abilityBlock).join(''):unavailable('No verified trait card is available for this variant.')}</section></div>
     <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<a class="item-link" href="items.html#${esc(item.id)}"><strong>${esc(item.name)}</strong><span>${esc(item.abilities[0]?.name||'View item ability')}</span></a>`).join(''):unavailable('No iconic item is listed for this variant.')}</section></div></details>`;
 }
 
 function abilityBlock(ability) {
   const partial = ability.reviewStatus && ability.reviewStatus!=='complete';
   const name = /^title not visible/i.test(ability.name||'') ? 'Trait title unavailable' : ability.name;
-  return `<article class="ability-block"><div><strong>${esc(name)}</strong>${partial?badge('Partial','quiet'):''}</div><p>${esc(ability.text||'Wording unavailable.')}</p></article>`;
+  return `<article class="ability-block"><div><strong>${esc(name)}</strong>${partial?badge('Partial','quiet'):''}</div><p>${esc(ability.text||'Wording unavailable.')}</p>${ability.sourceFilenames?.length?`<p class="subtle-note">${ability.displayedSkillLevel?'Shown skill level '+esc(ability.displayedSkillLevel)+' · ':''}${ability.itemLevel?'Shown item level '+esc(ability.itemLevel)+' · ':''}Screenshot evidence ${esc(ability.reviewCompletedDate||ability.captureDate)}: ${esc(ability.sourceFilenames.join(', '))}</p>`:''}</article>`;
 }
 function unavailable(message) { return `<div class="unavailable">${esc(message)}</div>`; }
 
@@ -201,10 +210,10 @@ function factionsPage() {
 function currentFactionNotes() { const rules=snapshot.announcements.filter(update=>update.status==='live').flatMap(update=>update.rules).filter(rule=>rule.category==='factions'||rule.category==='faction_bonuses'); return rules.length?`<section class="announced-section"><div class="section-title"><h2>Current faction system</h2><span>Live rules</span></div><div class="current-rule-list">${rules.map(rule=>`<p>${esc(rule.text)}</p>`).join('')}</div></section>`:''; }
 
 function glossaryPage() {
-  const entries=[...snapshot.statuses.map(x=>({...x,group:'Status'})),...snapshot.mechanics.map(x=>({...x,group:'Mechanic'}))];
+  const entries=tooltipGlossaryEntries(snapshot);
   return `${titleBlock('Quick reference','Status & mechanics glossary','Search verified game wording without leaving the battle reference.')}
     <label class="search-label" for="glossary-search">Search the glossary</label><input class="wide-search" id="glossary-search" type="search" placeholder="Fire, Brittle, stamina…"><p id="glossary-count" class="result-count"></p>
-    <div id="glossary-list" class="glossary-list">${entries.map(entry=>`<article data-search="${esc(`${entry.name} ${entry.text}`.toLowerCase())}"><header>${badge(entry.group,'quiet')}<h2>${esc(entry.name)}</h2></header><p>${esc(entry.text)}</p>${entry.reviewStatus&&entry.reviewStatus!=='complete'?`<small>Definition is incomplete in the available evidence.</small>`:''}</article>`).join('')}</div><div id="glossary-empty" hidden>${empty('No glossary entries match','Try another status or mechanic.')}</div>`;
+    <div id="glossary-list" class="glossary-list">${entries.map(entry=>`<article data-search="${esc(`${entry.name} ${entry.text}`.toLowerCase())}"><header>${badge(entry.group,'quiet')}<h2>${esc(entry.name)}</h2></header><p>${esc(entry.text)}</p>${entry.tooltip?tooltipEvidenceMarkup(entry.tooltip):''}${entry.reviewStatus&&entry.reviewStatus!=='complete'?`<small>Definition is incomplete in the available evidence.</small>`:''}</article>`).join('')}</div><div id="glossary-empty" hidden>${empty('No glossary entries match','Try another status or mechanic.')}</div>`;
 }
 
 function notesPage() {
@@ -230,9 +239,9 @@ function conversationPanel() {
     </section>`;
 }
 
-function teamOptionsMarkup(options) {
+function teamOptionsMarkup(options,conversationTurn=null) {
   if(!options.length)return unavailable('The available mechanics do not support a five-person team recommendation for this battle yet.');
-  return `<div class="team-options">${options.map((option,index)=>{const official=option.recommendationSource==='curated'||option.recommendationSource==='curated_partial';return `<details class="team-option" ${index===0?'open':''}><summary><span>Team Option ${index+1}</span><strong>${official?'Official In-Game Team':esc(option.strategyLabel||'Alternative Team')}</strong><small>${official?'Official recommendation':'Alternative team'}</small></summary>${recommendationMarkup(option)}</details>`;}).join('')}</div>`;
+  return `<div class="team-options">${options.map((option,index)=>{const official=option.recommendationSource==='curated'||option.recommendationSource==='curated_partial';return `<details class="team-option" ${conversationTurn===null?'':`data-conversation-turn="${conversationTurn}" data-option-index="${index}"`} ${index===0?'open':''}><summary><span>Team Option ${index+1}</span><strong>${official?'Official In-Game Team':esc(option.strategyLabel||'Alternative Team')}</strong><small>${official?'Official recommendation':option.prebattlePlan?(option.referenceRecommendation?'Recorded reference':'Examined potential plan'):'Alternative team'}</small></summary>${recommendationMarkup(option)}</details>`;}).join('')}</div>`;
 }
 
 function raidOpponentMarkup(analysis) {
@@ -248,36 +257,74 @@ function raidOpponentMarkup(analysis) {
 function recommendationMarkup(result) {
   if(result.status==='partial_curated') return partialRecommendationMarkup(result);
   if(result.status==='insufficient_evidence') return `<section class="recommendation-empty"><p class="eyebrow">Information unavailable</p><h2>${esc(result.target.name)}</h2><p>${esc(result.target.warning)}</p><p>I cannot build a team until the encounter mechanics are verified.</p></section>`;
-  const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>Position ${index+1}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header></article>`).join('');
+  const teamCards=result.team.map((member,index)=>`<article class="recommendation-member"><header>${portrait(member.champion,'card')}<div><span>Position ${index+1}</span><h3>${esc(member.champion.name)}</h3><p>${esc([member.champion.gemColor,...member.champion.factions].filter(Boolean).join(' · '))}</p></div>${result.leader?.champion.id===member.champion.id?badge('Leader','gold'):''}</header>${capturedDevelopmentMarkup(member.champion)}<div class="member-contribution">${member.reasons.length?`<p>${esc(member.champion.name)}: ${member.reasons.map(row=>esc(row.fact||row.text)).join(' ')}</p>`:'<p>No separate source-backed battle contribution is established.</p>'}${member.item?`<p><strong>${esc(member.item.name)} · ${esc(member.itemState||'unknown')}</strong> ${member.itemState==='enabled'?'Enabled for this plan; effects still require their stated triggers.':'Not credited in this plan.'}</p>${member.itemState==='enabled'?`<p>${(member.item.abilities||[]).map(row=>esc(row.description||row.effect||row.text||'')).join(' ')}</p><p>Only documented mechanic matches are modeled; no additional item interaction with the other four champions is assumed.</p>`:''}`:''}</div></article>`).join('');
   const leader=result.leader?`<p class="team-leader">Leader: <strong>${esc(result.leader.champion.name)}</strong></p>`:'';
   const faction=result.factionBonuses?.length?`<p><strong>Faction bonus:</strong> ${result.factionBonuses.map(row=>`${esc(row.factionName)} — ${esc(row.bonusText)}`).join(' · ')}</p>`:'<p><strong>Faction bonus:</strong> No source-confirmed bonus activated.</p>';
   const allies=result.allyPairs?.length?`<p><strong>Ally pair:</strong> ${result.allyPairs.map(row=>`${esc(row.owner.name)} + ${esc(row.ally.name)} · ${esc(row.gemName)} (historical card; current availability unconfirmed)`).join(' · ')}</p>`:'';
   const leaderEffect=result.leader?.evidence?.factText?`<p><strong>Leader effect:</strong> ${esc(result.leader.evidence.factText)}</p>`:'';
   const synergy=['raid','war'].includes(result.target.battleMode)&&result.matchupReasons?`<div class="raid-team-synergy">${faction}${allies}${leaderEffect}<p>${esc(result.missingDataWarnings.find(row=>row.startsWith('This team ')||row.startsWith('This lineup '))||'')}</p></div>`:'';
-  return `<div class="recommendation-team">${teamCards}</div>${leader}${synergy}
-    <section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.timing)}</p></div>${result.dangers.length?`<div><h3>Watch Out For</h3><p>${esc(result.dangers[0])}</p></div>`:''}</section>
-    <details class="team-secondary"><summary>Substitutes and alternatives</summary>${result.target.evidenceState==='insufficient'?'<p>No encounter-specific substitution is verified while the ability cards are unavailable.</p>':result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</details>
+  return `${developmentNoticeMarkup(describeTeamDevelopment(result.team.map(member=>member.champion),result.rankingPolicy,snapshot.verifiedCollection))}<div class="recommendation-team">${teamCards}</div>${leader}${synergy}
+    <section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.approach)}</p>${result.teamSynergy?.length?`<ul>${result.teamSynergy.filter(row=>row.score>0).map(row=>`<li>${esc(row.text)}</li>`).join('')}</ul>`:''}</div><div><h3>How to Play</h3><p>${esc(result.timing)}</p></div>${result.dangers.length?`<div><h3>Watch Out For</h3><p>${esc(result.dangers[0])}</p></div>`:''}</section>
+    ${prebattlePlanMarkup(result)}
+    ${wrathSynergyMarkup(result)}
+    ${iceBrittleSynergyMarkup(result)}
+    ${capturedAllyPairsMarkup(result)}
+    ${conditionalEffectsMarkup(result)}
+    <details class="team-secondary"><summary>Substitutes and alternatives</summary>${result.target.evidenceState==='insufficient'?'<p>No encounter-specific substitution is verified while the ability cards are unavailable.</p>':result.substitutes.length?`<ul>${result.substitutes.map(row=>`<li><strong>${esc(row.champion.name)}</strong> — ${esc(row.reason)}${capturedDevelopmentMarkup(row.champion)}</li>`).join('')}</ul>`:'<p>No role-preserving substitute is verified yet.</p>'}</details>
     <details class="evidence-details"><summary>Evidence and recommendation details</summary><p>${result.evidenceSummary.verifiedFacts} verified fact links · ${result.evidenceSummary.strategyInferences} deterministic inferences · ${result.evidenceSummary.communityObservations} community observations used as context only.</p>${result.curatedRecommendation?`<p><strong>Curated source:</strong> ${esc(result.curatedRecommendation.provenanceRef)} · ${Math.round(Number(result.curatedRecommendation.confidence)*100)}% confidence</p><p>${esc(result.curatedRecommendation.notes)}</p>`:''}<ul>${result.missingDataWarnings.map(row=>`<li>${esc(row)}</li>`).join('')}</ul></details>`;
+}
+
+function prebattlePlanMarkup(result) {
+  const plan=result.prebattlePlan;
+  if(!plan)return '';
+  const comparison=result.comparison;
+  const reference=result.referenceRecommendation;
+  return `<section class="team-plan prebattle-summary"><div><h3>Prebattle comparison</h3><p>${comparison?esc(`${comparison.examinedTeamCount} complete candidate teams examined from ${comparison.candidateCount} eligible candidate variants (${comparison.modeledCandidateCount} with reviewed capability coverage; requested unmodeled variants stay flagged). ${comparison.scope}`):'This exact lineup is evaluated as a proposed sequence, not simulated combat.'}</p><p><strong>${esc(result.overallScore)} planning points</strong> · capped, auditable heuristics; not damage, victory chance, or a roster/development-aware verdict.</p>${reference?`<p>Recorded reference: ${esc(reference.provenanceRef)}. Preserved for comparison, not treated as proof of optimality.</p>`:''}<ol>${plan.steps.map(step=>`<li>${esc(step)}</li>`).join('')}</ol></div></section>
+  <details class="evidence-details"><summary>Setup links, tradeoffs and score audit</summary><ul>${plan.dependencies.map(row=>`<li>${esc(row.text)} <small>${esc(row.sourceRefs.join(' · '))}</small></li>`).join('')}</ul><h3>Planning contributions</h3><ul>${plan.contributions.map(row=>`<li><strong>${row.score>0?'+':''}${esc(row.score)}</strong> ${esc(row.text)} <small>${esc(row.sourceRefs.join(' · '))}</small></li>`).join('')}</ul><h3>Tradeoffs</h3><ul>${plan.risks.map(row=>`<li>${esc(row.text)}</li>`).join('')}</ul><h3>Faction and Ally evidence</h3><ul>${plan.factions.map(row=>`<li>${esc(row.name)}: ${esc(row.status.replaceAll('_',' '))}${row.requiredMembers?` (${row.contributors.length}/${row.requiredMembers} source threshold)`:''}. ${esc(row.bonusText||'No complete bonus wording.')}</li>`).join('')}${plan.allyPairs.map(row=>`<li>${esc(row.gemName)}: ${esc(row.reason)}</li>`).join('')}</ul><p>${esc(plan.coverage.label)} Currentness: ${esc(plan.currentness)}. Unknowns remain visible; no active buff assumptions are needed to form this plan.</p></details>${prebattleSourceNotesMarkup(result)}`;
+}
+
+function wrathSynergyMarkup(result) {
+  const model=result.wrathSynergy;
+  if(!model||model.status==='not_applicable')return '';
+  return `<details class="evidence-details"><summary>WRATH and shield triggers · narrow model</summary><p>${esc(model.score)} bounded structural-fit points. Shield, destruction, defeat and Leader events receive no inferred activation credit.</p>${model.opportunities.map(row=>`<article><strong>${esc(row.status.replaceAll('_',' '))}</strong><p>${esc(row.text)}</p><p class="subtle-note">${esc(row.sourceRefs.join(' · '))}</p></article>`).join('')}<ul>${model.limitations.map(text=>`<li>${esc(text)}</li>`).join('')}</ul></details>`;
+}
+
+function conditionalEffectsMarkup(result) {
+  const evaluation=result.conditionalEffects;
+  if(!evaluation)return '';
+  const names=new Map(result.team.map(row=>[row.champion.id,row.champion.name]));
+  return `<details class="evidence-details conditional-effects"><summary>Conditional effects and setup · partial source coverage</summary><p>${esc(evaluation.coverage.label)} Conditional setup contributes ${esc(evaluation.scoringContribution)} bounded heuristic points (zero unless source-currentness assumptions, source rank, recipient and timing are explicitly supplied for a scenario); this does not predict activation or victory.</p>
+    ${evaluation.effects.map(effect=>`<article class="knowledge-fact"><strong>${esc(effect.name)} — ${esc(effect.status.replaceAll('_',' '))}</strong><p>${esc(effect.variantId?names.get(effect.variantId)||effect.variantId:result.target.name)}</p><p>${esc(effect.source.exactText)}</p><ul>${effect.reasons.map(reason=>`<li>${esc(reason)}</li>`).join('')}</ul><small>Source ${esc(effect.source.sourceId)} · ${esc(effect.source.table)} / ${esc(effect.source.recordId)} · source coverage ${esc(effect.source.reviewStatus)} · currentness not reverified · ${esc(effect.quantityApplicability.replaceAll('_',' '))}</small></article>`).join('')}
+    ${evaluation.coverage.unmodeledVariantIds.length?`<p>No structured effects modeled yet for: ${evaluation.coverage.unmodeledVariantIds.map(id=>esc(names.get(id)||id)).join(', ')}.</p>`:''}</details>`;
 }
 
 function partialRecommendationMarkup(result) {
   const curated=result.curatedRecommendation;
   const members=curated.members.map(member=>{
     const champion=member.variantId?snapshot.champions.find(row=>row.id===member.variantId):null;
-    return `<article class="recommendation-member ${champion?'':'unresolved-member'}"><header>${champion?portrait(champion,'card'):'<span class="portrait portrait-card portrait-unresolved" aria-hidden="true"></span>'}<div><span>Position ${member.position}</span><h3>${esc(champion?.name||member.displayName)}</h3><p>${champion?esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · ')):'Variant not yet confirmed'}</p></div>${member.isLeader?badge('Leader','gold'):''}</header></article>`;
+    return `<article class="recommendation-member ${champion?'':'unresolved-member'}"><header>${champion?portrait(champion,'card'):'<span class="portrait portrait-card portrait-unresolved" aria-hidden="true"></span>'}<div><span>Position ${member.position}</span><h3>${esc(champion?.name||member.displayName)}</h3><p>${champion?esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · ')):'Variant not yet confirmed'}</p></div>${member.isLeader?badge('Leader','gold'):''}</header>${capturedDevelopmentMarkup(champion)}</article>`;
   }).join('');
   const unresolved=curated.members.filter(member=>member.identityStatus==='unresolved').map(member=>`${member.displayName} (position ${member.position})`);
-  return `<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Lineup-specific substitutes are not established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup supplied by the player. The original recommendation image is not connected to this record.</p><p>${esc(curated.notes)}</p>${unresolved.length?`<p>Unconfirmed positions: ${esc(unresolved.join(', '))}.</p>`:''}</details>`;
+  return `${developmentNoticeMarkup(describeTeamDevelopment(curated.members.map(member=>snapshot.champions.find(row=>row.id===member.variantId)),{suppliedLineupKeptExact:true,summary:'This official lineup is kept exactly as recorded, not reranked for captured development. Level and power are dated build context.'},snapshot.verifiedCollection))}<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Lineup-specific substitutes are not established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup supplied by the player. The original recommendation image is not connected to this record.</p><p>${esc(curated.notes)}</p>${unresolved.length?`<p>Unconfirmed positions: ${esc(unresolved.join(', '))}.</p>`:''}</details>`;
 }
 
 function knowledgeMarkup(answer) {
   const facts=(answer.facts||[]).map(row=>`<article class="knowledge-fact"><strong>${esc(row.title)}</strong><p>${esc(row.wording)}</p></article>`).join('');
   const entries=(answer.entries||[]).map(row=>`<article class="knowledge-card"><header>${portrait(row.champion,'team')}<div><h3>${championLink(row.champion)}</h3><p>${esc([row.champion.gemColor,...row.champion.factions].filter(Boolean).join(' · ')||'Affinity or faction unavailable')}</p></div></header>${row.facts.length?`<div class="knowledge-card-facts">${row.facts.map(fact=>`<section><strong>${fact.href?`<a href="${esc(fact.href)}">${esc(fact.title)}</a>`:esc(fact.title)}</strong><small>${esc(fact.kind||'Verified guidance')}</small><p>${esc(fact.wording)}</p></section>`).join('')}</div>`:''}</article>`).join('');
-  return `<section class="knowledge-answer"><p class="eyebrow">Guide answer</p><h2>${esc(answer.title)}</h2><p>${esc(answer.summary)}</p>${facts?`<div class="knowledge-facts">${facts}</div>`:''}${entries?`<div class="knowledge-grid">${entries}</div>`:answer.showEmpty||!facts?`<p class="knowledge-empty">${esc(answer.emptyMessage)}</p>`:''}</section>`;
+  return `<section class="knowledge-answer"><p class="eyebrow">Guide answer</p><h2>${esc(answer.title)}</h2><p>${esc(answer.summary)}</p>${facts?`<div class="knowledge-facts">${facts}</div>`:''}${iceBrittleSynergyMarkup(answer)}${entries?`<div class="knowledge-grid">${entries}</div>`:answer.showEmpty||!facts?`<p class="knowledge-empty">${esc(answer.emptyMessage)}</p>`:''}</section>`;
 }
 
 function mountRecommendations() {
   const form=document.querySelector('#conversation-form'),input=document.querySelector('#strategy-question'),log=document.querySelector('#conversation-log');
+  let turn=0,optionsTurn=null;
+  // Only a current option group can change follow-up focus. Nested evidence
+  // details and older result groups must not silently switch the active team.
+  log.addEventListener('toggle',event=>{
+    const option=event.target;
+    if(!option.matches?.('.team-option')||!option.open||optionsTurn===null||option.dataset.conversationTurn!==String(optionsTurn))return;
+    conversationContext=selectConversationOption(conversationContext,Number(option.dataset.optionIndex));
+    for(const sibling of option.parentElement.querySelectorAll('.team-option'))if(sibling!==option)sibling.open=false;
+  },true);
   const ask=question=>{
     const text=question.trim(); if(!text)return;
     log.hidden=false;
@@ -288,20 +335,20 @@ function mountRecommendations() {
     else {
       const answer=answerStrategyQuestion({question:text,guideData:snapshot,strategyData:strategySnapshot,context:conversationContext});
       if(answer.status!=='ready') {log.insertAdjacentHTML('beforeend',`<article class="guide-message"><span class="guide-avatar" aria-hidden="true">G</span><div><strong>One quick detail</strong><p>${esc(answer.message)}</p></div></article>`);input.value='';return;}
+      if(answer.context.options!==conversationContext.options)optionsTurn=null;
       conversationContext=answer.context;
+      if(answer.request.intent==='recommendation')optionsTurn=++turn;
       let intro=`${answer.options.length} team option${answer.options.length===1?'':'s'} for this battle.`;
       if(answer.result.recommendationSource==='curated')intro='The official in-game team appears first. Other approaches follow where supported.';
       if(answer.result.status==='partial_curated')intro='Here is the official in-game team.';
-      if(answer.request.intent==='substitution')intro='I rebuilt the team without that exact variant.';
+      if(answer.request.intent==='substitution')intro=answer.replacementPlan?'I replaced that exact variant and kept the other four champions.':'I rebuilt the team without that exact variant.';
       if(answer.request.intent==='alternate')intro=`Another approach: ${esc(answer.result.strategyLabel||'Team option')}.`;
       if(answer.request.intent==='leader')intro=`Use ${esc(answer.result.leader?.champion.name||answer.result.curatedRecommendation?.members.find(member=>member.isLeader)?.displayName||'the Leader shown below')}.`;
       if(answer.request.intent==='how_to')intro=`${esc(answer.result.approach||answer.result.target.approach)} ${esc(answer.result.timing||answer.result.target.timing)}`;
-      if(answer.request.intent==='explanation'&&answer.focus.subjectVariantId){const member=answer.result.team.find(row=>row.champion.id===answer.focus.subjectVariantId);intro=member?.reasons.length?member.reasons.map(row=>esc(row.text)).join(' '):`${esc(member?.champion.name||'That champion')} is part of the lineup, but a separate battle role is not documented.`;}
-      if(answer.request.intent==='explanation'&&answer.focus.rules.length)intro=answer.focus.rules.map(row=>esc(row.rationale)).join(' ');
-      if(answer.result.status==='partial_curated'&&answer.request.intent==='explanation')intro='The encounter guidance is verified, but the lineup-specific reason for this champion is not established by the available evidence.';
+      if(answer.request.intent==='explanation')intro=esc(teamExplanationIntro(answer));
       const showTeam=answer.result.status==='partial_curated'||['recommendation','substitution','alternate'].includes(answer.request.intent);
       const details=answer.enemyThreats?.length?`<details class="enemy-facts"><summary>Verified opposing champion facts</summary><ul>${answer.enemyThreats.map(row=>`<li><strong>${esc(row.champion)}:</strong> ${esc(row.text)}</li>`).join('')}</ul><p>Exact counter priority is not established by the verified rules. The attack teams below are general Raid options, not matchup-proven victories.</p></details>`:'';
-      log.insertAdjacentHTML('beforeend',`<article class="guide-message strategy-answer"><span class="guide-avatar" aria-hidden="true">G</span><div><p class="answer-intro">${intro}</p>${details}${showTeam?(answer.request.intent==='recommendation'?teamOptionsMarkup(answer.options):recommendationMarkup(answer.result)):''}</div></article>`);
+      log.insertAdjacentHTML('beforeend',`<article class="guide-message strategy-answer"><span class="guide-avatar" aria-hidden="true">G</span><div><p class="answer-intro">${intro}</p>${details}${teamExplanationMarkup(answer)}${showTeam?(answer.request.intent==='recommendation'?teamOptionsMarkup(answer.options,optionsTurn):recommendationMarkup(answer.result)):(prebattlePlanMarkup(answer.result)+iceBrittleSynergyMarkup(answer.result)+capturedAllyPairsMarkup(answer.result)+conditionalEffectsMarkup(answer.result))}</div></article>`);
     }
     input.value=''; log.lastElementChild?.scrollIntoView({behavior:'smooth',block:'start'});
   };
@@ -367,7 +414,7 @@ function mountBattleSections() {
 function render() {
   const renderers={home:homePage,recommendations:recommendationsPage,champions:championsPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
   root.innerHTML=(renderers[view]||homePage)();
-  state.hidden=true;
+
   if(view==='champions') mountChampionFilters();
   if(view==='items') mountSimpleSearch('#item-search','.item-card','#item-count','item','#item-empty');
   if(view==='glossary') mountSimpleSearch('#glossary-search','.glossary-list article','#glossary-count','entry','#glossary-empty');
@@ -396,12 +443,19 @@ function render() {
 }
 
 renderShell();
-try {
-  if(['home','recommendations','legendary-assault','teams','war','raid'].includes(view)) [snapshot,strategySnapshot]=await Promise.all([getGuideData(),getStrategyData()]);
-  else snapshot=await getGuideData();
-  render();
-} catch(error) {
-  state.hidden=true;
-  root.innerHTML=`<div class="error-state" role="alert"><span aria-hidden="true">!</span><h1>The guide could not load</h1><p>${esc(error instanceof Error?error.message:'The guide database is unavailable.')}</p><button type="button" id="retry">Try again</button></div>`;
-  document.querySelector('#retry')?.addEventListener('click',()=>location.reload());
-}
+const requiresStrategy = ['home','recommendations','legendary-assault','teams','war','raid'].includes(view);
+const readiness = createDataReadiness({ onChange: result => {
+  // Remove previous advice before every refresh; stale catalog data never drives recommendations.
+  clearLocalHandoffControls();
+  snapshot = result.guide;
+  strategySnapshot = result.strategy;
+  conversationContext = {};
+  root.innerHTML = '';
+  state.hidden = false;
+  state.className = `data-readiness data-${result.status}`;
+  state.innerHTML = readinessMarkup(result);
+  state.querySelector('[data-retry]')?.addEventListener('click', () => readiness.load(requiresStrategy));
+  if (result.status === 'ready') render();
+  if (result.status === 'ready') clearLocalHandoffControls = mountLocalHandoffControls({anchor:state,guideData:result.guide,strategyData:result.strategy,onApply:imported=>{snapshot=imported.guideData;strategySnapshot=imported.strategyData;conversationContext={};render();state.innerHTML=readinessMarkup({...result,guide:snapshot});state.querySelector('[data-retry]')?.addEventListener('click',()=>readiness.load(requiresStrategy));},onReset:()=>{snapshot=result.guide;strategySnapshot=result.strategy;conversationContext={};render();state.innerHTML=readinessMarkup(result);state.querySelector('[data-retry]')?.addEventListener('click',()=>readiness.load(requiresStrategy));}});
+} });
+if (!await mountPrivateGuideIfEnabled({anchor:state, content:root, requiresStrategy, onClear:()=>{clearLocalHandoffControls();snapshot=null;strategySnapshot=null;conversationContext={};root.innerHTML='';},onReady:result=>{snapshot=result.guide;strategySnapshot=result.strategy;conversationContext={};render();}})) await readiness.load(requiresStrategy);

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env*
+!.env.example
+supabase/.temp/
+supabase/.branches/
+# Recovery exports remain private even if downloaded into this package.
+*.private.json
+*handoff*.json
