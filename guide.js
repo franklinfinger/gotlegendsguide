@@ -14,18 +14,19 @@ import { analyzeRaidDefense, raidSelectionTransition, resetRaidSelection } from 
 
 const root = document.querySelector('#guide-content');
 const state = document.querySelector('#guide-state');
-const view = document.body.dataset.view || 'home';
+// Old Items bookmarks now open the champion reference; item evidence stays attached to its champion.
+const view = document.body.dataset.view === 'items' ? 'champions' : document.body.dataset.view || 'home';
 let snapshot;
 let strategySnapshot;
 let conversationContext = {};
 let clearLocalHandoffControls = () => {};
 
 const pages = [
-  ['home','Home','index.html'], ['recommendations','Strategy','recommendations.html'], ['champions','Champions','champions.html'],
-  ['items','Items','items.html'], ['teams','Teams','builder.html'],
-  ['raid','Raid','raids.html'], ['war','War','war.html'],
-  ['legendary-assault','Legendary Assault','dragons.html'],
-  ['factions','Factions','factions.html'], ['glossary','Status & mechanics','status-effects.html']
+  ['home','Home','index.html'], ['raid','Raid Attack','raids.html#raid-attack'],
+  ['war','War Teams','war.html'], ['legendary-assault','Dragons','dragons.html'],
+  ['recommendations','Ask the guide','recommendations.html'], ['champions','Champions','champions.html'],
+  ['teams','Team library','builder.html'], ['factions','Factions','factions.html'],
+  ['glossary','Status & mechanics','status-effects.html']
 ];
 const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const slug = value => String(value || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -34,21 +35,25 @@ const badge = (text, tone='') => `<span class="badge ${tone}">${esc(text)}</span
 const empty = (title, copy) => `<div class="empty-state"><span class="empty-icon" aria-hidden="true">◇</span><h2>${esc(title)}</h2><p>${esc(copy)}</p></div>`;
 
 function renderShell() {
-  const desktop = pages.map(([id,label,href]) => `<a href="${href}" ${id===view?'aria-current="page"':''}>${esc(label)}</a>`).join('');
+  const link = ([id,label,href]) => `<a href="${href}" ${id===view?'aria-current="page"':''}>${esc(label)}</a>`;
   document.querySelector('#site-header').innerHTML = `<div class="shell header-inner">
-    <a class="wordmark" href="index.html" aria-label="GOT Legends Guide home"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GOT LEGENDS GUIDE</strong><small>Old Peeps on Porches</small></span></a>
+    <a class="wordmark" href="index.html" aria-label="GOT Legends Guide home"><span class="brand-mark" aria-hidden="true">G</span><span><strong>GOT LEGENDS GUIDE</strong><small>Your battle companion</small></span></a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span><span class="sr-only">Open guide menu</span></button>
-    <nav id="site-menu" class="site-menu" aria-label="Guide sections">${desktop}</nav></div>`;
-  const mobile = [pages[0],pages[2],pages[1],['battle','Battle','raids.html'],pages[9]];
-  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view || (id==='battle'&&['raid','war','legendary-assault'].includes(view))?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',recommendations:'◇',champions:'♙',battle:'⚔',glossary:'≡'}[id]}</span><span>${esc(label)}</span></a>`).join('');
-  document.querySelector('#site-footer').innerHTML = `<div class="shell footer-inner"><div><strong>GOT Legends Guide</strong><span>Practical battle reference for Old Peeps on Porches.</span></div><div class="system-links"><a href="health.html">System status</a><a href="strategy.html">Data notes</a></div></div>`;
+    <nav id="site-menu" class="site-menu" aria-label="Guide sections">${pages.slice(0,4).map(link).join('')}<details class="more-navigation"><summary ${pages.slice(4).some(([id])=>id===view)?'class="is-current"':''}>Guide & references</summary><div>${pages.slice(4).map(link).join('')}</div></details></nav></div>`;
+  const mobile = [...pages.slice(0,4),['recommendations','Guide','recommendations.html']];
+  document.querySelector('#mobile-nav').innerHTML = mobile.map(([id,label,href]) => `<a href="${href}" ${id===view?'aria-current="page"':''}><span class="mobile-icon" aria-hidden="true">${{home:'⌂',raid:'⚔',war:'⚑','legendary-assault':'♜',recommendations:'◇'}[id]}</span><span>${esc(label)}</span></a>`).join('');
+  document.querySelector('#site-footer').innerHTML = `<div class="shell footer-inner"><div><strong>GOT Legends Guide</strong><span>Your collection. A clearer battle plan.</span></div><div class="system-links"><a href="health.html">System status</a><a href="strategy.html">Data notes</a></div></div>`;
   const button = document.querySelector('.menu-button');
   const menu = document.querySelector('#site-menu');
+  const closeMenu = () => {button.setAttribute('aria-expanded','false');menu.classList.toggle('open',false);};
   button.addEventListener('click', () => {
     const open = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!open));
     menu.classList.toggle('open', !open);
   });
+  document.addEventListener('keydown', event => {if(event.key==='Escape'){closeMenu();document.querySelector('.more-navigation')?.removeAttribute('open');button.focus?.();}});
+  menu.addEventListener('click', event => {if(event.target.closest?.('a'))closeMenu();});
+  window.addEventListener('pageshow', closeMenu);
 }
 
 function titleBlock(kicker,title,copy) {
@@ -76,17 +81,18 @@ function championLink(champion, label=null) {
 
 function homePage() {
   const battles=[
-    ['Legendary Assault','Choose a dragon, learn its mechanics, then compare teams.','dragons.html','danger'],
-    ['War','Pick a battlefield rule before choosing a team.','war.html','moss'],
-    ['Raid Attack','Prepare an attacking team for the defense you face.','raids.html#raid-attack','ember'],
-    ['Raid Defense','Build a defense other players will face.','raids.html#raid-defense','ice']
+    ['Raid Attack','Counter the five defenders in front of you.','raids.html#raid-attack','raid','⚔','Build a counter team'],
+    ['War Teams','Choose the battlefield rule. Find a team that fits.','war.html','war','⚑','Choose a battlefield'],
+    ['Dragons','Plan your Legendary Assault, dragon by dragon.','dragons.html','dragon','♜','Choose a dragon']
   ];
-  const references=[['Champions','champions.html'],['Teams','builder.html'],['Items','items.html'],['Factions','factions.html'],['Status & mechanics','status-effects.html']];
-  return `<section class="battle-home">${titleBlock('Old Peeps on Porches · Battle companion','What battle are you preparing for?','Choose the fight. Learn what matters, compare teams, then take a plan into the game.')}
-    <div class="battle-home-grid">${battles.map(([title,copy,href,tone],index)=>`<a class="action-tile ${tone}" href="${href}"><span class="action-rule"></span><span class="battle-number">0${index+1}</span><h2>${title}</h2><p>${copy}</p><span class="action-arrow" aria-hidden="true">→</span></a>`).join('')}</div></section>
-    <section class="home-section"><div class="section-title"><h2>Look something up</h2></div><nav class="reference-links" aria-label="Guide references">${references.map(([title,href])=>`<a href="${href}">${title}<span aria-hidden="true">→</span></a>`).join('')}</nav></section>
-    <section class="home-question"><div><p class="eyebrow">Have a specific question?</p><h2>Ask the guide</h2><p>Ask about a battle, champion, mechanic, faction, or item.</p></div><form class="quick-find" id="home-strategy-form"><label for="home-search">Ask GOT Legends Guide</label><div><input id="home-search" type="search" placeholder="Who can use POISON?" autocomplete="off" required><button type="submit">Ask</button></div></form></section>
-    <section id="home-strategy-result" class="home-strategy-result" hidden><div class="section-title"><h2>Guide answer</h2></div>${conversationPanel()}</section>`;
+  const references=[['Champions','champions.html'],['Team library','builder.html'],['Factions','factions.html'],['Status & mechanics','status-effects.html']];
+  return `<section class="battle-home">${titleBlock('Ready for battle','What’s the plan?','Choose your battle. Find your team. Know why it works.')}
+    <div class="battle-home-grid">${battles.map(([title,copy,href,tone,icon,action],index)=>`<a class="action-tile battle-${tone}" href="${href}"><div class="battle-tile-top"><span class="battle-symbol" aria-hidden="true">${icon}</span><span class="battle-number">0${index+1}</span></div><h2>${title}</h2><p>${copy}</p><span class="battle-cta">${action}<span aria-hidden="true">→</span></span></a>`).join('')}</div>
+    <a class="defense-link" href="raids.html#raid-defense"><span><strong>Raid Defense</strong><span>Set the team other players face.</span></span><span aria-hidden="true">→</span></a>
+    ${snapshot.privateCollection?.latestEvidenceOnly?'<p class="home-evidence-note">Team suggestions use your saved evidence. Ability review is incomplete; any limits stay with the recommendation.</p>':''}</section>
+    <section class="home-question"><div><p class="eyebrow">Need a specific answer?</p><h2>Ask the guide</h2><p>Battle plans, champions, mechanics and gear.</p></div><form class="quick-find" id="home-strategy-form"><label for="home-search">Your question</label><div><input id="home-search" type="search" placeholder="Who can use POISON?" autocomplete="off" required><button type="submit">Ask →</button></div></form></section>
+    <section id="home-strategy-result" class="home-strategy-result" hidden><div class="section-title"><h2>Guide answer</h2></div>${conversationPanel()}</section>
+    <section class="home-section"><div class="section-title"><h2>Your reference shelf</h2></div><nav class="reference-links" aria-label="Guide references">${references.map(([title,href])=>`<a href="${href}">${title}<span aria-hidden="true">→</span></a>`).join('')}</nav></section>`;
 }
 
 function championFacts(champion) {
@@ -103,7 +109,7 @@ function championCard(champion, open=false) {
   return `<details class="champion-card" data-search="${esc(`${champion.name} ${champion.gemColor||''} ${champion.rarity||''} ${champion.factions.join(' ')}`.toLowerCase())}" data-color="${esc((champion.gemColor||'unknown').toLowerCase())}" data-factions="${esc(champion.factions.join('|').toLowerCase())}" ${open?'open':''}>
     <summary><span class="champion-summary">${portrait(champion)}<span class="champion-identity"><strong>${esc(champion.name)}</strong><span>${esc([champion.rarity,champion.gemColor].filter(Boolean).join(' · ')||'Classification unavailable')}</span><span>${esc(champion.factions.join(' · ')||'Faction not recorded')}</span></span><span class="expand-mark" aria-hidden="true">＋</span></span></summary>
     <div class="champion-detail">${subtle}${champion.screenshotState?`<section class="screenshot-build"><h3>Captured build</h3><p>${esc(champion.screenshotState.profileText)}</p><p class="subtle-note">${champion.screenshotState.reviewedOn?'Reviewed '+esc(champion.screenshotState.reviewedOn):'Captured '+esc(champion.screenshotState.captureDate)}. Not live progression or universal base stats.</p>${champion.screenshotState.resolvedIssue?`<p>${esc(champion.screenshotState.resolvedIssue)}</p>`:''}${champion.screenshotState.definitionGaps?.length?`<p class="subtle-note">Unverified effect definitions: ${esc(champion.screenshotState.definitionGaps.map(row=>row.effectName).join(', '))}. Special effects are not scored or treated as fully understood.</p>`:''}${effectCoverageMarkup(champion.screenshotState.effectDefinitions)}${champion.screenshotState.conflicts.filter(row=>!row.state?.startsWith('resolved')).map(row=>`<p class="subtle-note">Unresolved: ${esc(row.conflict)}</p>`).join('')}</section>`:''}<div class="detail-grid"><section><h3>Skill</h3>${skills.length?skills.map(abilityBlock).join(''):unavailable('No verified skill card is available for this variant.')}</section><section><h3>Traits</h3>${traits.length?traits.map(abilityBlock).join(''):unavailable('No verified trait card is available for this variant.')}</section></div>
-    <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<a class="item-link" href="items.html#${esc(item.id)}"><strong>${esc(item.name)}</strong><span>${esc(item.abilities[0]?.name||'View item ability')}</span></a>`).join(''):unavailable('No iconic item is listed for this variant.')}</section></div></details>`;
+    <section class="linked-items"><h3>Iconic item</h3>${items.length?items.map(item=>`<article class="champion-item" id="${esc(item.id)}"><h4>${esc(item.name)}</h4>${item.abilities.length?item.abilities.map(abilityBlock).join(''):unavailable('Verified item ability wording is unavailable.')}</article>`).join(''):unavailable('No iconic item is listed for this variant.')}</section></div></details>`;
 }
 
 function abilityBlock(ability) {
@@ -141,11 +147,6 @@ function mountChampionFilters() {
   document.querySelector('.champion-card[open]')?.scrollIntoView({block:'start'});
 }
 
-function itemsPage() {
-  return `${titleBlock('Champion equipment','Items','Find an iconic item, its champion, and what its ability does.')}
-    <label class="search-label" for="item-search">Search items or champions</label><input class="wide-search" id="item-search" type="search" placeholder="Item or champion name…"><p id="item-count" class="result-count"></p>
-    <div id="item-list" class="item-grid">${snapshot.items.map(item=>{const owner=snapshot.champions.find(c=>c.id===item.ownerVariantId);return `<article class="item-card" id="${esc(item.id)}" data-search="${esc(`${item.name} ${item.ownerName||''}`.toLowerCase())}"><div class="item-owner">${portrait(owner,'small')}<span><small>Iconic item for</small>${championLink(owner,item.ownerName||'Champion unavailable')}</span></div><h2>${esc(item.name)}</h2>${item.abilities.length?item.abilities.map(abilityBlock).join(''):unavailable('Verified ability wording is unavailable.')}</article>`}).join('')}</div><div id="item-empty" hidden>${empty('No items match','Try another item or champion name.')}</div>`;
-}
 function mountSimpleSearch(inputSelector,cardSelector,countSelector,label,emptySelector) {
   const input=document.querySelector(inputSelector), cards=[...document.querySelectorAll(cardSelector)], count=document.querySelector(countSelector);
   const emptyState=document.querySelector(emptySelector);
@@ -174,7 +175,7 @@ function raidPage() {
   const groupCards=Object.entries(groups).map(([category,rules])=>`<section class="rule-group"><h2>${esc(category)}</h2>${rules.map(r=>`<p>${esc(r.text)}</p>`).join('')}</section>`).join('');
   const variants=snapshot.champions.filter(row=>row.releaseState==='live').sort((a,b)=>a.name.localeCompare(b.name));
   const enemyPicker=Array.from({length:5},(_,index)=>`<label>Enemy ${index+1}<select class="enemy-select" aria-label="Enemy champion ${index+1}"><option value="">Choose variant</option>${variants.map(row=>`<option value="${esc(row.id)}">${esc(row.name)}${row.gemColor?` · ${esc(row.gemColor)}`:''}</option>`).join('')}</select></label>`).join('');
-  return `${titleBlock('Battle mode','Raid','Compare attack and defense lineups, then use the verified rules for opponent choice, points, rewards, and team testing.')}
+  return `${titleBlock('Raid battles','Raid Attack','Choose the five defenders and their Leader to compare counter teams.')}
     <section class="battle-advisor" id="raid-attack"><div class="section-title"><h2>Raid Attack · opposing team</h2><button class="reset-raid" id="reset-raid" type="button">Reset Raid</button></div><p>Select five exact defenders and mark their Leader to compare complete teams.</p><div class="enemy-picker">${enemyPicker}</div><label class="enemy-leader-picker">Enemy Leader<select id="enemy-leader"><option value="">Select the enemy Leader</option></select></label><p id="enemy-input-status" role="status"></p><div id="raid-enemy-team"></div><div id="raid-attack-options" aria-live="polite"></div></section>
     <section class="battle-advisor" id="raid-defense"><div class="section-title"><h2>Raid Defense · recommended teams</h2></div><div id="raid-defense-options">${teamOptionsMarkup(buildTeamOptions({guideData:snapshot,strategyData:strategySnapshot,targetId:'raid:defense'}))}</div></section>
     <div class="raid-rule-grid">${groupCards||empty('Raid information unavailable','No verified Raid rules could be loaded.')}</div>
@@ -184,13 +185,13 @@ function raidPage() {
 function teamExampleList(teams) { return teams.length?teams.map(t=>`<article class="compact-team"><span>${esc(t.mode)} · ${esc(t.role)}</span><div>${t.members.map(m=>championLink(championForName(m.name,m.gemColor),m.name)).join(' · ')}</div></article>`).join(''):unavailable('No separately labeled examples are available for this role.'); }
 
 function warPage() {
-  return `${titleBlock('Alliance War','War battlefield rules','Choose a battlefield. Read its rule and key mechanics before comparing teams.')}
+  return `${titleBlock('Alliance War','War Teams','Choose a battlefield. Read its rule and key mechanics before comparing teams.')}
     ${battleTargetPicker('war-target','Choose a War battlefield','war')}<div id="war-team-options" aria-live="polite"></div>
     <div class="war-grid">${snapshot.warRules.map(rule=>`<article class="war-card"><header><span>${esc(rule.points.toLocaleString())}</span><small>victory points</small></header><h2>${esc(rule.name)}</h2><dl><div><dt>Battlefield effect</dt><dd>${esc(rule.effect)}</dd></div><div><dt>When it matters</dt><dd>${esc(rule.phaseRule)}</dd></div></dl></article>`).join('')}</div>`;
 }
 
 function legendaryAssaultPage() {
-  return `${titleBlock('Dragon battles','Legendary Assault','Choose an encounter to compare recommended teams, battle plans, abilities, and battle tips.')}
+  return `${titleBlock('Legendary Assault','Dragons','Choose an encounter to compare recommended teams, battle plans, abilities, and battle tips.')}
     <nav class="encounter-tabs" aria-label="Legendary Assault encounters">${snapshot.legendaryAssault.map(e=>`<a href="#${slug(e.id)}">${esc(e.name)}</a>`).join('')}</nav>
     <div class="encounter-list">${snapshot.legendaryAssault.map(e=>{const targetId=`legendary-assault:${slug(e.name)}`,options=buildTeamOptions({guideData:snapshot,strategyData:strategySnapshot,targetId}),target=strategySnapshot.targets.find(row=>row.id===targetId);return `<section class="encounter" id="${slug(e.id)}"><header><div><p class="eyebrow">Legendary Assault</p><h2>${esc(e.name)}</h2><p>${esc(e.subtitle||'Dragon encounter')}</p>${e.tips[0]?`<p class="encounter-key">${esc(e.tips[0].text)}</p>`:''}</div><span class="dragon-mark" aria-hidden="true">♜</span></header><div class="encounter-strategy"><h3>Recommended Teams</h3>${teamOptionsMarkup(options)}<a class="encounter-ask" href="recommendations.html?q=${encodeURIComponent(`Give me teams for ${e.name}`)}">Ask a follow-up about ${esc(e.name)} →</a></div><div class="encounter-mechanics"><h3>Encounter Mechanics</h3><p>${esc(target?.warning||'See the abilities and tips below.')}</p></div><div class="encounter-columns"><div><h3>Abilities</h3>${e.abilities.length?e.abilities.map(abilityBlock).join(''):unavailable(`Ability cards for ${e.name} are not available yet.`)}</div><div><h3>Battle Tips</h3>${e.tips.length?`<ul class="tip-list">${e.tips.map(t=>`<li>${esc(t.text)}</li>`).join('')}</ul>`:unavailable(`Battle tips are not available for ${e.name}.`)}</div></div></section>`}).join('')}</div>`;
 }
@@ -229,7 +230,7 @@ function recommendationsPage() {
   const dragons=strategySnapshot.targets.filter(row=>row.battleMode==='legendary-assault');
   const wars=strategySnapshot.targets.filter(row=>row.battleMode==='war');
   return `${titleBlock('Battle strategy','Choose your battle','Start with the fight in front of you. Each battle page explains its mechanics before the teams.')}
-    <div class="strategy-battle-grid"><details class="strategy-mode-group"><summary><strong>Legendary Assault</strong><span>Choose a dragon</span></summary><div class="strategy-targets">${dragons.map(row=>`<a href="dragons.html#${slug(row.name)}">${esc(row.name)} →</a>`).join('')}</div></details><details class="strategy-mode-group"><summary><strong>War</strong><span>Choose a battlefield rule</span></summary><div class="strategy-targets">${wars.map(row=>`<a href="war.html?rule=${encodeURIComponent(row.id)}">${esc(row.name)} →</a>`).join('')}</div></details><a class="strategy-mode" href="raids.html#raid-attack"><h2>Raid Attack</h2><p>Choose the defense you face →</p></a><a class="strategy-mode" href="raids.html#raid-defense"><h2>Raid Defense</h2><p>Compare defensive teams →</p></a></div>
+    <div class="strategy-battle-grid"><a class="strategy-mode battle-raid" href="raids.html#raid-attack"><h2>Raid Attack</h2><p>Choose the defense you face →</p></a><details class="strategy-mode-group battle-war"><summary><strong>War Teams</strong><span>Choose a battlefield rule</span></summary><div class="strategy-targets">${wars.map(row=>`<a href="war.html?rule=${encodeURIComponent(row.id)}">${esc(row.name)} →</a>`).join('')}</div></details><details class="strategy-mode-group battle-dragon"><summary><strong>Dragons</strong><span>Choose a Legendary Assault encounter</span></summary><div class="strategy-targets">${dragons.map(row=>`<a href="dragons.html#${slug(row.name)}">${esc(row.name)} →</a>`).join('')}</div></details><a class="strategy-mode battle-defense" href="raids.html#raid-defense"><h2>Raid Defense</h2><p>Compare defensive teams →</p></a></div>
     <section class="strategy-followup"><h2>Ask the guide</h2><p>Ask about a battle plan, champion, mechanic, faction, or item.</p>${conversationPanel()}</section>`;
 }
 
@@ -264,7 +265,7 @@ function recommendationMarkup(result) {
   const allies=result.allyPairs?.length?`<p><strong>Ally pair:</strong> ${result.allyPairs.map(row=>`${esc(row.owner.name)} + ${esc(row.ally.name)} · ${esc(row.gemName)} (historical card; current availability unconfirmed)`).join(' · ')}</p>`:'';
   const leaderEffect=result.leader?.evidence?.factText?`<p><strong>Leader effect:</strong> ${esc(result.leader.evidence.factText)}</p>`:'';
   const synergy=['raid','war'].includes(result.target.battleMode)&&result.matchupReasons?`<div class="raid-team-synergy">${faction}${allies}${leaderEffect}<p>${esc(result.missingDataWarnings.find(row=>row.startsWith('This team ')||row.startsWith('This lineup '))||'')}</p></div>`:'';
-  return `${developmentNoticeMarkup(describeTeamDevelopment(result.team.map(member=>member.champion),result.rankingPolicy,snapshot.verifiedCollection))}<div class="recommendation-team">${teamCards}</div>${leader}${synergy}
+  return `${snapshot.privateCollection?.latestEvidenceOnly?'<p class="recommendation-limit"><strong>Evidence limit:</strong> Ability review and battle modeling are incomplete. This is a supported suggestion, not a verified best team; unverified abilities and gear effects are not credited.</p>':''}${developmentNoticeMarkup(describeTeamDevelopment(result.team.map(member=>member.champion),result.rankingPolicy,snapshot.verifiedCollection))}<div class="recommendation-team">${teamCards}</div>${leader}${synergy}
     <section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.approach)}</p>${result.teamSynergy?.length?`<ul>${result.teamSynergy.filter(row=>row.score>0).map(row=>`<li>${esc(row.text)}</li>`).join('')}</ul>`:''}</div><div><h3>How to Play</h3><p>${esc(result.timing)}</p></div>${result.dangers.length?`<div><h3>Watch Out For</h3><p>${esc(result.dangers[0])}</p></div>`:''}</section>
     ${prebattlePlanMarkup(result)}
     ${wrathSynergyMarkup(result)}
@@ -306,7 +307,7 @@ function partialRecommendationMarkup(result) {
     return `<article class="recommendation-member ${champion?'':'unresolved-member'}"><header>${champion?portrait(champion,'card'):'<span class="portrait portrait-card portrait-unresolved" aria-hidden="true"></span>'}<div><span>Position ${member.position}</span><h3>${esc(champion?.name||member.displayName)}</h3><p>${champion?esc([champion.gemColor,...champion.factions].filter(Boolean).join(' · ')):'Variant not yet confirmed'}</p></div>${member.isLeader?badge('Leader','gold'):''}</header>${capturedDevelopmentMarkup(champion)}</article>`;
   }).join('');
   const unresolved=curated.members.filter(member=>member.identityStatus==='unresolved').map(member=>`${member.displayName} (position ${member.position})`);
-  return `${developmentNoticeMarkup(describeTeamDevelopment(curated.members.map(member=>snapshot.champions.find(row=>row.id===member.variantId)),{suppliedLineupKeptExact:true,summary:'This official lineup is kept exactly as recorded, not reranked for captured development. Level and power are dated build context.'},snapshot.verifiedCollection))}<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Lineup-specific substitutes are not established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup supplied by the player. The original recommendation image is not connected to this record.</p><p>${esc(curated.notes)}</p>${unresolved.length?`<p>Unconfirmed positions: ${esc(unresolved.join(', '))}.</p>`:''}</details>`;
+  return `${snapshot.privateCollection?.latestEvidenceOnly?'<p class="recommendation-limit"><strong>Evidence limit:</strong> Ability review and battle modeling are incomplete. This is a supported suggestion, not a verified best team; unverified abilities and gear effects are not credited.</p>':''}${developmentNoticeMarkup(describeTeamDevelopment(curated.members.map(member=>snapshot.champions.find(row=>row.id===member.variantId)),{suppliedLineupKeptExact:true,summary:'This official lineup is kept exactly as recorded, not reranked for captured development. Level and power are dated build context.'},snapshot.verifiedCollection))}<div class="recommendation-team">${members}</div><p class="team-leader">Leader: <strong>${esc(curated.members.find(member=>member.isLeader)?.displayName||'Not recorded')}</strong></p><section class="team-plan"><div><h3>Why It Works</h3><p>${esc(result.target.approach)}</p></div><div><h3>How to Play</h3><p>${esc(result.target.timing)}</p></div><div><h3>Watch Out For</h3><p>${esc(result.target.warning)}</p></div></section><details class="team-secondary"><summary>Substitutes and alternatives</summary><p>Lineup-specific substitutes are not established. <a href="recommendations.html?q=${encodeURIComponent(`Give me another team for ${result.target.name}`)}">Compare another team</a>.</p></details><details class="evidence-details"><summary>Evidence and variant details</summary><p>Official in-game lineup supplied by the player. The original recommendation image is not connected to this record.</p><p>${esc(curated.notes)}</p>${unresolved.length?`<p>Unconfirmed positions: ${esc(unresolved.join(', '))}.</p>`:''}</details>`;
 }
 
 function knowledgeMarkup(answer) {
@@ -413,11 +414,10 @@ function mountBattleSections() {
 }
 
 function render() {
-  const renderers={home:homePage,recommendations:recommendationsPage,champions:championsPage,items:itemsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
+  const renderers={home:homePage,recommendations:recommendationsPage,champions:championsPage,teams:teamsPage,raid:raidPage,war:warPage,'legendary-assault':legendaryAssaultPage,factions:factionsPage,glossary:glossaryPage,notes:notesPage};
   root.innerHTML=(renderers[view]||homePage)();
 
   if(view==='champions') mountChampionFilters();
-  if(view==='items') mountSimpleSearch('#item-search','.item-card','#item-count','item','#item-empty');
   if(view==='glossary') mountSimpleSearch('#glossary-search','.glossary-list article','#glossary-count','entry','#glossary-empty');
   if(['teams','war','raid'].includes(view))mountBattleSections();
   if(view==='recommendations') {
@@ -456,6 +456,8 @@ const readiness = createDataReadiness({ onChange: result => {
   state.className = `data-readiness data-${result.status}`;
   state.innerHTML = readinessMarkup(result);
   state.querySelector('[data-retry]')?.addEventListener('click', () => readiness.load(requiresStrategy));
+  const details = document.querySelector('#guide-details');
+  if(details) details.open = result.status !== 'ready';
   if (result.status === 'ready') render();
   if (result.status === 'ready') clearLocalHandoffControls = mountLocalHandoffControls({anchor:state,guideData:result.guide,strategyData:result.strategy,onApply:imported=>{snapshot=imported.guideData;strategySnapshot=imported.strategyData;conversationContext={};render();state.innerHTML=readinessMarkup({...result,guide:snapshot});state.querySelector('[data-retry]')?.addEventListener('click',()=>readiness.load(requiresStrategy));},onReset:()=>{snapshot=result.guide;strategySnapshot=result.strategy;conversationContext={};render();state.innerHTML=readinessMarkup(result);state.querySelector('[data-retry]')?.addEventListener('click',()=>readiness.load(requiresStrategy));}});
 } });

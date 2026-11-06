@@ -58,7 +58,8 @@ test('clean root lockfile install supports default and private builds without su
     await assert.rejects(build({GOT_PRIVATE_ENABLED:'true',GOT_PRIVATE_PUBLISHABLE_KEY:'sb_secret_forbidden'}),/publishable key/);
     assert.equal(await fs.readFile(configPath,'utf8'),enabled,'bad configuration leaves prior local output intact');
     await build();await assert.rejects(fs.stat(path.join(scratch,'dist/private-guide-runtime.js')),error=>error.code==='ENOENT');
-    for(const file of ['index.html','recommendations.html','champions.html','items.html','builder.html','raids.html','war.html','dragons.html','factions.html','status-effects.html','strategy.html'])assert.match(await fs.readFile(path.join(scratch,'dist',file),'utf8'),/src="guide.js"/);
+    for(const file of ['index.html','recommendations.html','champions.html','builder.html','raids.html','war.html','dragons.html','factions.html','status-effects.html','strategy.html'])assert.match(await fs.readFile(path.join(scratch,'dist',file),'utf8'),/src="guide.js"/);
+    assert.match(await fs.readFile(path.join(scratch,'dist/items.html'),'utf8'),/http-equiv="refresh" content="0;url=champions.html"/);
     assert.match(await fs.readFile(path.join(scratch,'dist/health.html'),'utf8'),/src="health.js"/);
   }finally{await fs.rm(scratch,{recursive:true,force:true});}
 });

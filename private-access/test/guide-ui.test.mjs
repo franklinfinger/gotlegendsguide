@@ -145,3 +145,49 @@ test('actual private Champion page renders unnamed reviewed bodies, inferred lev
     assert.doesNotMatch(html,/999%/);assert.equal(app.publicLoads,0);
   }finally{app.restore();}
 });
+
+test('battle-first home has three distinct ordered choices, secondary defense, and no Items navigation',async()=>{
+  const service=await seed(),app=await mountActualGuide(service.primary,{view:'home'});
+  try{
+    const html=app.get('#guide-content').innerHTML;
+    assert.ok(html.indexOf('<h2>Raid Attack')<html.indexOf('<h2>War Teams'));
+    assert.ok(html.indexOf('<h2>War Teams')<html.indexOf('<h2>Dragons'));
+    for(const tone of ['raid','war','dragon'])assert.match(html,new RegExp(`action-tile battle-${tone}`));
+    assert.match(html,/defense-link/);assert.match(html,/Ability review is incomplete/);
+    for(const id of ['#guide-content','#site-header','#mobile-nav','#site-footer'])assert.doesNotMatch(app.get(id).innerHTML,/items\.html|Old Peeps on Porches/);
+    assert.equal(app.get('#guide-details').open,false,'successful restoration collapses optional details');
+    await app.get('#guide-state').afterElement.all().find(row=>row.tag==='button'&&row.textContent==='Sign out on this device').handlers.click();
+    assert.equal(app.get('#guide-content').innerHTML,'');
+    assert.equal(app.get('#guide-details').open,true,'signout exposes sign-in, not a hidden locked panel');
+  }finally{app.restore();}
+});
+
+test('optional details retain the user-open state across focus revalidation',async()=>{
+  const service=await seed(),app=await mountActualGuide(service.primary,{view:'home'});
+  try{
+    const details=app.get('#guide-details');details.open=true;
+    const panel=app.get('#guide-state').afterElement;panel.open=true;
+    app.windowEvents.focus();await tick();
+    assert.equal(details.open,true);assert.equal(panel.open,true);
+    details.open=false;app.windowEvents.focus();await tick();assert.equal(details.open,false);
+  }finally{app.restore();}
+});
+
+test('Items compatibility view shows champion reference while current gear stays inline',async()=>{
+  const fixture=gameFixture();
+  fixture.handoff.champion_capture_groups[0].fields_as_recorded.current_iconic='**Synthetic Iconic** — Level 1. **Synthetic Power** — “HEALS all allies for 2% of their Max HP.” IMG_100.PNG';
+  const service=await seed(fixture),app=await mountActualGuide(service.primary,{view:'items'});
+  try{
+    const html=app.get('#guide-content').innerHTML;
+    assert.match(html,/champion-grid/);assert.doesNotMatch(html,/item-search|item-list|items\.html/);
+    assert.match(html,/champion-item/);assert.match(html,/Synthetic Iconic/);assert.match(html,/HEALS all allies for 2%/);
+  }finally{app.restore();}
+});
+
+test('production page shells put the task content before collapsed-ready diagnostics',async()=>{
+  for(const name of ['index','recommendations','champions','builder','raids','war','dragons','factions','status-effects','strategy']){
+    const html=await fs.readFile(new URL(`../../${name}.html`,import.meta.url),'utf8');
+    assert.ok(html.indexOf('id="guide-content"')<html.indexOf('id="guide-details"'),name);
+    assert.match(html,/<details id="guide-details"/);assert.doesNotMatch(html,/Old Peeps on Porches/);
+  }
+});
