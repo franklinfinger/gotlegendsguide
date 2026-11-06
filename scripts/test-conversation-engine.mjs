@@ -3,8 +3,10 @@ import assert from 'node:assert/strict';
 import { answerStrategyQuestion, buildTeamOptions, parseConversationRequest } from '../conversation-engine.js';
 import { recommendDistinctTeams } from '../strategy-engine.js';
 
+// Deliberately fictional target isolates generic conversation behavior; real
+// Catalog-based validation remains in the separate local test suite.
 const target=(id,name,battleMode='legendary-assault')=>({id,name,battleMode,kind:'encounter',evidenceState:'verified',approach:`Use verified mechanics against ${name}.`,timing:'Set up, then use Skills.',warning:'Watch the encounter rules.',provenanceRef:`target:${id}`,reviewStatus:'reviewed'});
-const targets=[target('legendary-assault:drogon','Drogon'),target('legendary-assault:viserion','Viserion'),target('raid:attack','Raid attack','raid'),target('raid:defense','Raid defense','raid'),target('war:ravenous-pack','Ravenous Pack','war')];
+const targets=[target('war:practice-field','Practice Field','war'),target('legendary-assault:viserion','Viserion'),target('raid:attack','Raid attack','raid'),target('raid:defense','Raid defense','raid'),target('war:ravenous-pack','Ravenous Pack','war')];
 const champions=[
   ['dany-yellow','Daenerys Targaryen — Khaleesi','Yellow',['Free Cities','Sun\'s Dominion']],
   ['drogo','Khal Drogo','Red',['Free Cities']],
@@ -25,14 +27,14 @@ const championFacts=champions.flatMap((champion,index)=>[
 ]);
 const rules=targets.flatMap(row=>[
   {id:`physical-${row.id}`,kind:'target_fit',battleMode:row.battleMode,targetId:row.id,subjectVariantId:null,mechanicId:'physical_damage',pairedMechanicId:null,score:10,rationale:'Physical Damage has verified target value.',evidenceCategory:'strategy_inference',provenanceRef:`rule:${row.id}`,sourceId:null,confidence:1,reviewStatus:'reviewed'},
-  ...(row.id==='legendary-assault:drogon'?[{id:'drogon-fire',kind:'target_fit',battleMode:row.battleMode,targetId:row.id,subjectVariantId:null,mechanicId:'fire_damage',pairedMechanicId:null,score:-20,rationale:'Drogon is immune to FIRE.',evidenceCategory:'strategy_inference',provenanceRef:'rule:drogon-fire',sourceId:null,confidence:1,reviewStatus:'reviewed'}]:[]),
+  ...(row.id==='war:practice-field'?[{id:'practice-field-fire',kind:'target_fit',battleMode:row.battleMode,targetId:row.id,subjectVariantId:null,mechanicId:'fire_damage',pairedMechanicId:null,score:-20,rationale:'Practice Field is immune to FIRE.',evidenceCategory:'strategy_inference',provenanceRef:'rule:practice-field-fire',sourceId:null,confidence:1,reviewStatus:'reviewed'}]:[]),
 ]);
-const curated={id:'drogon-best',targetId:'legendary-assault:drogon',title:'Best known Drogon team',recommendationType:'best_known',confidence:1,provenanceRef:'source:102791',sourceId:102791,notes:'Screenshot verified.',active:true,effectiveDate:'2026-10-07',gameVersion:'2026-10',reviewStatus:'reviewed',leaderVariantId:'dany-yellow',members:['dany-yellow','drogo','dany-blue','alicent','rhaenyra'].map((variantId,index)=>({position:index+1,variantId}))};
+const curated={id:'practice-field-best',targetId:'war:practice-field',title:'Best known Practice Field team',recommendationType:'best_known',confidence:1,provenanceRef:'synthetic:curated',sourceId:null,notes:'Synthetic test data.',active:true,effectiveDate:'2026-10-07',gameVersion:'2026-10',reviewStatus:'reviewed',leaderVariantId:'dany-yellow',members:['dany-yellow','drogo','dany-blue','alicent','rhaenyra'].map((variantId,index)=>({position:index+1,variantId}))};
 const guideData={champions,items:[],teams:[{id:'community',members:champions.slice(5,10).map(row=>({name:row.name}))}]};
 const strategyData={version:'test',mechanics,targets,rules,championFacts,curatedRecommendations:[curated]};
 
 test('active high-confidence curated recommendation takes precedence and preserves exact variants',()=>{
-  const answer=answerStrategyQuestion({question:'What is the strongest team to fight Drogon?',guideData,strategyData});
+  const answer=answerStrategyQuestion({question:'What is the strongest team to fight Practice Field?',guideData,strategyData});
   assert.equal(answer.result.recommendationSource,'curated');
   assert.deepEqual(answer.result.team.map(row=>row.champion.id),curated.members.map(row=>row.variantId));
   assert.equal(answer.result.leader.champion.id,'dany-yellow');
@@ -45,28 +47,28 @@ test('engine is used when no curated recommendation exists',()=>{
 });
 
 test('community observations never override curated or engine selection',()=>{
-  const curatedAnswer=answerStrategyQuestion({question:'Strongest team for Drogon',guideData,strategyData});
+  const curatedAnswer=answerStrategyQuestion({question:'Strongest team for Practice Field',guideData,strategyData});
   assert.equal(curatedAnswer.result.recommendationSource,'curated');
   const engineAnswer=answerStrategyQuestion({question:'Best team for Viserion',guideData,strategyData});
   assert.equal(engineAnswer.result.teamSynergy.filter(row=>row.evidenceCategory==='community_observed').every(row=>row.score===0),true);
 });
 
 test('follow-up substitution maintains target context and excludes the exact prior member',()=>{
-  const first=answerStrategyQuestion({question:'Strongest team for Drogon',guideData,strategyData});
+  const first=answerStrategyQuestion({question:'Strongest team for Practice Field',guideData,strategyData});
   const follow=answerStrategyQuestion({question:"I don't have Alicent. Who should I use?",guideData,strategyData,context:first.context});
-  assert.equal(follow.request.targetId,'legendary-assault:drogon');
+  assert.equal(follow.request.targetId,'war:practice-field');
   assert.equal(follow.request.subjectVariantId,'alicent');
   assert.equal(follow.result.recommendationSource,'engine_alternative');
   assert.equal(follow.result.team.some(row=>row.champion.id==='alicent'),false);
 });
 
 test('dual-faction champion data stays intact on recommendation cards',()=>{
-  const answer=answerStrategyQuestion({question:'Strongest team for Drogon',guideData,strategyData});
+  const answer=answerStrategyQuestion({question:'Strongest team for Practice Field',guideData,strategyData});
   assert.deepEqual(answer.result.team[0].champion.factions,['Free Cities',"Sun's Dominion"]);
 });
 
 test('ambiguous base names are not silently resolved',()=>{
-  const first=answerStrategyQuestion({question:'Strongest team for Drogon',guideData,strategyData});
+  const first=answerStrategyQuestion({question:'Strongest team for Practice Field',guideData,strategyData});
   const follow=answerStrategyQuestion({question:"I don't have Daenerys",guideData,strategyData,context:first.context});
   assert.equal(follow.status,'ambiguous_variant');
 });
@@ -78,7 +80,7 @@ test('natural language routes to deterministic targets and follow-up intents',()
 });
 
 test('conversation responses can only return curated or deterministic teams',()=>{
-  for(const question of ['Strongest team for Drogon','Best team for Viserion','Who should I use for Raid attack?']){
+  for(const question of ['Strongest team for Practice Field','Best team for Viserion','Who should I use for Raid attack?']){
     const answer=answerStrategyQuestion({question,guideData,strategyData});
     assert.ok(['curated','engine'].includes(answer.result.recommendationSource));
     assert.equal(answer.result.team.every(row=>champions.some(champion=>champion.id===row.champion.id)),true);
@@ -106,8 +108,8 @@ test('a complete first-party Icy Viserion team may be shown while ability eviden
 });
 
 test('public recommendations are multiple, stable, exact, and meaningfully different',()=>{
-  const one=buildTeamOptions({guideData,strategyData,targetId:'legendary-assault:drogon'});
-  const two=buildTeamOptions({guideData,strategyData,targetId:'legendary-assault:drogon'});
+  const one=buildTeamOptions({guideData,strategyData,targetId:'war:practice-field'});
+  const two=buildTeamOptions({guideData,strategyData,targetId:'war:practice-field'});
   assert.ok(one.length>=2);
   assert.equal(one[0].strategyLabel,'Official In-Game Recommendation');
   assert.equal(one[0].recommendationSource,'curated');
@@ -134,8 +136,8 @@ test('opposing Raid team input is accepted and answers remain deterministic with
 });
 
 test('another team follow-up selects a different supported lineup',()=>{
-  const first=answerStrategyQuestion({question:'Give me teams for Drogon',guideData,strategyData});
-  const next=answerStrategyQuestion({question:'Give me another Drogon team',guideData,strategyData,context:first.context});
+  const first=answerStrategyQuestion({question:'Give me teams for Practice Field',guideData,strategyData});
+  const next=answerStrategyQuestion({question:'Give me another Practice Field team',guideData,strategyData,context:first.context});
   assert.equal(next.status,'ready');
   assert.notDeepEqual(next.result.team.map(row=>row.champion.id),first.result.team.map(row=>row.champion.id));
 });

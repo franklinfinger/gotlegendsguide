@@ -4,3 +4,8 @@ dist/
 node_modules/
 __pycache__/
 .vercel/
+
+# Private local screenshot handoffs must never enter the repository.
+/local-evidence/
+/*handoff*.json
+/*.private.json
