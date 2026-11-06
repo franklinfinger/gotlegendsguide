@@ -44,3 +44,43 @@ test('real pinned SDK restores saved session and sends bearer auth on every guid
     for(const endpoint of ['got_guide_data','got_raid_synergy_data','got_strategy_data'])assert.ok(calls.some(row=>row.path.endsWith('/rpc/'+endpoint)));
   }finally{for(const client of clients)await client.auth.stopAutoRefresh();storageRows.clear();}
 });
+
+test('real pinned SDK completes PKCE password recovery with a fresh owner check and no guide reads',async()=>{
+  const storageRows=new Map(),calls=[],clients=[];
+  const user={id:'00000000-0000-4000-8000-000000000009',email:'owner@example.test',aud:'authenticated',role:'authenticated',is_anonymous:false};
+  const token='synthetic_recovery_token';
+  const storage={getItem:key=>storageRows.get(key)||null,setItem:(key,value)=>storageRows.set(key,value),removeItem:key=>storageRows.delete(key)};
+  const mockFetch=async(input,options={})=>{
+    const url=new URL(String(input)),body=options.body?JSON.parse(options.body):null;
+    calls.push({path:url.pathname,query:url.search,method:options.method,body});
+    let data;
+    if(url.pathname==='/auth/v1/recover'){
+      assert.equal(url.searchParams.get('redirect_to'),'http://localhost:8765/?password=recovery');
+      assert.equal(body.code_challenge_method,'s256');assert.ok(body.code_challenge);data={};
+    }else if(url.pathname==='/auth/v1/token'){
+      assert.equal(url.searchParams.get('grant_type'),'pkce');assert.ok(body.code_verifier);assert.equal(body.auth_code,'synthetic_code');
+      data={access_token:token,refresh_token:'synthetic_refresh',expires_in:3600,token_type:'bearer',user};
+    }else if(url.pathname==='/auth/v1/user'){
+      assert.equal(new Headers(options.headers).get('authorization'),`Bearer ${token}`);
+      if(options.method==='PUT')assert.equal(body.password,'Synthetic_password_123!');data=user;
+    }else if(url.pathname==='/auth/v1/logout')data={};
+    else if(url.pathname==='/rest/v1/'+OWNER_TABLE)data=[{user_id:user.id}];
+    else throw Error('Recovery must not load guide data: '+url.pathname);
+    return new Response(JSON.stringify(data),{status:200,headers:{'Content-Type':'application/json'}});
+  };
+  const make=href=>{
+    const location={href},history={replaceState(_s,_t,value){location.href=new URL(value,location.href).href;}};
+    const store=createOwnerStore({config:{enabled:true,url:'http://localhost:54321',publishableKey:'sb_publishable_synthetic'},location,history,createClient:(url,key,options)=>{const client=createClient(url,key,{...options,auth:{...options.auth,storage},global:{...options.global,fetch:mockFetch}});clients.push(client);return client;}});
+    store.watch(()=>{});return {store,location};
+  };
+  try{
+    const first=make('http://localhost:8765/');await first.store.requestPasswordReset(user.email);
+    const second=make('http://localhost:8765/?password=recovery&code=synthetic_code');
+    assert.equal(await second.store.consumePasswordRecovery(),true);assert.equal(second.location.href,'http://localhost:8765/?password=recovery');
+    await assert.rejects(second.store.readCollection(),{code:'password_recovery_required'});
+    assert.deepEqual(await second.store.finishPasswordRecovery('Synthetic_password_123!','Synthetic_password_123!'),{signedOut:true});
+    assert.equal(calls.filter(r=>r.path==='/auth/v1/token').length,1);assert.equal(calls.filter(r=>r.method==='PUT').length,1);
+    assert.equal(calls.some(r=>/rpc|roster|evidence/.test(r.path)),false);
+    assert.equal(calls.filter(r=>r.path==='/auth/v1/logout').length,1);
+  }finally{for(const client of clients)await client.auth.stopAutoRefresh();storageRows.clear();}
+});
