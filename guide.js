@@ -1,3 +1,4 @@
+import { abilityDisplayName } from './reviewed-ability-sections.js';
 import { capturedDevelopmentMarkup, describeTeamDevelopment, developmentNoticeMarkup } from './captured-development.js';
 import { mountPrivateGuideIfEnabled } from './guide-access.js';
 import { capturedAllyPairsMarkup } from './captured-ally-pairs.js';
@@ -107,8 +108,8 @@ function championCard(champion, open=false) {
 
 function abilityBlock(ability) {
   const partial = ability.reviewStatus && ability.reviewStatus!=='complete';
-  const name = /^title not visible/i.test(ability.name||'') ? 'Trait title unavailable' : ability.name;
-  return `<article class="ability-block"><div><strong>${esc(name)}</strong>${partial?badge('Partial','quiet'):''}</div><p>${esc(ability.text||'Wording unavailable.')}</p>${ability.sourceFilenames?.length?`<p class="subtle-note">${ability.displayedSkillLevel?'Shown skill level '+esc(ability.displayedSkillLevel)+' · ':''}${ability.itemLevel?'Shown item level '+esc(ability.itemLevel)+' · ':''}Screenshot evidence ${esc(ability.reviewCompletedDate||ability.captureDate)}: ${esc(ability.sourceFilenames.join(', '))}</p>`:''}</article>`;
+  const name = /^title not visible/i.test(ability.name||'') ? 'Trait title unavailable' : abilityDisplayName(ability);
+  return `<article class="ability-block"><div><strong>${esc(name)}</strong>${partial?badge('Partial','quiet'):''}</div><p>${esc(ability.text||'Wording unavailable.')}</p>${ability.sourceFilenames?.length?`<p class="subtle-note">${ability.displayedSkillLevel?'Shown skill level '+esc(ability.displayedSkillLevel)+' · ':''}${ability.inferredSkillLevel?'Inferred skill level '+esc(ability.inferredSkillLevel)+' ('+esc(ability.levelInferenceBasis)+') · ':''}${ability.itemLevel?'Shown item level '+esc(ability.itemLevel)+' · ':''}Screenshot evidence ${esc(ability.reviewCompletedDate||ability.captureDate)}: ${esc(ability.sourceFilenames.join(', '))}</p>`:''}${ability.reviewNotes?.length?`<p class="subtle-note">${ability.reviewNotes.map(esc).join(' ')}</p>`:''}</article>`;
 }
 function unavailable(message) { return `<div class="unavailable">${esc(message)}</div>`; }
 

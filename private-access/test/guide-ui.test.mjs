@@ -129,3 +129,19 @@ test('actual guide keeps an open evidence review expanded through focus refresh'
     assert.match(app.get('#guide-content').innerHTML,/Choose your battle/);
   }finally{app.restore();}
 });
+
+test('actual private Champion page renders unnamed reviewed bodies, inferred levels and labeled excerpts without old values',async()=>{
+  const fixture=gameFixture(),group=fixture.handoff.champion_capture_groups[0];
+  group.fields_as_recorded={profile:'Level 1; skill level 1.'};
+  fixture.handoff.ability_section_reviews=[{capture_group_id:'G0',champion:'Fixture Champion 0',exact_variant:'Exact',review_date:'2026-01-02',capture_date:null,policy:'fill_missing_sections_only',source_files:[{file_name:'IMG_9010.jpeg',library_file_id:'synthetic-file',source_message_id:'synthetic-message',uploaded_at:'2026-01-01T00:00:00Z'}],sections:[
+    {section_id:'skill',kind:'skill',context:'skill',name:null,name_limit:'Name is covered, not inferred.',text:'HEALS all allies for 2% of their Max HP.',body_status:'complete',inferred_skill_level:2,level_inference_basis:'Next Level 3 shown; current label hidden.',sources:['IMG_9010.jpeg']},
+    {section_id:'trait',kind:'trait',context:'leader',name:'Partial Leader',text:'When an ally uses a Skill,',body_status:'partial',completeness_note:'Ending covered; no missing effect inferred.',sources:['IMG_9010.jpeg']}
+  ]}];
+  const service=await seed(fixture),app=await mountActualGuide(service.primary,{view:'champions'});
+  try{
+    const html=app.get('#guide-content').innerHTML;
+    assert.match(html,/Skill \(name not visible\)/);assert.match(html,/Inferred skill level 2/);assert.doesNotMatch(html,/Shown skill level 2/);
+    assert.match(html,/Ending covered; no missing effect inferred/);assert.match(html,/IMG_9010.jpeg/);assert.match(html,/Name is covered, not inferred/);
+    assert.doesNotMatch(html,/999%/);assert.equal(app.publicLoads,0);
+  }finally{app.restore();}
+});
